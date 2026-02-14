@@ -125,8 +125,26 @@ class TestStravaClient:
 
     @respx.mock
     @pytest.mark.asyncio()
-    async def test_api_error_raises(self, strava_client):
+    async def test_401_raises_runtime_error(self, strava_client):
         respx.get(f"{STRAVA_API_BASE}/athlete").mock(return_value=httpx.Response(401, json={"message": "Unauthorized"}))
+
+        with pytest.raises(RuntimeError, match="expired or revoked"):
+            await strava_client.get_athlete()
+        await strava_client.close()
+
+    @respx.mock
+    @pytest.mark.asyncio()
+    async def test_429_raises_rate_limit_error(self, strava_client):
+        respx.get(f"{STRAVA_API_BASE}/athlete").mock(return_value=httpx.Response(429, json={"message": "Rate Limit Exceeded"}))
+
+        with pytest.raises(RuntimeError, match="rate limit"):
+            await strava_client.get_athlete()
+        await strava_client.close()
+
+    @respx.mock
+    @pytest.mark.asyncio()
+    async def test_500_raises_http_error(self, strava_client):
+        respx.get(f"{STRAVA_API_BASE}/athlete").mock(return_value=httpx.Response(500, json={"message": "Server Error"}))
 
         with pytest.raises(httpx.HTTPStatusError):
             await strava_client.get_athlete()

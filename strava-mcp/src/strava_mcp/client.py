@@ -23,18 +23,21 @@ class RateLimitInfo:
         self.daily_limit: int = 1000  # Read rate limit (binding for read-only apps)
 
     def update_from_headers(self, headers: httpx.Headers) -> None:
-        usage = headers.get("X-RateLimit-Usage", "")
-        limit = headers.get("X-RateLimit-Limit", "")
-        if usage:
-            parts = usage.split(",")
-            if len(parts) == 2:
-                self.fifteen_min_usage = int(parts[0].strip())
-                self.daily_usage = int(parts[1].strip())
-        if limit:
-            parts = limit.split(",")
-            if len(parts) == 2:
-                self.fifteen_min_limit = int(parts[0].strip())
-                self.daily_limit = int(parts[1].strip())
+        try:
+            usage = headers.get("X-RateLimit-Usage", "")
+            limit = headers.get("X-RateLimit-Limit", "")
+            if usage:
+                parts = usage.split(",")
+                if len(parts) == 2:
+                    self.fifteen_min_usage = int(parts[0].strip())
+                    self.daily_usage = int(parts[1].strip())
+            if limit:
+                parts = limit.split(",")
+                if len(parts) == 2:
+                    self.fifteen_min_limit = int(parts[0].strip())
+                    self.daily_limit = int(parts[1].strip())
+        except ValueError:
+            pass  # Malformed headers — don't crash the request
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -102,6 +105,16 @@ class StravaClient:
             **kwargs,
         )
         self.rate_limits.update_from_headers(resp.headers)
+
+        if resp.status_code == 429:
+            msg = "Strava API rate limit exceeded. Check strava://rate-limits for current usage."
+            raise RuntimeError(msg)
+        if resp.status_code == 401:
+            # Token may have been revoked — clear stored tokens
+            self._token_store.clear()
+            msg = "Strava token expired or revoked. Run the authenticate tool to re-authorize."
+            raise RuntimeError(msg)
+
         resp.raise_for_status()
         return resp.json()
 

@@ -19,6 +19,14 @@ def _find_env_file() -> Path | None:
     return None
 
 
+def _parse_port(value: str) -> int:
+    try:
+        return int(value)
+    except ValueError:
+        msg = f"STRAVA_MCP_PORT must be a number, got: {value!r}"
+        raise ValueError(msg) from None
+
+
 @dataclass(frozen=True)
 class Settings:
     client_id: str
@@ -48,6 +56,6 @@ class Settings:
             access_token=os.environ.get("STRAVA_ACCESS_TOKEN"),
             refresh_token=os.environ.get("STRAVA_REFRESH_TOKEN"),
             host=os.environ.get("STRAVA_MCP_HOST", "127.0.0.1"),
-            port=int(os.environ.get("STRAVA_MCP_PORT", "8001")),
+            port=_parse_port(os.environ.get("STRAVA_MCP_PORT", "8001")),
             db_path=os.environ.get("STRAVA_MCP_DB", "strava_mcp.db"),
         )
