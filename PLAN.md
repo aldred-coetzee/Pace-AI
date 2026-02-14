@@ -52,7 +52,16 @@ strava-mcp/
 │       ├── client.py             # Strava API wrapper + token refresh
 │       └── cache.py              # SQLite activity cache
 └── tests/
-    └── test_tools.py
+    ├── conftest.py               # Shared fixtures, mock Strava responses
+    ├── unit/
+    │   ├── test_client.py        # Strava client parsing, error handling
+    │   ├── test_auth.py          # OAuth token exchange, refresh logic
+    │   └── test_cache.py         # Cache hit/miss, expiry
+    ├── integration/
+    │   ├── test_tools.py         # MCP tool calls via real protocol
+    │   └── test_resources.py     # MCP resource reads via real protocol
+    └── e2e/
+        └── test_strava_live.py   # Real Strava API calls
 ```
 
 ### Tools
@@ -111,7 +120,19 @@ pace-ai/
 │           ├── __init__.py
 │           └── methodology.py    # Coaching methodology + principles
 └── tests/
-    └── test_coaching.py
+    ├── conftest.py               # Shared fixtures, sample data factories
+    ├── unit/
+    │   ├── test_goals.py         # Goal CRUD + validation
+    │   ├── test_analysis.py      # ACWR, VDOT, Riegel, zone calculations
+    │   ├── test_prompts.py       # Prompt template structure + injection
+    │   └── test_resources.py     # Resource URI resolution, content shape
+    ├── integration/
+    │   ├── test_tools.py         # MCP tool calls via real protocol
+    │   ├── test_prompts.py       # MCP prompt invocation via real protocol
+    │   ├── test_resources.py     # MCP resource reads via real protocol
+    │   └── test_goal_lifecycle.py  # Full CRUD lifecycle through MCP
+    └── e2e/
+        └── test_coaching_flow.py # Both servers + real Strava → full coaching
 ```
 
 ### Tools
@@ -205,6 +226,152 @@ Detailed explanation of each training zone with purpose, feel, and typical sessi
 
 ---
 
+## Testing Strategy
+
+### Principle: Never commit untested code
+
+Every module gets tests before it's committed. Tests run (and pass) before every commit.
+
+### Test Layers
+
+#### Unit Tests (mocked — fast, isolated)
+Run with: `pytest tests/unit/`
+
+| Area | What's mocked | What's tested |
+|---|---|---|
+| Strava client methods | HTTP responses from Strava API | Parsing, error handling, token refresh logic, data transformation |
+| OAuth flow | Browser open, HTTP callback server | Token exchange, storage, refresh detection |
+| Cache layer | Nothing (uses in-memory SQLite) | Cache hit/miss, expiry, invalidation |
+| Goal CRUD | Nothing (uses in-memory SQLite) | Create, read, update, delete, validation |
+| Analysis tools | Nothing (pure functions) | ACWR calculation, VDOT predictions, Riegel formula, zone calculation |
+| Coaching prompts | Nothing (template generation) | Prompt structure, parameter injection, output format |
+| Methodology resources | Nothing (static content) | Resource URIs resolve, content is well-formed |
+
+#### Integration Tests (real MCP protocol, mocked Strava)
+Run with: `pytest tests/integration/`
+
+- Spin up each MCP server in-process
+- Use the MCP Python SDK client to connect via Streamable HTTP
+- Call tools, read resources, invoke prompts through the real MCP protocol
+- Strava API calls are mocked (httpx respx or responses library) — we're testing MCP integration, not Strava uptime
+- SQLite uses temporary databases
+
+| Test | Description |
+|---|---|
+| `test_strava_mcp_tools` | Call each strava-mcp tool via MCP client, verify response shape |
+| `test_strava_mcp_resources` | Read each resource via MCP client |
+| `test_pace_ai_tools` | Call each pace-ai tool via MCP client |
+| `test_pace_ai_prompts` | Invoke each prompt via MCP client, verify template output |
+| `test_pace_ai_resources` | Read methodology resources via MCP client |
+| `test_goal_lifecycle` | Create → read → update → delete goal through MCP |
+| `test_auth_flow` | Full OAuth flow with mocked browser + mocked Strava token endpoint |
+
+#### End-to-End Tests (real Strava API, real MCP)
+Run with: `pytest tests/e2e/` (requires `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, and a valid token)
+
+- Both servers running as real processes on localhost
+- MCP client connects to both over Streamable HTTP
+- Real Strava API calls (uses a test account or pre-authenticated token)
+- Skipped in CI if credentials not available (`@pytest.mark.skipif`)
+
+| Test | Description |
+|---|---|
+| `test_fetch_real_activities` | Authenticate → fetch recent activities → verify real data shape |
+| `test_activity_detail_and_streams` | Fetch a known activity → verify splits, HR, pace data |
+| `test_full_coaching_flow` | Fetch activities via strava-mcp → set goal in pace-ai → run analysis → invoke coaching prompt |
+| `test_cache_persistence` | Fetch activities → restart server → verify cached data survives |
+
+### Test Fixtures & Helpers
+
+- `conftest.py` at repo root with shared fixtures:
+  - `strava_mcp_server` — starts strava-mcp in-process, yields MCP client
+  - `pace_ai_server` — starts pace-ai in-process, yields MCP client
+  - `mock_strava_api` — respx/responses router with realistic Strava API responses
+  - `tmp_database` — temporary SQLite for each test
+  - `sample_activities` — factory for generating realistic activity data
+
+### Mocking Philosophy
+
+- **Unit tests:** Mock external HTTP calls (Strava API). Never mock our own code.
+- **Integration tests:** Mock Strava API. Don't mock MCP protocol — that's what we're testing.
+- **E2E tests:** Mock nothing. Real Strava, real MCP, real SQLite.
+
+---
+
+## Code Quality
+
+### Ruff (linter + formatter)
+
+Config in each `pyproject.toml`:
+
+```toml
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "F",     # pyflakes
+    "I",     # isort
+    "N",     # pep8-naming
+    "UP",    # pyupgrade
+    "B",     # flake8-bugbear
+    "SIM",   # flake8-simplify
+    "TCH",   # flake8-type-checking
+    "RUF",   # ruff-specific rules
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["strava_mcp", "pace_ai"]
+```
+
+Run with:
+- `ruff check .` — lint
+- `ruff format .` — format
+- `ruff check --fix .` — auto-fix
+
+### pytest config
+
+```toml
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "e2e: end-to-end tests requiring real Strava credentials",
+]
+asyncio_mode = "auto"
+```
+
+### Pre-commit workflow
+
+Every commit:
+1. `ruff check .` — must pass
+2. `ruff format --check .` — must pass
+3. `pytest tests/unit/ tests/integration/` — must pass
+
+E2E tests run manually or in CI with credentials.
+
+### Review Process (6-eyes principle)
+
+Every commit/PR requires three independent reviews before merge:
+1. **Automated review** — ruff lint + format + full test suite (unit + integration) must pass
+2. **Claude Code review** — self-review: re-read all changed files, check for edge cases, security issues, test coverage gaps
+3. **Human review** — user reviews the diff before final approval
+
+No code is committed unless all three pass. This is enforced in `CLAUDE.md` as a project rule.
+
+### CLAUDE.md
+
+Project-level `CLAUDE.md` to guide Claude Code sessions:
+- Build commands, test commands, lint commands
+- Architecture overview
+- "Never commit without running tests" rule
+- 6-eyes review: automated checks + Claude self-review + human approval
+- Coding conventions
+
+---
+
 ## Key Design Decisions
 
 | Decision | Choice | Rationale |
@@ -217,6 +384,9 @@ Detailed explanation of each training zone with purpose, feel, and typical sessi
 | Coaching consistency | MCP prompts + methodology resources | Structured frameworks = repeatable advice |
 | Analysis library | Pure Python (no heavy deps) | VDOT/Riegel/ACWR are simple formulas |
 | Python version | 3.10+ | MCP SDK requirement |
+| Linter/formatter | Ruff | Fast, single tool, replaces flake8 + isort + black |
+| Testing | pytest + respx | Async-native, good MCP SDK compatibility |
+| Mocking | respx for HTTP, in-memory SQLite for DB | Mock at boundaries only |
 
 ## What We Build This Session
 
