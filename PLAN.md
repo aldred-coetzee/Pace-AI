@@ -352,14 +352,15 @@ Every commit:
 
 E2E tests run manually or in CI with credentials.
 
-### Review Process (6-eyes principle)
+### Review Process (6-eyes principle — 3 parallel agents)
 
-Every commit/PR requires three independent reviews before merge:
-1. **Automated review** — ruff lint + format + full test suite (unit + integration) must pass
-2. **Claude Code review** — self-review: re-read all changed files, check for edge cases, security issues, test coverage gaps
-3. **Human review** — user reviews the diff before final approval
+Before every commit, launch 3 independent review agents in parallel:
 
-No code is committed unless all three pass. This is enforced in `CLAUDE.md` as a project rule.
+1. **Agent 1: Automated checks** — runs `ruff check .`, `ruff format --check .`, `pytest tests/unit/ tests/integration/` — reports pass/fail with details
+2. **Agent 2: Code review** — re-reads all changed files, checks for: security issues, edge cases, error handling gaps, naming consistency, adherence to project conventions
+3. **Agent 3: Test coverage review** — verifies every new/changed function has corresponding tests, checks test quality (meaningful assertions, edge cases covered, no tautological tests)
+
+All 3 agents must pass before code is committed. If any agent flags an issue, fix it and re-run all 3. This is enforced in `CLAUDE.md` as a project rule.
 
 ### CLAUDE.md
 
