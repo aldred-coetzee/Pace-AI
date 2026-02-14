@@ -53,7 +53,9 @@ class TokenStore:
 
     def load(self) -> dict[str, Any] | None:
         with self._connect() as conn:
-            row = conn.execute("SELECT access_token, refresh_token, expires_at, athlete_id FROM tokens WHERE id = 1").fetchone()
+            row = conn.execute(
+                "SELECT access_token, refresh_token, expires_at, athlete_id FROM tokens WHERE id = 1",
+            ).fetchone()
         if row is None:
             return None
         return {
@@ -74,7 +76,7 @@ class OAuthCallbackHandler(BaseHTTPRequestHandler):
     authorization_code: str | None = None
     state_received: str | None = None
 
-    def do_GET(self, /) -> None:  # noqa: N802
+    def do_GET(self, /) -> None:
         parsed = urlparse(self.path)
         params = parse_qs(parsed.query)
 
@@ -84,13 +86,15 @@ class OAuthCallbackHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "text/html")
             self.end_headers()
-            self.wfile.write(b"<html><body><h2>Authorization successful!</h2><p>You can close this tab.</p></body></html>")
+            self.wfile.write(
+                b"<html><body><h2>Authorization successful!</h2><p>You can close this tab.</p></body></html>"
+            )
         else:
             self.send_response(400)
             self.end_headers()
             self.wfile.write(b"Authorization failed.")
 
-    def log_message(self, format: str, /, *args: Any) -> None:  # noqa: A002
+    def log_message(self, format: str, /, *args: Any) -> None:
         pass  # Suppress default logging
 
 

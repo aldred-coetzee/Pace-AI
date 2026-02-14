@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
-from pace_ai.database import GoalDB
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pace_ai.database import GoalDB
 
 
 def format_time(seconds: int) -> str:
@@ -25,7 +28,13 @@ def parse_time(time_str: str) -> int:
     raise ValueError(msg)
 
 
-def set_goal(db: GoalDB, race_type: str, target_time: str, race_date: str | None = None, notes: str | None = None) -> dict:
+def set_goal(
+    db: GoalDB,
+    race_type: str,
+    target_time: str,
+    race_date: str | None = None,
+    notes: str | None = None,
+) -> dict:
     """Create a new training goal.
 
     Args:

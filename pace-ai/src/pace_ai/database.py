@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import sqlite3
 import time
 from typing import Any
@@ -34,11 +33,18 @@ class GoalDB:
                 )
             """)
 
-    def create(self, race_type: str, target_time_seconds: int, race_date: str | None = None, notes: str | None = None) -> dict[str, Any]:
+    def create(
+        self,
+        race_type: str,
+        target_time_seconds: int,
+        race_date: str | None = None,
+        notes: str | None = None,
+    ) -> dict[str, Any]:
         now = time.time()
         with self._connect() as conn:
             cursor = conn.execute(
-                "INSERT INTO goals (race_type, target_time_seconds, race_date, notes, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+                "INSERT INTO goals (race_type, target_time_seconds, race_date, notes,"
+                " created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
                 (race_type, target_time_seconds, race_date, notes, now, now),
             )
             goal_id = cursor.lastrowid
@@ -68,7 +74,7 @@ class GoalDB:
         values = [*updates.values(), goal_id]
 
         with self._connect() as conn:
-            conn.execute(f"UPDATE goals SET {set_clause} WHERE id = ?", values)  # noqa: S608
+            conn.execute(f"UPDATE goals SET {set_clause} WHERE id = ?", values)
 
         return self.get(goal_id)
 

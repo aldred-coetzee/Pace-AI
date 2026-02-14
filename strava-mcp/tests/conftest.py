@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import os
-import sqlite3
-import tempfile
 from typing import Any
 
 import pytest
@@ -93,37 +90,39 @@ def sample_activity(activity_id: int = 1, **overrides: Any) -> dict[str, Any]:
 def sample_activity_detail(activity_id: int = 1) -> dict[str, Any]:
     """Factory for a detailed activity with splits and laps."""
     base = sample_activity(activity_id)
-    base.update({
-        "calories": 650,
-        "description": "Easy morning run",
-        "splits_metric": [
-            {
-                "distance": 1000,
-                "elapsed_time": 300,
-                "moving_time": 298,
-                "average_speed": 3.36,
-                "average_heartrate": 145,
-                "split": i + 1,
-            }
-            for i in range(10)
-        ],
-        "laps": [
-            {
-                "id": i + 1,
-                "name": f"Lap {i + 1}",
-                "distance": 5000,
-                "elapsed_time": 1500,
-                "moving_time": 1490,
-                "average_speed": 3.36,
-                "average_heartrate": 148,
-            }
-            for i in range(2)
-        ],
-        "best_efforts": [
-            {"name": "1k", "elapsed_time": 270, "distance": 1000},
-            {"name": "5k", "elapsed_time": 1450, "distance": 5000},
-        ],
-    })
+    base.update(
+        {
+            "calories": 650,
+            "description": "Easy morning run",
+            "splits_metric": [
+                {
+                    "distance": 1000,
+                    "elapsed_time": 300,
+                    "moving_time": 298,
+                    "average_speed": 3.36,
+                    "average_heartrate": 145,
+                    "split": i + 1,
+                }
+                for i in range(10)
+            ],
+            "laps": [
+                {
+                    "id": i + 1,
+                    "name": f"Lap {i + 1}",
+                    "distance": 5000,
+                    "elapsed_time": 1500,
+                    "moving_time": 1490,
+                    "average_speed": 3.36,
+                    "average_heartrate": 148,
+                }
+                for i in range(2)
+            ],
+            "best_efforts": [
+                {"name": "1k", "elapsed_time": 270, "distance": 1000},
+                {"name": "5k", "elapsed_time": 1450, "distance": 5000},
+            ],
+        }
+    )
     return base
 
 

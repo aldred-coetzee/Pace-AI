@@ -8,8 +8,6 @@ Each prompt defines:
 
 from __future__ import annotations
 
-from typing import Any
-
 
 def weekly_plan_prompt(
     goals: list[dict],
@@ -145,7 +143,8 @@ def race_readiness_prompt(
 
 ## Assessment Framework
 Evaluate readiness based on:
-1. **Volume adequacy**: Has weekly mileage been sufficient for the goal distance? (Rule of thumb: peak week should be 2-3x race distance for half marathon, 1.5-2x for marathon.)
+1. **Volume adequacy**: Has weekly mileage been sufficient for the goal distance?
+   (Peak week: 2-3x race distance for half marathon, 1.5-2x for marathon.)
 2. **Key workouts**: Has the athlete completed race-specific workouts at or near goal pace?
 3. **Consistency**: How many weeks of consistent training in the last 8 weeks?
 4. **Taper**: Is the current training load appropriate for the time until race day?
@@ -174,7 +173,9 @@ def injury_risk_prompt(
     """
     distances_text = "\n".join(f"  Week {i + 1}: {d:.1f} km" for i, d in enumerate(weekly_distances))
     load_text = _format_training_load(training_load)
-    activities_text = _format_recent_activities(recent_activities) if recent_activities else "No detailed activity data."
+    activities_text = (
+        _format_recent_activities(recent_activities) if recent_activities else "No detailed activity data."
+    )
 
     return f"""You are a running coach assessing injury risk from training load patterns.
 
@@ -190,10 +191,10 @@ def injury_risk_prompt(
 ## Risk Assessment Framework
 Evaluate based on:
 1. **10% rule**: Weekly mileage increases should not exceed 10%. Flag any weeks that exceeded this.
-2. **ACWR**: Acute:chronic workload ratio. Optimal: 0.8–1.3. Elevated risk: >1.3. High risk: >1.5.
+2. **ACWR**: Acute:chronic workload ratio. Optimal: 0.8-1.3. Elevated risk: >1.3. High risk: >1.5.
 3. **Monotony**: Training monotony > 2.0 indicates too-uniform loading (Foster 1998).
-4. **Strain**: High monotony × high load = high strain. Injury risk increases sharply.
-5. **Pattern recognition**: Look for back-to-back high weeks, sudden drops (possible injury/illness), or erratic patterns.
+4. **Strain**: High monotony x high load = high strain. Injury risk increases sharply.
+5. **Pattern recognition**: Look for back-to-back high weeks, sudden drops, or erratic patterns.
 
 ## Output Format
 Provide:
@@ -229,7 +230,10 @@ def _format_recent_activities(activities: list[dict]) -> str:
         dist = a.get("distance_km", a.get("distance", 0) / 1000 if a.get("distance") else 0)
         pace = a.get("pace_min_per_km", "N/A")
         hr = a.get("average_heartrate", "N/A")
-        lines.append(f"- {a.get('start_date', 'unknown date')}: {a.get('name', 'Untitled')} — {dist:.1f} km, pace {pace}/km, HR {hr}")
+        lines.append(
+            f"- {a.get('start_date', 'unknown date')}: {a.get('name', 'Untitled')}"
+            f" -- {dist:.1f} km, pace {pace}/km, HR {hr}"
+        )
     return "\n".join(lines)
 
 
@@ -275,7 +279,10 @@ def _format_stats(stats: dict) -> str:
             s = stats[period]
             label = period.replace("_", " ").title()
             dist_km = s.get("distance", 0) / 1000
-            lines.append(f"- **{label}**: {s.get('count', 0)} runs, {dist_km:.0f} km, {s.get('elevation_gain', 0):.0f} m elevation")
+            lines.append(
+                f"- **{label}**: {s.get('count', 0)} runs, {dist_km:.0f} km,"
+                f" {s.get('elevation_gain', 0):.0f} m elevation"
+            )
     return "\n".join(lines) if lines else "No statistics available."
 
 

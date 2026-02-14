@@ -54,14 +54,14 @@ Uses oxygen cost curves to predict equivalent race performances across distances
 than Riegel for well-trained runners, especially for shorter-to-longer predictions.
 
 ### Riegel Formula
-T2 = T1 × (D2/D1)^1.06
+T2 = T1 x (D2/D1)^1.06
 Simple and effective. Slightly optimistic for longer distances (marathon from 5K). Best used
 for distances within 2-3x of each other.
 
 ### Key Workout Indicators
-- **5K predictor**: 3 × 1600m at goal 5K pace with 3-4 min rest. If you can do this, the 5K is realistic.
-- **10K predictor**: 5 × 1000m at goal 10K pace with 2 min rest.
-- **Half marathon predictor**: 2 × 5K at goal half pace with 3 min rest.
+- **5K predictor**: 3 x 1600m at goal 5K pace with 3-4 min rest. If you can do this, the 5K is realistic.
+- **10K predictor**: 5 x 1000m at goal 10K pace with 2 min rest.
+- **Half marathon predictor**: 2 x 5K at goal half pace with 3 min rest.
 - **Marathon predictor**: Long run of 32-35K with final 10-15K at marathon pace.
 
 ## Weekly Structure
@@ -156,7 +156,7 @@ ZONES_EXPLAINED = """# Training Zones Explained
 
 **Typical sessions**:
 - Tempo runs: 20-40 min continuous at T pace
-- Cruise intervals: 4-6 × 5 min at T pace with 60-90 sec jog rest
+- Cruise intervals: 4-6 x 5 min at T pace with 60-90 sec jog rest
 - Threshold is the benchmark pace — all other zones reference it
 
 ---
@@ -171,9 +171,9 @@ ZONES_EXPLAINED = """# Training Zones Explained
 - Develops the ability to process and clear lactate under high load
 
 **Typical sessions**:
-- 5 × 1000m with 3-4 min jog recovery
-- 4 × 1200m with 3 min recovery
-- 6-8 × 800m with 2-3 min recovery
+- 5 x 1000m with 3-4 min jog recovery
+- 4 x 1200m with 3 min recovery
+- 6-8 x 800m with 2-3 min recovery
 - Hard running should total 8-10% of weekly volume
 
 ---
@@ -188,8 +188,8 @@ ZONES_EXPLAINED = """# Training Zones Explained
 - Sharpens leg turnover for race finishing speed
 
 **Typical sessions**:
-- 8-12 × 200m at mile pace with full recovery (200m walk)
-- 6-8 × 400m at ~mile pace with full recovery
-- Strides: 6-8 × 100m accelerations (not a workout, done after easy runs)
+- 8-12 x 200m at mile pace with full recovery (200m walk)
+- 6-8 x 400m at ~mile pace with full recovery
+- Strides: 6-8 x 100m accelerations (not a workout, done after easy runs)
 - Full recovery between reps is essential — this is about quality, not fatigue
 """

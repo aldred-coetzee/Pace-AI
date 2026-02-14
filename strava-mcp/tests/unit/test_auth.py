@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 
-import time
-
 import httpx
 import pytest
 import respx
 
 from strava_mcp.auth import (
     STRAVA_TOKEN_URL,
-    TokenStore,
     exchange_code,
     refresh_access_token,
 )

@@ -5,7 +5,6 @@ from __future__ import annotations
 import math
 from typing import Any
 
-
 # ── ACWR (Acute:Chronic Workload Ratio) ──────────────────────────────
 
 
@@ -13,7 +12,7 @@ def calculate_acwr(weekly_distances: list[float]) -> dict[str, Any]:
     """Compute acute:chronic workload ratio from weekly distance data.
 
     Uses rolling averages: acute = last 1 week, chronic = last 4 weeks.
-    Optimal ACWR range: 0.8–1.3 (Gabbett 2016).
+    Optimal ACWR range: 0.8-1.3 (Gabbett 2016).
 
     Args:
         weekly_distances: List of weekly distances (most recent last), minimum 4 weeks.
@@ -52,7 +51,7 @@ def calculate_acwr(weekly_distances: list[float]) -> dict[str, Any]:
         interpretation = "Training load is significantly below your chronic average. Risk of detraining."
     elif acwr <= 1.3:
         risk_level = "optimal"
-        interpretation = "Training load is in the optimal range (0.8–1.3). Good balance of stimulus and recovery."
+        interpretation = "Training load is in the optimal range (0.8-1.3). Good balance of stimulus and recovery."
     elif acwr <= 1.5:
         risk_level = "elevated"
         interpretation = "Training load spike detected (ACWR > 1.3). Moderate injury risk — monitor recovery."
@@ -119,7 +118,11 @@ RACE_DISTANCES = {
 }
 
 
-def predict_race_time(recent_race_distance: str, recent_race_time: str, target_distance: str) -> dict[str, Any]:
+def predict_race_time(
+    recent_race_distance: str,
+    recent_race_time: str,
+    target_distance: str,
+) -> dict[str, Any]:
     """Predict race time using VDOT model.
 
     Args:
@@ -170,7 +173,11 @@ def predict_race_time(recent_race_distance: str, recent_race_time: str, target_d
 # ── Training Zones (Daniels) ────────────────────────────────────────
 
 
-def calculate_training_zones(threshold_pace_per_km: str | None = None, threshold_hr: int | None = None, vdot: float | None = None) -> dict[str, Any]:
+def calculate_training_zones(
+    threshold_pace_per_km: str | None = None,
+    threshold_hr: int | None = None,
+    vdot: float | None = None,
+) -> dict[str, Any]:
     """Calculate Daniels' training zones from a threshold reference.
 
     Provide at least one of: threshold_pace_per_km, threshold_hr, or vdot.
@@ -192,10 +199,10 @@ def calculate_training_zones(threshold_pace_per_km: str | None = None, threshold
         # Daniels' zone multipliers relative to threshold pace (T pace = 1.0)
         # Faster pace = lower seconds/km
         zone_multipliers = {
-            "easy": (1.20, 1.35),       # 20-35% slower than threshold
-            "marathon": (1.08, 1.15),    # 8-15% slower than threshold
-            "threshold": (0.97, 1.03),   # ~threshold pace
-            "interval": (0.88, 0.93),    # 7-12% faster than threshold
+            "easy": (1.20, 1.35),  # 20-35% slower than threshold
+            "marathon": (1.08, 1.15),  # 8-15% slower than threshold
+            "threshold": (0.97, 1.03),  # ~threshold pace
+            "interval": (0.88, 0.93),  # 7-12% faster than threshold
             "repetition": (0.80, 0.86),  # 14-20% faster than threshold
         }
 

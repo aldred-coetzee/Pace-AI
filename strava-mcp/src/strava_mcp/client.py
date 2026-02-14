@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import time
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import httpx
 
 from strava_mcp.auth import TokenStore, refresh_access_token
-from strava_mcp.config import Settings
+
+if TYPE_CHECKING:
+    from strava_mcp.config import Settings
 
 STRAVA_API_BASE = "https://www.strava.com/api/v3"
 
@@ -127,7 +129,13 @@ class StravaClient:
     async def get_athlete_zones(self) -> dict[str, Any]:
         return await self._request("GET", "/athlete/zones")
 
-    async def get_activities(self, *, after: int | None = None, before: int | None = None, per_page: int = 50) -> list[dict[str, Any]]:
+    async def get_activities(
+        self,
+        *,
+        after: int | None = None,
+        before: int | None = None,
+        per_page: int = 50,
+    ) -> list[dict[str, Any]]:
         params: dict[str, Any] = {"per_page": per_page}
         if after is not None:
             params["after"] = after

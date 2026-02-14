@@ -135,7 +135,9 @@ class TestStravaClient:
     @respx.mock
     @pytest.mark.asyncio()
     async def test_429_raises_rate_limit_error(self, strava_client):
-        respx.get(f"{STRAVA_API_BASE}/athlete").mock(return_value=httpx.Response(429, json={"message": "Rate Limit Exceeded"}))
+        respx.get(f"{STRAVA_API_BASE}/athlete").mock(
+            return_value=httpx.Response(429, json={"message": "Rate Limit Exceeded"}),
+        )
 
         with pytest.raises(RuntimeError, match="rate limit"):
             await strava_client.get_athlete()

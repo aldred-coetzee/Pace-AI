@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pytest
 
-from pace_ai.database import GoalDB
 from pace_ai.config import Settings
+from pace_ai.database import GoalDB
 
 
 @pytest.fixture()
@@ -92,7 +92,9 @@ class TestPrompts:
     async def test_run_analysis_prompt(self):
         from pace_ai.server import run_analysis
 
-        result = await run_analysis(activity_json='{"name": "Tempo", "type": "Run", "distance": 8000, "moving_time": 2400}')
+        result = await run_analysis(
+            activity_json='{"name": "Tempo", "type": "Run", "distance": 8000, "moving_time": 2400}',
+        )
         assert "Pace consistency" in result
 
     @pytest.mark.asyncio()

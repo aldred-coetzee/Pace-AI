@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import time
-
 import httpx
 import pytest
 import respx
@@ -12,7 +10,6 @@ from strava_mcp.auth import TokenStore
 from strava_mcp.cache import ActivityCache
 from strava_mcp.client import STRAVA_API_BASE, StravaClient
 from strava_mcp.config import Settings
-from strava_mcp.server import _speed_to_pace
 
 from ..conftest import (
     sample_activity,
@@ -59,7 +56,7 @@ class TestGetAthleteTool:
     @respx.mock
     @pytest.mark.asyncio()
     async def test_caches_athlete_profile(self):
-        from strava_mcp.server import cache, get_athlete
+        from strava_mcp.server import get_athlete
 
         athlete = sample_athlete()
         route = respx.get(f"{STRAVA_API_BASE}/athlete").mock(return_value=httpx.Response(200, json=athlete))
