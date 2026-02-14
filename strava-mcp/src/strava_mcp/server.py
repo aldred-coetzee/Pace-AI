@@ -20,6 +20,8 @@ strava = StravaClient(settings, token_store)
 mcp = FastMCP(
     "strava-mcp",
     instructions="A generic MCP server for Strava data access",
+    host=settings.host,
+    port=settings.port,
 )
 
 
@@ -197,7 +199,7 @@ def _speed_to_pace(speed_mps: float) -> str | None:
 
 def main() -> None:
     """Entry point for the strava-mcp server."""
-    mcp.run(transport="streamable-http", host=settings.host, port=settings.port)
+    mcp.run(transport="streamable-http")
 
 
 if __name__ == "__main__":

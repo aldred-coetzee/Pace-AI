@@ -22,6 +22,8 @@ goal_db = GoalDB(settings.db_path)
 mcp = FastMCP(
     "pace-ai",
     instructions="Running coach intelligence layer — coaching prompts, methodology, goals, and training analysis",
+    host=settings.host,
+    port=settings.port,
 )
 
 
@@ -241,7 +243,7 @@ async def zones_explained_resource() -> str:
 
 def main() -> None:
     """Entry point for the pace-ai server."""
-    mcp.run(transport="streamable-http", host=settings.host, port=settings.port)
+    mcp.run(transport="streamable-http")
 
 
 if __name__ == "__main__":
