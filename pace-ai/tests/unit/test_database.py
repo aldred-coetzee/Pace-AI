@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from pace_ai.database import GoalDB
-
 
 class TestGoalDB:
     def test_create_and_get(self, goal_db):
@@ -65,6 +63,7 @@ class TestGoalDB:
         goal = goal_db.create("5k", 1320)
         original_updated = goal["updated_at"]
         import time
+
         time.sleep(0.01)
         updated = goal_db.update(goal["id"], notes="new notes")
         assert updated["updated_at"] >= original_updated

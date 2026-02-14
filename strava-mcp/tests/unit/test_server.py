@@ -31,6 +31,7 @@ class TestServerStartup:
     def test_mcp_instance_has_custom_port(self):
         """Ensure the FastMCP instance is configured with port 8001."""
         from strava_mcp.server import mcp
+
         assert mcp.settings.port == 8001
 
 

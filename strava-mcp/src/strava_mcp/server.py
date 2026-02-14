@@ -132,10 +132,7 @@ async def get_activity_streams(activity_id: int, stream_types: list[str] | None 
     data = await strava.get_activity_streams(activity_id, stream_types)
 
     # Strava returns a list of stream objects; reshape to {type: data}
-    if isinstance(data, list):
-        result = {stream["type"]: stream["data"] for stream in data}
-    else:
-        result = data
+    result = {stream["type"]: stream["data"] for stream in data} if isinstance(data, list) else data
 
     cache.set(cache_key, result)
     return result
