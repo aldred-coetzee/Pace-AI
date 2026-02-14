@@ -1,189 +1,223 @@
-# Pace-AI: MCP Server Plan
+# Pace-AI: Project Plan
 
 ## Overview
 
-A Python MCP server that connects Claude to your Strava data and provides structured coaching guidance. Runs locally via stdio transport (never exposed publicly). Designed for registration on the MCP registry.
+Two separate MCP servers, both in Python, using Streamable HTTP transport:
+
+1. **strava-mcp** - Generic Strava data access server. Useful to anyone. Registered separately on the MCP registry.
+2. **pace-ai** - Running coach intelligence layer. Coaching prompts, methodology, goals, analysis. Uses Strava data that Claude fetches via strava-mcp.
+
+Claude orchestrates between them: pulls data from strava-mcp, reasons about it using pace-ai's coaching framework.
 
 ## Architecture
 
 ```
 Claude Desktop / Claude Code
         │
-        │ stdio (JSON-RPC)
+        ├── Streamable HTTP ──► strava-mcp (localhost:8001)
+        │                        ├── OAuth2 token management
+        │                        ├── Activity tools
+        │                        └── Athlete tools
         │
-   ┌────▼─────────────────────┐
-   │   Pace-AI MCP Server     │
-   │                          │
-   │  Tools:                  │
-   │   - Strava data access   │
-   │   - Goal management      │
-   │   - Training analysis    │
-   │                          │
-   │  Prompts:                │
-   │   - Coaching templates   │
-   │   - Analysis frameworks  │
-   │                          │
-   │  Resources:              │
-   │   - Coaching methodology │
-   │   - Training principles  │
-   ├──────────────────────────┤
-   │  Local Storage (SQLite)  │
-   │   - Cached activities    │
-   │   - Goals & preferences  │
-   │   - Strava tokens        │
-   ├──────────────────────────┤
-   │  Strava API (OAuth2)     │
-   └──────────────────────────┘
+        └── Streamable HTTP ──► pace-ai (localhost:8002)
+                                 ├── Coaching prompts
+                                 ├── Methodology resources
+                                 ├── Goal management tools
+                                 └── Training analysis tools
 ```
 
-**Security model:** stdio transport only. No HTTP server runs except a one-time localhost callback during Strava OAuth. Strava tokens stored in local encrypted SQLite. Client credentials in `.env` (never committed).
+**Security model:** Strava API credentials via environment variables (`.env`, never committed). Streamable HTTP on localhost only. OAuth tokens stored in local SQLite.
 
-## Project Structure
+---
+
+## Server 1: strava-mcp
+
+A general-purpose Strava MCP server. No coaching opinions — just clean data access.
+
+### Project Structure
 
 ```
-Pace-AI/
-├── pyproject.toml              # Package config (for PyPI + MCP registry)
+strava-mcp/
+├── pyproject.toml
 ├── README.md
-├── .env.example
+├── .env.example                  # STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET
 ├── .gitignore
+├── server.json                   # MCP registry manifest
+├── src/
+│   └── strava_mcp/
+│       ├── __init__.py
+│       ├── server.py             # FastMCP entry point (Streamable HTTP)
+│       ├── config.py             # Settings from env vars
+│       ├── auth.py               # OAuth2 flow (browser + localhost callback)
+│       ├── client.py             # Strava API wrapper + token refresh
+│       └── cache.py              # SQLite activity cache
+└── tests/
+    └── test_tools.py
+```
+
+### Tools
+
+| Tool | Description |
+|---|---|
+| `authenticate` | Trigger Strava OAuth flow (opens browser, localhost callback) |
+| `get_athlete` | Get authenticated athlete profile |
+| `get_recent_activities(days=30)` | List recent activities with summary stats |
+| `get_activity(activity_id)` | Full activity detail: splits, laps, HR, pace |
+| `get_activity_streams(activity_id, stream_types)` | Time-series data (heartrate, pace, altitude, etc.) |
+| `get_athlete_stats` | Year-to-date and all-time stats |
+| `get_athlete_zones` | Heart rate and power zone definitions |
+
+### Resources
+
+| Resource | Description |
+|---|---|
+| `strava://athlete/profile` | Current athlete profile data |
+| `strava://rate-limits` | Current Strava API rate limit status |
+
+### Registry
+
+- **Namespace:** `io.github.aldred-coetzee/strava-mcp`
+- **PyPI package:** `strava-mcp`
+- Discoverable by anyone wanting Strava data in their MCP workflow
+
+---
+
+## Server 2: pace-ai
+
+The coaching intelligence layer. No direct Strava API calls — Claude fetches data from strava-mcp and feeds it into pace-ai's coaching framework.
+
+### Project Structure
+
+```
+pace-ai/
+├── pyproject.toml
+├── README.md
+├── .gitignore
+├── server.json                   # MCP registry manifest
 ├── src/
 │   └── pace_ai/
 │       ├── __init__.py
-│       ├── server.py           # MCP server definition (entry point)
-│       ├── config.py           # Settings from env vars
-│       ├── database.py         # SQLite setup + models
-│       ├── strava/
-│       │   ├── __init__.py
-│       │   ├── auth.py         # OAuth2 flow (local browser + localhost callback)
-│       │   └── client.py       # Strava data fetching + caching
+│       ├── server.py             # FastMCP entry point (Streamable HTTP)
+│       ├── config.py             # Settings
+│       ├── database.py           # SQLite for goals + athlete preferences
 │       ├── tools/
 │       │   ├── __init__.py
-│       │   ├── activities.py   # Activity-related tools
-│       │   ├── goals.py        # Goal management tools
-│       │   └── analysis.py     # Training analysis tools
+│       │   ├── goals.py          # Goal CRUD tools
+│       │   └── analysis.py       # Training analysis tools
 │       ├── prompts/
 │       │   ├── __init__.py
-│       │   └── coaching.py     # Coaching prompt templates
+│       │   └── coaching.py       # Coaching prompt templates
 │       └── resources/
 │           ├── __init__.py
-│           └── methodology.py  # Coaching methodology resources
-├── server.json                 # MCP registry manifest
+│           └── methodology.py    # Coaching methodology + principles
 └── tests/
-    ├── __init__.py
-    ├── test_tools.py
     └── test_coaching.py
 ```
 
-## Phase 1: Core MCP Server + Strava Auth
+### Tools
 
-### 1.1 Project setup
-- `pyproject.toml` with `mcp[cli]`, `stravalib`, `httpx`, `sqlalchemy` dependencies
-- `.gitignore`, `.env.example`
-- Basic `src/pace_ai/server.py` with FastMCP instance
+| Tool | Description |
+|---|---|
+| `set_goal(race_type, target_time, race_date, notes)` | Store a training goal |
+| `get_goals()` | List current goals |
+| `update_goal(goal_id, ...)` | Modify a goal |
+| `delete_goal(goal_id)` | Remove a goal |
+| `analyze_training_load(weekly_distances)` | Compute ACWR, monotony, strain from provided data |
+| `predict_race_time(recent_race_distance, recent_race_time, target_distance)` | Riegel / VDOT prediction |
+| `calculate_training_zones(threshold_pace_or_hr)` | Daniels' VDOT zones from threshold data |
 
-### 1.2 Strava OAuth
-- One-time auth flow: opens browser, runs localhost:8080 callback, exchanges code
-- Token storage in local SQLite (encrypted at rest using a local key)
-- Auto-refresh on expiry (stravalib handles this)
-- MCP tool: `strava_authenticate` - triggers the OAuth flow if not yet authenticated
+### Prompts (structured coaching — the key to repeatable advice)
 
-### 1.3 Database
-- SQLite via SQLAlchemy
-- Tables: `tokens`, `activities` (cache), `goals`, `athlete_profile`
-- DB file stored in `~/.pace-ai/pace_ai.db` (user's home dir, not in project)
+MCP prompts are templates that guide Claude's reasoning. They inject relevant context and frame analysis using established running science, so coaching is consistent session to session.
 
-## Phase 2: Strava Data Tools
+#### `weekly_plan`
+> "Generate a training plan for the upcoming week"
+- **Expects Claude to provide:** current goals, last 4 weeks of training data, recent PRs
+- **Framework:** progressive overload, 80/20 polarised training, adequate recovery
+- **Output structure:** day-by-day plan with session type, distance, target pace/effort, purpose
 
-### 2.1 Activity tools
-- `get_recent_activities(days: int = 30)` - List recent runs with summary stats
-- `get_activity_details(activity_id: int)` - Full detail: splits, laps, HR, pace
-- `get_activity_streams(activity_id: int)` - Raw time-series (HR, pace, elevation)
-- `sync_activities(days: int = 90)` - Fetch and cache activities from Strava
+#### `run_analysis`
+> "Analyze a specific run"
+- **Expects Claude to provide:** activity details, splits, HR data
+- **Framework:** pace consistency (coefficient of variation), HR drift, effort distribution vs targets
+- **Output structure:** what went well, what to improve, how it fits the training block
 
-### 2.2 Analysis tools
-- `get_training_summary(weeks: int = 4)` - Weekly volume, avg pace, distance trends
-- `get_personal_records()` - Best efforts across distances (1K, 5K, 10K, HM, M)
-- `get_heart_rate_zones()` - Athlete's HR zone definitions + time-in-zone trends
-- `get_fitness_trend(weeks: int = 12)` - Volume and intensity progression
+#### `race_readiness`
+> "Am I ready for my upcoming race?"
+- **Expects Claude to provide:** goal details, training volume trend, recent performances
+- **Framework:** taper timing, volume benchmarks, VDOT pace predictions, Riegel formula
+- **Output structure:** readiness score, strengths, risks, recommended final-week adjustments
 
-## Phase 3: Goals & Coaching
+#### `injury_risk`
+> "Assess training load for injury risk"
+- **Expects Claude to provide:** weekly mileage for last 8 weeks
+- **Framework:** 10% rule, acute:chronic workload ratio (0.8-1.3 optimal), monotony/strain indices
+- **Output structure:** risk level, specific concerns, recommended adjustments
 
-### 3.1 Goal tools
-- `set_goal(race_type, target_time, race_date, notes)` - Store a training goal
-- `get_goals()` - List current goals
-- `update_goal(goal_id, ...)` - Modify a goal
-- `delete_goal(goal_id)` - Remove a goal
+### Resources (coaching knowledge base)
 
-### 3.2 Coaching prompts (MCP prompts for repeatable advice)
+#### `coaching://methodology`
+Static reference that Claude can pull in at any time. Contains:
+- **Core principles:** progressive overload, specificity, recovery, individualisation
+- **Training zones:** easy, tempo, threshold, interval, repetition (Daniels' VDOT model)
+- **Race predictors:** VDOT tables, Riegel formula, key workouts as race indicators
+- **Weekly structure:** long run, speed work, tempo, easy days, rest day guidelines
+- **Red flags:** sudden mileage jumps (>10%/week), persistent elevated resting HR, declining performance despite increased volume
+- **Periodisation:** base → build → peak → taper → race → recovery
 
-These are predefined prompt templates that structure how Claude reasons about coaching. They ensure advice is grounded in running science and consistent across sessions.
+This ensures Claude gives evidence-based, structured advice — not generic platitudes.
 
-- **`weekly_plan`** - "Generate a training plan for the upcoming week"
-  - Injects: current goals, last 4 weeks of training data, recent personal records
-  - Framework: progressive overload, 80/20 polarised training, adequate recovery
+#### `coaching://zones-explained`
+Detailed explanation of each training zone with purpose, feel, and typical session formats.
 
-- **`run_analysis`** - "Analyze my most recent run"
-  - Injects: activity details, splits, HR data, comparison to recent averages
-  - Framework: pace consistency, HR drift, effort distribution
+---
 
-- **`race_readiness`** - "Am I ready for my upcoming race?"
-  - Injects: goal details, training volume trend, recent performances, time to race
-  - Framework: taper timing, volume benchmarks, pace predictors (Riegel formula, VDOT)
+## Build Order
 
-- **`injury_risk`** - "Check my training load for injury risk"
-  - Injects: weekly mileage progression, acute:chronic workload ratio
-  - Framework: 10% rule, ACWR (0.8-1.3 optimal), monotony/strain indices
+### Phase 1: strava-mcp (data layer)
+1. Project setup: pyproject.toml, .gitignore, .env.example
+2. Strava OAuth flow (browser + localhost callback, token stored in SQLite)
+3. Strava API client with token refresh
+4. MCP tools: authenticate, get_athlete, get_recent_activities, get_activity, get_activity_streams, get_athlete_stats, get_athlete_zones
+5. Activity cache in SQLite
+6. Streamable HTTP transport on localhost
+7. Test with MCP Inspector
 
-### 3.3 Coaching methodology resource
+### Phase 2: pace-ai (coaching layer)
+1. Project setup
+2. SQLite database for goals + preferences
+3. Goal management tools
+4. Analysis tools (ACWR, VDOT, training zones)
+5. Coaching prompts (weekly_plan, run_analysis, race_readiness, injury_risk)
+6. Methodology resources
+7. Streamable HTTP transport on localhost
+8. Test with MCP Inspector
 
-A static MCP resource (`coaching://methodology`) that Claude can reference. Contains:
-- Core principles: progressive overload, specificity, recovery, individualisation
-- Training zones: easy, tempo, threshold, interval, repetition (Daniels' model)
-- Race time predictors: VDOT tables, Riegel formula
-- Weekly structure guidelines: long run, speed work, easy days, rest
-- Red flags: sudden mileage jumps, persistent fatigue, HR anomalies
+### Phase 3: Integration test
+1. Run both servers
+2. Configure Claude Desktop / Claude Code to use both
+3. End-to-end: "Analyze my last week of training and suggest next week's plan"
 
-This ensures Claude gives evidence-based advice, not generic platitudes.
+### Phase 4: Package & register (later)
+1. PyPI packaging for both
+2. MCP registry: `io.github.aldred-coetzee/strava-mcp`
+3. MCP registry: `io.github.aldred-coetzee/pace-ai`
 
-## Phase 4: Packaging & Registry
-
-### 4.1 PyPI packaging
-- `pyproject.toml` with proper metadata, entry points
-- Entry point: `pace-ai = pace_ai.server:main`
-- Users install with: `pip install pace-ai` or `uv add pace-ai`
-
-### 4.2 MCP registry
-- `server.json` manifest with package reference to PyPI
-- Namespace: `io.github.aldred-coetzee/pace-ai`
-- Publish via `mcp-publisher` CLI
-
-### 4.3 Claude Desktop config
-```json
-{
-  "mcpServers": {
-    "pace-ai": {
-      "command": "uv",
-      "args": ["--directory", "/path/to/Pace-AI", "run", "pace-ai"],
-      "env": {
-        "STRAVA_CLIENT_ID": "your_id",
-        "STRAVA_CLIENT_SECRET": "your_secret"
-      }
-    }
-  }
-}
-```
-
-## What We Build Now (This Session)
-
-Phases 1-3 above. Phase 4 (PyPI + registry) once it's working and tested.
+---
 
 ## Key Design Decisions
 
 | Decision | Choice | Rationale |
 |---|---|---|
-| Transport | stdio only | Never exposes API publicly |
-| Token storage | Local SQLite in ~/.pace-ai/ | Secure, portable, no external deps |
-| Activity caching | SQLite | Avoid hitting Strava rate limits (200/15min, 2000/day) |
-| Coaching consistency | MCP prompts + methodology resource | Structured frameworks ensure repeatable advice |
-| Library | stravalib | Mature, typed, handles rate limits |
-| Packaging | pyproject.toml + uv | Modern Python, easy install |
+| Two servers | strava-mcp + pace-ai | Separation of concerns; Strava server is reusable by anyone |
+| Transport | Streamable HTTP | Future-proof, flexible, supports multiple clients |
+| Strava credentials | Environment variables (.env) | Simple, standard, never committed |
+| Token storage | Local SQLite | Portable, no external deps |
+| Activity caching | SQLite (in strava-mcp) | Respect Strava rate limits (200/15min, 2000/day) |
+| Coaching consistency | MCP prompts + methodology resources | Structured frameworks = repeatable advice |
+| Analysis library | Pure Python (no heavy deps) | VDOT/Riegel/ACWR are simple formulas |
+| Python version | 3.10+ | MCP SDK requirement |
+
+## What We Build This Session
+
+Phase 1 (strava-mcp) first. Then Phase 2 (pace-ai). Both as subdirectories of this repo for now — can split to separate repos for registry publishing later.
