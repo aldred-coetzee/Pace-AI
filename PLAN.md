@@ -352,20 +352,54 @@ Every commit:
 
 E2E tests run manually or in CI with credentials.
 
-### Development Workflow (5 agents)
+### Development Workflow (orchestrator + 3 review agents)
 
-Each module is built using 5 agents:
+```
+┌─────────────────────────────────────────────────┐
+│  1. ORCHESTRATOR writes implementation + tests   │
+└──────────────────────┬──────────────────────────┘
+                       ▼
+┌─────────────────────────────────────────────────┐
+│  2. LAUNCH 3 REVIEW AGENTS IN PARALLEL          │
+│                                                  │
+│  Agent 1: Code review                            │
+│    - Security issues, edge cases, error handling │
+│    - Naming consistency, project conventions     │
+│                                                  │
+│  Agent 2: Test coverage review                   │
+│    - Every function has corresponding tests      │
+│    - Test quality: meaningful assertions,        │
+│      edge cases, no tautological tests           │
+│                                                  │
+│  Agent 3: Code quality review                    │
+│    - Architecture, separation of concerns        │
+│    - API design, type hints, documentation       │
+└──────────────────────┬──────────────────────────┘
+                       ▼
+┌─────────────────────────────────────────────────┐
+│  3. ORCHESTRATOR evaluates feedback              │
+│     - Makes fixes if any agent flagged issues    │
+│     - If changes made → go back to step 2        │
+│     - If no changes needed → proceed to step 4   │
+└──────────────────────┬──────────────────────────┘
+                       ▼
+┌─────────────────────────────────────────────────┐
+│  4. RUN TEST GAUNTLET (sequential)              │
+│     a) Unit tests:        pytest tests/unit/     │
+│     b) Integration tests: pytest tests/integration/ │
+│     c) Code quality:      ruff check + format    │
+│     d) E2E tests:         pytest tests/e2e/      │
+│                                                  │
+│     ALL must pass. Any failure → fix → restart    │
+│     from step 2.                                 │
+└──────────────────────┬──────────────────────────┘
+                       ▼
+┌─────────────────────────────────────────────────┐
+│  5. COMMIT only when everything passes           │
+└─────────────────────────────────────────────────┘
+```
 
-**Build phase (agents 1-2):**
-1. **Agent 1: Build** — writes the implementation code
-2. **Agent 2: Tests** — writes all unit + integration tests for the implementation
-
-**Review phase (agents 3-5, launched in parallel):**
-3. **Agent 3: Automated checks** — runs `ruff check .`, `ruff format --check .`, `pytest tests/unit/ tests/integration/` — reports pass/fail with details
-4. **Agent 4: Code review** — re-reads all changed files, checks for: security issues, edge cases, error handling gaps, naming consistency, adherence to project conventions
-5. **Agent 5: Test coverage review** — verifies every new/changed function has corresponding tests, checks test quality (meaningful assertions, edge cases covered, no tautological tests)
-
-All 3 review agents must pass before code is committed. If any agent flags an issue, fix and re-run all 3. This is enforced in `CLAUDE.md` as a project rule.
+This is enforced in `CLAUDE.md` as a project rule.
 
 ### CLAUDE.md
 
