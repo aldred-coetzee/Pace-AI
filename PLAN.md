@@ -352,15 +352,20 @@ Every commit:
 
 E2E tests run manually or in CI with credentials.
 
-### Review Process (6-eyes principle — 3 parallel agents)
+### Development Workflow (5 agents)
 
-Before every commit, launch 3 independent review agents in parallel:
+Each module is built using 5 agents:
 
-1. **Agent 1: Automated checks** — runs `ruff check .`, `ruff format --check .`, `pytest tests/unit/ tests/integration/` — reports pass/fail with details
-2. **Agent 2: Code review** — re-reads all changed files, checks for: security issues, edge cases, error handling gaps, naming consistency, adherence to project conventions
-3. **Agent 3: Test coverage review** — verifies every new/changed function has corresponding tests, checks test quality (meaningful assertions, edge cases covered, no tautological tests)
+**Build phase (agents 1-2):**
+1. **Agent 1: Build** — writes the implementation code
+2. **Agent 2: Tests** — writes all unit + integration tests for the implementation
 
-All 3 agents must pass before code is committed. If any agent flags an issue, fix it and re-run all 3. This is enforced in `CLAUDE.md` as a project rule.
+**Review phase (agents 3-5, launched in parallel):**
+3. **Agent 3: Automated checks** — runs `ruff check .`, `ruff format --check .`, `pytest tests/unit/ tests/integration/` — reports pass/fail with details
+4. **Agent 4: Code review** — re-reads all changed files, checks for: security issues, edge cases, error handling gaps, naming consistency, adherence to project conventions
+5. **Agent 5: Test coverage review** — verifies every new/changed function has corresponding tests, checks test quality (meaningful assertions, edge cases covered, no tautological tests)
+
+All 3 review agents must pass before code is committed. If any agent flags an issue, fix and re-run all 3. This is enforced in `CLAUDE.md` as a project rule.
 
 ### CLAUDE.md
 
