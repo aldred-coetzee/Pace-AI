@@ -4,7 +4,13 @@ from __future__ import annotations
 
 import pytest
 
-from pace_ai.tools.analysis import calculate_acwr, calculate_training_zones, predict_race_time
+from pace_ai.tools.analysis import (
+    _time_from_vdot,
+    calculate_acwr,
+    calculate_training_zones,
+    predict_race_time,
+)
+from pace_ai.tools.goals import parse_time
 
 # ── ACWR Tests (Uncoupled Method) ────────────────────────────────────
 
@@ -268,3 +274,200 @@ class TestCalculateTrainingZones:
     def test_reference_includes_vdot(self):
         result = calculate_training_zones(vdot=50)
         assert result["reference"]["vdot"] == 50
+
+
+# ── Published Daniels Table Validation ───────────────────────────────
+# Source: Jack Daniels' "Running Formula" (Human Kinetics, 1998) via
+# Kalamazoo Area Runners VDOT Conversion Table.
+#
+# These are the authoritative published values. Our formula should match
+# within tight tolerances to confirm we implemented Daniels/Gilbert correctly.
+
+# (vdot, distance_key, distance_m, published_time_str, max_error_seconds)
+_DANIELS_TABLE = [
+    # VDOT 30 — beginner
+    (30, "5k", 5000, "30:40", 3),
+    (30, "10k", 10000, "63:46", 5),
+    (30, "half", 21097.5, "2:21:04", 15),
+    (30, "marathon", 42195, "4:49:17", 35),
+    # VDOT 35
+    (35, "5k", 5000, "27:00", 3),
+    (35, "10k", 10000, "56:03", 5),
+    (35, "half", 21097.5, "2:04:13", 10),
+    (35, "marathon", 42195, "4:16:03", 20),
+    # VDOT 40 — recreational
+    (40, "5k", 5000, "24:08", 3),
+    (40, "10k", 10000, "50:03", 5),
+    (40, "half", 21097.5, "1:50:59", 10),
+    (40, "marathon", 42195, "3:49:45", 15),
+    # VDOT 45
+    (45, "5k", 5000, "21:50", 3),
+    (45, "10k", 10000, "45:16", 5),
+    (45, "half", 21097.5, "1:40:23", 10),
+    (45, "marathon", 42195, "3:28:26", 15),
+    # VDOT 50 — competitive club
+    (50, "5k", 5000, "19:57", 3),
+    (50, "10k", 10000, "41:21", 5),
+    (50, "half", 21097.5, "1:31:35", 10),
+    (50, "marathon", 42195, "3:10:49", 15),
+    # VDOT 55
+    (55, "5k", 5000, "18:22", 3),
+    (55, "10k", 10000, "38:06", 5),
+    (55, "half", 21097.5, "1:24:18", 10),
+    (55, "marathon", 42195, "2:56:01", 15),
+    # VDOT 60 — advanced/elite
+    (60, "5k", 5000, "17:03", 3),
+    (60, "10k", 10000, "35:22", 5),
+    (60, "half", 21097.5, "1:18:09", 10),
+    (60, "marathon", 42195, "2:43:25", 15),
+]
+
+
+class TestDanielsTableValidation:
+    """Validate our formula against the published Daniels/Gilbert equivalency table.
+
+    This is the definitive correctness check. If these fail, either our formula
+    coefficients are wrong or our binary search has a bug.
+    """
+
+    @pytest.mark.parametrize(
+        ("vdot", "dist_label", "dist_m", "published_time", "max_err"),
+        _DANIELS_TABLE,
+        ids=[f"VDOT{v}_{d}" for v, d, *_ in _DANIELS_TABLE],
+    )
+    def test_time_from_vdot_matches_published(self, vdot, dist_label, dist_m, published_time, max_err):
+        """_time_from_vdot(VDOT, distance) should match the published Daniels table."""
+        published_secs = parse_time(published_time)
+        our_secs = _time_from_vdot(float(vdot), dist_m)
+        diff = abs(our_secs - published_secs)
+        assert diff <= max_err, (
+            f"VDOT {vdot} {dist_label}: expected {published_time} ({published_secs}s), "
+            f"got {our_secs}s (diff={our_secs - published_secs:+d}s, limit=±{max_err}s)"
+        )
+
+
+# ── Round-Trip Consistency ───────────────────────────────────────────
+
+
+class TestRoundTripConsistency:
+    """Verify that VDOT conversions are internally self-consistent.
+
+    If you put a 5K time in, get a VDOT, predict a 10K, feed that 10K back,
+    and predict a 5K — you should get back where you started (within rounding).
+    """
+
+    @pytest.mark.parametrize(
+        ("source_dist", "source_time", "intermediate_dist"),
+        [
+            ("5k", "20:00", "10k"),
+            ("5k", "25:00", "half marathon"),
+            ("5k", "17:10", "marathon"),
+            ("10k", "45:00", "5k"),
+            ("half marathon", "1:30:00", "10k"),
+        ],
+        ids=["5k-10k-5k", "5k-half-5k", "5k-mara-5k", "10k-5k-10k", "half-10k-half"],
+    )
+    def test_round_trip_drift(self, source_dist, source_time, intermediate_dist):
+        """Feed time in → VDOT → predict other distance → VDOT → predict original.
+
+        Drift should be ≤2 seconds (from binary search rounding to nearest second).
+        """
+        # Forward: source → intermediate
+        result1 = predict_race_time(source_dist, source_time, intermediate_dist)
+        intermediate_time = result1["predicted_time"]
+
+        # Reverse: intermediate → source
+        result2 = predict_race_time(intermediate_dist, intermediate_time, source_dist)
+
+        original_secs = parse_time(source_time)
+        recovered_secs = result2["predicted_seconds"]
+        drift = abs(recovered_secs - original_secs)
+        assert drift <= 2, (
+            f"Round-trip drift too large: {source_dist} {source_time} → {intermediate_dist} "
+            f"{intermediate_time} → {source_dist} {result2['predicted_time']} (drift={drift}s)"
+        )
+
+
+# ── Cross-Distance Symmetry ─────────────────────────────────────────
+
+
+class TestCrossDistanceSymmetry:
+    """Verify prediction symmetry: if 5K→10K gives T, then 10K(T)→5K ≈ original."""
+
+    @pytest.mark.parametrize(
+        ("dist_a", "time_a", "dist_b"),
+        [
+            ("5k", "20:00", "10k"),
+            ("5k", "20:00", "half marathon"),
+            ("10k", "42:00", "5k"),
+            ("half marathon", "1:35:00", "marathon"),
+        ],
+        ids=["5k→10k→5k", "5k→half→5k", "10k→5k→10k", "half→mara→half"],
+    )
+    def test_symmetry(self, dist_a, time_a, dist_b):
+        """Predict A→B, then B→A. The result should recover the original within 2 seconds."""
+        forward = predict_race_time(dist_a, time_a, dist_b)
+        reverse = predict_race_time(dist_b, forward["predicted_time"], dist_a)
+
+        original_secs = parse_time(time_a)
+        recovered_secs = reverse["predicted_seconds"]
+        diff = abs(recovered_secs - original_secs)
+        assert diff <= 2, (
+            f"Symmetry broken: {dist_a} {time_a} → {dist_b} {forward['predicted_time']} "
+            f"→ {dist_a} {reverse['predicted_time']} (diff={diff}s)"
+        )
+
+
+# ── Rounding Sensitivity ────────────────────────────────────────────
+
+
+class TestRoundingSensitivity:
+    """Document the worst-case amplification from VDOT rounding.
+
+    VDOT is rounded to 1 decimal place. A 1-second change in 5K time that
+    crosses a 0.1 VDOT boundary can amplify to ~20 seconds on a marathon.
+    This is acceptable precision but must not be worse than documented.
+    """
+
+    @pytest.mark.parametrize(
+        ("time_a", "time_b", "max_marathon_diff"),
+        [
+            ("19:57", "19:58", 30),  # crosses VDOT 50.0 → 49.9 boundary
+            ("20:00", "20:01", 30),
+            ("24:08", "24:09", 30),
+            ("17:03", "17:04", 30),
+        ],
+        ids=["near-vdot50", "near-vdot49.8", "near-vdot40", "near-vdot60"],
+    )
+    def test_1sec_5k_change_bounded_marathon_impact(self, time_a, time_b, max_marathon_diff):
+        """A 1-second 5K input change must not cause >30s marathon output change."""
+        r1 = predict_race_time("5k", time_a, "marathon")
+        r2 = predict_race_time("5k", time_b, "marathon")
+        marathon_diff = abs(r1["predicted_seconds"] - r2["predicted_seconds"])
+        assert marathon_diff <= max_marathon_diff, (
+            f"5K {time_a}→{time_b} (1s change) caused {marathon_diff}s marathon change "
+            f"(VDOT {r1['vdot']}→{r2['vdot']}, limit={max_marathon_diff}s)"
+        )
+
+
+# ── ACWR Deterministic Output ───────────────────────────────────────
+
+
+class TestDeterministicOutput:
+    """Verify that identical inputs always produce identical outputs."""
+
+    def test_acwr_deterministic(self):
+        data = [30.5, 35.2, 32.8, 38.1, 36.0]
+        r1 = calculate_acwr(data)
+        r2 = calculate_acwr(data)
+        assert r1 == r2
+
+    def test_predict_race_time_deterministic(self):
+        r1 = predict_race_time("5k", "20:00", "marathon")
+        r2 = predict_race_time("5k", "20:00", "marathon")
+        assert r1 == r2
+
+    def test_training_zones_deterministic(self):
+        r1 = calculate_training_zones(vdot=50)
+        r2 = calculate_training_zones(vdot=50)
+        assert r1 == r2
