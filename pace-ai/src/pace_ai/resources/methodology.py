@@ -84,7 +84,7 @@ for distances within 2-3x of each other.
 
 - Weekly mileage increase > 10% from 4-week rolling average
 - ACWR > 1.5 (acute:chronic workload ratio)
-- Training monotony > 2.0 (too-uniform daily loading)
+- Erratic week-to-week loading (high load variability CV > 0.3)
 - Persistent elevated resting heart rate (>5 bpm above baseline for 3+ days)
 - Declining performance despite maintained or increased volume
 - Any sharp pain (vs. normal training soreness)

@@ -11,21 +11,26 @@ from typing import Any
 def calculate_acwr(weekly_distances: list[float]) -> dict[str, Any]:
     """Compute acute:chronic workload ratio from weekly distance data.
 
-    Uses rolling averages: acute = last 1 week, chronic = last 4 weeks.
+    Uses the uncoupled method (Windt & Gabbett 2019): acute = last 1 week,
+    chronic = mean of the 4 weeks BEFORE the acute week. This avoids the
+    mathematical coupling artefact of including the acute week in the chronic
+    average.
+
     Optimal ACWR range: 0.8-1.3 (Gabbett 2016).
 
     Args:
-        weekly_distances: List of weekly distances (most recent last), minimum 4 weeks.
+        weekly_distances: List of weekly distances (most recent last), minimum 5 weeks.
 
     Returns:
-        ACWR value, risk level, monotony, strain, and interpretation.
+        ACWR value, risk level, load variability, and interpretation.
     """
-    if len(weekly_distances) < 4:
-        msg = "Need at least 4 weeks of data for ACWR calculation."
+    if len(weekly_distances) < 5:
+        msg = "Need at least 5 weeks of data for ACWR calculation."
         raise ValueError(msg)
 
     acute = weekly_distances[-1]
-    chronic = sum(weekly_distances[-4:]) / 4
+    chronic_weeks = weekly_distances[-5:-1]  # 4 weeks BEFORE the acute week
+    chronic = sum(chronic_weeks) / 4
 
     if chronic == 0:
         return {
@@ -38,12 +43,12 @@ def calculate_acwr(weekly_distances: list[float]) -> dict[str, Any]:
 
     acwr = round(acute / chronic, 2)
 
-    # Monotony and strain (Foster 1998)
-    recent_4 = weekly_distances[-4:]
-    mean_load = sum(recent_4) / len(recent_4)
-    std_load = (sum((x - mean_load) ** 2 for x in recent_4) / len(recent_4)) ** 0.5
-    monotony = round(mean_load / std_load, 2) if std_load > 0 else 0
-    strain = round(mean_load * monotony, 1)
+    # Load variability — coefficient of variation of the chronic-period weeks.
+    # This is NOT Foster's "monotony" (which requires daily data within a single week).
+    # CV measures how consistent week-to-week loading has been during the chronic period.
+    mean_load = sum(chronic_weeks) / len(chronic_weeks)
+    std_load = (sum((x - mean_load) ** 2 for x in chronic_weeks) / len(chronic_weeks)) ** 0.5
+    load_variability_cv = round(std_load / mean_load, 2) if mean_load > 0 else 0
 
     # Risk classification
     if acwr < 0.8:
@@ -65,8 +70,7 @@ def calculate_acwr(weekly_distances: list[float]) -> dict[str, Any]:
         "chronic_load": round(chronic, 1),
         "risk_level": risk_level,
         "interpretation": interpretation,
-        "monotony": monotony,
-        "strain": strain,
+        "load_variability_cv": load_variability_cv,
         "week_over_week_change_pct": round((acute - weekly_distances[-2]) / weekly_distances[-2] * 100, 1)
         if weekly_distances[-2] > 0
         else None,
@@ -79,7 +83,8 @@ def calculate_acwr(weekly_distances: list[float]) -> dict[str, Any]:
 def _vdot_from_time(distance_m: float, time_seconds: float) -> float:
     """Estimate VDOT from a race result using the Daniels/Gilbert formula.
 
-    Based on the oxygen cost and VO2max fraction curves.
+    Based on the oxygen cost and VO2max fraction curves from
+    Daniels & Gilbert, "Oxygen Power" (1979).
     """
     time_min = time_seconds / 60
     # Oxygen cost of running at velocity (ml/kg/min)
@@ -105,6 +110,21 @@ def _time_from_vdot(vdot: float, distance_m: float) -> float:
     return round((lo + hi) / 2)
 
 
+def _pace_secs_from_vo2(target_vo2: float) -> int:
+    """Compute pace (seconds per km) for a given oxygen cost.
+
+    Inverts the Daniels/Gilbert oxygen cost equation:
+        vo2 = -4.60 + 0.182258 * v + 0.000104 * v^2
+    using the quadratic formula.
+    """
+    a = 0.000104
+    b = 0.182258
+    c = -4.60 - target_vo2
+    discriminant = b**2 - 4 * a * c
+    velocity = (-b + math.sqrt(discriminant)) / (2 * a)  # m/min
+    return int(60000 / velocity)  # seconds per km
+
+
 RACE_DISTANCES = {
     "1500m": 1500,
     "mile": 1609.34,
@@ -115,6 +135,15 @@ RACE_DISTANCES = {
     "15k": 15000,
     "half marathon": 21097.5,
     "marathon": 42195,
+}
+
+# Daniels' zone definitions as %VO2max ranges (from Daniels' Running Formula).
+_ZONE_VO2MAX_PCT = {
+    "easy": (0.59, 0.74),
+    "marathon": (0.75, 0.84),
+    "threshold": (0.83, 0.88),
+    "interval": (0.95, 1.00),
+    "repetition": (1.05, 1.20),
 }
 
 
@@ -182,10 +211,14 @@ def calculate_training_zones(
 
     Provide at least one of: threshold_pace_per_km, threshold_hr, or vdot.
 
+    When vdot is provided, zones are computed directly from the Daniels/Gilbert
+    oxygen cost curve using published %VO2max ranges for each zone. This is the
+    most accurate method.
+
     Args:
         threshold_pace_per_km: Threshold (lactate/tempo) pace as M:SS per km.
         threshold_hr: Threshold heart rate in bpm.
-        vdot: VDOT value (overrides pace-based calculation).
+        vdot: VDOT value (computes zones using Daniels' %VO2max curve).
 
     Returns:
         Training zones with pace and/or HR ranges.
@@ -194,7 +227,18 @@ def calculate_training_zones(
 
     zones: dict[str, Any] = {}
 
-    if threshold_pace_per_km is not None:
+    if vdot is not None:
+        # Compute zones from VDOT using Daniels' %VO2max ranges.
+        for zone_name, (lo_pct, hi_pct) in _ZONE_VO2MAX_PCT.items():
+            fast_pace = _pace_secs_from_vo2(vdot * hi_pct)  # higher %VO2max → faster
+            slow_pace = _pace_secs_from_vo2(vdot * lo_pct)  # lower %VO2max → slower
+            fast_min, fast_sec = divmod(fast_pace, 60)
+            slow_min, slow_sec = divmod(slow_pace, 60)
+            zones[zone_name] = {
+                "pace_range_per_km": f"{fast_min}:{fast_sec:02d} - {slow_min}:{slow_sec:02d}",
+                "pace_seconds_per_km": (fast_pace, slow_pace),
+            }
+    elif threshold_pace_per_km is not None:
         threshold_secs = parse_time(threshold_pace_per_km)
         # Daniels' zone multipliers relative to threshold pace (T pace = 1.0)
         # Faster pace = lower seconds/km

@@ -103,13 +103,12 @@ class TestInjuryRiskPrompt:
             "risk_level": "optimal",
             "acute_load": 45,
             "chronic_load": 40,
-            "monotony": 1.2,
-            "strain": 48,
+            "load_variability_cv": 0.12,
         }
         prompt = injury_risk_prompt(weekly_distances=distances, training_load=load)
         assert "10% rule" in prompt
         assert "ACWR" in prompt
-        assert "Monotony" in prompt
+        assert "Load variability" in prompt
 
     def test_includes_weekly_data(self):
         distances = [30.0, 35.0, 32.0, 40.0]
