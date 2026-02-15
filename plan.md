@@ -13,14 +13,57 @@ advice to a runner. We've never tested the full pipeline. We don't know if:
 
 ## Recommended Model
 
-TBD — model sweep in progress. Candidates:
-- **DeepSeek V3.2** (budget tier)
-- **Gemini 2.5 Pro** (mid tier)
-- **Claude Sonnet 4.5** (premium tier)
-
-Baseline tested: Qwen3 235B (62.5% pass rate on weekly plans).
+**Claude Sonnet 4.5** (`anthropic/claude-sonnet-4.5` on OpenRouter) — 95% pass rate
+across 22 eval profiles (16 weekly plans + 6 injury risk). Near-perfect on all
+population types including safety-critical profiles (youth RED-S, injury return,
+overreaching). Only failure was a deterministic keyword technicality (judge scored
+it 100%, 5.0/5).
 
 **Judge model**: google/gemini-2.0-flash-001 (fast, cheap, structured extraction).
+
+### Model Sweep Results (2026-02-15)
+
+| Tier | Model | Pass Rate | Det | Judge | Rating | Time |
+|------|-------|-----------|-----|-------|--------|------|
+| Premium | **Claude Sonnet 4.5** | **95% (21/22)** | 99% | 93% | **4.7/5** | 978s |
+| Budget | DeepSeek V3.2 | 82% (18/22) | 99% | 89% | 4.4/5 | 1862s |
+| Mid | Gemini 2.5 Pro | 73% (16/22) | 97% | 85% | 4.4/5 | 847s |
+| *(Baseline)* | *Qwen3 235B* | *62% (10/16)* | *—* | *—* | *—* | *—* |
+
+**Per-profile breakdown:**
+
+| Profile | DeepSeek V3.2 | Gemini 2.5 Pro | Sonnet 4.5 |
+|---------|:---:|:---:|:---:|
+| 01 beginner M healthy | PASS | FAIL | PASS |
+| 02 beginner F healthy | PASS | PASS | PASS |
+| 03 beginner M injury return | FAIL | PASS | PASS |
+| 04 beginner F injury return | PASS | FAIL | PASS |
+| 05 intermediate M healthy | PASS | PASS | PASS |
+| 06 intermediate F healthy | PASS | PASS | PASS |
+| 07 intermediate M overreach | PASS | PASS | PASS |
+| 08 intermediate F overreach | PASS | PASS | PASS |
+| 09 advanced M healthy | FAIL | FAIL | PASS |
+| 10 advanced F healthy | PASS | PASS | PASS |
+| 11 advanced M injury risk | PASS | PASS | PASS |
+| 12 advanced F injury risk | PASS | PASS | PASS |
+| 13 senior M beginner | PASS | PASS | PASS |
+| 14 senior F beginner | PASS | PASS | PASS |
+| 15 teen M talent | FAIL | FAIL | PASS |
+| 16 teen F talent | PASS | FAIL | PASS |
+| IR: 03 injury return | PASS | PASS | PASS |
+| IR: 04 injury return | FAIL | FAIL | PASS |
+| IR: 07 overreach | PASS | PASS | PASS |
+| IR: 08 overreach | PASS | PASS | FAIL* |
+| IR: 11 injury risk | PASS | PASS | PASS |
+| IR: 12 injury risk | PASS | PASS | PASS |
+
+*\*Sonnet profile 08 IR: det fail (missing "reduce" keyword), but judge=100%, rating=5.0/5*
+
+**Key findings:**
+- Sonnet excels at safety-critical populations (youth RED-S, injury return, seniors)
+- DeepSeek is best value at 82% for 1/20th the cost — viable with guardrails
+- Gemini underperformed despite mid-tier pricing, especially on youth/beginner profiles
+- Profile 09 (advanced M healthy) and 15 (teen M talent) are hardest — only Sonnet passes both
 
 ## Architecture
 
@@ -187,6 +230,8 @@ Target: ≥70% field agreement.
 10. **Evidence base** — docs/references.md with citations for ACWR, 10% rule, 80/20, RED-S, youth, VDOT, taper, masters
 11. **Population-specific methodology** — ACWR action thresholds, beginner/injury-return/senior/youth guidelines added to methodology.py
 12. **Rubric audit and fixes** — forbidden "interval" too broad, RED-S scope, brittle required elements, max_run_days contradiction, judge parser fallback
+13. **Model sweep completed** — DeepSeek V3.2 (82%), Gemini 2.5 Pro (73%), Claude Sonnet 4.5 (95%) across 22 profiles
+14. **Model recommendation** — Claude Sonnet 4.5 selected as production coaching model
 
 ### All Tests Passing (Pre-Commit Gauntlet)
 - **strava-mcp**: 46 unit + 7 integration + 1 e2e (54 total)
@@ -221,10 +266,10 @@ Remaining failures are Qwen3 model limitations (prescribes tempo for beginners,
 exceeds senior day limits) — exactly what the model sweep should differentiate.
 
 ### Next Steps
-1. **Run model sweep** — DeepSeek V3.2 (budget), Gemini 2.5 Pro (mid), Claude Sonnet 4.5 (premium) across all 16 weekly plan + 6 injury risk profiles
-2. **Run full live eval** — all test types (weekly plan + injury risk + race readiness) once a model is selected
-3. **Run consistency tests live** — verify structural agreement across repeated prompts
-4. **Update plan with model recommendation** based on sweep results
+1. ~~**Run model sweep**~~ — Done. Claude Sonnet 4.5 selected (95% pass rate)
+2. **Run full live eval** — all test types (weekly plan + injury risk + race readiness) with Sonnet 4.5
+3. **Run consistency tests live** — verify structural agreement across repeated prompts with Sonnet 4.5
+4. ~~**Update plan with model recommendation**~~ — Done
 
 ### Environment Setup
 ```bash
@@ -232,7 +277,8 @@ cd ~/projects/Pace-AI
 source pace-ai/.venv/bin/activate
 # OPENROUTER_API_KEY in .env or ~/.bashrc
 # Default judge: google/gemini-2.0-flash-001
-# Default gen: qwen/qwen3-235b-a22b
+# Default gen: anthropic/claude-sonnet-4.5 (recommended)
+# Budget alt: deepseek/deepseek-v3.2
 ```
 
 ### Key Files Changed
