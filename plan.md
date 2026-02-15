@@ -301,6 +301,40 @@ outputs — Claude Sonnet 4.5 scored 95% in the sweep, and Max gives access to
 Sonnet or better. The Grok 4.1 Fast recommendation applies if building a
 standalone app or serving other users at scale where per-token cost matters.
 
+### Future Work: Standalone App
+
+If the project moves beyond personal Claude.ai usage to a standalone app serving
+multiple users, the following work is required:
+
+**LLM Integration**
+- Wire Grok 4.1 Fast (`x-ai/grok-4.1-fast`, $0.20/M) as the default gen model via OpenRouter
+- Add API key management and rate limiting per user
+- Run full live eval suite (race readiness + consistency tests) with production model
+- Consider fallback chain: Grok 4.1 Fast → DeepSeek V3.2 → Claude Sonnet 4.5
+
+**Infrastructure**
+- Deploy strava-mcp + pace-ai as hosted services (not localhost)
+- User authentication and multi-tenant Strava OAuth (per-user token storage)
+- Database migration from SQLite to Postgres for concurrent access
+- API gateway / load balancer in front of MCP servers
+
+**Product**
+- Web/mobile frontend for coaching dashboard
+- Scheduled weekly plan generation (cron or webhook on Strava activity upload)
+- Training log and plan history persistence
+- User onboarding: goal setting, injury history, experience level intake
+
+**Safety & Quality**
+- Automated regression testing: run eval harness on every prompt/methodology change
+- A/B testing framework for prompt variants
+- User feedback loop (thumbs up/down on coaching advice)
+- Monitoring for coaching quality drift over time
+
+**Cost Estimation (per user/month at scale)**
+- ~30 coaching requests/month × ~4K tokens input × $0.20/M = ~$0.024/user/month on Grok
+- Judge calls only needed for eval, not production — zero judge cost in prod
+- Strava API: free tier covers personal use; rate limits apply at scale
+
 ### Environment Setup
 ```bash
 cd ~/projects/Pace-AI
