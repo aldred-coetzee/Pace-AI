@@ -126,3 +126,33 @@ Target: ≥80% field agreement.
 | Are answers **repeatable**? | 3x consistency test measures structural agreement |
 | Are answers **safe**? | Injury-risk profiles MUST trigger warnings |
 | Does profile matter? | Different profiles get different advice (beginner ≠ elite) |
+
+## Current Status (2026-02-15)
+
+### Completed
+1. **Analysis correctness** — ACWR, VDOT, Riegel, training zones all validated against published tables
+2. **Validation suite** — 40+ unit tests proving correctness, consistency, and repeatability
+3. **LLM eval harness** — Full framework with 16 runner profiles, golden responses, rubric scoring
+4. **OpenRouter integration** — LLM client abstraction supporting OpenRouter (via OPENROUTER_API_KEY) and Anthropic backends
+5. **Model sweep** — Sweep tool to compare models across profiles (tests/llm_eval/sweep.py)
+6. **Judge calibration** — 10/10 tests passing live with google/gemini-2.0-flash-001 as judge
+
+### All Tests Passing
+- **Unit tests**: `cd pace-ai && python -m pytest tests/unit/` (all pass)
+- **Integration tests**: `cd pace-ai && python -m pytest tests/integration/` (all pass)
+- **E2E tests**: `cd pace-ai && python -m pytest tests/e2e/` (all pass)
+- **Judge calibration (live)**: `cd pace-ai && python -m pytest tests/llm_eval/test_judge_calibration.py -v --live-llm` (10/10 pass)
+
+### Next Steps
+1. **Run full live eval** — `cd pace-ai && python -m pytest tests/llm_eval/ -v --live-llm` (tests weekly plan + injury risk with real API calls)
+2. **Run model sweep** — `cd pace-ai && python -m pytest tests/llm_eval/sweep.py` to compare different models
+3. **Add remaining test scenarios** — race readiness, consistency tests (described in rubrics above but not yet implemented)
+
+### Environment Setup (for laptop terminal)
+```bash
+cd ~/projects/Pace-AI
+source pace-ai/.venv/bin/activate
+# OPENROUTER_API_KEY must be set in ~/.bashrc
+# Default judge model: google/gemini-2.0-flash-001
+# Default gen model: qwen/qwen3-235b-a22b:free
+```
