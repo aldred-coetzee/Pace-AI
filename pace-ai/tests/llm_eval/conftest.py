@@ -6,7 +6,7 @@ Adds flags to control:
 - --judge-model: model for judging response quality
 
 Environment variable fallbacks:
-- EVAL_GEN_MODEL  (default: qwen/qwen3-235b-a22b:free)
+- EVAL_GEN_MODEL  (default: qwen/qwen3-235b-a22b)
 - EVAL_JUDGE_MODEL (default: claude-haiku-4-5-20251001)
 """
 
@@ -18,7 +18,7 @@ import pytest
 
 # ── Defaults ────────────────────────────────────────────────────────
 
-DEFAULT_GEN_MODEL = "qwen/qwen3-235b-a22b:free"
+DEFAULT_GEN_MODEL = "qwen/qwen3-235b-a22b"
 DEFAULT_JUDGE_MODEL = "google/gemini-2.0-flash-001"
 
 

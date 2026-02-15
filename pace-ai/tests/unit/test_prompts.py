@@ -19,10 +19,11 @@ class TestWeeklyPlanPrompt:
             recent_activities=sample_activities(),
             athlete_stats=sample_athlete_stats(),
         )
-        assert "Progressive overload" in prompt
+        assert "Progressive Overload" in prompt
         assert "80/20" in prompt
         assert "Recovery" in prompt
         assert "Specificity" in prompt
+        assert "Coaching Methodology Reference" in prompt
 
     def test_includes_goal_data(self):
         goal = sample_goal(race_type="marathon", target_time_formatted="3:30:00")

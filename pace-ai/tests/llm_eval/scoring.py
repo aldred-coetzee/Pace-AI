@@ -168,28 +168,41 @@ def _parse_judge_response(judge_response: str, num_criteria: int) -> tuple[list[
                 )
             )
         else:
-            # Fallback: try old format without rating
-            old_pattern = rf"CRITERION\s+{i + 1}\s*:\s*(PASS|FAIL)"
-            old_match = re.search(old_pattern, judge_response, re.IGNORECASE)
-            if old_match:
-                passed = old_match.group(1).upper() == "PASS"
+            # Fallback 1: try numbered list format (e.g., "1. ... PASS — RATING:4 — ...")
+            alt_pattern = rf"(?:^|\n)\s*{i + 1}[\.\)]\s+.*?(PASS|FAIL)\s*[—\-]\s*RATING\s*:\s*(\d)\s*[—\-]\s*(.*)"
+            alt_match = re.search(alt_pattern, judge_response, re.IGNORECASE)
+            if alt_match:
                 details.append(
                     CriterionScore(
                         name=f"criterion_{i + 1}",
-                        passed=passed,
-                        rating=4 if passed else 2,
-                        justification="(no justification provided)",
+                        passed=alt_match.group(1).upper() == "PASS",
+                        rating=max(1, min(5, int(alt_match.group(2)))),
+                        justification=alt_match.group(3).strip(),
                     )
                 )
             else:
-                details.append(
-                    CriterionScore(
-                        name=f"criterion_{i + 1}",
-                        passed=False,
-                        rating=1,
-                        justification="(criterion not found in judge output)",
+                # Fallback 2: try old format without rating
+                old_pattern = rf"CRITERION\s+{i + 1}\s*:\s*(PASS|FAIL)"
+                old_match = re.search(old_pattern, judge_response, re.IGNORECASE)
+                if old_match:
+                    passed = old_match.group(1).upper() == "PASS"
+                    details.append(
+                        CriterionScore(
+                            name=f"criterion_{i + 1}",
+                            passed=passed,
+                            rating=4 if passed else 2,
+                            justification="(no justification provided)",
+                        )
                     )
-                )
+                else:
+                    details.append(
+                        CriterionScore(
+                            name=f"criterion_{i + 1}",
+                            passed=False,
+                            rating=1,
+                            justification="(criterion not found in judge output)",
+                        )
+                    )
 
     score = sum(1 for d in details if d.passed) / len(details) if details else 0.0
     return details, score

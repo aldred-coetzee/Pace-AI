@@ -31,6 +31,14 @@ def _build_prompt(profile: RunnerProfile) -> str:
         recent_activities=profile.recent_activities,
         athlete_stats=profile.athlete_stats,
         training_zones=profile.zones if profile.zones else None,
+        training_load=profile.acwr if profile.acwr else None,
+        athlete_context={
+            "age": profile.age,
+            "gender": profile.gender,
+            "level": profile.level,
+            "condition": profile.condition,
+            "description": profile.description,
+        },
     )
 
 

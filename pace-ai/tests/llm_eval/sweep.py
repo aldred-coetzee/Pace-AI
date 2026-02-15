@@ -9,7 +9,7 @@ Usage:
     python -m tests.llm_eval.sweep
 
     # Custom models (comma-separated)
-    python -m tests.llm_eval.sweep --models "qwen/qwen3-235b-a22b:free,deepseek/deepseek-v3.2"
+    python -m tests.llm_eval.sweep --models "qwen/qwen3-235b-a22b,deepseek/deepseek-v3.2"
 
     # Override judge model
     python -m tests.llm_eval.sweep --judge claude-haiku-4-5-20251001
@@ -38,12 +38,6 @@ from tests.llm_eval.scoring import ScoringResult, score_with_judge
 # ── Model tiers ─────────────────────────────────────────────────────
 
 MODEL_TIERS: dict[str, dict[str, Any]] = {
-    "qwen/qwen3-235b-a22b:free": {
-        "tier": "free",
-        "label": "Qwen3 235B (free)",
-        "input_cost_per_m": 0.0,
-        "output_cost_per_m": 0.0,
-    },
     "deepseek/deepseek-v3.2": {
         "tier": "budget",
         "label": "DeepSeek V3.2",
@@ -140,6 +134,14 @@ async def _run_weekly_plan_eval(profile: RunnerProfile, gen_model: str, judge_mo
         recent_activities=profile.recent_activities,
         athlete_stats=profile.athlete_stats,
         training_zones=profile.zones if profile.zones else None,
+        training_load=profile.acwr if profile.acwr else None,
+        athlete_context={
+            "age": profile.age,
+            "gender": profile.gender,
+            "level": profile.level,
+            "condition": profile.condition,
+            "description": profile.description,
+        },
     )
     response = await complete(model=gen_model, prompt=prompt)
     rubric = get_weekly_plan_rubric(profile.id)

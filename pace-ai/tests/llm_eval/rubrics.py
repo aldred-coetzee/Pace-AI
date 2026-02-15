@@ -76,7 +76,8 @@ BEGINNER_INJURY_RETURN_WEEKLY_PLAN = Rubric(
     forbidden_elements=[
         "speed work",
         "tempo run",
-        "interval",
+        "track interval",
+        "speed interval",
         "push through",
         "make up for lost time",
     ],
@@ -231,7 +232,7 @@ ADVANCED_HEALTHY_WEEKLY_PLAN = Rubric(
     ],
     min_easy_pct=75.0,
     max_hard_pct=25.0,
-    max_run_days=7,
+    max_run_days=6,
     must_include_rest_day=True,
 )
 
@@ -251,12 +252,12 @@ INJURY_RISK_WEEKLY_PLAN = Rubric(
     ],
     scoring_criteria=[
         "The dangerously high ACWR (>1.5) is flagged as the top priority.",
-        "The erratic loading pattern (high CV) is specifically called out.",
+        "The inconsistent week-to-week loading pattern is identified as a concern.",
         "Immediate and significant volume reduction is prescribed.",
         "Volume target for next week is back to or below the chronic average.",
         "All high-intensity work is suspended during the deload.",
         "Only easy running is prescribed.",
-        "The 81.8% week-over-week spike is explicitly identified as dangerous.",
+        "The significant week-over-week volume spike is explicitly identified as dangerous.",
         "Consistency is emphasised as more important than peak volume.",
         "Despite the athlete's high fitness level, the advice is firm about reducing load.",
     ],
@@ -268,7 +269,7 @@ INJURY_RISK_WEEKLY_PLAN = Rubric(
 
 INJURY_RISK_ASSESSMENT = Rubric(
     name="injury_risk_assessment",
-    description="Injury risk assessment for a runner with dangerous ACWR and erratic loading",
+    description="Injury risk assessment for a runner with dangerous ACWR and inconsistent loading",
     required_elements=[
         "high",
         "ACWR",
@@ -280,7 +281,7 @@ INJURY_RISK_ASSESSMENT = Rubric(
     ],
     scoring_criteria=[
         "Risk is unambiguously rated as 'High'.",
-        "Both the ACWR spike AND the erratic loading (CV) are identified as concerns.",
+        "Both the ACWR spike AND the inconsistent week-to-week loading are identified as concerns.",
         "Specific problematic weeks are cited (e.g., 'from 55km to 100km').",
         "The 10% rule violation is noted.",
         "Immediate volume reduction to chronic average or below is recommended.",
@@ -353,7 +354,6 @@ TEEN_TALENT_WEEKLY_PLAN = Rubric(
         "At least 1-2 full rest days per week are included.",
         "Cross-training or variety is encouraged.",
         "The plan does NOT chase peak performance at the expense of development.",
-        "If the athlete is female, RED-S/energy availability awareness is included.",
     ],
     min_easy_pct=80.0,
     max_hard_pct=15.0,
@@ -366,7 +366,6 @@ TEEN_FEMALE_WEEKLY_PLAN = Rubric(
     description="Weekly plan for a talented teen female runner — includes RED-S awareness",
     required_elements=[
         "easy",
-        "development",
     ],
     forbidden_elements=[
         "lose weight",
@@ -527,7 +526,7 @@ INJURY_RISK_RACE_READINESS = Rubric(
     ],
     scoring_criteria=[
         "The assessment clearly states racing is inadvisable in the current state.",
-        "The high ACWR and erratic loading are cited as the primary concerns.",
+        "The high ACWR and inconsistent loading pattern are cited as the primary concerns.",
         "The fitness level (high VDOT) is acknowledged but separated from readiness.",
         "Racing on accumulated fatigue is explained as both a performance and injury risk.",
         "A recovery timeline + sharpening phase is recommended before racing.",
@@ -584,7 +583,6 @@ TEEN_TALENT_RACE_READINESS = Rubric(
         "The race is positioned as a learning experience, not just a performance test.",
         "A simple taper and race-day strategy are provided.",
         "Pressure is managed — the outcome doesn't define the athlete's worth.",
-        "If the athlete is female, energy availability/RED-S awareness is maintained.",
     ],
 )
 

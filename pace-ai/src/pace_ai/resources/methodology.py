@@ -8,8 +8,10 @@ METHODOLOGY = """# Running Coaching Methodology
 
 ### 1. Progressive Overload
 Gradually increase training stress to drive adaptation. The body needs progressively greater stimulus
-to continue improving. Increase weekly volume by no more than 10% per week, with a recovery week
-(reduced volume by 20-30%) every 3-4 weeks.
+to continue improving. As a guideline, limit weekly volume increases to ~10% per week, with a
+recovery week (reduced volume by 20-30%) every 3-4 weeks. Note: the 10% rule is a guideline, not
+an absolute threshold — increases >30% clearly increase injury risk, while 10-30% varies by
+individual context (Nielsen et al. 2014; Gabbett 2018). See docs/references.md for citations.
 
 ### 2. Specificity
 Training must be specific to the goal race. A 5K runner needs more VO2max work; a marathon runner
@@ -28,6 +30,8 @@ genetics all affect optimal training load. Monitor individual response rather th
 rigid formulas.
 
 ## Training Zones (Daniels' VDOT Model)
+Note: The VDOT system is from Daniels' Running Formula (Human Kinetics, ISBN 9781718203662).
+It is an industry-standard coaching tool but was not published in a peer-reviewed journal.
 
 | Zone | Name | Effort | % of Threshold Pace | Purpose |
 |------|------|--------|---------------------|---------|
@@ -55,8 +59,9 @@ than Riegel for well-trained runners, especially for shorter-to-longer predictio
 
 ### Riegel Formula
 T2 = T1 x (D2/D1)^1.06
-Simple and effective. Slightly optimistic for longer distances (marathon from 5K). Best used
-for distances within 2-3x of each other.
+Originally published in Runner's World (Riegel, 1977). Simple and effective. Slightly
+optimistic for longer distances (marathon from 5K). Best used for distances within 2-3x
+of each other. Not formally peer-reviewed but widely adopted.
 
 ### Key Workout Indicators
 - **5K predictor**: 3 x 1600m at goal 5K pace with 3-4 min rest. If you can do this, the 5K is realistic.
@@ -75,19 +80,89 @@ for distances within 2-3x of each other.
 - **Saturday**: Long run
 - **Sunday**: Easy recovery run
 
-### Volume Distribution
+### Intensity Distribution (Seiler 2010; Stöggl & Sperlich 2014)
+The 80/20 principle refers to cumulative training TIME: ~80% at easy effort (Zone 1),
+~20% at moderate-to-hard effort (Zones 2-5). This is distinct from volume (distance)
+distribution, where dedicated easy runs typically comprise 50-60% of weekly km, with
+the remainder split between quality sessions and warm-up/cool-down segments.
+
 - Long run: 25-30% of weekly volume
 - Quality sessions: 15-20% of weekly volume at moderate/hard effort
-- Easy running: 50-60% of weekly volume
+- Dedicated easy runs: 50-60% of weekly volume
+- Overall time in Zone 1: ~80% (including easy portions of quality sessions)
 
 ## Injury Prevention Red Flags
 
-- Weekly mileage increase > 10% from 4-week rolling average
-- ACWR > 1.5 (acute:chronic workload ratio)
-- Erratic week-to-week loading (high load variability CV > 0.3)
+- Weekly mileage increase > 30% clearly elevates injury risk; >10% warrants caution
+  (Nielsen et al. 2014; Gabbett 2018)
+- ACWR > 1.5 (Gabbett 2016; Hulin et al. 2014, 2016). Note: most ACWR validation is from
+  team sports; use as one indicator among many, not a standalone predictor (Impellizzeri 2020)
+- Inconsistent week-to-week loading (high load variability). Note: the CV > 0.3 threshold is
+  a general statistics convention, not a validated sports science threshold
 - Persistent elevated resting heart rate (>5 bpm above baseline for 3+ days)
 - Declining performance despite maintained or increased volume
 - Any sharp pain (vs. normal training soreness)
+- For all athletes: signs of low energy availability (RED-S) — fatigue, illness, mood changes,
+  declining performance despite training (IOC Consensus: Mountjoy et al. 2014, 2018, 2023)
+
+Full citations: see docs/references.md
+
+## ACWR Action Thresholds
+
+Based on ACWR (acute:chronic workload ratio), adapt the training plan accordingly:
+
+| ACWR Range | Status | Action |
+|-----------|--------|--------|
+| 0.8-1.3 | Optimal | Maintain or progress as planned |
+| 1.3-1.5 | Elevated | Reduce volume, limit or drop intensity sessions |
+| >1.5 | High risk | Immediate deload — easy running only, no quality sessions |
+| <0.8 | Detraining | Gradual ramp-up; do not spike volume to compensate |
+
+When ACWR is elevated or high, the priority shifts from fitness to protection. Frame deloads
+as a positive investment, not a setback.
+
+## Population-Specific Guidelines
+
+### Beginners (new to running or low volume)
+- Easy running only — no tempo, threshold, or interval sessions until a consistent
+  base of 3-4 weeks is established.
+- Maximum 3-4 running days per week with rest days between runs.
+- Walk/run approach is appropriate and effective (e.g., run 3 min / walk 1 min).
+- Volume progression: conservative (≤10% per week), prioritise consistency over distance.
+- Paces should feel genuinely easy — conversational throughout.
+- Encouragement and simplicity over complexity.
+
+### Returning from Injury
+- No intensity work in the initial return period.
+- Gradual volume increase (≤10% per week from current, not pre-injury, baseline).
+- Rest day between each running day to allow tissue adaptation.
+- Walk/run approach is appropriate during rebuild.
+- Monitor for pain, swelling, or recurrence — "listen to your body" with specific guidance
+  on what to watch for.
+- Do NOT attempt to return to pre-injury volume quickly. Patience is essential.
+
+### Senior Runners (60+)
+- Maximum 3 running days per week with rest day between each run.
+- Include strength and balance training 1-2 times per week (Rogers 1990; Zampieri 2022).
+- Walk/run approach recommended for beginners and those returning to running.
+- All running at easy/conversational effort unless the runner has an established base.
+- Joint health, bone density, and fall prevention are relevant considerations.
+- Recovery takes longer — respect it. Age is not a barrier; inadequate recovery is.
+
+### Youth Athletes (under 18)
+- Prioritise long-term athletic development over immediate performance results.
+- Limit structured speed work (max 2 quality sessions per week).
+- Encourage variety, cross-training, and enjoyment of running.
+- Adequate sleep (8-10 hours) and nutrition are critical during growth.
+- For adolescent females specifically:
+  - Monitor iron status (periodic blood tests recommended).
+  - Screen for signs of low energy availability (RED-S): fatigue, recurring illness,
+    missed or irregular periods, declining performance despite training.
+  - Acknowledge menstrual health openly and without stigma.
+  - Create space for the athlete to share how they are feeling — subjective feedback
+    is as important as objective data.
+  - Never comment on body weight, shape, or composition.
+- For all youth: racing is a learning experience, not a judgement of worth.
 
 ## Periodisation
 
@@ -99,12 +174,18 @@ for distances within 2-3x of each other.
 5. **Race**: Execute the plan.
 6. **Recovery phase** (1-2 weeks): Reduced easy running. No quality sessions. Physical and mental recovery.
 
-### Taper Guidelines
+### Taper Guidelines (Bosquet et al. 2007; Smyth & Lawlor 2021)
+Optimal taper: 2 weeks, 41-60% progressive volume reduction, maintain intensity and
+frequency. Yields ~3% performance improvement (Bosquet meta-analysis, 27 studies).
+For recreational marathon runners, a disciplined 3-week taper saves ~5:30 median
+finish time (Smyth & Lawlor, 158,000+ runners).
+
 - Reduce volume, not intensity
-- For 5K-10K: 7-10 day taper, 30-40% volume reduction
-- For half marathon: 10-14 day taper, 40-50% volume reduction
-- For marathon: 2-3 week taper, 50-60% volume reduction
+- For 5K-10K: 7-10 day taper, 25-40% volume reduction
+- For half marathon: 2-3 week taper, 40-60% progressive volume reduction
+- For marathon: 2-3 week taper, 41-60% progressive volume reduction
 - Last hard workout: 10 days before race (5K-10K) or 14 days before (half/marathon)
+- Maintain session frequency (4-5 runs/week during taper)
 """
 
 ZONES_EXPLAINED = """# Training Zones Explained
@@ -125,7 +206,7 @@ ZONES_EXPLAINED = """# Training Zones Explained
 **Typical sessions**:
 - Recovery runs (20-40 min)
 - Easy runs (30-60 min)
-- Should make up ~80% of weekly running volume
+- Should make up ~80% of weekly running time (Seiler 2010)
 
 ---
 
