@@ -7,7 +7,6 @@ Two modes:
 
 from __future__ import annotations
 
-import os
 import re
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
@@ -137,31 +136,22 @@ async def score_with_judge(
 ) -> ScoringResult:
     """Score a response using an LLM judge (Haiku 4.5).
 
-    Requires ANTHROPIC_API_KEY environment variable.
+    Requires OPENROUTER_API_KEY or ANTHROPIC_API_KEY environment variable.
 
     Returns a ScoringResult with both deterministic and judge scores.
     """
     # Always run deterministic checks first
     result = score_deterministic(response, rubric, profile_id)
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        msg = "ANTHROPIC_API_KEY required for LLM judge scoring."
-        raise RuntimeError(msg)
-
-    import anthropic
-
-    client = anthropic.AsyncAnthropic(api_key=api_key)
+    from tests.llm_eval.llm_client import complete
 
     judge_prompt = _build_judge_prompt(response, rubric, profile_description)
 
-    judge_response = await client.messages.create(
+    judge_text = await complete(
         model="claude-haiku-4-5-20251001",
+        prompt=judge_prompt,
         max_tokens=2048,
-        messages=[{"role": "user", "content": judge_prompt}],
     )
-
-    judge_text = judge_response.content[0].text
     criteria_scores, judge_score = _parse_judge_response(judge_text, len(rubric.scoring_criteria))
 
     result.criteria_scores = criteria_scores
