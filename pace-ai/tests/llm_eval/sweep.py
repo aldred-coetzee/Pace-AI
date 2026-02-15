@@ -50,7 +50,7 @@ MODEL_TIERS: dict[str, dict[str, Any]] = {
         "input_cost_per_m": 1.25,
         "output_cost_per_m": 10.0,
     },
-    "anthropic/claude-sonnet-4-5-20250929": {
+    "anthropic/claude-sonnet-4.5": {
         "tier": "premium",
         "label": "Claude Sonnet 4.5",
         "input_cost_per_m": 3.0,
@@ -59,7 +59,7 @@ MODEL_TIERS: dict[str, dict[str, Any]] = {
 }
 
 DEFAULT_MODELS = list(MODEL_TIERS.keys())
-DEFAULT_JUDGE = "claude-haiku-4-5-20251001"
+DEFAULT_JUDGE = "google/gemini-2.0-flash-001"
 
 _RISK_PROFILES = INJURY_RETURN_PROFILES + HIGH_RISK_PROFILES
 
