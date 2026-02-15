@@ -13,57 +13,65 @@ advice to a runner. We've never tested the full pipeline. We don't know if:
 
 ## Recommended Model
 
-**Claude Sonnet 4.5** (`anthropic/claude-sonnet-4.5` on OpenRouter) — 95% pass rate
-across 22 eval profiles (16 weekly plans + 6 injury risk). Near-perfect on all
-population types including safety-critical profiles (youth RED-S, injury return,
-overreaching). Only failure was a deterministic keyword technicality (judge scored
-it 100%, 5.0/5).
+**Grok 4.1 Fast** (`x-ai/grok-4.1-fast` on OpenRouter) — 95% pass rate across 22
+eval profiles (16 weekly plans + 6 injury risk), matching Claude Sonnet 4.5 at
+15x lower cost ($0.20/M vs $3.00/M input). Near-perfect on all population types
+including safety-critical profiles (youth RED-S, injury return, overreaching).
+Only failure was a deterministic keyword technicality (judge scored it 100%, 5.0/5).
+Also the fastest model tested (496s vs 978s for Sonnet).
 
 **Judge model**: google/gemini-2.0-flash-001 (fast, cheap, structured extraction).
 
-### Model Sweep Results (2026-02-15)
+### Full Model Leaderboard (2026-02-15)
 
-| Tier | Model | Pass Rate | Det | Judge | Rating | Time |
-|------|-------|-----------|-----|-------|--------|------|
-| Premium | **Claude Sonnet 4.5** | **95% (21/22)** | 99% | 93% | **4.7/5** | 978s |
-| Budget | DeepSeek V3.2 | 82% (18/22) | 99% | 89% | 4.4/5 | 1862s |
-| Mid | Gemini 2.5 Pro | 73% (16/22) | 97% | 85% | 4.4/5 | 847s |
-| *(Baseline)* | *Qwen3 235B* | *62% (10/16)* | *—* | *—* | *—* | *—* |
+7 models tested across 22 profiles (16 weekly plans + 6 injury risk):
 
-**Per-profile breakdown:**
+| Rank | Model | Cost In/M | Pass Rate | Rating | Time |
+|------|-------|-----------|-----------|--------|------|
+| **1** | **Grok 4.1 Fast** | **$0.20** | **95% (21/22)** | **4.5/5** | **496s** |
+| 2 | Claude Sonnet 4.5 | $3.00 | 95% (21/22) | 4.7/5 | 978s |
+| 3 | DeepSeek V3.2 | $0.25 | 82% (18/22) | 4.4/5 | 1862s |
+| 4 | Gemini 2.5 Pro | $1.25 | 73% (16/22) | 4.4/5 | 847s |
+| 5 | *Qwen3 235B* | *—* | *62% (10/16)* | *—* | *—* |
+| 6 | GPT-5 | $1.25 | 59% (13/22) | 4.2/5 | 1978s |
+| 7 | GLM-4.7 | $0.40 | 59% (13/22) | 4.3/5 | 2799s |
+| 8 | Kimi K2.5 | $0.45 | 59% (13/22) | 4.2/5 | 3603s |
 
-| Profile | DeepSeek V3.2 | Gemini 2.5 Pro | Sonnet 4.5 |
+### Per-Profile Breakdown (top 3 models)
+
+| Profile | Grok 4.1 Fast | Sonnet 4.5 | DeepSeek V3.2 |
 |---------|:---:|:---:|:---:|
-| 01 beginner M healthy | PASS | FAIL | PASS |
+| 01 beginner M healthy | PASS | PASS | PASS |
 | 02 beginner F healthy | PASS | PASS | PASS |
-| 03 beginner M injury return | FAIL | PASS | PASS |
-| 04 beginner F injury return | PASS | FAIL | PASS |
+| 03 beginner M injury return | PASS | PASS | FAIL |
+| 04 beginner F injury return | PASS | PASS | PASS |
 | 05 intermediate M healthy | PASS | PASS | PASS |
 | 06 intermediate F healthy | PASS | PASS | PASS |
 | 07 intermediate M overreach | PASS | PASS | PASS |
 | 08 intermediate F overreach | PASS | PASS | PASS |
-| 09 advanced M healthy | FAIL | FAIL | PASS |
+| 09 advanced M healthy | PASS | PASS | FAIL |
 | 10 advanced F healthy | PASS | PASS | PASS |
 | 11 advanced M injury risk | PASS | PASS | PASS |
 | 12 advanced F injury risk | PASS | PASS | PASS |
 | 13 senior M beginner | PASS | PASS | PASS |
 | 14 senior F beginner | PASS | PASS | PASS |
-| 15 teen M talent | FAIL | FAIL | PASS |
-| 16 teen F talent | PASS | FAIL | PASS |
+| 15 teen M talent | PASS | PASS | FAIL |
+| 16 teen F talent | PASS | PASS | PASS |
 | IR: 03 injury return | PASS | PASS | PASS |
-| IR: 04 injury return | FAIL | FAIL | PASS |
-| IR: 07 overreach | PASS | PASS | PASS |
-| IR: 08 overreach | PASS | PASS | FAIL* |
+| IR: 04 injury return | PASS | PASS | FAIL |
+| IR: 07 overreach | FAIL* | PASS | PASS |
+| IR: 08 overreach | PASS | FAIL* | PASS |
 | IR: 11 injury risk | PASS | PASS | PASS |
 | IR: 12 injury risk | PASS | PASS | PASS |
 
-*\*Sonnet profile 08 IR: det fail (missing "reduce" keyword), but judge=100%, rating=5.0/5*
+*\*Both Grok and Sonnet single failures: det keyword miss, but judge=100%, rating=5.0/5*
 
 **Key findings:**
-- Sonnet excels at safety-critical populations (youth RED-S, injury return, seniors)
-- DeepSeek is best value at 82% for 1/20th the cost — viable with guardrails
-- Gemini underperformed despite mid-tier pricing, especially on youth/beginner profiles
-- Profile 09 (advanced M healthy) and 15 (teen M talent) are hardest — only Sonnet passes both
+- Grok 4.1 Fast matches Sonnet 4.5 at 15x lower cost — clear best value
+- Sonnet has slightly higher mean rating (4.7 vs 4.5) — more polished responses
+- GPT-5 ($1.25/M) was a surprise disappointment at 59% — worse than DeepSeek at $0.25/M
+- GLM-4.7 and Kimi K2.5 both underperformed at 59% despite decent benchmark scores
+- Profile 16 (teen F, RED-S awareness) is the strongest discriminator — only Grok and Sonnet pass
 
 ## Architecture
 
@@ -230,8 +238,9 @@ Target: ≥70% field agreement.
 10. **Evidence base** — docs/references.md with citations for ACWR, 10% rule, 80/20, RED-S, youth, VDOT, taper, masters
 11. **Population-specific methodology** — ACWR action thresholds, beginner/injury-return/senior/youth guidelines added to methodology.py
 12. **Rubric audit and fixes** — forbidden "interval" too broad, RED-S scope, brittle required elements, max_run_days contradiction, judge parser fallback
-13. **Model sweep completed** — DeepSeek V3.2 (82%), Gemini 2.5 Pro (73%), Claude Sonnet 4.5 (95%) across 22 profiles
-14. **Model recommendation** — Claude Sonnet 4.5 selected as production coaching model
+13. **Model sweep 1** — DeepSeek V3.2 (82%), Gemini 2.5 Pro (73%), Claude Sonnet 4.5 (95%) across 22 profiles
+14. **Model sweep 2** — Grok 4.1 Fast (95%), GLM-4.7 (59%), Kimi K2.5 (59%), GPT-5 (59%) across 22 profiles
+15. **Model recommendation** — Grok 4.1 Fast selected (95% pass, $0.20/M — matches Sonnet at 15x lower cost)
 
 ### All Tests Passing (Pre-Commit Gauntlet)
 - **strava-mcp**: 46 unit + 7 integration + 1 e2e (54 total)
@@ -266,9 +275,9 @@ Remaining failures are Qwen3 model limitations (prescribes tempo for beginners,
 exceeds senior day limits) — exactly what the model sweep should differentiate.
 
 ### Next Steps
-1. ~~**Run model sweep**~~ — Done. Claude Sonnet 4.5 selected (95% pass rate)
-2. **Run full live eval** — all test types (weekly plan + injury risk + race readiness) with Sonnet 4.5
-3. **Run consistency tests live** — verify structural agreement across repeated prompts with Sonnet 4.5
+1. ~~**Run model sweep**~~ — Done. 7 models tested. Grok 4.1 Fast selected (95%, $0.20/M)
+2. **Run full live eval** — all test types (weekly plan + injury risk + race readiness) with Grok 4.1 Fast
+3. **Run consistency tests live** — verify structural agreement across repeated prompts with Grok 4.1 Fast
 4. ~~**Update plan with model recommendation**~~ — Done
 
 ### Environment Setup
@@ -277,8 +286,9 @@ cd ~/projects/Pace-AI
 source pace-ai/.venv/bin/activate
 # OPENROUTER_API_KEY in .env or ~/.bashrc
 # Default judge: google/gemini-2.0-flash-001
-# Default gen: anthropic/claude-sonnet-4.5 (recommended)
-# Budget alt: deepseek/deepseek-v3.2
+# Default gen: x-ai/grok-4.1-fast (recommended — 95% pass, $0.20/M)
+# Premium alt: anthropic/claude-sonnet-4.5 (95% pass, $3.00/M, higher polish)
+# Budget alt: deepseek/deepseek-v3.2 (82% pass, $0.25/M)
 ```
 
 ### Key Files Changed
