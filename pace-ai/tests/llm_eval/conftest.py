@@ -19,7 +19,7 @@ import pytest
 # ── Defaults ────────────────────────────────────────────────────────
 
 DEFAULT_GEN_MODEL = "qwen/qwen3-235b-a22b:free"
-DEFAULT_JUDGE_MODEL = "claude-haiku-4-5-20251001"
+DEFAULT_JUDGE_MODEL = "google/gemini-2.0-flash-001"
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
