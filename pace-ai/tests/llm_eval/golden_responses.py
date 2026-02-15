@@ -765,11 +765,14 @@ toward that potential. There's no need to rush.
 than occasional big weeks.
 3. **No more than 2 quality sessions per week.**
 4. **Sleep**: 8-10 hours per night. This is when your body grows and adapts.
-5. **Nutrition**: Eat enough to fuel both your training AND your growth. \
-Restricting food intake at your age is harmful and counterproductive. If \
-you're frequently tired, getting sick, or feel like training is getting \
-harder despite being consistent, talk to your coach or a sports \
-medicine professional.
+5. **Nutrition and energy availability**: Eat enough to fuel both your \
+training AND your growth. Restricting food intake at your age is harmful \
+and counterproductive. Female runners are at higher risk for iron \
+deficiency — consider periodic iron checks with your doctor. If \
+you're frequently tired, getting sick, noticing missed periods, or feel \
+like training is getting harder despite being consistent, talk to your \
+coach or a sports medicine professional. These can be signs of low \
+energy availability (RED-S), which is both a health and performance concern.
 6. **Listen to your body**: If something hurts, speak up. Growth plates \
 are still developing at your age, and pain deserves attention, not \
 toughness.

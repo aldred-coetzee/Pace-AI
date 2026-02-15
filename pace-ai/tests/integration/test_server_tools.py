@@ -95,7 +95,7 @@ class TestPrompts:
         from pace_ai.server import weekly_plan
 
         result = await weekly_plan(goals_json='[{"race_type": "5k", "target_time_formatted": "22:00"}]')
-        assert "Progressive overload" in result
+        assert "Progressive Overload" in result
         assert "5k" in result
 
     @pytest.mark.asyncio()
