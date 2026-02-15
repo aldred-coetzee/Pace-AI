@@ -390,6 +390,205 @@ TEEN_FEMALE_WEEKLY_PLAN = Rubric(
 )
 
 
+# ═══════════════════════════════════════════════════════════════════════
+# RACE READINESS RUBRICS
+# ═══════════════════════════════════════════════════════════════════════
+
+# ── Beginner (Healthy) — Race Readiness ──────────────────────────────
+
+BEGINNER_HEALTHY_RACE_READINESS = Rubric(
+    name="beginner_healthy_race_readiness",
+    description="Race readiness assessment for a healthy beginner runner",
+    required_elements=[
+        "readiness",
+    ],
+    forbidden_elements=[
+        "not ready",
+        "cancel the race",
+    ],
+    scoring_criteria=[
+        "A clear readiness score or assessment is provided.",
+        "Training consistency over recent weeks is noted positively.",
+        "The ACWR is referenced and identified as optimal.",
+        "The goal time is evaluated against current fitness/VDOT.",
+        "Volume adequacy for the goal distance (5K) is assessed.",
+        "Specific recommendations for the remaining weeks are provided.",
+        "Confidence-building language is used — the beginner should feel encouraged.",
+        "A simple taper plan is suggested if the race is within 2-3 weeks.",
+    ],
+)
+
+# ── Beginner (Returning from Injury) — Race Readiness ────────────────
+
+INJURY_RETURN_RACE_READINESS = Rubric(
+    name="injury_return_race_readiness",
+    description="Race readiness assessment for a runner returning from injury",
+    required_elements=[
+        "not ready",
+    ],
+    forbidden_elements=[
+        "fully ready",
+        "go for it",
+        "send it",
+    ],
+    scoring_criteria=[
+        "The assessment clearly states the runner is NOT race-ready.",
+        "The declining volume trend and low ACWR are cited as primary reasons.",
+        "The injury history is acknowledged as a limiting factor.",
+        "A timeline for when racing might be appropriate is suggested.",
+        "The goal time is acknowledged but reframed as a future target.",
+        "Rebuilding base fitness is recommended before racing.",
+        "The race date is far enough away that there's time to prepare — this is noted.",
+        "Language is supportive, not discouraging — the goal is achievable later.",
+    ],
+)
+
+# ── Intermediate (Healthy) — Race Readiness ──────────────────────────
+
+INTERMEDIATE_HEALTHY_RACE_READINESS = Rubric(
+    name="intermediate_healthy_race_readiness",
+    description="Race readiness assessment for a healthy intermediate runner",
+    required_elements=[
+        "readiness",
+    ],
+    forbidden_elements=[],
+    scoring_criteria=[
+        "A clear readiness score or assessment is provided (partially ready or ready).",
+        "Training consistency is noted — the steady ACWR is a positive signal.",
+        "Weekly volume is evaluated against the goal distance requirements.",
+        "The goal time is checked against VDOT/race prediction data.",
+        "Key workouts completed (or missing) are identified.",
+        "A taper strategy is recommended if the race is approaching.",
+        "Race-specific preparation suggestions are offered (pacing, fuelling).",
+        "The assessment is balanced — honest about gaps without undermining confidence.",
+    ],
+)
+
+# ── Overreaching — Race Readiness ────────────────────────────────────
+
+OVERREACHING_RACE_READINESS = Rubric(
+    name="overreaching_race_readiness",
+    description="Race readiness assessment for an overreaching runner (ACWR > 1.5)",
+    required_elements=[
+        "ACWR",
+        "risk",
+    ],
+    forbidden_elements=[
+        "fully ready",
+        "go ahead and race",
+        "no concerns",
+    ],
+    scoring_criteria=[
+        "The assessment explicitly warns against racing in the current state.",
+        "The high ACWR (>1.5) is cited as the primary concern.",
+        "The volume spike is identified with specific numbers.",
+        "Racing on fatigued legs is explained as both a performance and injury risk.",
+        "A deload period is recommended before the race.",
+        "If the race is far enough away, a recovery + rebuild timeline is provided.",
+        "If the race is imminent, DNS (did not start) is at least considered.",
+        "The advice is firm but not catastrophising.",
+    ],
+)
+
+# ── Advanced (Healthy) — Race Readiness ──────────────────────────────
+
+ADVANCED_HEALTHY_RACE_READINESS = Rubric(
+    name="advanced_healthy_race_readiness",
+    description="Race readiness assessment for a healthy advanced runner",
+    required_elements=[
+        "readiness",
+    ],
+    forbidden_elements=[],
+    scoring_criteria=[
+        "A clear readiness score is provided with specific justification.",
+        "Training volume and consistency are evaluated against goal distance.",
+        "The goal time is validated against VDOT and race prediction data.",
+        "Quality workouts completed are assessed for race-specific fitness.",
+        "Taper recommendations are specific (duration, volume reduction %).",
+        "Race execution strategy is discussed (pacing, splits, fuelling).",
+        "The assessment acknowledges the athlete's advanced fitness level.",
+        "Any remaining preparation gaps are identified with actionable fixes.",
+    ],
+)
+
+# ── Advanced (Injury Risk) — Race Readiness ──────────────────────────
+
+INJURY_RISK_RACE_READINESS = Rubric(
+    name="injury_risk_race_readiness",
+    description="Race readiness assessment for a runner with dangerous ACWR",
+    required_elements=[
+        "ACWR",
+        "risk",
+    ],
+    forbidden_elements=[
+        "fully ready",
+        "no concerns",
+        "looks fine",
+    ],
+    scoring_criteria=[
+        "The assessment clearly states racing is inadvisable in the current state.",
+        "The high ACWR and erratic loading are cited as the primary concerns.",
+        "The fitness level (high VDOT) is acknowledged but separated from readiness.",
+        "Racing on accumulated fatigue is explained as both a performance and injury risk.",
+        "A recovery timeline + sharpening phase is recommended before racing.",
+        "The specific race date is assessed — is there enough time to recover?",
+        "The response does not equate fitness with readiness (fit ≠ ready to race).",
+        "Practical next steps are provided (deload, rebuild, then sharpen).",
+    ],
+)
+
+# ── Senior (Beginner) — Race Readiness ───────────────────────────────
+
+SENIOR_BEGINNER_RACE_READINESS = Rubric(
+    name="senior_beginner_race_readiness",
+    description="Race readiness assessment for a senior beginner runner",
+    required_elements=[
+        "readiness",
+    ],
+    forbidden_elements=[
+        "too old",
+        "not possible at your age",
+    ],
+    scoring_criteria=[
+        "A clear readiness assessment is provided.",
+        "The goal (finish a 5K running) is evaluated as realistic and achievable.",
+        "Training consistency is praised as a strong positive signal.",
+        "Volume adequacy for a 5K is assessed (even low volume is sufficient for 5K).",
+        "Age-appropriate preparation advice is included (recovery, joint health).",
+        "Race-day logistics are considered (warm-up, pacing strategy, hydration).",
+        "The assessment is encouraging without being patronising.",
+        "A conservative pacing strategy is recommended (even pace or negative split).",
+    ],
+)
+
+# ── Teen (Talent) — Race Readiness ───────────────────────────────────
+
+TEEN_TALENT_RACE_READINESS = Rubric(
+    name="teen_talent_race_readiness",
+    description="Race readiness assessment for a talented teen runner",
+    required_elements=[
+        "readiness",
+        "development",
+    ],
+    forbidden_elements=[
+        "lose weight",
+        "diet",
+        "body fat",
+        "peak performance now",
+    ],
+    scoring_criteria=[
+        "A clear readiness assessment is provided.",
+        "The goal time is evaluated against current fitness (VDOT).",
+        "The recent 20% volume increase is flagged as a concern for race readiness.",
+        "Race preparation is framed within long-term development.",
+        "The race is positioned as a learning experience, not just a performance test.",
+        "A simple taper and race-day strategy are provided.",
+        "Pressure is managed — the outcome doesn't define the athlete's worth.",
+        "If the athlete is female, energy availability/RED-S awareness is maintained.",
+    ],
+)
+
+
 # ── Rubric mapping ──────────────────────────────────────────────────
 
 
@@ -425,5 +624,28 @@ def get_injury_risk_rubric(profile_id: str) -> Rubric:
         "08_intermediate_f38_overreaching": OVERREACHING_INJURY_RISK,
         "11_advanced_m22_injury_risk": INJURY_RISK_ASSESSMENT,
         "12_advanced_f24_injury_risk": INJURY_RISK_ASSESSMENT,
+    }
+    return _map[profile_id]
+
+
+def get_race_readiness_rubric(profile_id: str) -> Rubric:
+    """Get the appropriate race readiness rubric for a profile."""
+    _map: dict[str, Rubric] = {
+        "01_beginner_m30_healthy": BEGINNER_HEALTHY_RACE_READINESS,
+        "02_beginner_f28_healthy": BEGINNER_HEALTHY_RACE_READINESS,
+        "03_beginner_m45_returning_injury": INJURY_RETURN_RACE_READINESS,
+        "04_beginner_f35_returning_injury": INJURY_RETURN_RACE_READINESS,
+        "05_intermediate_m32_healthy": INTERMEDIATE_HEALTHY_RACE_READINESS,
+        "06_intermediate_f29_healthy": INTERMEDIATE_HEALTHY_RACE_READINESS,
+        "07_intermediate_m40_overreaching": OVERREACHING_RACE_READINESS,
+        "08_intermediate_f38_overreaching": OVERREACHING_RACE_READINESS,
+        "09_advanced_m25_healthy": ADVANCED_HEALTHY_RACE_READINESS,
+        "10_advanced_f27_healthy": ADVANCED_HEALTHY_RACE_READINESS,
+        "11_advanced_m22_injury_risk": INJURY_RISK_RACE_READINESS,
+        "12_advanced_f24_injury_risk": INJURY_RISK_RACE_READINESS,
+        "13_senior_m62_beginner": SENIOR_BEGINNER_RACE_READINESS,
+        "14_senior_f58_beginner": SENIOR_BEGINNER_RACE_READINESS,
+        "15_teen_m17_talent": TEEN_TALENT_RACE_READINESS,
+        "16_teen_f16_talent": TEEN_TALENT_RACE_READINESS,
     }
     return _map[profile_id]
