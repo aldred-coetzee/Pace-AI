@@ -276,9 +276,30 @@ exceeds senior day limits) — exactly what the model sweep should differentiate
 
 ### Next Steps
 1. ~~**Run model sweep**~~ — Done. 7 models tested. Grok 4.1 Fast selected (95%, $0.20/M)
-2. **Run full live eval** — all test types (weekly plan + injury risk + race readiness) with Grok 4.1 Fast
-3. **Run consistency tests live** — verify structural agreement across repeated prompts with Grok 4.1 Fast
-4. ~~**Update plan with model recommendation**~~ — Done
+2. ~~**Update plan with model recommendation**~~ — Done
+3. **Connect MCP servers to Claude.ai** — Configure strava-mcp + pace-ai as MCP servers in Claude desktop/web
+4. **Strava OAuth setup** — Complete OAuth flow so strava-mcp can pull real activity data
+5. **First real coaching session** — Pull Aldred's actual Strava data, generate a return-to-running plan
+6. **Validate with real data** — Eyeball coaching quality and consistency with real Strava history
+
+### Model Decision: Claude via Max Sub (not OpenRouter)
+
+The eval harness tested which LLM generates correct coaching from our prompts +
+methodology. Key insight: **Claude is already the LLM** when using Claude.ai with
+a Max subscription. The architecture is:
+
+```
+Claude (Max sub) → calls MCP tools → pace-ai returns coaching PROMPT → Claude generates the response
+```
+
+Claude reads the methodology, athlete context, and training data from the MCP
+prompt templates and generates coaching advice directly. No OpenRouter API calls
+needed. No extra cost beyond the Max subscription.
+
+The model sweep validated that the prompts + methodology produce correct coaching
+outputs — Claude Sonnet 4.5 scored 95% in the sweep, and Max gives access to
+Sonnet or better. The Grok 4.1 Fast recommendation applies if building a
+standalone app or serving other users at scale where per-token cost matters.
 
 ### Environment Setup
 ```bash
