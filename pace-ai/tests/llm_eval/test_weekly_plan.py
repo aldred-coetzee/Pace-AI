@@ -4,8 +4,13 @@ Two modes:
 - Default (mocked): scores golden responses against rubrics (deterministic)
 - --live-llm: generates coaching via OpenRouter/Anthropic API, scores with LLM judge
 
+Model selection (live mode only):
+  --gen-model MODEL     Generation model (env: EVAL_GEN_MODEL)
+  --judge-model MODEL   Judge model (env: EVAL_JUDGE_MODEL)
+
 Run mocked:   python -m pytest tests/llm_eval/test_weekly_plan.py -v
 Run live:     python -m pytest tests/llm_eval/test_weekly_plan.py -v --live-llm
+Custom model: python -m pytest tests/llm_eval/test_weekly_plan.py -v --live-llm --gen-model deepseek/deepseek-v3.2
 """
 
 from __future__ import annotations
@@ -29,14 +34,11 @@ def _build_prompt(profile: RunnerProfile) -> str:
     )
 
 
-async def _get_llm_response(prompt: str) -> str:
-    """Call the LLM API to generate a coaching response.
-
-    Uses OpenRouter (OPENROUTER_API_KEY) or Anthropic (ANTHROPIC_API_KEY).
-    """
+async def _get_llm_response(prompt: str, model: str) -> str:
+    """Call the LLM API to generate a coaching response."""
     from tests.llm_eval.llm_client import complete
 
-    return await complete(model="claude-sonnet-4-5-20250929", prompt=prompt)
+    return await complete(model=model, prompt=prompt)
 
 
 # ── Parametrized tests ──────────────────────────────────────────────
@@ -51,7 +53,9 @@ class TestWeeklyPlanCoaching:
     """Evaluate weekly plan coaching for all 16 profiles."""
 
     @pytest.mark.asyncio()
-    async def test_coaching_correctness(self, profile: RunnerProfile, live_llm: bool) -> None:
+    async def test_coaching_correctness(
+        self, profile: RunnerProfile, live_llm: bool, gen_model: str, judge_model: str
+    ) -> None:
         """Score coaching response against the profile's rubric.
 
         In mocked mode: scores the golden response (should always pass).
@@ -62,18 +66,22 @@ class TestWeeklyPlanCoaching:
 
         if live_llm:
             prompt = _build_prompt(profile)
-            response = await _get_llm_response(prompt)
+            response = await _get_llm_response(prompt, model=gen_model)
 
             result = await score_with_judge(
                 response=response,
                 rubric=rubric,
                 profile_id=profile.id,
                 profile_description=profile.description,
+                judge_model=judge_model,
+                gen_model=gen_model,
             )
             assert result.passed, (
                 f"Profile {profile.id} failed coaching eval.\n"
+                f"Gen model: {gen_model}\n"
+                f"Judge model: {judge_model}\n"
                 f"Deterministic: {result.deterministic_score:.0%}\n"
-                f"Judge: {result.judge_score:.0%}\n"
+                f"Judge: {result.judge_score:.0%}  |  Mean rating: {result.mean_rating:.1f}/5\n"
                 f"Missing required: {[k for k, v in result.required_present.items() if not v]}\n"
                 f"Forbidden found: {[k for k, v in result.forbidden_absent.items() if not v]}\n"
                 f"Failed criteria: {[k for k, v in result.criteria_scores.items() if not v]}\n"
