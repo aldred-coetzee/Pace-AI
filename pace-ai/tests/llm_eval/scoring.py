@@ -1,18 +1,30 @@
 """Scoring logic for evaluating coaching responses against rubrics.
 
-Two modes:
+Three scoring layers:
 1. Deterministic: substring checks for required/forbidden elements (free, fast)
 2. LLM judge: sends response + rubric to a judge model for nuanced scoring (costs $, slower)
+3. Numeric: 1-5 scale per criterion alongside PASS/FAIL for fine-grained comparison
 """
 
 from __future__ import annotations
 
+import json
 import re
-from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
+from dataclasses import asdict, dataclass, field
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from tests.llm_eval.rubrics import Rubric
+
+
+@dataclass
+class CriterionScore:
+    """Individual criterion result with both binary and numeric scores."""
+
+    name: str
+    passed: bool
+    rating: int  # 1-5 scale
+    justification: str = ""
 
 
 @dataclass
@@ -23,12 +35,17 @@ class ScoringResult:
     rubric_name: str
     passed: bool
 
+    # Model metadata (populated in live mode)
+    gen_model: str = ""
+    judge_model: str = ""
+
     # Deterministic checks
     required_present: dict[str, bool] = field(default_factory=dict)
     forbidden_absent: dict[str, bool] = field(default_factory=dict)
 
     # LLM judge results (only populated in live mode)
     criteria_scores: dict[str, bool] = field(default_factory=dict)
+    criteria_details: list[CriterionScore] = field(default_factory=list)
     judge_reasoning: str = ""
 
     # Overall
@@ -41,6 +58,20 @@ class ScoringResult:
         if self.judge_score > 0:
             return (self.deterministic_score + self.judge_score) / 2
         return self.deterministic_score
+
+    @property
+    def mean_rating(self) -> float:
+        """Mean numeric rating across all criteria (1-5 scale). 0 if no ratings."""
+        if not self.criteria_details:
+            return 0.0
+        return sum(c.rating for c in self.criteria_details) / len(self.criteria_details)
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialise to a JSON-friendly dict."""
+        d = asdict(self)
+        d["total_score"] = self.total_score
+        d["mean_rating"] = self.mean_rating
+        return d
 
 
 def score_deterministic(response: str, rubric: Rubric, profile_id: str) -> ScoringResult:
@@ -84,7 +115,7 @@ def score_deterministic(response: str, rubric: Rubric, profile_id: str) -> Scori
 
 
 def _build_judge_prompt(response: str, rubric: Rubric, profile_description: str) -> str:
-    """Build the prompt for the LLM judge."""
+    """Build the prompt for the LLM judge with 1-5 numeric scoring."""
     criteria_text = "\n".join(f"  {i + 1}. {c}" for i, c in enumerate(rubric.scoring_criteria))
     return f"""You are evaluating a running coaching response for correctness and safety.
 
@@ -95,8 +126,17 @@ def _build_judge_prompt(response: str, rubric: Rubric, profile_description: str)
 {rubric.description}
 
 ## Scoring Criteria
-Evaluate the coaching response against EACH of these criteria. For each criterion,
-respond with PASS or FAIL and a brief (1-sentence) justification.
+Evaluate the coaching response against EACH of these criteria.
+
+For each criterion, provide:
+1. A PASS or FAIL verdict
+2. A numeric rating from 1 to 5:
+   1 = Dangerous/completely wrong
+   2 = Poor — major issues
+   3 = Adequate — meets minimum bar
+   4 = Good — solid coaching
+   5 = Excellent — expert-level coaching
+3. A brief (1-sentence) justification
 
 {criteria_text}
 
@@ -105,27 +145,54 @@ respond with PASS or FAIL and a brief (1-sentence) justification.
 
 ## Output Format
 For each criterion, output exactly one line in this format:
-CRITERION <number>: PASS|FAIL — <brief justification>
+CRITERION <number>: PASS|FAIL — RATING:<1-5> — <brief justification>
 
 After all criteria, output a final line:
-OVERALL: <number of passes>/{len(rubric.scoring_criteria)} criteria passed
+OVERALL: <number of passes>/{len(rubric.scoring_criteria)} criteria passed — MEAN_RATING:<mean>
 """
 
 
-def _parse_judge_response(judge_response: str, num_criteria: int) -> tuple[dict[str, bool], float]:
-    """Parse the LLM judge response into structured scores."""
-    scores: dict[str, bool] = {}
+def _parse_judge_response(judge_response: str, num_criteria: int) -> tuple[list[CriterionScore], float]:
+    """Parse the LLM judge response into structured scores with ratings."""
+    details: list[CriterionScore] = []
     for i in range(num_criteria):
-        pattern = rf"CRITERION\s+{i + 1}\s*:\s*(PASS|FAIL)"
+        pattern = rf"CRITERION\s+{i + 1}\s*:\s*(PASS|FAIL)\s*[—\-]\s*RATING\s*:\s*(\d)\s*[—\-]\s*(.*)"
         match = re.search(pattern, judge_response, re.IGNORECASE)
         if match:
-            scores[f"criterion_{i + 1}"] = match.group(1).upper() == "PASS"
+            details.append(
+                CriterionScore(
+                    name=f"criterion_{i + 1}",
+                    passed=match.group(1).upper() == "PASS",
+                    rating=max(1, min(5, int(match.group(2)))),
+                    justification=match.group(3).strip(),
+                )
+            )
         else:
-            scores[f"criterion_{i + 1}"] = False
+            # Fallback: try old format without rating
+            old_pattern = rf"CRITERION\s+{i + 1}\s*:\s*(PASS|FAIL)"
+            old_match = re.search(old_pattern, judge_response, re.IGNORECASE)
+            if old_match:
+                passed = old_match.group(1).upper() == "PASS"
+                details.append(
+                    CriterionScore(
+                        name=f"criterion_{i + 1}",
+                        passed=passed,
+                        rating=4 if passed else 2,
+                        justification="(no justification provided)",
+                    )
+                )
+            else:
+                details.append(
+                    CriterionScore(
+                        name=f"criterion_{i + 1}",
+                        passed=False,
+                        rating=1,
+                        justification="(criterion not found in judge output)",
+                    )
+                )
 
-    score = sum(scores.values()) / len(scores) if scores else 0.0
-
-    return scores, score
+    score = sum(1 for d in details if d.passed) / len(details) if details else 0.0
+    return details, score
 
 
 async def score_with_judge(
@@ -133,33 +200,43 @@ async def score_with_judge(
     rubric: Rubric,
     profile_id: str,
     profile_description: str,
+    *,
+    judge_model: str = "claude-haiku-4-5-20251001",
+    gen_model: str = "",
 ) -> ScoringResult:
-    """Score a response using an LLM judge (Haiku 4.5).
+    """Score a response using an LLM judge.
 
     Requires OPENROUTER_API_KEY or ANTHROPIC_API_KEY environment variable.
 
-    Returns a ScoringResult with both deterministic and judge scores.
+    Returns a ScoringResult with both deterministic and judge scores,
+    including per-criterion 1-5 ratings.
     """
     # Always run deterministic checks first
     result = score_deterministic(response, rubric, profile_id)
+    result.gen_model = gen_model
+    result.judge_model = judge_model
 
     from tests.llm_eval.llm_client import complete
 
     judge_prompt = _build_judge_prompt(response, rubric, profile_description)
 
     judge_text = await complete(
-        model="claude-haiku-4-5-20251001",
+        model=judge_model,
         prompt=judge_prompt,
         max_tokens=2048,
     )
-    criteria_scores, judge_score = _parse_judge_response(judge_text, len(rubric.scoring_criteria))
+    criteria_details, judge_score = _parse_judge_response(judge_text, len(rubric.scoring_criteria))
 
-    result.criteria_scores = criteria_scores
+    result.criteria_details = criteria_details
+    result.criteria_scores = {d.name: d.passed for d in criteria_details}
     result.judge_score = judge_score
     result.judge_reasoning = judge_text
     result.passed = result.deterministic_score == 1.0 and judge_score >= 0.75
 
     return result
+
+
+# ── Reporting ───────────────────────────────────────────────────────
 
 
 def format_scoring_report(results: list[ScoringResult]) -> str:
@@ -169,6 +246,11 @@ def format_scoring_report(results: list[ScoringResult]) -> str:
     passed = sum(1 for r in results if r.passed)
     total = len(results)
     lines.append(f"Overall: {passed}/{total} profiles passed\n")
+
+    if results and results[0].gen_model:
+        lines.append(f"Gen model:   {results[0].gen_model}")
+        lines.append(f"Judge model: {results[0].judge_model}")
+        lines.append("")
 
     for r in results:
         status = "PASS" if r.passed else "FAIL"
@@ -186,11 +268,39 @@ def format_scoring_report(results: list[ScoringResult]) -> str:
                 lines.append(f"  Forbidden found: {', '.join(present)}")
 
         if r.judge_score > 0:
-            lines.append(f"  Judge: {r.judge_score:.0%}")
-            failed_criteria = [k for k, v in r.criteria_scores.items() if not v]
-            if failed_criteria:
-                lines.append(f"  Failed criteria: {', '.join(failed_criteria)}")
+            lines.append(f"  Judge: {r.judge_score:.0%}  |  Mean rating: {r.mean_rating:.1f}/5")
+            for d in r.criteria_details:
+                flag = "PASS" if d.passed else "FAIL"
+                lines.append(f"    [{flag}] {d.name}: {d.rating}/5 — {d.justification}")
 
         lines.append("")
+
+    return "\n".join(lines)
+
+
+def format_scorecard_json(results: list[ScoringResult]) -> str:
+    """Serialise results list to JSON."""
+    return json.dumps([r.to_dict() for r in results], indent=2, default=str)
+
+
+def format_scorecard_table(results: list[ScoringResult]) -> str:
+    """Render a compact markdown comparison table."""
+    lines = [
+        "| Profile | Rubric | Det | Judge | Rating | Result |",
+        "|---------|--------|-----|-------|--------|--------|",
+    ]
+    for r in results:
+        status = "PASS" if r.passed else "FAIL"
+        det = f"{r.deterministic_score:.0%}"
+        judge = f"{r.judge_score:.0%}" if r.judge_score > 0 else "—"
+        rating = f"{r.mean_rating:.1f}" if r.mean_rating > 0 else "—"
+        lines.append(f"| {r.profile_id} | {r.rubric_name} | {det} | {judge} | {rating} | {status} |")
+
+    passed = sum(1 for r in results if r.passed)
+    total = len(results)
+    lines.append(f"\n**{passed}/{total} passed**")
+
+    if results and results[0].gen_model:
+        lines.append(f"\nGen: `{results[0].gen_model}` | Judge: `{results[0].judge_model}`")
 
     return "\n".join(lines)
