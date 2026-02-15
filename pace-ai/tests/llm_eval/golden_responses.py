@@ -1033,3 +1033,600 @@ weight — it's about fuelling performance and protecting bone health.
 level. After the deload and rebuild, a short sharpening phase with one \
 tempo session and one interval session per week will be sufficient.
 """
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# RACE READINESS GOLDEN RESPONSES
+# ═══════════════════════════════════════════════════════════════════════
+
+RACE_READINESS_GOLDEN: dict[str, str] = {}
+
+# ── 01: Beginner Male, 30, Healthy ──────────────────────────────────
+
+RACE_READINESS_GOLDEN["01_beginner_m30_healthy"] = """\
+## Race Readiness Assessment — Alex (5K, goal: 27:00)
+
+### Readiness Score: 7/10 — On Track
+
+You're in a good position for your first sub-27 5K attempt on April 15.
+
+### Strengths
+- **Consistent training**: Your ACWR of 1.14 is in the optimal range, and \
+you've built steadily from 15 km to 20 km/week over 8 weeks. This shows \
+discipline and good load management.
+- **Adequate volume for 5K**: At 20 km/week, you're running 4x the race \
+distance weekly, which is more than sufficient for 5K preparation.
+- **Realistic goal**: Your VDOT of 33.5 predicts a 5K time of approximately \
+28:00. A 27:00 target is ambitious but achievable with continued consistent \
+training over the next 8 weeks.
+
+### Risks
+- **Limited race-specific fitness**: Your training has been predominantly \
+easy running. To hit 27:00, you'll need to develop some speed endurance at \
+your threshold pace (5:52-6:08/km) and interval pace (5:17-5:31/km).
+- **No racing experience**: First race nerves can affect pacing. Practice \
+running at goal pace (5:24/km) in training to build confidence.
+
+### Recommendations
+- **Weeks 1-5**: Introduce one short tempo effort per week (e.g., 2 x 8 min \
+at threshold pace with 2 min recovery). Keep all other running easy.
+- **Weeks 6-7**: Include one session of 5K-specific work (e.g., 4 x 3 min \
+at 5:20-5:30/km with 2 min jog recovery).
+- **Week 8 (race week)**: Taper — reduce volume by 40%, no intensity in the \
+last 3 days. Easy 2-3 km shakeout the day before.
+- **Race strategy**: Start at 5:30/km for the first km, settle into 5:24/km, \
+then give what you have in the final km.
+"""
+
+# ── 02: Beginner Female, 28, Healthy ────────────────────────────────
+
+RACE_READINESS_GOLDEN["02_beginner_f28_healthy"] = """\
+## Race Readiness Assessment — Sarah (5K, goal: 29:00)
+
+### Readiness Score: 7/10 — On Track
+
+With 10 weeks until your first 5K on May 1, you have plenty of time to \
+prepare well.
+
+### Strengths
+- **Building consistently**: ACWR 1.13 is optimal. Your volume has increased \
+steadily from 12 km to 17 km/week — textbook progression.
+- **Volume is sufficient**: 17 km/week is more than adequate for 5K readiness.
+- **Achievable goal**: Your VDOT of 30.2 predicts a 5K around 30:30. A 29:00 \
+target is a stretch but realistic with focused preparation.
+
+### Risks
+- **Goal is slightly above current fitness**: You'll need modest improvement \
+over the next 10 weeks to bridge the ~90-second gap.
+- **No race experience**: First race logistics and pacing will be new.
+
+### Recommendations
+- **Weeks 1-6**: Continue building base. Introduce one tempo effort per week \
+(10-15 min at threshold pace, 6:22-6:40/km).
+- **Weeks 7-9**: Add one short speed session (e.g., 5 x 2 min at 5:50/km \
+with 2 min jog recovery).
+- **Week 10 (race week)**: Taper — reduce volume by 40%. Easy shakeout day before.
+- **Race strategy**: Start conservatively at 5:55/km, settle into 5:48/km. \
+The goal is to finish feeling strong in your first race.
+"""
+
+# ── 03: Beginner Male, 45, Returning from Injury ───────────────────
+
+RACE_READINESS_GOLDEN["03_beginner_m45_returning_injury"] = """\
+## Race Readiness Assessment — David (10K, goal: 1:10:00)
+
+### Readiness Score: 3/10 — Not Ready
+
+You are not ready to race, and that's OK. Your race isn't until August 1, \
+which gives you over 5 months to rebuild properly.
+
+### Strengths
+- **Smart goal timeline**: Choosing an August race gives you ample time to \
+rebuild from the calf strain without rushing.
+- **Realistic target**: A 1:10:00 10K (7:00/km pace) is achievable at your \
+fitness level once you rebuild your base.
+
+### Risks
+- **Declining volume**: Your weekly mileage has dropped from 15 km to 5 km \
+over the last 3 weeks. Your ACWR of 0.43 confirms you're significantly \
+below your chronic training level.
+- **Calf strain recovery**: The injury is the primary limiter. Rushing back \
+risks re-injury and a longer total time away from running.
+- **Insufficient base for 10K**: At 5 km/week, you're running less than \
+the race distance in an entire week.
+
+### Recommendations
+- **Priority 1**: Rebuild to 15 km/week over the next 8-10 weeks (gradual \
+10% increases from current 5 km).
+- **Priority 2**: Once stable at 15 km/week for 3-4 consecutive weeks, begin \
+adding a long run that reaches 8-10 km by June.
+- **Priority 3**: Race-specific preparation (6 weeks before race) — practice \
+running at 7:00/km pace for progressively longer intervals.
+- **Do not race before**: You can comfortably run 10 km continuously at easy \
+pace with no calf symptoms. This is the minimum bar for readiness.
+"""
+
+# ── 04: Beginner Female, 35, Returning from Injury ─────────────────
+
+RACE_READINESS_GOLDEN["04_beginner_f35_returning_injury"] = """\
+## Race Readiness Assessment — Maria (5K, goal: 32:00)
+
+### Readiness Score: 3/10 — Not Ready
+
+Your current training state does not support racing, but with 4.5 months \
+until your July 1 race, there's plenty of time.
+
+### Strengths
+- **Achievable goal**: Your VDOT of 29.6 supports a 5K around 31:00. A \
+32:00 target is realistic once you rebuild your base.
+- **Time on your side**: July 1 is far enough away for a full recovery and \
+preparation cycle.
+
+### Risks
+- **Volume declining**: From 15 km to 8 km/week. Your ACWR of 0.65 is in \
+the undertraining zone. Your body is losing fitness, not building it.
+- **Knee issue**: The injury caused the initial setback and the recent \
+decline suggests it may not be fully resolved.
+- **Insufficient base**: At 8 km/week, you need to more than double your \
+volume and sustain it before racing.
+
+### Recommendations
+- **Phase 1 (weeks 1-4)**: Stabilise at 8-10 km/week. Run 3 days with rest \
+days between. All easy pace. Zero symptoms required.
+- **Phase 2 (weeks 5-10)**: Build to 15-18 km/week with 10% weekly increases. \
+Include one run of 5+ km to prove race-distance readiness.
+- **Phase 3 (weeks 11-16)**: Hold at 18-20 km/week. Add one tempo effort per \
+week. Run a practice 5K at easy pace.
+- **Race readiness checkpoint**: By mid-June, you should be able to run 5 km \
+continuously at easy pace with zero knee symptoms. If not, defer the race.
+"""
+
+# ── 05: Intermediate Male, 32, Healthy ─────────────────────────────
+
+RACE_READINESS_GOLDEN["05_intermediate_m32_healthy"] = """\
+## Race Readiness Assessment — James (Half Marathon, goal: 1:35:00)
+
+### Readiness Score: 8/10 — Strong
+
+You're in excellent shape for your half marathon PB on May 15.
+
+### Strengths
+- **Consistent volume**: 40-46 km/week with an optimal ACWR of 1.06. \
+This is a solid base for half marathon preparation.
+- **Goal is realistic**: Your VDOT of 47.7 predicts a half marathon time of \
+1:35:19 — your 1:35:00 target is right at your current fitness level.
+- **Training maturity**: 2 years of consistent running with steady \
+progression. Your body is well-adapted to the training load.
+
+### Risks
+- **Minimal margin**: The predicted time (1:35:19) and goal (1:35:00) are \
+nearly identical. A bad day or tactical error could mean missing the target.
+- **Volume ceiling**: You may benefit from one block at 48-52 km to add a \
+small fitness buffer, if your body tolerates it.
+
+### Recommendations
+- **Weeks 1-6**: Peak training block. Maintain 44-48 km/week. Key sessions: \
+1 tempo run at threshold pace (4:25-4:37/km), 1 long run building to 18-20 km \
+with the last 4-5 km at marathon pace (4:32-4:54/km).
+- **Weeks 7-8**: Begin taper. Reduce to 35 km (week 7) then 25 km (race week).
+- **Race execution**: Start at 4:32/km (slightly conservative). Settle into \
+4:30/km by km 5. Assess at halfway — if feeling strong, hold pace. If not, \
+maintain 4:32/km for a safe PB.
+- **Fuelling**: Practice race-day nutrition in long runs. Gel or sports drink \
+every 30-40 minutes during the race.
+"""
+
+# ── 06: Intermediate Female, 29, Healthy ───────────────────────────
+
+RACE_READINESS_GOLDEN["06_intermediate_f29_healthy"] = """\
+## Race Readiness Assessment — Emma (Half Marathon, goal: 1:42:00)
+
+### Readiness Score: 8/10 — Strong
+
+Your preparation for the June 1 half marathon is going well.
+
+### Strengths
+- **Consistent and progressing**: ACWR 1.07 is optimal. Volume has built \
+from 35 to 40 km/week. This is textbook preparation.
+- **Goal matches fitness**: Your VDOT of 44.1 predicts exactly 1:42:00 for \
+a half marathon. The goal is realistic.
+- **Ample time**: With 15 weeks until race day, you have time for a full \
+training block plus proper taper.
+
+### Risks
+- **Goal exactly at predicted fitness**: No margin for error. Consider \
+whether a slight volume increase (to 42-44 km) could provide a buffer.
+- **Second race experience**: Less racing experience means pacing and \
+race-day execution are still developing skills.
+
+### Recommendations
+- **Weeks 1-9**: Peak training. Build to 42-44 km/week. Include 1 tempo \
+session at threshold pace (4:42-4:56/km) and 1 long run building to 18 km \
+with race-pace segments.
+- **Weeks 10-12**: Maintain peak volume. Add race-specific sessions \
+(e.g., 3 x 3 km at 4:51/km with 3 min recovery).
+- **Weeks 13-15**: Taper — 38 km, 30 km, then 20 km (race week).
+- **Race strategy**: Start at 4:52/km, settle into 4:51/km. Even pacing \
+is the priority for a PB.
+"""
+
+# ── 07: Intermediate Male, 40, Overreaching ────────────────────────
+
+RACE_READINESS_GOLDEN["07_intermediate_m40_overreaching"] = """\
+## Race Readiness Assessment — Mark (Marathon, goal: 3:30:00)
+
+### Readiness Score: 4/10 — Not Ready (Load Issue)
+
+Your marathon isn't until September, which is fortunate — because your \
+current training state needs correction before race preparation can begin.
+
+### Current Concern
+Your ACWR of 1.6 is in the high-risk zone. You spiked from 30 km to \
+48 km this week — a 60% increase. This is a load management issue, not \
+a fitness issue. Racing in this state would be inadvisable.
+
+### Strengths
+- **Fitness base exists**: Your VDOT of 45.9 predicts a marathon time of \
+3:24:51. A 3:30 goal is within reach once you're properly prepared.
+- **September timeline**: 7+ months is more than enough time for a full \
+marathon build, including a proper base, build, peak, and taper.
+
+### Risks
+- **Injury risk is the immediate concern**: ACWR 1.6 means your body is \
+under significantly more stress than it's adapted to. Racing or hard \
+training now risks a training-ending injury.
+- **Volume inconsistency**: The spike from 30 to 48 km suggests the \
+training is not following a structured plan.
+
+### Recommendations
+- **Immediate**: Deload to 16-20 km this week. Easy running only. This is \
+non-negotiable before any race-focused training begins.
+- **Weeks 2-4**: Rebuild to 30-32 km/week (your chronic average).
+- **Weeks 5-20**: Structured marathon build following a periodised plan. \
+Target peak volume of 55-65 km/week.
+- **Taper**: 3-week taper before September 20.
+- **Bottom line**: Fix the load management now. The marathon fitness will come.
+"""
+
+# ── 08: Intermediate Female, 38, Overreaching ──────────────────────
+
+RACE_READINESS_GOLDEN["08_intermediate_f38_overreaching"] = """\
+## Race Readiness Assessment — Lisa (Half Marathon, goal: 1:48:00)
+
+### Readiness Score: 4/10 — Not Ready (Load Issue)
+
+Your half marathon on July 15 gives you 5 months, but your current \
+training state requires immediate attention.
+
+### Current Concern
+Your ACWR of 1.51 has crossed the high-risk threshold. You went from \
+26 km to 40 km this week — a 54% spike. This puts you at elevated risk \
+for injury and must be addressed before race preparation can continue.
+
+### Strengths
+- **Goal is achievable**: Your VDOT of 42.0 predicts a half marathon \
+time of 1:46:22. A 1:48:00 target is comfortably within reach.
+- **Adequate timeline**: 5 months allows for recovery, rebuild, and a \
+full race preparation cycle.
+
+### Risks
+- **ACWR 1.51**: Injury risk is significantly elevated. Training through \
+this spike increases the chance of a setback that could cost you the race.
+- **Volume inconsistency**: The jump from 26 to 40 km needs to be addressed \
+with structured, gradual progression going forward.
+
+### Recommendations
+- **Week 1**: Deload to 13-15 km. Easy running only. 3-4 rest days.
+- **Weeks 2-4**: Rebuild to 26-28 km/week (chronic average).
+- **Weeks 5-16**: Structured half marathon build. Target peak of 38-42 km/week.
+- **Weeks 17-19**: Taper — 2 weeks of progressive volume reduction.
+- **Key lesson**: Consistency at 28-32 km/week beats alternating between \
+25 and 40. Build gradually.
+"""
+
+# ── 09: Advanced Male, 25, Healthy ─────────────────────────────────
+
+RACE_READINESS_GOLDEN["09_advanced_m25_healthy"] = """\
+## Race Readiness Assessment — Ryan (Marathon, goal: 2:40:00)
+
+### Readiness Score: 8/10 — Strong
+
+You're well-positioned for your marathon PB on April 20.
+
+### Strengths
+- **Elite-level volume**: 80-92 km/week with an optimal ACWR of 1.06. \
+This is a robust, well-managed training load.
+- **Goal matches fitness**: VDOT 61.8 predicts a marathon time of 2:39:19. \
+Your 2:40 target is at your current fitness level.
+- **Training maturity**: The consistency of your weekly loading (CV very low) \
+indicates excellent training discipline.
+
+### Risks
+- **Tight margin**: Predicted time (2:39:19) is only 41 seconds under your \
+goal. Any pacing error, fuelling issue, or bad weather could push you over.
+- **Race execution at this level**: A 2:40 marathon requires disciplined \
+pacing at 3:47/km for 42.2 km. There's very little room for error.
+
+### Recommendations
+- **Weeks 1-4**: Peak training block. Maintain 88-92 km/week. Key sessions: \
+marathon pace long run (28-32 km with 16-20 km at 3:47/km), threshold \
+session (6-8 km at 3:34-3:45/km).
+- **Weeks 5-6**: Sharpen. Reduce to 75-80 km. Add one session of race-pace \
+intervals (e.g., 6 x 2 km at 3:47/km with 90 sec jog).
+- **Weeks 7-8**: Taper. 60 km, then 35 km (race week). Last hard session \
+10 days out. Final shakeout 2 days before.
+- **Race strategy**: First 10 km at 3:49/km (conservative). Settle into \
+3:47/km from 10-30 km. Assess at 30 km — if you have it, hold. If not, \
+2:42-2:43 is still an excellent result.
+- **Fuelling**: Caffeine + carb gel every 30 min from km 10. Practice this \
+in every long run.
+"""
+
+# ── 10: Advanced Female, 27, Healthy ───────────────────────────────
+
+RACE_READINESS_GOLDEN["10_advanced_f27_healthy"] = """\
+## Race Readiness Assessment — Olivia (Half Marathon, goal: 1:18:00)
+
+### Readiness Score: 8/10 — Strong
+
+You're tracking well for your half marathon PB on May 10.
+
+### Strengths
+- **High-volume consistency**: 70-82 km/week with ACWR 1.06. Excellent \
+training discipline.
+- **Goal is realistic**: VDOT 57.8 predicts a half marathon time of 1:20:43. \
+Your 1:18 target is ambitious but achievable with a strong sharpening phase.
+- **Training maturity**: The low variability in your weekly loading indicates \
+you can handle high volume safely.
+
+### Risks
+- **2:43 gap to close**: The predicted time (1:20:43) is 2:43 slower than \
+goal (1:18:00). You'll need meaningful fitness improvement over the next 12 \
+weeks to bridge this.
+- **Race execution**: At sub-1:18 pace (3:42/km), pacing discipline is critical.
+
+### Recommendations
+- **Weeks 1-6**: Peak training. Maintain 78-82 km/week. Key sessions: \
+threshold work (5-6 km at 3:46-3:57/km), long run with race-pace finish \
+(18-20 km with final 6-8 km at 3:42/km).
+- **Weeks 7-9**: Sharpen. Maintain volume but increase session quality. \
+Add interval work (6 x 1600 m at 3:24-3:33/km with 90 sec recovery).
+- **Weeks 10-12**: Taper. 65 km, 50 km, 30 km. Last hard session 10 days out.
+- **Race execution**: First 5 km at 3:44/km (2 sec/km conservative). Settle \
+into 3:42/km from 5-15 km. Final 6 km — race instinct.
+"""
+
+# ── 11: Advanced Male, 22, Injury Risk ─────────────────────────────
+
+RACE_READINESS_GOLDEN["11_advanced_m22_injury_risk"] = """\
+## Race Readiness Assessment — Tyler (5K, goal: sub-15:00)
+
+### Readiness Score: 3/10 — Not Ready (Dangerous Loading)
+
+You have the fitness for sub-15. Your VDOT of 66.2 supports it. But \
+fitness is not the same as readiness, and right now, you are not ready \
+to race.
+
+### The Problem
+Your ACWR of 1.6 and erratic loading pattern (CV 0.16) create a \
+compounding risk that makes racing inadvisable:
+- You spiked from 55 km to 100 km this week — an 82% increase.
+- Your 8-week loading (60, 65, 55, 70, 50, 75, 55, 100 km) shows \
+wild inconsistency.
+- Racing on this accumulated fatigue increases both injury risk and \
+the likelihood of underperformance.
+
+### Strengths
+- **The fitness is there**: VDOT 66.2 predicts a 5K time of approximately \
+15:05-15:10. Sub-15 is within reach with proper preparation.
+- **Race is 4 weeks away**: Enough time for a deload, stabilisation, and \
+short sharpening phase — IF you act now.
+
+### Recommendations
+- **This week**: Deload to 25-30 km. Easy running only. Zero intensity.
+- **Week 2**: Rebuild to 50-55 km. Introduce one moderate tempo (20 min \
+at threshold).
+- **Week 3**: 55-60 km. Add one 5K-specific session (5 x 1000 m at \
+2:56-3:00/km with 2 min recovery).
+- **Week 4 (race week)**: 30-35 km. One short sharpener 4 days out \
+(3 x 800 m at race pace). Easy the rest of the week.
+- **If you skip the deload**: DNS is better than a soft-tissue injury \
+that costs you the entire spring season.
+"""
+
+# ── 12: Advanced Female, 24, Injury Risk ───────────────────────────
+
+RACE_READINESS_GOLDEN["12_advanced_f24_injury_risk"] = """\
+## Race Readiness Assessment — Jade (10K, goal: sub-35:00)
+
+### Readiness Score: 3/10 — Not Ready (Dangerous Loading)
+
+Your fitness supports the goal, but your current training state makes \
+racing inadvisable.
+
+### The Problem
+Your ACWR of 1.59 and erratic loading (CV 0.12) are the immediate \
+concerns. The risk of racing in this state is twofold:
+1. **Injury risk**: 73% volume spike (52 to 90 km) means your tissues \
+are under far more stress than they've adapted to.
+2. **Performance risk**: Accumulated fatigue from the spike will likely \
+compromise your race result anyway.
+
+### Strengths
+- **Fitness is strong**: VDOT 61.2 predicts a 10K time of 34:46. Sub-35 \
+is achievable at your fitness level.
+- **Race is 6 weeks away**: Enough time for recovery + sharpening.
+
+### Risks
+- **Bone stress injury**: Female athletes with erratic loading and high \
+ACWR spikes are at elevated risk. Monitor for any localised bone pain.
+- **Energy availability**: At 90 km/week, caloric needs are substantial. \
+Ensure energy intake matches expenditure.
+
+### Recommendations
+- **Week 1**: Deload to 22-25 km. Easy only. No intensity.
+- **Weeks 2-3**: Rebuild to 50-55 km. Add one tempo (20 min at 3:36-3:47/km).
+- **Week 4-5**: Hold at 55 km. Add one 10K-specific session (5 x 2000 m \
+at 3:28-3:33/km with 90 sec recovery).
+- **Week 6 (race week)**: Taper to 30 km. One sharpener 4 days out.
+- **Commitment**: After the race, establish consistent 50-55 km weeks \
+(CV below 0.10) before any future volume increases.
+"""
+
+# ── 13: Senior Male, 62, Beginner ──────────────────────────────────
+
+RACE_READINESS_GOLDEN["13_senior_m62_beginner"] = """\
+## Race Readiness Assessment — Robert (5K, goal: finish running)
+
+### Readiness Score: 7/10 — On Track
+
+Your first 5K on June 15 is a realistic and achievable goal. You're \
+doing the right things.
+
+### Strengths
+- **Consistent training**: ACWR 1.02 is optimal. Your volume has been \
+steady at 10-14 km/week for 4 months. This consistency is the single \
+most important predictor of readiness.
+- **Volume is adequate for 5K**: At 13 km/week, you're running over 2x \
+the race distance weekly. For a 5K, this is sufficient.
+- **Manageable goal**: Your goal is to finish running the whole thing — \
+this is a healthy, realistic target that sets you up for long-term success.
+
+### Risks
+- **Longest single run**: Make sure you've run 5 km continuously at least \
+once before race day. If your longest run is currently shorter, build up \
+to it over the next few weeks.
+- **Race-day logistics**: First race can be overwhelming — start position, \
+pacing, other runners. A plan for race day will help.
+
+### Recommendations
+- **Weeks 1-8**: Continue current approach. Ensure one run per week reaches \
+5 km by week 6 (build gradually from your current longest run).
+- **Week 9 (race week)**: Reduce to 8-9 km total. Easy 2 km shakeout \
+2 days before. Rest the day before.
+- **Race strategy**: Start at the back of the pack. Run at your easy pace \
+(8:42-10:17/km). Walking breaks are completely fine if needed. The goal \
+is to finish, enjoy it, and come back wanting more.
+- **Recovery**: Take 2-3 easy days after the race before resuming normal training.
+- **Strength training**: If not already included, add 1-2 sessions per week \
+focusing on leg strength and balance. This supports running and overall health.
+"""
+
+# ── 14: Senior Female, 58, Beginner ────────────────────────────────
+
+RACE_READINESS_GOLDEN["14_senior_f58_beginner"] = """\
+## Race Readiness Assessment — Patricia (5K, goal: finish, walking breaks OK)
+
+### Readiness Score: 7/10 — On Track
+
+Your July 1 race is very achievable with your current training approach.
+
+### Strengths
+- **Excellent consistency**: ACWR 1.02, steady volume at 8-12 km/week for \
+3 months. You're doing the most important thing — showing up regularly.
+- **Realistic goal**: Finishing a 5K with walking breaks is entirely within \
+your current ability. This is a smart first-race goal.
+- **Strong foundation**: 3 months of regular running means your body has \
+adapted to the training stimulus.
+
+### Risks
+- **Joint health**: At your volume and pace, joint stress is low, but \
+continue to monitor for any knee or hip discomfort, especially in the \
+weeks with longer runs.
+- **Confidence**: Running your first race at 58 can feel daunting. Know \
+that your consistent training has prepared you well.
+
+### Recommendations
+- **Weeks 1-10**: Continue current approach. Build one run per week to \
+5 km (with walking breaks as needed). The other runs stay short and easy.
+- **Weeks 11-13**: Practice the race distance. Run/walk 5 km at least twice. \
+Use a pattern like run 4 min, walk 1 min — or whatever feels comfortable.
+- **Week 14 (race week)**: Easy week. Short 2 km shakeout. Rest day before race.
+- **Race-day plan**: Run/walk from the start. Don't get caught up in other \
+runners' pace. Start conservatively and finish strong.
+- **Recovery**: Walk gently for 10 min after finishing. Easy week following the race.
+"""
+
+# ── 15: Teen Male, 17, Talent ──────────────────────────────────────
+
+RACE_READINESS_GOLDEN["15_teen_m17_talent"] = """\
+## Race Readiness Assessment — Ethan (5K, goal: 17:00, state qualifier)
+
+### Readiness Score: 7/10 — Approaching Readiness
+
+Your state championship qualifier on April 10 is within reach, but the \
+recent volume jump needs attention.
+
+### Strengths
+- **Strong fitness**: VDOT 56.3 suggests you can run approximately 17:30 \
+for 5K at current fitness. With good preparation and race execution, 17:00 \
+is achievable.
+- **Improving trajectory**: Volume has been building steadily, and your \
+ACWR of 1.2 is still within the optimal range (though at the upper end).
+
+### Concerns
+- **20% volume jump**: From 40 to 48 km this week is a 20% increase. For \
+a developing athlete, this is aggressive. Stabilise at this level or pull \
+back slightly before increasing again.
+- **Race in 8 weeks**: You have time, but the priority is consistent \
+training, not peak volume.
+
+### Recommendations — Development Focus
+This race matters, but it's one race in a long career. The goal is to \
+perform well while continuing to develop as a runner.
+
+- **Weeks 1-3**: Stabilise at 45-48 km/week. No further volume increases. \
+1 tempo session (20 min at 3:51-4:03/km), 1 interval session (6 x 800 m \
+at 3:28-3:37/km with equal jog recovery).
+- **Weeks 4-5**: Hold volume. Sharpen with race-specific work (3 x 1600 m \
+at 3:24/km with 2 min recovery).
+- **Week 6**: Reduce to 38 km. One moderate session only.
+- **Week 7**: Reduce to 30 km. Short sharpener 4 days out (4 x 400 m at \
+race pace).
+- **Week 8 (race week)**: 15-20 km total. Easy shakeout 2 days before. Rest day before.
+- **Race strategy**: Start at 3:25/km for the first 800 m. Settle into \
+3:24/km. Final km — race hard.
+- **Important**: Sleep 8-9 hours. Eat well. This matters as much as the \
+training at your age.
+"""
+
+# ── 16: Teen Female, 16, Talent ────────────────────────────────────
+
+RACE_READINESS_GOLDEN["16_teen_f16_talent"] = """\
+## Race Readiness Assessment — Sophia (5K, goal: 18:00, state qualifier)
+
+### Readiness Score: 7/10 — Approaching Readiness
+
+Your state championship qualifier on April 10 is achievable with smart \
+preparation over the next 8 weeks.
+
+### Strengths
+- **Strong fitness**: VDOT 51.3 suggests a 5K time around 19:00-19:15. \
+With continued development, 18:00 is a stretch goal that could come together.
+- **Building well**: ACWR 1.2 is at the upper end of optimal, showing \
+good training progression.
+
+### Concerns
+- **20% volume increase**: From 35 to 42 km this week. This is aggressive \
+for a developing athlete. Stabilise before increasing further.
+- **Goal is ambitious**: 18:00 vs ~19:15 predicted is a meaningful gap. \
+This doesn't mean it's impossible, but approach it as a development target \
+rather than a must-hit number.
+
+### Recommendations — Development Focus
+- **Weeks 1-3**: Stabilise at 40-42 km/week. 1 tempo (15-20 min at \
+4:09-4:22/km), 1 interval session (5 x 800 m at 3:45-3:54/km with equal \
+jog recovery). Everything else easy.
+- **Weeks 4-5**: Hold volume. Race-specific sharpening (3 x 1200 m at \
+3:36/km with 2 min recovery).
+- **Weeks 6-7**: Taper. 35 km, then 28 km.
+- **Week 8 (race week)**: 15-18 km. Short sharpener 4 days out. Rest before.
+- **Race plan**: Start at 3:38/km. Settle into 3:36/km. Final km — race \
+with whatever you have.
+- **Bigger picture**: Whether you run 18:00 or 18:30, this is one data \
+point in a long development arc. The process matters more than this single \
+result.
+- **Take care of yourself**: Sleep 8-9 hours. Eat enough to fuel your \
+training and development. If you notice unusual fatigue, missed periods, \
+or recurring illness, talk to a trusted adult or sports medicine professional.
+"""

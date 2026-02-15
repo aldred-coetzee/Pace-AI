@@ -136,17 +136,19 @@ Target: ≥80% field agreement.
 4. **OpenRouter integration** — LLM client abstraction supporting OpenRouter (via OPENROUTER_API_KEY) and Anthropic backends
 5. **Model sweep** — Sweep tool to compare models across profiles (tests/llm_eval/sweep.py)
 6. **Judge calibration** — 10/10 tests passing live with google/gemini-2.0-flash-001 as judge
+7. **Race readiness tests** — 8 rubrics + 16 golden responses + test_race_readiness.py (64 tests, all passing)
+8. **Consistency tests** — test_consistency.py: 3 scenarios (weekly plan, injury risk, race readiness), runs each prompt 3x and measures structural field agreement (>=70% threshold). Live-only.
 
 ### All Tests Passing
-- **Unit tests**: `cd pace-ai && python -m pytest tests/unit/` (all pass)
-- **Integration tests**: `cd pace-ai && python -m pytest tests/integration/` (all pass)
-- **E2E tests**: `cd pace-ai && python -m pytest tests/e2e/` (all pass)
-- **Judge calibration (live)**: `cd pace-ai && python -m pytest tests/llm_eval/test_judge_calibration.py -v --live-llm` (10/10 pass)
+- **strava-mcp**: 46 unit + 7 integration + 1 e2e (54 total)
+- **pace-ai**: 165 unit + 9 integration + 1 e2e (175 total)
+- **llm_eval (mocked)**: 142 passed, 7 skipped (live-only)
+- **Lint + format**: clean
 
 ### Next Steps
-1. **Run full live eval** — `cd pace-ai && python -m pytest tests/llm_eval/ -v --live-llm` (tests weekly plan + injury risk with real API calls)
+1. **Run full live eval** — `cd pace-ai && python -m pytest tests/llm_eval/ -v --live-llm` (tests weekly plan + injury risk + race readiness with real API calls)
 2. **Run model sweep** — `cd pace-ai && python -m pytest tests/llm_eval/sweep.py` to compare different models
-3. **Add remaining test scenarios** — race readiness, consistency tests (described in rubrics above but not yet implemented)
+3. **Run consistency tests live** — `cd pace-ai && python -m pytest tests/llm_eval/test_consistency.py -v --live-llm`
 
 ### Environment Setup (for laptop terminal)
 ```bash
