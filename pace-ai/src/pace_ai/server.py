@@ -87,10 +87,12 @@ async def delete_goal(goal_id: int) -> str:
 
 @mcp.tool()
 async def analyze_training_load(weekly_distances: list[float]) -> dict:
-    """Compute ACWR, monotony, and strain from weekly distance data.
+    """Compute ACWR and load variability from weekly distance data.
+
+    Uses the uncoupled method: chronic load excludes the acute week.
 
     Args:
-        weekly_distances: Weekly distances in km (most recent last), minimum 4 weeks.
+        weekly_distances: Weekly distances in km (most recent last), minimum 5 weeks.
     """
     return analysis_mod.calculate_acwr(weekly_distances)
 
@@ -111,16 +113,19 @@ async def predict_race_time(recent_race_distance: str, recent_race_time: str, ta
 async def calculate_training_zones(
     threshold_pace_per_km: str | None = None,
     threshold_hr: int | None = None,
+    vdot: float | None = None,
 ) -> dict:
-    """Calculate Daniels' training zones from threshold pace and/or heart rate.
+    """Calculate Daniels' training zones from threshold pace, heart rate, and/or VDOT.
 
     Args:
         threshold_pace_per_km: Threshold pace as M:SS per km (e.g. "4:30").
         threshold_hr: Threshold heart rate in bpm.
+        vdot: VDOT value (computes zones using Daniels' %VO2max curve).
     """
     return analysis_mod.calculate_training_zones(
         threshold_pace_per_km=threshold_pace_per_km,
         threshold_hr=threshold_hr,
+        vdot=vdot,
     )
 
 

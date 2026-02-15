@@ -55,10 +55,11 @@ class TestAnalysisTools:
     async def test_analyze_training_load(self):
         from pace_ai.server import analyze_training_load
 
-        result = await analyze_training_load([30, 35, 32, 38])
+        result = await analyze_training_load([30, 35, 32, 38, 36])
         assert "acwr" in result
         assert "risk_level" in result
         assert result["risk_level"] == "optimal"
+        assert "load_variability_cv" in result
 
     @pytest.mark.asyncio()
     async def test_predict_race_time(self):
@@ -76,6 +77,15 @@ class TestAnalysisTools:
         assert "zones" in result
         assert "easy" in result["zones"]
         assert "threshold" in result["zones"]
+
+    @pytest.mark.asyncio()
+    async def test_calculate_training_zones_from_vdot(self):
+        from pace_ai.server import calculate_training_zones
+
+        result = await calculate_training_zones(vdot=50)
+        assert "zones" in result
+        assert len(result["zones"]) == 5
+        assert result["reference"]["vdot"] == 50
 
 
 @pytest.mark.usefixtures("_wired")

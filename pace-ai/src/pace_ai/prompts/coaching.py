@@ -191,10 +191,10 @@ def injury_risk_prompt(
 ## Risk Assessment Framework
 Evaluate based on:
 1. **10% rule**: Weekly mileage increases should not exceed 10%. Flag any weeks that exceeded this.
-2. **ACWR**: Acute:chronic workload ratio. Optimal: 0.8-1.3. Elevated risk: >1.3. High risk: >1.5.
-3. **Monotony**: Training monotony > 2.0 indicates too-uniform loading (Foster 1998).
-4. **Strain**: High monotony x high load = high strain. Injury risk increases sharply.
-5. **Pattern recognition**: Look for back-to-back high weeks, sudden drops, or erratic patterns.
+2. **ACWR**: Acute:chronic workload ratio (uncoupled method). Optimal: 0.8-1.3. Elevated risk: >1.3. High risk: >1.5.
+3. **Load variability**: Week-to-week consistency of the chronic period (coefficient of variation).
+   Low CV (<0.1) = very consistent. High CV (>0.3) = erratic loading pattern worth investigating.
+4. **Pattern recognition**: Look for back-to-back high weeks, sudden drops, or erratic patterns.
 
 ## Output Format
 Provide:
@@ -292,8 +292,7 @@ def _format_training_load(load: dict) -> str:
         f"- Risk level: {load.get('risk_level', 'N/A')}\n"
         f"- Acute load: {load.get('acute_load', 'N/A')} km\n"
         f"- Chronic load: {load.get('chronic_load', 'N/A')} km\n"
-        f"- Monotony: {load.get('monotony', 'N/A')}\n"
-        f"- Strain: {load.get('strain', 'N/A')}\n"
+        f"- Load variability (CV): {load.get('load_variability_cv', 'N/A')}\n"
         f"- Interpretation: {load.get('interpretation', '')}"
     )
 
