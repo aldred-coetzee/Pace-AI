@@ -5,7 +5,7 @@ and injury-risk profiles.
 
 Two modes:
 - Default (mocked): scores golden responses against rubrics (deterministic)
-- --live-llm: generates coaching via the Anthropic API, scores with LLM judge
+- --live-llm: generates coaching via OpenRouter/Anthropic API, scores with LLM judge
 
 Run mocked:   python -m pytest tests/llm_eval/test_injury_risk.py -v
 Run live:     python -m pytest tests/llm_eval/test_injury_risk.py -v --live-llm
@@ -39,22 +39,13 @@ def _build_prompt(profile: RunnerProfile) -> str:
 
 
 async def _get_llm_response(prompt: str) -> str:
-    """Call the Anthropic API to generate a coaching response."""
-    import os
+    """Call the LLM API to generate a coaching response.
 
-    import anthropic
+    Uses OpenRouter (OPENROUTER_API_KEY) or Anthropic (ANTHROPIC_API_KEY).
+    """
+    from tests.llm_eval.llm_client import complete
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        pytest.skip("ANTHROPIC_API_KEY not set")
-
-    client = anthropic.AsyncAnthropic(api_key=api_key)
-    response = await client.messages.create(
-        model="claude-sonnet-4-5-20250929",
-        max_tokens=4096,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.content[0].text
+    return await complete(model="claude-sonnet-4-5-20250929", prompt=prompt)
 
 
 # ── Parametrized tests ──────────────────────────────────────────────
