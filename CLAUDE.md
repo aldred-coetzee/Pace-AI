@@ -35,7 +35,10 @@ ruff check --fix .
 
 ## Pre-Commit Test Gauntlet (NON-NEGOTIABLE)
 
-**Every commit MUST pass ALL of these steps. No exceptions. No shortcuts.**
+**Every commit MUST pass ALL of these steps. No shortcuts.**
+
+**Exception:** Plan-only changes (edits solely to `plan.md` or other documentation
+with no code changes) do not require the test gauntlet.
 
 ```bash
 # Step 1: Unit tests (both servers)
