@@ -5,22 +5,22 @@ AI running coach powered by MCP — connects Claude to your Strava data for pers
 Two MCP servers in one monorepo. Claude orchestrates between them: pulls your training data from Strava, then reasons about it using sports-science coaching methodology (VDOT, ACWR, Daniels' zones, periodization).
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                    Claude (LLM)                     │
-│         Orchestrates data + coaching logic           │
-└──────────┬──────────────────────────┬───────────────┘
+┌───────────────────────────────────────────────────────┐
+│                    Claude (LLM)                       │
+│         Orchestrates data + coaching logic            │
+└──────────┬──────────────────────────┬─────────────────┘
            │                          │
      MCP tools/prompts          MCP tools/prompts
            │                          │
-┌──────────▼──────────┐  ┌───────────▼───────────────┐
-│     strava-mcp      │  │         pace-ai            │
-│   localhost:8001     │  │      localhost:8002         │
-│                      │  │                             │
-│ • OAuth + tokens     │  │ • VDOT / ACWR / zones      │
-│ • Activities         │  │ • Goal tracking             │
-│ • Streams (HR, GPS)  │  │ • Coaching prompts          │
-│ • Athlete stats      │  │ • Methodology knowledge base│
-└──────────┬──────────┘  └───────────┬───────────────┘
+┌──────────▼──────────┐  ┌────────────▼─────────────────┐
+│     strava-mcp      │  │         pace-ai              │
+│   localhost:8001    │  │      localhost:8002          │
+│                     │  │                              │
+│ • OAuth + tokens    │  │ • VDOT / ACWR / zones        │
+│ • Activities        │  │ • Goal tracking              │
+│ • Streams (HR, GPS) │  │ • Coaching prompts           │
+│ • Athlete stats     │  │ • Methodology knowledge base │
+└──────────┬──────────┘  └────────────┬─────────────────┘
            │                          │
      Strava API                  SQLite (goals)
 ```
