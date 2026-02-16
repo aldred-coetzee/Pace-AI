@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 720" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
   <defs>
     <linearGradient id="claudeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#D97757;stop-opacity:1" />
@@ -11,6 +11,10 @@
     <linearGradient id="paceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#2563EB;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#1D4ED8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="garminGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#007CC3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#005A8C;stop-opacity:1" />
     </linearGradient>
     <linearGradient id="extGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#374151;stop-opacity:1" />
@@ -25,121 +29,142 @@
   </defs>
 
   <!-- Background -->
-  <rect width="880" height="620" rx="16" fill="#F9FAFB"/>
+  <rect width="1060" height="720" rx="16" fill="#F9FAFB"/>
 
   <!-- Title -->
-  <text x="440" y="42" text-anchor="middle" font-size="14" font-weight="600" fill="#6B7280" letter-spacing="2">PACE-AI ARCHITECTURE</text>
+  <text x="530" y="42" text-anchor="middle" font-size="14" font-weight="600" fill="#6B7280" letter-spacing="2">PACE-AI ARCHITECTURE</text>
 
   <!-- ── Claude Box ── -->
-  <rect x="240" y="64" width="400" height="100" rx="12" fill="url(#claudeGrad)" filter="url(#shadow)"/>
-  <text x="440" y="102" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">Claude</text>
-  <text x="440" y="126" text-anchor="middle" font-size="13" fill="#FDDCCD" font-weight="500">LLM Orchestrator</text>
-  <text x="440" y="148" text-anchor="middle" font-size="11.5" fill="#F5C5B0">Pulls data from Strava · Reasons with coaching science</text>
+  <rect x="330" y="64" width="400" height="100" rx="12" fill="url(#claudeGrad)" filter="url(#shadow)"/>
+  <text x="530" y="102" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">Claude</text>
+  <text x="530" y="126" text-anchor="middle" font-size="13" fill="#FDDCCD" font-weight="500">LLM Orchestrator</text>
+  <text x="530" y="148" text-anchor="middle" font-size="11.5" fill="#F5C5B0">Pulls data · Reasons with coaching science · Pushes workouts</text>
 
   <!-- ── Connection lines (Claude → servers) ── -->
-  <!-- Left line: Claude → strava-mcp -->
-  <line x1="360" y1="164" x2="240" y2="248" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
-  <!-- Right line: Claude → pace-ai -->
-  <line x1="520" y1="164" x2="640" y2="248" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="420" y1="164" x2="200" y2="258" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="530" y1="164" x2="530" y2="258" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="640" y1="164" x2="860" y2="258" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
 
   <!-- MCP Protocol labels -->
-  <rect x="236" y="196" width="100" height="22" rx="11" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
-  <text x="286" y="211" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="600">MCP Protocol</text>
+  <rect x="256" y="200" width="100" height="22" rx="11" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="306" y="215" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="600">MCP Protocol</text>
 
-  <rect x="544" y="196" width="100" height="22" rx="11" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
-  <text x="594" y="211" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="600">MCP Protocol</text>
+  <rect x="480" y="200" width="100" height="22" rx="11" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="530" y="215" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="600">MCP Protocol</text>
+
+  <rect x="704" y="200" width="100" height="22" rx="11" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="754" y="215" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="600">MCP Protocol</text>
 
   <!-- ── strava-mcp Box ── -->
-  <rect x="60" y="248" width="360" height="200" rx="12" fill="#fff" stroke="#E5E7EB" stroke-width="1.5" filter="url(#shadow)"/>
-  <!-- Header bar -->
-  <rect x="60" y="248" width="360" height="52" rx="12" fill="url(#stravaGrad)"/>
-  <rect x="60" y="280" width="360" height="20" fill="url(#stravaGrad)"/>
-  <text x="240" y="280" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">strava-mcp</text>
-  <text x="240" y="295" text-anchor="middle" font-size="10.5" fill="#FED7C7">localhost:8001</text>
+  <rect x="30" y="258" width="340" height="200" rx="12" fill="#fff" stroke="#E5E7EB" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="30" y="258" width="340" height="52" rx="12" fill="url(#stravaGrad)"/>
+  <rect x="30" y="290" width="340" height="20" fill="url(#stravaGrad)"/>
+  <text x="200" y="290" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">strava-mcp</text>
+  <text x="200" y="305" text-anchor="middle" font-size="10.5" fill="#FED7C7">localhost:8001</text>
 
-  <!-- strava-mcp content -->
-  <text x="84" y="328" font-size="11" font-weight="600" fill="#374151">TOOLS</text>
-  <line x1="84" y1="333" x2="162" y2="333" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="54" y="338" font-size="11" font-weight="600" fill="#374151">TOOLS</text>
+  <line x1="54" y1="343" x2="132" y2="343" stroke="#E5E7EB" stroke-width="1"/>
+  <circle cx="64" cy="360" r="3" fill="#FC4C02"/>
+  <text x="74" y="364" font-size="11" fill="#4B5563">authenticate</text>
+  <circle cx="64" cy="380" r="3" fill="#FC4C02"/>
+  <text x="74" y="384" font-size="11" fill="#4B5563">get_recent_activities</text>
+  <circle cx="64" cy="400" r="3" fill="#FC4C02"/>
+  <text x="74" y="404" font-size="11" fill="#4B5563">get_activity_streams</text>
+  <circle cx="64" cy="420" r="3" fill="#FC4C02"/>
+  <text x="74" y="424" font-size="11" fill="#4B5563">get_athlete_stats</text>
+  <circle cx="64" cy="440" r="3" fill="#FC4C02"/>
+  <text x="74" y="444" font-size="11" fill="#4B5563">+ 3 more tools</text>
 
-  <circle cx="94" cy="350" r="3" fill="#FC4C02"/>
-  <text x="104" y="354" font-size="11" fill="#4B5563">authenticate</text>
-
-  <circle cx="94" cy="370" r="3" fill="#FC4C02"/>
-  <text x="104" y="374" font-size="11" fill="#4B5563">get_recent_activities</text>
-
-  <circle cx="94" cy="390" r="3" fill="#FC4C02"/>
-  <text x="104" y="394" font-size="11" fill="#4B5563">get_activity_streams</text>
-
-  <circle cx="94" cy="410" r="3" fill="#FC4C02"/>
-  <text x="104" y="414" font-size="11" fill="#4B5563">get_athlete_stats</text>
-
-  <circle cx="94" cy="430" r="3" fill="#FC4C02"/>
-  <text x="104" y="434" font-size="11" fill="#4B5563">+ 3 more tools</text>
-
-  <!-- Right column: Resources -->
-  <text x="268" y="328" font-size="11" font-weight="600" fill="#374151">RESOURCES</text>
-  <line x1="268" y1="333" x2="370" y2="333" stroke="#E5E7EB" stroke-width="1"/>
-
-  <circle cx="278" cy="350" r="3" fill="#F97316"/>
-  <text x="288" y="354" font-size="11" fill="#4B5563">athlete_profile</text>
-
-  <circle cx="278" cy="370" r="3" fill="#F97316"/>
-  <text x="288" y="374" font-size="11" fill="#4B5563">heart_rate_zones</text>
+  <text x="238" y="338" font-size="11" font-weight="600" fill="#374151">RESOURCES</text>
+  <line x1="238" y1="343" x2="340" y2="343" stroke="#E5E7EB" stroke-width="1"/>
+  <circle cx="248" cy="360" r="3" fill="#F97316"/>
+  <text x="258" y="364" font-size="11" fill="#4B5563">athlete_profile</text>
+  <circle cx="248" cy="380" r="3" fill="#F97316"/>
+  <text x="258" y="384" font-size="11" fill="#4B5563">rate_limits</text>
 
   <!-- ── pace-ai Box ── -->
-  <rect x="460" y="248" width="360" height="200" rx="12" fill="#fff" stroke="#E5E7EB" stroke-width="1.5" filter="url(#shadow)"/>
-  <!-- Header bar -->
-  <rect x="460" y="248" width="360" height="52" rx="12" fill="url(#paceGrad)"/>
-  <rect x="460" y="280" width="360" height="20" fill="url(#paceGrad)"/>
-  <text x="640" y="280" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">pace-ai</text>
-  <text x="640" y="295" text-anchor="middle" font-size="10.5" fill="#BFDBFE">localhost:8002</text>
+  <rect x="390" y="258" width="280" height="200" rx="12" fill="#fff" stroke="#E5E7EB" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="390" y="258" width="280" height="52" rx="12" fill="url(#paceGrad)"/>
+  <rect x="390" y="290" width="280" height="20" fill="url(#paceGrad)"/>
+  <text x="530" y="290" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">pace-ai</text>
+  <text x="530" y="305" text-anchor="middle" font-size="10.5" fill="#BFDBFE">localhost:8002</text>
 
-  <!-- pace-ai content: Tools -->
-  <text x="484" y="328" font-size="11" font-weight="600" fill="#374151">TOOLS</text>
-  <line x1="484" y1="333" x2="560" y2="333" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="414" y="338" font-size="11" font-weight="600" fill="#374151">TOOLS</text>
+  <line x1="414" y1="343" x2="490" y2="343" stroke="#E5E7EB" stroke-width="1"/>
+  <circle cx="424" cy="360" r="3" fill="#2563EB"/>
+  <text x="434" y="364" font-size="11" fill="#4B5563">analyze_training_load</text>
+  <circle cx="424" cy="380" r="3" fill="#2563EB"/>
+  <text x="434" y="384" font-size="11" fill="#4B5563">predict_race_time</text>
+  <circle cx="424" cy="400" r="3" fill="#2563EB"/>
+  <text x="434" y="404" font-size="11" fill="#4B5563">training_zones</text>
+  <circle cx="424" cy="420" r="3" fill="#2563EB"/>
+  <text x="434" y="424" font-size="11" fill="#4B5563">goal CRUD (4 tools)</text>
 
-  <circle cx="494" cy="350" r="3" fill="#2563EB"/>
-  <text x="504" y="354" font-size="11" fill="#4B5563">analyze_training_load</text>
+  <text x="580" y="338" font-size="11" font-weight="600" fill="#374151">PROMPTS</text>
+  <line x1="580" y1="343" x2="654" y2="343" stroke="#E5E7EB" stroke-width="1"/>
+  <circle cx="590" cy="360" r="3" fill="#7C3AED"/>
+  <text x="600" y="364" font-size="11" fill="#4B5563">weekly_plan</text>
+  <circle cx="590" cy="380" r="3" fill="#7C3AED"/>
+  <text x="600" y="384" font-size="11" fill="#4B5563">run_analysis</text>
+  <circle cx="590" cy="400" r="3" fill="#7C3AED"/>
+  <text x="600" y="404" font-size="11" fill="#4B5563">race_readiness</text>
+  <circle cx="590" cy="420" r="3" fill="#7C3AED"/>
+  <text x="600" y="424" font-size="11" fill="#4B5563">injury_risk</text>
 
-  <circle cx="494" cy="370" r="3" fill="#2563EB"/>
-  <text x="504" y="374" font-size="11" fill="#4B5563">predict_race_time</text>
+  <!-- ── garmin-mcp Box ── -->
+  <rect x="690" y="258" width="340" height="200" rx="12" fill="#fff" stroke="#E5E7EB" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="690" y="258" width="340" height="52" rx="12" fill="url(#garminGrad)"/>
+  <rect x="690" y="290" width="340" height="20" fill="url(#garminGrad)"/>
+  <text x="860" y="290" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">garmin-mcp</text>
+  <text x="860" y="305" text-anchor="middle" font-size="10.5" fill="#B3DCF5">localhost:8003</text>
 
-  <circle cx="494" cy="390" r="3" fill="#2563EB"/>
-  <text x="504" y="394" font-size="11" fill="#4B5563">calculate_training_zones</text>
+  <text x="714" y="338" font-size="11" font-weight="600" fill="#374151">TOOLS</text>
+  <line x1="714" y1="343" x2="790" y2="343" stroke="#E5E7EB" stroke-width="1"/>
+  <circle cx="724" cy="360" r="3" fill="#007CC3"/>
+  <text x="734" y="364" font-size="11" fill="#4B5563">create_workout</text>
+  <circle cx="724" cy="380" r="3" fill="#007CC3"/>
+  <text x="734" y="384" font-size="11" fill="#4B5563">schedule_workout</text>
+  <circle cx="724" cy="400" r="3" fill="#007CC3"/>
+  <text x="734" y="404" font-size="11" fill="#4B5563">list / get / delete</text>
+  <circle cx="724" cy="420" r="3" fill="#007CC3"/>
+  <text x="734" y="424" font-size="11" fill="#4B5563">list_calendar</text>
 
-  <circle cx="494" cy="410" r="3" fill="#2563EB"/>
-  <text x="504" y="414" font-size="11" fill="#4B5563">goal CRUD (4 tools)</text>
-
-  <!-- Right column: Prompts -->
-  <text x="672" y="328" font-size="11" font-weight="600" fill="#374151">PROMPTS</text>
-  <line x1="672" y1="333" x2="766" y2="333" stroke="#E5E7EB" stroke-width="1"/>
-
-  <circle cx="682" cy="350" r="3" fill="#7C3AED"/>
-  <text x="692" y="354" font-size="11" fill="#4B5563">weekly_plan</text>
-
-  <circle cx="682" cy="370" r="3" fill="#7C3AED"/>
-  <text x="692" y="374" font-size="11" fill="#4B5563">run_analysis</text>
-
-  <circle cx="682" cy="390" r="3" fill="#7C3AED"/>
-  <text x="692" y="394" font-size="11" fill="#4B5563">race_readiness</text>
-
-  <circle cx="682" cy="410" r="3" fill="#7C3AED"/>
-  <text x="692" y="414" font-size="11" fill="#4B5563">injury_risk</text>
+  <text x="900" y="338" font-size="11" font-weight="600" fill="#374151">TYPES</text>
+  <line x1="900" y1="343" x2="990" y2="343" stroke="#E5E7EB" stroke-width="1"/>
+  <circle cx="910" cy="360" r="3" fill="#0EA5E9"/>
+  <text x="920" y="364" font-size="11" fill="#4B5563">easy_run</text>
+  <circle cx="910" cy="380" r="3" fill="#0EA5E9"/>
+  <text x="920" y="384" font-size="11" fill="#4B5563">run_walk</text>
+  <circle cx="910" cy="400" r="3" fill="#0EA5E9"/>
+  <text x="920" y="404" font-size="11" fill="#4B5563">tempo / intervals</text>
+  <circle cx="910" cy="420" r="3" fill="#0EA5E9"/>
+  <text x="920" y="424" font-size="11" fill="#4B5563">strides / custom</text>
 
   <!-- ── Connection lines (servers → external) ── -->
-  <line x1="200" y1="448" x2="200" y2="500" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
-  <line x1="680" y1="448" x2="680" y2="500" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="200" y1="458" x2="200" y2="520" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="530" y1="458" x2="530" y2="520" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="860" y1="458" x2="860" y2="520" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6,4"/>
 
   <!-- ── External: Strava API ── -->
-  <rect x="100" y="506" width="200" height="64" rx="10" fill="url(#extGrad)" filter="url(#shadowSm)"/>
-  <text x="200" y="536" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">Strava API</text>
-  <text x="200" y="554" text-anchor="middle" font-size="10.5" fill="#9CA3AF">OAuth2 · REST</text>
+  <rect x="100" y="526" width="200" height="64" rx="10" fill="url(#extGrad)" filter="url(#shadowSm)"/>
+  <text x="200" y="556" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">Strava API</text>
+  <text x="200" y="574" text-anchor="middle" font-size="10.5" fill="#9CA3AF">OAuth2 · REST</text>
 
   <!-- ── External: SQLite ── -->
-  <rect x="580" y="506" width="200" height="64" rx="10" fill="url(#extGrad)" filter="url(#shadowSm)"/>
-  <text x="680" y="536" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">SQLite</text>
-  <text x="680" y="554" text-anchor="middle" font-size="10.5" fill="#9CA3AF">Goals · Tokens · Cache</text>
+  <rect x="430" y="526" width="200" height="64" rx="10" fill="url(#extGrad)" filter="url(#shadowSm)"/>
+  <text x="530" y="556" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">SQLite</text>
+  <text x="530" y="574" text-anchor="middle" font-size="10.5" fill="#9CA3AF">Goals · Tokens · Cache</text>
+
+  <!-- ── External: Garmin Connect ── -->
+  <rect x="760" y="526" width="200" height="64" rx="10" fill="url(#extGrad)" filter="url(#shadowSm)"/>
+  <text x="860" y="556" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">Garmin Connect</text>
+  <text x="860" y="574" text-anchor="middle" font-size="10.5" fill="#9CA3AF">SSO · Workouts → Watch</text>
 
   <!-- Footer -->
-  <text x="440" y="604" text-anchor="middle" font-size="10.5" fill="#9CA3AF">Streamable HTTP transport · Python 3.10+ · Async I/O</text>
+  <text x="530" y="640" text-anchor="middle" font-size="10.5" fill="#9CA3AF">Streamable HTTP transport · Python 3.10+ · Async I/O</text>
+
+  <!-- Data flow arrows -->
+  <text x="130" y="508" font-size="9" fill="#6B7280">↓ pull data</text>
+  <text x="502" y="508" font-size="9" fill="#6B7280">↕ persist</text>
+  <text x="820" y="508" font-size="9" fill="#6B7280">↑ push workouts</text>
 </svg>
