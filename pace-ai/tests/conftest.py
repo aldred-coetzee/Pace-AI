@@ -94,6 +94,7 @@ def sample_activity_detail() -> dict:
         "max_heartrate": 178,
         "average_cadence": 86,
         "splits_metric": [
-            {"split": i + 1, "moving_time": 270, "average_speed": 3.7, "average_heartrate": 160 + i} for i in range(8)
+            {"split": i + 1, "distance": 1000, "moving_time": 270, "average_speed": 3.7, "average_heartrate": 160 + i}
+            for i in range(8)
         ],
     }
