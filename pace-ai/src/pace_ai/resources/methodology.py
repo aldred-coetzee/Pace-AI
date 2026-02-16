@@ -1,4 +1,10 @@
-"""Coaching methodology — static knowledge base for Claude to reference."""
+"""Coaching methodology — static knowledge base for Claude to reference.
+
+Exports:
+    METHODOLOGY: Core coaching principles, zones, periodisation, population guidelines.
+    ZONES_EXPLAINED: Detailed zone-by-zone breakdown with session formats.
+    FIELD_TEST_PROTOCOLS: LTHR, MaxHR, and Resting HR test protocols.
+"""
 
 from __future__ import annotations
 
@@ -273,4 +279,94 @@ ZONES_EXPLAINED = """# Training Zones Explained
 - 6-8 x 400m at ~mile pace with full recovery
 - Strides: 6-8 x 100m accelerations (not a workout, done after easy runs)
 - Full recovery between reps is essential — this is about quality, not fatigue
+"""
+
+FIELD_TEST_PROTOCOLS = """# Field Test Protocols
+
+## Lactate Threshold Heart Rate (LTHR) — Friel 30-Minute Time Trial
+
+The gold standard self-test for establishing HR training zones. Your LTHR is the
+average heart rate from the last 20 minutes of a 30-minute all-out time trial.
+
+### Protocol
+1. **Warm up** 15 min easy running with 3-4 strides
+2. **Start recording** on your GPS watch
+3. **Run 30 minutes** as hard as you can sustain — aim for even effort, not even pace
+4. **Lap at 10 minutes** (press lap button to mark the split)
+5. **Cool down** 10 min easy
+6. **Your LTHR** = average HR from minutes 10-30 (the last 20 minutes)
+
+### Why Last 20 Minutes?
+The first 10 minutes include HR ramp-up time and pacing errors. The last 20 minutes
+reflect your true steady-state threshold effort.
+
+### Tips
+- Pick a flat, measured course (track is ideal)
+- Do not sprint the finish — stay steady
+- Do this test when rested (after an easy day)
+- Repeat every 6-8 weeks to track fitness changes
+- Use the result to set HR zones in calculate_training_zones (threshold_hr parameter)
+
+### Expected Results by Level
+| Level | Typical LTHR | Notes |
+|-------|-------------|-------|
+| Beginner | 155-170 bpm | Varies widely with age and genetics |
+| Intermediate | 160-175 bpm | Improves with threshold training |
+| Advanced | 165-185 bpm | Highly individual at this level |
+
+---
+
+## Maximum Heart Rate — Pfitzinger Uphill Repeats
+
+Determines your true max HR. The 220-age formula is inaccurate for ~30% of people.
+A field test gives a personal, accurate number.
+
+### Protocol
+1. **Warm up** 15-20 min easy with 4-6 strides
+2. **Find a steep hill** (6-10% grade, 400-600m long)
+3. **Run 3 x 600m uphill repeats** at maximal effort:
+   - Rep 1: Hard but controlled (building to max)
+   - Rep 2: Harder
+   - Rep 3: All-out from start, sprint the final 100m
+4. **Jog down** between reps (full recovery not needed — 2-3 min)
+5. **Your Max HR** = highest HR recorded during rep 3
+6. **Cool down** 10-15 min easy
+
+### Why Uphill?
+- Eliminates the eccentric muscle damage of flat sprinting
+- Forces maximum cardiovascular output
+- Safer for joints and connective tissue
+- More reliable than flat sprinting (less risk of premature stop from leg fatigue)
+
+### Safety
+- Only attempt if currently running at least 3x per week
+- Do not attempt if you have any cardiovascular concerns — consult a doctor first
+- Stop immediately if you feel dizzy, have chest pain, or anything abnormal
+- Have someone present if possible
+
+### Tips
+- Do not attempt on a treadmill (most cap at low grades)
+- Use a chest strap HR monitor (optical watches lag at high HR)
+- Your max HR is the single highest reading, not the average
+- Max HR does not change with fitness (it's genetic and age-dependent)
+- Use the result with calculate_hr_zones_karvonen (max_hr parameter)
+
+---
+
+## Resting Heart Rate — Morning Protocol
+
+Accurate resting HR is essential for Karvonen (HRR) zone calculation.
+
+### Protocol
+1. **Measure for 5 consecutive mornings** — consistency matters
+2. **Immediately upon waking**, before sitting up, getting out of bed, or checking phone
+3. **Lie still for 1-2 minutes** with your HR monitor on
+4. **Record the lowest stable reading** (ignore the first few seconds)
+5. **Your Resting HR** = average of the 5 lowest morning readings
+
+### Tips
+- Alcohol, caffeine (evening before), and poor sleep will elevate readings
+- Avoid mornings after hard training sessions
+- A sudden increase of 5+ bpm above your baseline for 3+ days signals overtraining or illness
+- Resting HR decreases with improved aerobic fitness (a good progress indicator)
 """
