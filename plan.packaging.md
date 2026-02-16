@@ -55,36 +55,36 @@ For both `strava-mcp/pyproject.toml` and `pace-ai/pyproject.toml`:
 - Methodology overview
 - Example coaching conversations
 
-### Phase 3: Discoverability — Get Found
-
-**3.1 MCP registries** — Where people actively browse for MCP servers:
-- **mcp.so** — Submit both servers to the main MCP directory
-- **smithery.ai** — Submit (supports one-click install)
-- **glama.ai/mcp** — Submit to third directory
-- Research each registry's submission format and create required config files
-
-**3.2 Awesome MCP Servers lists**
-- PR to `punkpeye/awesome-mcp-servers` (40k+ stars) under Sports/Fitness
-- PR to any other active curated lists
-
-**3.3 GitHub repository polish**
-- Repo description: "AI running coach powered by MCP — connects Claude to
-  your Strava data for training analysis, race predictions, and coaching"
-- Topics: `mcp`, `strava`, `running`, `ai-coach`, `claude`, `training`,
-  `vdot`, `model-context-protocol`
-
-**3.4 Community posts** — One-time, high leverage:
-- r/ClaudeAI — "I built an AI running coach using MCP + Strava"
-- r/running, r/AdvancedRunning — "Open-source AI coach that analyzes your Strava data"
-- Strava developer forums
-- X/Twitter — short demo video or GIF of a real coaching conversation
-
-### Phase 4: Validate as User #1
+### Phase 3: Validate as User #1
 
 - Fresh venv, follow the README step by step
 - Configure with Claude Desktop / Claude Code
 - Run a real coaching conversation end to end
 - Note every friction point, fix docs and code accordingly
+
+### Phase 4: Discoverability — Get Found
+
+**4.1 MCP registries** — Where people actively browse for MCP servers:
+- **mcp.so** — Submit both servers to the main MCP directory
+- **smithery.ai** — Submit (supports one-click install)
+- **glama.ai/mcp** — Submit to third directory
+- Research each registry's submission format and create required config files
+
+**4.2 Awesome MCP Servers lists**
+- PR to `punkpeye/awesome-mcp-servers` (40k+ stars) under Sports/Fitness
+- PR to any other active curated lists
+
+**4.3 GitHub repository polish**
+- Repo description: "AI running coach powered by MCP — connects Claude to
+  your Strava data for training analysis, race predictions, and coaching"
+- Topics: `mcp`, `strava`, `running`, `ai-coach`, `claude`, `training`,
+  `vdot`, `model-context-protocol`
+
+**4.4 Community posts** — One-time, high leverage:
+- r/ClaudeAI — "I built an AI running coach using MCP + Strava"
+- r/running, r/AdvancedRunning — "Open-source AI coach that analyzes your Strava data"
+- Strava developer forums
+- X/Twitter — short demo video or GIF of a real coaching conversation
 
 ---
 
@@ -128,9 +128,9 @@ anything locally. This requires solving multi-user blockers:
 |-------|------|-------|
 | 1 | Foundation | LICENSE, 2× pyproject.toml, 2× .env.example |
 | 2 | Documentation | 3× README.md |
-| 3 | Discoverability | Registry configs, GitHub settings, community posts |
-| 4 | Validation | You test it end-to-end |
+| 3 | Validation | You test it end-to-end |
+| 4 | Discoverability | Registry configs, GitHub settings, community posts |
 
 Phases 1-2 are code changes I can implement directly.
-Phase 3 requires research into registry formats + your GitHub/Reddit accounts.
-Phase 4 is your hands-on testing.
+Phase 3 is your hands-on testing — validate before promoting.
+Phase 4 requires research into registry formats + your GitHub/Reddit accounts.
