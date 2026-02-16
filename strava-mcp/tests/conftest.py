@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
+import os
 from typing import Any
+
+# Set test env vars BEFORE any strava_mcp imports that trigger Settings.from_env()
+os.environ.setdefault("STRAVA_CLIENT_ID", "12345")
+os.environ.setdefault("STRAVA_CLIENT_SECRET", "test_secret")
 
 import pytest
 

@@ -147,20 +147,47 @@ _ZONE_VO2MAX_PCT = {
 }
 
 
+def _cameron_predict(source_dist_m: float, source_time_s: float, target_dist_m: float) -> int:
+    """Predict race time using the Cameron model.
+
+    The Cameron model uses distance-specific fatigue/drop-off factors and is
+    considered more accurate than Riegel for longer distances. The drop-off
+    factor captures that pace slows more at longer distances.
+
+    Formula: t2 = t1 * (d2/d1) * (f(d2)/f(d1))
+    where f(d) = 13.49681 - 0.048865*d + 2.438936/(d^0.7905)  (d in miles)
+    """
+    # Convert to miles for the Cameron coefficients
+    d1 = source_dist_m / 1609.344
+    d2 = target_dist_m / 1609.344
+
+    def _fatigue(d_miles: float) -> float:
+        return 13.49681 - 0.048865 * d_miles + 2.438936 / (d_miles**0.7905)
+
+    f1 = _fatigue(d1)
+    f2 = _fatigue(d2)
+
+    return round(source_time_s * (d2 / d1) * (f2 / f1))
+
+
 def predict_race_time(
     recent_race_distance: str,
     recent_race_time: str,
     target_distance: str,
+    temperature_c: float | None = None,
+    altitude_m: float | None = None,
 ) -> dict[str, Any]:
-    """Predict race time using VDOT model.
+    """Predict race time using VDOT, Riegel, and Cameron models.
 
     Args:
         recent_race_distance: Distance of recent race (e.g. "5k", "10k", "half marathon").
         recent_race_time: Finish time of recent race (H:MM:SS or M:SS).
         target_distance: Target race distance to predict.
+        temperature_c: Race-day temperature in Celsius (optional, applies heat slowdown).
+        altitude_m: Race-day altitude in meters (optional, applies altitude slowdown).
 
     Returns:
-        Predicted time, VDOT, and equivalent performances.
+        Predicted time, VDOT, Cameron prediction, and equivalent performances.
     """
     from pace_ai.tools.goals import format_time, parse_time
 
@@ -181,22 +208,75 @@ def predict_race_time(
     # Riegel comparison
     riegel_seconds = round(time_seconds * (target_dist / source_dist) ** 1.06)
 
+    # Cameron model (uses fatigue factors specific to each distance)
+    cameron_seconds = _cameron_predict(source_dist, time_seconds, target_dist)
+
     # Equivalent performances at all distances
     equivalents = {}
     for name, dist in RACE_DISTANCES.items():
         eq_seconds = _time_from_vdot(vdot, dist)
         equivalents[name] = format_time(eq_seconds)
 
-    return {
+    # Build caveats for marathon predictions from short distances
+    caveats: list[str] = []
+    if target_dist >= 42000 and source_dist <= 10000:
+        caveats.append(
+            "Predicting marathon from short races is unreliable. "
+            "A half marathon is the best predictor for marathon times."
+        )
+    if target_dist >= 42000:
+        caveats.append("Riegel and VDOT systematically underestimate marathon times for runners under 60 km/week.")
+
+    result: dict[str, Any] = {
         "vdot": vdot,
         "predicted_time": format_time(predicted_seconds),
         "predicted_seconds": predicted_seconds,
         "riegel_predicted_time": format_time(riegel_seconds),
         "riegel_predicted_seconds": riegel_seconds,
+        "cameron_predicted_time": format_time(cameron_seconds),
+        "cameron_predicted_seconds": cameron_seconds,
         "source_race": {"distance": recent_race_distance, "time": recent_race_time},
         "target_distance": target_distance,
         "equivalent_performances": equivalents,
+        "caveats": caveats,
     }
+
+    # Apply environment adjustments if provided
+    if temperature_c is not None or altitude_m is not None:
+        from pace_ai.tools.environment import calculate_altitude_adjustment, calculate_heat_adjustment
+
+        env_factor = 1.0
+        env_adjustments: dict[str, Any] = {}
+
+        if temperature_c is not None:
+            heat = calculate_heat_adjustment(temperature_c=temperature_c)
+            env_factor *= heat["adjustment_factor"]
+            env_adjustments["heat"] = heat
+            if heat["slowdown_pct"] > 0:
+                caveats.append(f"Heat adjustment: +{heat['slowdown_pct']}% slower at {temperature_c}\u00b0C.")
+
+        if altitude_m is not None:
+            alt = calculate_altitude_adjustment(altitude_m=altitude_m)
+            env_factor *= alt["adjustment_factor"]
+            env_adjustments["altitude"] = alt
+            if alt["slowdown_pct"] > 0:
+                caveats.append(f"Altitude adjustment: +{alt['slowdown_pct']}% slower at {alt['altitude_m']:.0f}m.")
+
+        adj_predicted = round(predicted_seconds * env_factor)
+        adj_riegel = round(riegel_seconds * env_factor)
+        adj_cameron = round(cameron_seconds * env_factor)
+        result["environment_adjusted"] = {
+            "adjustment_factor": round(env_factor, 4),
+            "adjusted_predicted_time": format_time(adj_predicted),
+            "adjusted_predicted_seconds": adj_predicted,
+            "adjusted_riegel_time": format_time(adj_riegel),
+            "adjusted_riegel_seconds": adj_riegel,
+            "adjusted_cameron_time": format_time(adj_cameron),
+            "adjusted_cameron_seconds": adj_cameron,
+            "adjustments_applied": env_adjustments,
+        }
+
+    return result
 
 
 # ── Training Zones (Daniels) ────────────────────────────────────────
@@ -291,4 +371,175 @@ def calculate_training_zones(
             "interval": "VO2max development. Hard effort, 3-5 minute repeats with equal rest.",
             "repetition": "Speed and running economy. Short, fast repeats (200m-400m) with full recovery.",
         },
+    }
+
+
+# ── Karvonen HR Zones ────────────────────────────────────────────────
+
+
+def calculate_hr_zones_karvonen(
+    max_hr: int,
+    resting_hr: int,
+) -> dict[str, Any]:
+    """Calculate HR training zones using the Karvonen (Heart Rate Reserve) method.
+
+    More accurate than %MaxHR for recreational runners because it accounts for
+    individual resting heart rate. Formula: Target HR = (HRR x %Intensity) + Resting HR.
+
+    Args:
+        max_hr: Maximum heart rate in bpm (from field test or 220-age estimate).
+        resting_hr: Resting heart rate in bpm (measured upon waking).
+
+    Returns:
+        HR zones with Karvonen-based ranges and methodology notes.
+    """
+    if max_hr <= resting_hr:
+        msg = f"max_hr ({max_hr}) must be greater than resting_hr ({resting_hr})."
+        raise ValueError(msg)
+    if max_hr < 100 or max_hr > 230:
+        msg = f"max_hr ({max_hr}) outside plausible range 100-230 bpm."
+        raise ValueError(msg)
+    if resting_hr < 25 or resting_hr > 120:
+        msg = f"resting_hr ({resting_hr}) outside plausible range 25-120 bpm."
+        raise ValueError(msg)
+
+    hrr = max_hr - resting_hr
+
+    # Zone definitions using %HRR (Karvonen) — aligned with Daniels zone purposes
+    zone_defs = {
+        "easy": (0.50, 0.70),
+        "marathon": (0.70, 0.80),
+        "threshold": (0.80, 0.88),
+        "interval": (0.88, 0.95),
+        "repetition": (0.95, 1.00),
+    }
+
+    zones: dict[str, Any] = {}
+    for zone_name, (lo_pct, hi_pct) in zone_defs.items():
+        lo_hr = int(hrr * lo_pct + resting_hr)
+        hi_hr = int(hrr * hi_pct + resting_hr)
+        zones[zone_name] = {
+            "hr_range_bpm": (lo_hr, hi_hr),
+            "hrr_pct_range": (round(lo_pct * 100), round(hi_pct * 100)),
+        }
+
+    return {
+        "method": "karvonen",
+        "max_hr": max_hr,
+        "resting_hr": resting_hr,
+        "heart_rate_reserve": hrr,
+        "zones": zones,
+        "description": {
+            "easy": "Recovery and base building. Conversational pace.",
+            "marathon": "Marathon-specific endurance. Comfortably hard.",
+            "threshold": "Lactate threshold effort. Comfortably hard for 20-40 minutes.",
+            "interval": "VO2max development. Hard effort, 3-5 minute repeats.",
+            "repetition": "Speed and economy. Short, fast repeats with full recovery.",
+        },
+        "notes": [
+            "Karvonen method uses Heart Rate Reserve (HRR = Max HR - Resting HR).",
+            "More accurate than %MaxHR for individuals with low or high resting HR.",
+            "Max HR should ideally come from a field test, not the 220-age formula.",
+            "Measure resting HR first thing in the morning before getting out of bed.",
+        ],
+    }
+
+
+# ── Daily ACWR (EWMA) ────────────────────────────────────────────────
+
+
+def calculate_acwr_daily(daily_distances: list[float]) -> dict[str, Any]:
+    """Compute ACWR using EWMA (exponentially weighted moving averages).
+
+    EWMA avoids the mathematical coupling issue with rolling-average ACWR
+    (Williams et al. 2017). Also detects single-session spikes.
+
+    Args:
+        daily_distances: Daily distances in km (most recent last), minimum 28 days.
+
+    Returns:
+        EWMA-based ACWR, spike detection, and day-by-day analysis.
+    """
+    if len(daily_distances) < 28:
+        msg = "Need at least 28 days of data for daily ACWR calculation."
+        raise ValueError(msg)
+
+    # EWMA parameters: acute = 7-day half-life, chronic = 28-day half-life
+    acute_decay = 2 / (7 + 1)  # ~0.25
+    chronic_decay = 2 / (28 + 1)  # ~0.069
+
+    acute_ewma = daily_distances[0]
+    chronic_ewma = daily_distances[0]
+
+    for d in daily_distances[1:]:
+        acute_ewma = d * acute_decay + acute_ewma * (1 - acute_decay)
+        chronic_ewma = d * chronic_decay + chronic_ewma * (1 - chronic_decay)
+
+    if chronic_ewma <= 0:
+        return {
+            "acwr_ewma": 0,
+            "acute_ewma": round(acute_ewma, 2),
+            "chronic_ewma": round(chronic_ewma, 2),
+            "risk_level": "insufficient_data",
+            "interpretation": "No chronic training load to compare against.",
+        }
+
+    acwr = round(acute_ewma / chronic_ewma, 2)
+
+    # Spike detection: find any single day > 110% of max in prior 28 days
+    spikes = []
+    for i in range(28, len(daily_distances)):
+        prior_max = max(daily_distances[max(0, i - 28) : i])
+        if prior_max > 0 and daily_distances[i] > prior_max * 1.1:
+            spikes.append(
+                {
+                    "day_index": i,
+                    "distance_km": round(daily_distances[i], 1),
+                    "prior_max_km": round(prior_max, 1),
+                    "spike_pct": round((daily_distances[i] - prior_max) / prior_max * 100, 1),
+                }
+            )
+
+    # Consecutive hard days (>= median * 1.5 for 3+ days in a row)
+    non_zero = [d for d in daily_distances if d > 0]
+    median_distance = sorted(non_zero)[len(non_zero) // 2] if non_zero else 0
+    threshold = median_distance * 1.5
+    consecutive_hard = 0
+    max_consecutive_hard = 0
+    for d in daily_distances[-14:]:  # last 2 weeks
+        if d >= threshold:
+            consecutive_hard += 1
+            max_consecutive_hard = max(max_consecutive_hard, consecutive_hard)
+        else:
+            consecutive_hard = 0
+
+    # Risk classification
+    if acwr < 0.8:
+        risk_level = "undertraining"
+        interpretation = "EWMA training load below chronic average. Risk of detraining."
+    elif acwr <= 1.3:
+        risk_level = "optimal"
+        interpretation = "EWMA ACWR in optimal range (0.8-1.3)."
+    elif acwr <= 1.5:
+        risk_level = "elevated"
+        interpretation = "EWMA ACWR elevated (>1.3). Monitor recovery closely."
+    else:
+        risk_level = "high"
+        interpretation = "EWMA ACWR high (>1.5). Significant injury risk."
+
+    if spikes:
+        risk_level = max(risk_level, "elevated", key=["undertraining", "optimal", "elevated", "high"].index)
+        interpretation += f" {len(spikes)} single-session spike(s) detected in recent history."
+
+    if max_consecutive_hard >= 3:
+        interpretation += f" {max_consecutive_hard} consecutive hard days in last 2 weeks — recovery needed."
+
+    return {
+        "acwr_ewma": acwr,
+        "acute_ewma": round(acute_ewma, 2),
+        "chronic_ewma": round(chronic_ewma, 2),
+        "risk_level": risk_level,
+        "interpretation": interpretation,
+        "spikes": spikes,
+        "max_consecutive_hard_days": max_consecutive_hard,
     }

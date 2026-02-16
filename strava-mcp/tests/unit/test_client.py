@@ -134,7 +134,13 @@ class TestStravaClient:
 
     @respx.mock
     @pytest.mark.asyncio()
-    async def test_429_raises_rate_limit_error(self, strava_client):
+    async def test_429_raises_rate_limit_error(self, strava_client, monkeypatch):
+        import asyncio
+
+        async def _noop(_):
+            pass
+
+        monkeypatch.setattr(asyncio, "sleep", _noop)
         respx.get(f"{STRAVA_API_BASE}/athlete").mock(
             return_value=httpx.Response(429, json={"message": "Rate Limit Exceeded"}),
         )
@@ -145,10 +151,17 @@ class TestStravaClient:
 
     @respx.mock
     @pytest.mark.asyncio()
-    async def test_500_raises_http_error(self, strava_client):
+    async def test_500_raises_after_retries(self, strava_client, monkeypatch):
+        # Patch asyncio.sleep to avoid real delays in tests
+        import asyncio
+
+        async def _noop(_):
+            pass
+
+        monkeypatch.setattr(asyncio, "sleep", _noop)
         respx.get(f"{STRAVA_API_BASE}/athlete").mock(return_value=httpx.Response(500, json={"message": "Server Error"}))
 
-        with pytest.raises(httpx.HTTPStatusError):
+        with pytest.raises(RuntimeError, match="HTTP 500"):
             await strava_client.get_athlete()
         await strava_client.close()
 
