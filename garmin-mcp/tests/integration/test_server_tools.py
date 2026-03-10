@@ -37,6 +37,11 @@ def _wired(monkeypatch):
     mock_client.delete_workout.return_value = {"deleted": True, "workout_id": 100}
     mock_client.schedule_workout.return_value = {"scheduled": True, "workout_id": 100, "date": "2026-02-20"}
     mock_client.get_calendar.return_value = [{"date": "2026-02-16", "workoutId": 100}]
+    mock_client.get_body_battery.return_value = [{"charged": 75, "drained": 30}]
+    mock_client.get_sleep.return_value = {"sleepScore": 82, "sleepDuration": 28800}
+    mock_client.get_hrv.return_value = {"hrvSummary": {"weeklyAvg": 45, "lastNight": 48}}
+    mock_client.get_training_readiness.return_value = {"score": 65, "level": "MODERATE"}
+    mock_client.get_stress.return_value = {"overallStressLevel": 35, "restStressDuration": 600}
 
     monkeypatch.setattr(srv, "garmin", mock_client)
     return mock_client
@@ -186,3 +191,131 @@ class TestListCalendar:
         result = await list_calendar(2026, 2)
         assert isinstance(result, list)
         assert result[0]["date"] == "2026-02-16"
+
+
+@pytest.mark.usefixtures("_wired")
+class TestGetBodyBattery:
+    @pytest.mark.asyncio()
+    async def test_get_body_battery(self):
+        from garmin_mcp.server import get_body_battery
+
+        result = await get_body_battery("2026-03-10")
+        assert result["date"] == "2026-03-10"
+        assert result["data"] == [{"charged": 75, "drained": 30}]
+
+    @pytest.mark.asyncio()
+    async def test_get_body_battery_api_error(self, _wired):
+        from garmin_mcp.server import get_body_battery
+
+        _wired.get_body_battery.side_effect = GarminAPIError("api_error", "Failed", "Retry")
+        result = await get_body_battery("2026-03-10")
+        assert result["error"] == "api_error"
+
+
+@pytest.mark.usefixtures("_wired")
+class TestGetSleep:
+    @pytest.mark.asyncio()
+    async def test_get_sleep(self):
+        from garmin_mcp.server import get_sleep
+
+        result = await get_sleep("2026-03-10")
+        assert result["sleepScore"] == 82
+
+    @pytest.mark.asyncio()
+    async def test_get_sleep_api_error(self, _wired):
+        from garmin_mcp.server import get_sleep
+
+        _wired.get_sleep.side_effect = GarminAPIError("api_error", "Failed", "Retry")
+        result = await get_sleep("2026-03-10")
+        assert result["error"] == "api_error"
+
+
+@pytest.mark.usefixtures("_wired")
+class TestGetHrv:
+    @pytest.mark.asyncio()
+    async def test_get_hrv(self):
+        from garmin_mcp.server import get_hrv
+
+        result = await get_hrv("2026-03-10")
+        assert result["hrvSummary"]["weeklyAvg"] == 45
+
+    @pytest.mark.asyncio()
+    async def test_get_hrv_no_data(self, _wired):
+        from garmin_mcp.server import get_hrv
+
+        _wired.get_hrv.return_value = None
+        result = await get_hrv("2026-03-10")
+        assert result["hrv"] is None
+        assert "No HRV data" in result["message"]
+
+    @pytest.mark.asyncio()
+    async def test_get_hrv_api_error(self, _wired):
+        from garmin_mcp.server import get_hrv
+
+        _wired.get_hrv.side_effect = GarminAPIError("api_error", "Failed", "Retry")
+        result = await get_hrv("2026-03-10")
+        assert result["error"] == "api_error"
+
+
+@pytest.mark.usefixtures("_wired")
+class TestGetTrainingReadiness:
+    @pytest.mark.asyncio()
+    async def test_get_training_readiness(self):
+        from garmin_mcp.server import get_training_readiness
+
+        result = await get_training_readiness("2026-03-10")
+        assert result["score"] == 65
+
+    @pytest.mark.asyncio()
+    async def test_get_training_readiness_api_error(self, _wired):
+        from garmin_mcp.server import get_training_readiness
+
+        _wired.get_training_readiness.side_effect = GarminAPIError("api_error", "Failed", "Retry")
+        result = await get_training_readiness("2026-03-10")
+        assert result["error"] == "api_error"
+
+
+@pytest.mark.usefixtures("_wired")
+class TestGetStress:
+    @pytest.mark.asyncio()
+    async def test_get_stress(self):
+        from garmin_mcp.server import get_stress
+
+        result = await get_stress("2026-03-10")
+        assert result["overallStressLevel"] == 35
+
+    @pytest.mark.asyncio()
+    async def test_get_stress_api_error(self, _wired):
+        from garmin_mcp.server import get_stress
+
+        _wired.get_stress.side_effect = GarminAPIError("api_error", "Failed", "Retry")
+        result = await get_stress("2026-03-10")
+        assert result["error"] == "api_error"
+
+
+@pytest.mark.usefixtures("_wired")
+class TestGetWellnessSnapshot:
+    @pytest.mark.asyncio()
+    async def test_get_wellness_snapshot(self):
+        from garmin_mcp.server import get_wellness_snapshot
+
+        result = await get_wellness_snapshot(days=3)
+        assert len(result["dates"]) == 3
+        assert len(result["days"]) == 3
+        day = result["days"][0]
+        assert "body_battery" in day
+        assert "sleep" in day
+        assert "hrv" in day
+        assert "training_readiness" in day
+        assert "stress" in day
+
+    @pytest.mark.asyncio()
+    async def test_get_wellness_snapshot_partial_failure(self, _wired):
+        from garmin_mcp.server import get_wellness_snapshot
+
+        _wired.get_hrv.side_effect = GarminAPIError("api_error", "HRV unavailable", "Retry")
+        result = await get_wellness_snapshot(days=2)
+        assert len(result["days"]) == 2
+        for day in result["days"]:
+            assert day["hrv"] is None
+            assert day["sleep"]["sleepScore"] == 82

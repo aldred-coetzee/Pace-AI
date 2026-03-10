@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from datetime import date, timedelta
 from typing import Any
 
 from mcp.server.fastmcp import FastMCP
@@ -175,6 +176,109 @@ async def list_calendar(year: int, month: int) -> dict:
         return e.to_dict()
 
 
+# ── Wellness Tools ────────────────────────────────────────────────────
+
+
+@mcp.tool()
+async def get_body_battery(date: str) -> dict:
+    """Get daily body battery data from Garmin.
+
+    Args:
+        date: Date in YYYY-MM-DD format.
+    """
+    try:
+        return {"date": date, "data": garmin.get_body_battery(date)}
+    except GarminAPIError as e:
+        return e.to_dict()
+
+
+@mcp.tool()
+async def get_sleep(date: str) -> dict:
+    """Get sleep score and summary from Garmin.
+
+    Args:
+        date: Date in YYYY-MM-DD format.
+    """
+    try:
+        return garmin.get_sleep(date)
+    except GarminAPIError as e:
+        return e.to_dict()
+
+
+@mcp.tool()
+async def get_hrv(date: str) -> dict:
+    """Get HRV (heart rate variability) status from Garmin.
+
+    Args:
+        date: Date in YYYY-MM-DD format.
+    """
+    try:
+        data = garmin.get_hrv(date)
+        if data is None:
+            return {"date": date, "hrv": None, "message": "No HRV data available for this date."}
+        return data
+    except GarminAPIError as e:
+        return e.to_dict()
+
+
+@mcp.tool()
+async def get_training_readiness(date: str) -> dict:
+    """Get training readiness score from Garmin.
+
+    Args:
+        date: Date in YYYY-MM-DD format.
+    """
+    try:
+        return garmin.get_training_readiness(date)
+    except GarminAPIError as e:
+        return e.to_dict()
+
+
+@mcp.tool()
+async def get_stress(date: str) -> dict:
+    """Get daily stress data from Garmin.
+
+    Args:
+        date: Date in YYYY-MM-DD format.
+    """
+    try:
+        return garmin.get_stress(date)
+    except GarminAPIError as e:
+        return e.to_dict()
+
+
+@mcp.tool()
+async def get_wellness_snapshot(days: int = 7) -> dict:
+    """Get a combined wellness summary for today and the past N days.
+
+    Fetches body battery, sleep, HRV, training readiness, and stress for each day
+    and returns a combined summary useful for coaching context.
+
+    Args:
+        days: Number of past days to include (default 7).
+    """
+    today = date.today()
+    dates = [(today - timedelta(days=i)).isoformat() for i in range(days)]
+
+    snapshot: dict[str, Any] = {"dates": dates, "days": []}
+    for d in dates:
+        day_data: dict[str, Any] = {"date": d}
+        for metric, fetch in [
+            ("body_battery", garmin.get_body_battery),
+            ("sleep", garmin.get_sleep),
+            ("hrv", garmin.get_hrv),
+            ("training_readiness", garmin.get_training_readiness),
+            ("stress", garmin.get_stress),
+        ]:
+            try:
+                day_data[metric] = fetch(d)
+            except GarminAPIError:
+                day_data[metric] = None
+        snapshot["days"].append(day_data)
+
+    return snapshot
+
+
 # ── Resources ──────────────────────────────────────────────────────────
 
 
@@ -210,7 +314,9 @@ def _build_workout(workout_type: str, name: str, params: dict[str, Any]) -> dict
 
 def main() -> None:
     """Entry point for the garmin-mcp server."""
-    mcp.run(transport="streamable-http")
+    import os
+
+    mcp.run(transport=os.environ.get("MCP_TRANSPORT", "streamable-http"))
 
 
 if __name__ == "__main__":

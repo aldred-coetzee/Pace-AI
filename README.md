@@ -2,7 +2,7 @@
 
 AI running coach powered by MCP — connects Claude to your Strava data for personalized training analysis, race predictions, evidence-based coaching, and structured workout delivery to your Garmin watch.
 
-Three MCP servers in one monorepo. Claude orchestrates between them: pulls training data from Strava, reasons using sports-science coaching methodology, and pushes structured workouts to Garmin Connect.
+Four MCP servers in one monorepo. Claude orchestrates between them: pulls training data from Strava, body composition from Withings, reasons using sports-science coaching methodology, and pushes structured workouts to Garmin Connect.
 
 <p align="center">
   <img src="docs/architecture.svg" alt="Pace-AI Architecture" width="720">
@@ -21,7 +21,7 @@ Go to [strava.com/settings/api](https://www.strava.com/settings/api) and create 
 ```bash
 git clone https://github.com/aldred-coetzee/Pace-AI.git
 cd Pace-AI
-pip install -e ./strava-mcp -e ./pace-ai -e ./garmin-mcp
+pip install -e ./strava-mcp -e ./pace-ai -e ./garmin-mcp -e ./withings-mcp
 ```
 
 ### 3. Configure
@@ -32,6 +32,9 @@ cp strava-mcp/.env.example strava-mcp/.env
 
 cp garmin-mcp/.env.example garmin-mcp/.env
 # Edit garmin-mcp/.env — add your GARMIN_EMAIL and GARMIN_PASSWORD
+
+cp withings-mcp/.env.example withings-mcp/.env
+# Edit withings-mcp/.env — add your WITHINGS_CLIENT_ID and WITHINGS_CLIENT_SECRET
 ```
 
 pace-ai needs no configuration (all settings have defaults).
@@ -62,6 +65,11 @@ garmin-mcp-login
       "command": "garmin-mcp",
       "type": "streamableHttp",
       "url": "http://127.0.0.1:8003/mcp"
+    },
+    "withings-mcp": {
+      "command": "withings-mcp",
+      "type": "streamableHttp",
+      "url": "http://127.0.0.1:8004/mcp"
     }
   }
 }
@@ -83,6 +91,10 @@ garmin-mcp-login
     "garmin-mcp": {
       "type": "streamableHttp",
       "url": "http://127.0.0.1:8003/mcp"
+    },
+    "withings-mcp": {
+      "type": "streamableHttp",
+      "url": "http://127.0.0.1:8004/mcp"
     }
   }
 }
@@ -96,6 +108,7 @@ Start all three servers, then ask Claude:
 strava-mcp &
 pace-ai &
 garmin-mcp &
+withings-mcp &
 ```
 
 > "Authenticate with Strava, then analyze my last 4 weeks of running and give me a weekly plan."
@@ -151,6 +164,16 @@ Claude will pull your activities, compute ACWR and training zones, generate a pe
 
 Workout types support HR zone targeting (Garmin zones 1–5), warmup/cooldown, and repeat groups.
 
+### withings-mcp — Body Composition (4 tools, 1 resource)
+
+| Tool | Description |
+|------|-------------|
+| `authenticate` | Trigger Withings OAuth flow (opens browser) |
+| `get_measurements` | Weight, body fat %, muscle mass, bone mass, body water |
+| `get_latest_weight` | Most recent weight measurement |
+| `get_blood_pressure` | Systolic, diastolic, heart rate readings |
+| `get_body_composition_trend` | Weekly averages for weight and body fat over time |
+
 ## Configuration
 
 | Variable | Default | Description |
@@ -169,24 +192,29 @@ Workout types support HR zone targeting (Garmin zones 1–5), warmup/cooldown, a
 | `GARMIN_PASSWORD` | *(required)* | Garmin Connect login password |
 | `GARMIN_MCP_PORT` | `8003` | garmin-mcp HTTP port |
 | `GARTH_HOME` | `~/.garth` | Garth session token directory |
+| `WITHINGS_CLIENT_ID` | *(required)* | From Withings developer portal |
+| `WITHINGS_CLIENT_SECRET` | *(required)* | From Withings developer portal |
+| `WITHINGS_MCP_PORT` | `8004` | withings-mcp HTTP port |
+| `WITHINGS_MCP_DB` | `withings_mcp.db` | SQLite path (tokens) |
 
 ## Development
 
 ```bash
 # Install in dev mode
-pip install -e ./strava-mcp[dev] -e ./pace-ai[dev] -e ./garmin-mcp[dev]
+pip install -e ./strava-mcp[dev] -e ./pace-ai[dev] -e ./garmin-mcp[dev] -e ./withings-mcp[dev]
 
 # Run tests
 cd strava-mcp && python -m pytest tests/ && cd ..
 cd pace-ai && python -m pytest tests/ && cd ..
 cd garmin-mcp && python -m pytest tests/ && cd ..
+cd withings-mcp && python -m pytest tests/ && cd ..
 
 # Lint
-ruff check strava-mcp/ pace-ai/ garmin-mcp/
-ruff format --check strava-mcp/ pace-ai/ garmin-mcp/
+ruff check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/
+ruff format --check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/
 ```
 
-See [strava-mcp/README.md](strava-mcp/README.md), [pace-ai/README.md](pace-ai/README.md), and [garmin-mcp/README.md](garmin-mcp/README.md) for server-specific details.
+See [strava-mcp/README.md](strava-mcp/README.md), [pace-ai/README.md](pace-ai/README.md), [garmin-mcp/README.md](garmin-mcp/README.md), and [withings-mcp/README.md](withings-mcp/README.md) for server-specific details.
 
 ## License
 
