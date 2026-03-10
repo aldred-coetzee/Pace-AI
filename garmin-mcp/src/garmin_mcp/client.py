@@ -172,3 +172,45 @@ class GarminClient:
                 message=f"Failed to get calendar for {year}-{month:02d}: {e}",
                 action="Check the year and month values.",
             ) from e
+
+    # ── Wellness Data ─────────────────────────────────────────────────
+
+    def get_body_battery(self, date: str) -> Any:
+        """Get daily body battery data.
+
+        Args:
+            date: Date in YYYY-MM-DD format.
+        """
+        return self._call("get_body_battery", date)
+
+    def get_sleep(self, date: str) -> Any:
+        """Get sleep score and summary.
+
+        Args:
+            date: Date in YYYY-MM-DD format.
+        """
+        return self._call("get_sleep_data", date)
+
+    def get_hrv(self, date: str) -> Any:
+        """Get HRV status.
+
+        Args:
+            date: Date in YYYY-MM-DD format.
+        """
+        return self._call("get_hrv_data", date)
+
+    def get_training_readiness(self, date: str) -> Any:
+        """Get training readiness score.
+
+        Args:
+            date: Date in YYYY-MM-DD format.
+        """
+        return self._call("get_training_readiness", date)
+
+    def get_stress(self, date: str) -> Any:
+        """Get daily stress data.
+
+        Args:
+            date: Date in YYYY-MM-DD format.
+        """
+        return self._call("get_stress_data", date)

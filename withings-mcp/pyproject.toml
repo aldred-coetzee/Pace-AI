@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "withings-mcp"
+version = "0.1.0"
+description = "MCP server for Withings body composition and health metrics"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Aldred Coetzee" },
+]
+keywords = ["mcp", "withings", "body-composition", "model-context-protocol"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+    "mcp[cli]>=1.25,<2",
+    "withings-sync>=5.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "ruff>=0.4"]
+
+[project.urls]
+Homepage = "https://github.com/aldred-coetzee/Pace-AI"
+Repository = "https://github.com/aldred-coetzee/Pace-AI"
+"Bug Tracker" = "https://github.com/aldred-coetzee/Pace-AI/issues"
+
+[project.scripts]
+withings-mcp = "withings_mcp.server:main"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "N",
+    "UP",
+    "B",
+    "SIM",
+    "TCH",
+    "RUF",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["withings_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "e2e: end-to-end tests requiring real Withings credentials",
+]
+asyncio_mode = "auto"

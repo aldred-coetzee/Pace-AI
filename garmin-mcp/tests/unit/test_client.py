@@ -177,3 +177,62 @@ class TestGarminClient:
         result = client.get_calendar(2026, 2)
         mock_garmin.garth.get.assert_called_once_with("connectapi", "/workout-service/schedule/2026/2", api=True)
         assert result == [{"date": "2026-02-16"}]
+
+    def test_get_body_battery_delegates(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_body_battery.return_value = [{"charged": 75}]
+        client._garmin = mock_garmin
+
+        result = client.get_body_battery("2026-03-10")
+        mock_garmin.get_body_battery.assert_called_once_with("2026-03-10")
+        assert result == [{"charged": 75}]
+
+    def test_get_sleep_delegates(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_sleep_data.return_value = {"sleepScore": 82}
+        client._garmin = mock_garmin
+
+        result = client.get_sleep("2026-03-10")
+        mock_garmin.get_sleep_data.assert_called_once_with("2026-03-10")
+        assert result == {"sleepScore": 82}
+
+    def test_get_hrv_delegates(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_hrv_data.return_value = {"hrvSummary": {"weeklyAvg": 45}}
+        client._garmin = mock_garmin
+
+        result = client.get_hrv("2026-03-10")
+        mock_garmin.get_hrv_data.assert_called_once_with("2026-03-10")
+        assert result == {"hrvSummary": {"weeklyAvg": 45}}
+
+    def test_get_hrv_returns_none(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_hrv_data.return_value = None
+        client._garmin = mock_garmin
+
+        result = client.get_hrv("2026-03-10")
+        assert result is None
+
+    def test_get_training_readiness_delegates(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_training_readiness.return_value = {"score": 65}
+        client._garmin = mock_garmin
+
+        result = client.get_training_readiness("2026-03-10")
+        mock_garmin.get_training_readiness.assert_called_once_with("2026-03-10")
+        assert result == {"score": 65}
+
+    def test_get_stress_delegates(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_stress_data.return_value = {"overallStressLevel": 35}
+        client._garmin = mock_garmin
+
+        result = client.get_stress("2026-03-10")
+        mock_garmin.get_stress_data.assert_called_once_with("2026-03-10")
+        assert result == {"overallStressLevel": 35}
