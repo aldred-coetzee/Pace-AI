@@ -2,14 +2,15 @@
 
 ## Architecture
 
-Four MCP servers in one monorepo:
+Five MCP servers in one monorepo:
 
 1. **strava-mcp** (`localhost:8001`) — Generic Strava data access. OAuth, activities, streams, stats.
 2. **pace-ai** (`localhost:8002`) — Running coach intelligence. Goals, analysis (ACWR/VDOT/zones), coaching prompts, methodology resources.
 3. **garmin-mcp** (`localhost:8003`) — Garmin Connect workout management. Create, schedule, and sync structured workouts to Garmin watches.
 4. **withings-mcp** (`localhost:8004`) — Withings body composition and health metrics. Weight, body fat, blood pressure.
+5. **notion-mcp** (`localhost:8005`) — Notion running diary. Stress, niggles, and notes cached to SQLite.
 
-Claude orchestrates between them: pulls data from strava-mcp and withings-mcp, reasons using pace-ai's coaching framework, pushes workouts via garmin-mcp.
+Claude orchestrates between them: pulls data from strava-mcp, withings-mcp, and notion-mcp, reasons using pace-ai's coaching framework, pushes workouts via garmin-mcp.
 
 ## Development Commands
 
@@ -19,12 +20,14 @@ cd strava-mcp && pip install -e .
 cd pace-ai && pip install -e .
 cd garmin-mcp && pip install -e .
 cd withings-mcp && pip install -e .
+cd notion-mcp && pip install -e .
 
 # Run servers
 strava-mcp          # starts on localhost:8001
 pace-ai             # starts on localhost:8002
 garmin-mcp          # starts on localhost:8003
 withings-mcp        # starts on localhost:8004
+notion-mcp          # starts on localhost:8005
 
 # Auth (garmin-mcp requires one-time login)
 garmin-mcp-login    # interactive Garmin Connect SSO
@@ -34,6 +37,7 @@ cd strava-mcp && python -m pytest tests/           # all strava-mcp tests
 cd pace-ai && python -m pytest tests/              # all pace-ai tests
 cd garmin-mcp && python -m pytest tests/           # all garmin-mcp tests
 cd withings-mcp && python -m pytest tests/         # all withings-mcp tests
+cd notion-mcp && python -m pytest tests/           # all notion-mcp tests
 python -m pytest tests/unit/                       # unit tests only
 python -m pytest tests/integration/                # integration tests only
 python -m pytest tests/e2e/                        # e2e tests (server startup)
@@ -57,22 +61,25 @@ cd strava-mcp && python -m pytest tests/unit/ && cd ..
 cd pace-ai && python -m pytest tests/unit/ && cd ..
 cd garmin-mcp && python -m pytest tests/unit/ && cd ..
 cd withings-mcp && python -m pytest tests/unit/ && cd ..
+cd notion-mcp && python -m pytest tests/unit/ && cd ..
 
 # Step 2: Integration tests (all servers)
 cd strava-mcp && python -m pytest tests/integration/ && cd ..
 cd pace-ai && python -m pytest tests/integration/ && cd ..
 cd garmin-mcp && python -m pytest tests/integration/ && cd ..
 cd withings-mcp && python -m pytest tests/integration/ && cd ..
+cd notion-mcp && python -m pytest tests/integration/ && cd ..
 
 # Step 3: E2E startup tests (all servers MUST actually boot and respond to HTTP)
 cd strava-mcp && python -m pytest tests/e2e/ && cd ..
 cd pace-ai && python -m pytest tests/e2e/ && cd ..
 cd garmin-mcp && python -m pytest tests/e2e/ && cd ..
 cd withings-mcp && python -m pytest tests/e2e/ && cd ..
+cd notion-mcp && python -m pytest tests/e2e/ && cd ..
 
 # Step 4: Lint
-ruff check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/
-ruff format --check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/
+ruff check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/ notion-mcp/
+ruff format --check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/ notion-mcp/
 ```
 
 **If ANY step fails, the commit MUST NOT proceed.**
@@ -103,7 +110,7 @@ The e2e startup tests (`tests/e2e/test_server_startup.py`) boot the actual serve
 - Imports sorted by ruff/isort
 - Async/await for all I/O operations
 - SQLite for local persistence (tokens, cache, goals); garth for Garmin session storage
-- `respx` for mocking HTTP in strava-mcp and withings-mcp tests, mock at class level for garmin-mcp, `pytest-asyncio` for async tests
+- `respx` for mocking HTTP in strava-mcp, withings-mcp, and notion-mcp tests, mock at class level for garmin-mcp, `pytest-asyncio` for async tests
 - Test fixtures in `tests/conftest.py`, sample data factories for realistic test data
 
 ## Testing Philosophy
@@ -144,3 +151,7 @@ Every module must have tests. Specifically:
 | `withings-mcp/src/withings_mcp/client.py` | Withings API wrapper with token refresh |
 | `withings-mcp/src/withings_mcp/auth.py` | OAuth2 flow + token storage |
 | `withings-mcp/tests/e2e/test_server_startup.py` | E2E: boots server, verifies HTTP response |
+| `notion-mcp/src/notion_mcp/server.py` | MCP server entry point (1 tool, 1 resource) |
+| `notion-mcp/src/notion_mcp/client.py` | Notion API client + page parser |
+| `notion-mcp/src/notion_mcp/cache.py` | SQLite diary entry cache |
+| `notion-mcp/tests/e2e/test_server_startup.py` | E2E: boots server, verifies HTTP response |
