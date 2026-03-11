@@ -8,21 +8,27 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 
 from pace_ai.config import Settings
-from pace_ai.database import GoalDB
+from pace_ai.database import GoalDB, HistoryDB
 from pace_ai.prompts.coaching import (
     injury_risk_prompt,
     race_readiness_prompt,
     run_analysis_prompt,
     weekly_plan_prompt,
 )
+from pace_ai.resources.claim_store import query_claims
 from pace_ai.resources.methodology import FIELD_TEST_PROTOCOLS, METHODOLOGY, ZONES_EXPLAINED
 from pace_ai.tools import analysis as analysis_mod
 from pace_ai.tools import environment as env_mod
 from pace_ai.tools import goals as goals_mod
+from pace_ai.tools import history as history_mod
+from pace_ai.tools import memory as memory_mod
+from pace_ai.tools import profile as profile_mod
 from pace_ai.tools import run_analysis as run_mod
+from pace_ai.tools import sync as sync_mod
 
 settings = Settings.from_env()
 goal_db = GoalDB(settings.db_path)
+history_db = HistoryDB(settings.db_path)
 
 
 def _parse_json(raw: str, name: str = "input") -> Any:
@@ -420,6 +426,343 @@ async def calculate_altitude_adjustment(
     return env_mod.calculate_altitude_adjustment(altitude_ft=altitude_ft, altitude_m=altitude_m)
 
 
+# ── Evidence Tools ─────────────────────────────────────────────────────
+
+
+@mcp.tool()
+async def get_coaching_claims(
+    category: str,
+    population: str,
+    limit: int = 20,
+) -> list[dict]:
+    """Query evidence-backed coaching claims from the research database.
+
+    Returns ranked claims from peer-reviewed research, scored by population
+    relevance. Use specific category names matching research domains
+    (e.g. "training_load_acwr", "polarized_training", "taper_science").
+
+    Args:
+        category: Research category to query (e.g. "training_load_acwr", "periodisation").
+            Use comma-separated values to query multiple categories.
+        population: Target population for relevance scoring (e.g. "recreational runners",
+            "elite athletes"). Claims matching exactly score highest.
+        limit: Maximum number of claims to return (default 20).
+    """
+    categories = [c.strip() for c in category.split(",")]
+    return query_claims(categories, population, limit)
+
+
+# ── Sync Tools ─────────────────────────────────────────────────────────
+
+
+@mcp.tool()
+async def sync_strava(activities_json: str) -> dict:
+    """Sync Strava activities into the central history store.
+
+    Accepts a JSON array of raw activities from strava-mcp get_recent_activities.
+    Upserts into activities table, auto-detects races, calculates VDOT, marks PBs.
+
+    Args:
+        activities_json: JSON array of Strava activity objects.
+    """
+    activities = _parse_json(activities_json, "activities_json")
+    if isinstance(activities, dict) and activities.get("error") == "invalid_json":
+        return activities
+    return sync_mod.sync_strava(history_db, activities)
+
+
+@mcp.tool()
+async def sync_garmin_wellness(wellness_json: str) -> dict:
+    """Sync Garmin wellness snapshots into the central history store.
+
+    Args:
+        wellness_json: JSON array of daily wellness snapshot objects from garmin-mcp.
+    """
+    data = _parse_json(wellness_json, "wellness_json")
+    if isinstance(data, dict) and data.get("error") == "invalid_json":
+        return data
+    return sync_mod.sync_garmin_wellness(history_db, data)
+
+
+@mcp.tool()
+async def sync_withings(measurements_json: str) -> dict:
+    """Sync Withings body measurements into the central history store.
+
+    Args:
+        measurements_json: JSON array of measurement objects from withings-mcp.
+    """
+    data = _parse_json(measurements_json, "measurements_json")
+    if isinstance(data, dict) and data.get("error") == "invalid_json":
+        return data
+    return sync_mod.sync_withings(history_db, data)
+
+
+@mcp.tool()
+async def sync_notion(entries_json: str) -> dict:
+    """Sync Notion diary entries into the central history store.
+
+    Args:
+        entries_json: JSON array of diary entry objects from notion-mcp.
+    """
+    data = _parse_json(entries_json, "entries_json")
+    if isinstance(data, dict) and data.get("error") == "invalid_json":
+        return data
+    return sync_mod.sync_notion(history_db, data)
+
+
+@mcp.tool()
+async def sync_garmin_workouts(workouts_json: str) -> dict:
+    """Sync Garmin scheduled workouts into the central history store.
+
+    Matches completed workouts against activities by date and sport type.
+
+    Args:
+        workouts_json: JSON array of scheduled workout objects from garmin-mcp.
+    """
+    data = _parse_json(workouts_json, "workouts_json")
+    if isinstance(data, dict) and data.get("error") == "invalid_json":
+        return data
+    return sync_mod.sync_garmin_workouts(history_db, data)
+
+
+@mcp.tool()
+async def get_sync_status() -> list[dict]:
+    """Get sync status summary — last sync time and record counts per source."""
+    return sync_mod.get_sync_status(history_db)
+
+
+@mcp.tool()
+async def sync_all() -> dict:
+    """Incremental sync from all data sources (Strava, Garmin, Withings, Notion).
+
+    Fetches only data newer than the last successful sync per source.
+    Continues if any single source fails. Call at the start of each coaching session
+    to ensure the history store is up to date.
+    """
+    return await sync_mod.sync_all(history_db)
+
+
+# ── Coaching Memory Tools ─────────────────────────────────────────────
+
+
+@mcp.tool()
+async def append_coaching_log(entry_json: str) -> dict:
+    """Record what happened in a coaching session.
+
+    Append-only log. Call at the end of every coaching session.
+
+    Args:
+        entry_json: JSON object with required 'summary' and optional:
+            prescriptions (list of strings), workout_ids (list), acwr, weekly_km,
+            body_battery, stress_level, notion_stress, notion_niggles, follow_up.
+    """
+    entry = _parse_json(entry_json, "entry_json")
+    if isinstance(entry, dict) and entry.get("error") == "invalid_json":
+        return entry
+    return memory_mod.append_coaching_log(history_db, entry)
+
+
+@mcp.tool()
+async def get_coaching_context() -> dict | None:
+    """Get the current coaching context — active situation, concerns, and plan.
+
+    Returns None if no context has been set yet. In that case, generate initial
+    context from recent coaching log entries and athlete profile.
+    """
+    return memory_mod.get_coaching_context(history_db)
+
+
+@mcp.tool()
+async def update_coaching_context(content: str) -> dict:
+    """Rewrite the coaching context with current situation and active plan.
+
+    Call at the end of every coaching session. Hard limit: 2000 words.
+
+    Args:
+        content: Rich text summarising the current coaching situation.
+    """
+    try:
+        return memory_mod.update_coaching_context(history_db, content)
+    except ValueError as e:
+        return {"error": "word_limit_exceeded", "message": str(e)}
+
+
+@mcp.tool()
+async def search_coaching_log(query: str, limit: int = 10) -> list[dict]:
+    """Search past coaching sessions by keyword.
+
+    Use when recalling specific past discussions, protocols, or decisions.
+    Searches across summary and prescriptions fields.
+
+    Args:
+        query: Search term (e.g. "eccentric heel drops", "achilles", "long run").
+        limit: Max results (default 10).
+    """
+    return memory_mod.search_coaching_log(history_db, query, limit)
+
+
+@mcp.tool()
+async def get_recent_coaching_log(limit: int = 5) -> list[dict]:
+    """Get the most recent coaching session logs.
+
+    Call at the start of each session to review recent history.
+
+    Args:
+        limit: Number of entries to return (default 5).
+    """
+    return memory_mod.get_recent_coaching_log(history_db, limit)
+
+
+@mcp.tool()
+async def add_athlete_fact(category: str, fact: str, source_log_id: int | None = None) -> dict:
+    """Record a permanent fact about the athlete.
+
+    Use for insights that should persist indefinitely — injury patterns,
+    training responses, goals, preferences.
+
+    Args:
+        category: One of 'injury', 'training_response', 'goal', 'preference', 'other'.
+        fact: Plain text description.
+        source_log_id: Optional coaching_log id this fact came from.
+    """
+    try:
+        return memory_mod.add_athlete_fact(history_db, category, fact, source_log_id)
+    except ValueError as e:
+        return {"error": "invalid_category", "message": str(e)}
+
+
+@mcp.tool()
+async def get_athlete_facts(category: str | None = None) -> list[dict]:
+    """Get all active athlete facts, optionally filtered by category.
+
+    Call at session start for permanent context about the athlete.
+
+    Args:
+        category: Optional filter — 'injury', 'training_response', 'goal', 'preference', 'other'.
+    """
+    try:
+        return memory_mod.get_athlete_facts(history_db, category)
+    except ValueError as e:
+        return {"error": "invalid_category", "message": str(e)}
+
+
+@mcp.tool()
+async def update_athlete_fact(fact_id: int, fact: str) -> dict:
+    """Update an existing athlete fact.
+
+    Use when a fact changes (e.g. "Achilles tendinopathy — unresolved" → "Achilles — resolving").
+
+    Args:
+        fact_id: ID of the fact to update.
+        fact: New text for the fact.
+    """
+    result = memory_mod.update_athlete_fact(history_db, fact_id, fact)
+    if result is None:
+        return {"error": "not_found", "message": f"No athlete fact with id {fact_id}"}
+    return result
+
+
+# ── History Query Tools ────────────────────────────────────────────────
+
+
+@mcp.tool()
+async def get_weekly_distances(weeks: int = 12, sport_type: str = "run") -> list[dict]:
+    """Get weekly distance totals from the local history store.
+
+    Used by ACWR calculation — replaces Claude having to pass weekly arrays.
+
+    Args:
+        weeks: Number of weeks to look back (default 12).
+        sport_type: Sport type filter (default "run").
+    """
+    return history_mod.get_weekly_distances(history_db, weeks=weeks, sport_type=sport_type)
+
+
+@mcp.tool()
+async def get_recent_activities_local(days: int = 28, sport_type: str | None = None) -> list[dict]:
+    """Get recent activities from the local history store.
+
+    Much faster than calling strava-mcp. Requires prior sync_strava call.
+
+    Args:
+        days: Number of days to look back (default 28).
+        sport_type: Optional filter (e.g. "run", "ride").
+    """
+    return history_mod.get_recent_activities(history_db, days=days, sport_type=sport_type)
+
+
+@mcp.tool()
+async def get_recent_wellness(days: int = 14) -> list[dict]:
+    """Get recent Garmin wellness snapshots from the local store.
+
+    Args:
+        days: Number of days to look back (default 14).
+    """
+    return history_mod.get_recent_wellness(history_db, days=days)
+
+
+@mcp.tool()
+async def get_recent_diary(days: int = 28) -> list[dict]:
+    """Get recent diary entries from the local store.
+
+    Args:
+        days: Number of days to look back (default 28).
+    """
+    return history_mod.get_recent_diary(history_db, days=days)
+
+
+@mcp.tool()
+async def get_race_history(limit: int = 10) -> list[dict]:
+    """Get race results ordered by date, most recent first.
+
+    Args:
+        limit: Max number of results (default 10).
+    """
+    return history_mod.get_race_history(history_db, limit=limit)
+
+
+@mcp.tool()
+async def get_pbs() -> list[dict]:
+    """Get personal bests — fastest time per distance label."""
+    return history_mod.get_pbs(history_db)
+
+
+# ── Profile Tools ──────────────────────────────────────────────────────
+
+
+@mcp.tool()
+async def generate_athlete_profile() -> dict:
+    """Auto-generate athlete profile from all synced history data.
+
+    Computes VDOT, weekly volume, easy pace, training age, weight trends,
+    resting HR baseline, and HRV baseline. Call after syncing data sources.
+    """
+    return profile_mod.generate_athlete_profile(history_db)
+
+
+@mcp.tool()
+async def get_athlete_profile() -> dict | None:
+    """Get the current athlete profile, or null if not yet generated."""
+    return profile_mod.get_athlete_profile(history_db)
+
+
+@mcp.tool()
+async def update_athlete_profile_manual(fields_json: str) -> dict:
+    """Update manually-entered athlete profile fields.
+
+    Cannot overwrite auto-derived fields. Allowed: date_of_birth, gender,
+    experience_level, injury_history, preferred_long_run_day,
+    available_days_per_week, notes.
+
+    Args:
+        fields_json: JSON object of field names to values.
+    """
+    fields = _parse_json(fields_json, "fields_json")
+    if isinstance(fields, dict) and fields.get("error") == "invalid_json":
+        return fields
+    return profile_mod.update_athlete_profile_manual(history_db, fields)
+
+
 # ── Prompts ────────────────────────────────────────────────────────────
 
 
@@ -545,7 +888,9 @@ async def field_test_protocols_resource() -> str:
 
 def main() -> None:
     """Entry point for the pace-ai server."""
-    mcp.run(transport="streamable-http")
+    import os
+
+    mcp.run(transport=os.environ.get("MCP_TRANSPORT", "streamable-http"))
 
 
 if __name__ == "__main__":
