@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Protein source (animal vs. plant) does not significantly affect changes in absolute lean mass when total protein intake is above the recommended dietary allowance.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general population",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein source (animal vs. plant) does not significantly affect changes in muscle strength when total protein intake is adequate.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general population",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Animal protein has a small favoring effect over plant protein on percent lean mass (proportion of body weight that is lean tissue).",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Younger adults (under 50 years) gain more absolute lean mass with animal protein compared to plant protein, with a weighted mean difference of 0.41 kg.",
+    "specific_value": "WMD 0.41 kg (95% CI 0.08\u20130.74)",
+    "category": "protein_runners",
+    "population": "adults under 50 years",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Younger adults (under 50 years) gain more percent lean mass with animal protein compared to plant protein, with a weighted mean difference of 0.50%.",
+    "specific_value": "WMD 0.50% (95% CI 0.00\u20131.01)",
+    "category": "protein_runners",
+    "population": "adults under 50 years",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The addition of resistance exercise training does not change the relative effect of animal vs. plant protein on lean mass or muscle strength outcomes.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

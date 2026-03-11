@@ -1,0 +1,50 @@
+[
+  {
+    "text": "HRV-guided training prescription, where moderate and high-intensity sessions are scheduled only when HRV is within an individually determined smallest worthwhile change, produces significant 3000m performance improvements (2.1%) whereas predefined training does not reach significance (1.1%)",
+    "specific_value": "2.1% vs 1.1% improvement in 3000m time",
+    "category": "hrv_monitoring",
+    "population": "recreational endurance runners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "HRV-guided training results in significantly fewer moderate and high-intensity sessions (13.2 vs 17.7 over 8 weeks) while achieving equal or better performance outcomes, suggesting many prescribed hard sessions may be counterproductive",
+    "specific_value": "13.2 vs 17.7 MOD/HIT sessions over 8 weeks (effect size 0.98)",
+    "category": "hrv_monitoring",
+    "population": "recreational endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Morning resting HRV can be used to individualize the timing of vigorous training sessions by programming hard sessions only when HRV falls within a personally calibrated smallest worthwhile change band",
+    "specific_value": null,
+    "category": "hrv_monitoring",
+    "population": "recreational endurance runners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "When HRV indicates insufficient recovery (outside the smallest worthwhile change band), replacing scheduled high-intensity work with low-intensity training preserves or improves adaptation",
+    "specific_value": null,
+    "category": "hrv_monitoring",
+    "population": "recreational endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "VO2max improves similarly with both HRV-guided and traditional predefined training approaches (3.7% vs 5.0%), but running performance shows a meaningful advantage for HRV-guided training (effect size 0.42)",
+    "specific_value": "VO2max: 3.7% vs 5.0%; 3000m performance between-group effect size 0.42",
+    "category": "hrv_monitoring",
+    "population": "recreational endurance runners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A 4-week preparation period followed by an 8-week intensive training block is a sufficient timeframe to observe HRV-guided training benefits in recreational runners",
+    "specific_value": "4-week preparation + 8-week intensive period",
+    "category": "hrv_monitoring",
+    "population": "recreational endurance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

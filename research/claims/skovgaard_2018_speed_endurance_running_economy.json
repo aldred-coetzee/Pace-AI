@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Adding 10 sessions of speed endurance training (5-10 \u00d7 30-sec maximal running) over 40 days while reducing training volume by 36% improves 10-km performance by 3.2% in moderately trained runners.",
+    "specific_value": "3.2% improvement, 43.7 vs 45.2 min",
+    "category": "5k_track_training",
+    "population": "moderately trained runners (VO2max ~56 mL/min/kg)",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Speed endurance training with reduced volume improves running economy by approximately 2% at both 60% vVO2max and 10-km race pace without changes in VO2max.",
+    "specific_value": "~2% improvement in running economy",
+    "category": "5k_track_training",
+    "population": "moderately trained runners (VO2max ~56 mL/min/kg)",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Speed endurance training increases velocity at VO2max (vVO2max) by 2.0% even when absolute VO2max remains unchanged, indicating improved running efficiency rather than aerobic capacity gains.",
+    "specific_value": "2.0% increase in vVO2max (19.3 vs 18.9 km/h)",
+    "category": "5k_track_training",
+    "population": "moderately trained runners (VO2max ~56 mL/min/kg)",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running economy improvements from speed endurance training are abolished under slow-twitch fiber glycogen-depleted conditions, suggesting the gains depend on adaptations in slow-twitch muscle fibers.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "moderately trained runners (VO2max ~56 mL/min/kg)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Short maximal sprints (30-second repeats) can serve as a potent stimulus for improving distance running performance even when overall training volume is substantially reduced.",
+    "specific_value": "36% volume reduction with 5-10 \u00d7 30-sec sprints",
+    "category": "5k_track_training",
+    "population": "moderately trained runners (VO2max ~56 mL/min/kg)",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Speed endurance training reduces UCP3 expression in slow-twitch fibers and SERCA1 in fast-twitch fibers, lowering energy-consuming processes and contributing to improved running economy.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "moderately trained runners (VO2max ~56 mL/min/kg)",
+    "confidence": 0.65,
+    "school_of_thought": "general sports science"
+  }
+]

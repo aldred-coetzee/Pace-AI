@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Endurance exercise can attenuate muscle hypertrophy and strength gains when combined with resistance training (the interference effect).",
+    "specific_value": null,
+    "category": "concurrent_training",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The specificity of training adaptation is determined by the volume, intensity, frequency, and mode of contractile activity.",
+    "specific_value": null,
+    "category": "concurrent_training",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Divergent exercise modes (endurance vs resistance) induce similar signalling and gene expression profiles in skeletal muscle of untrained or recreationally active individuals, with specificity emerging through training history.",
+    "specific_value": null,
+    "category": "concurrent_training",
+    "population": "untrained or recreationally active individuals",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The interference effect in concurrent training is likely caused by multiple integrated effectors or processes rather than a single isolated mechanism.",
+    "specific_value": null,
+    "category": "concurrent_training",
+    "population": "general population",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Prior training history modifies the molecular specificity of the adaptive response to different exercise modes, meaning trained individuals show more mode-specific responses than untrained individuals.",
+    "specific_value": null,
+    "category": "concurrent_training",
+    "population": "trained athletes",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

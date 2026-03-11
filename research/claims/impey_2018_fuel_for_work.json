@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Training with reduced carbohydrate availability (train-low) augments cell signalling responses compared to high carbohydrate availability in approximately 73% of studies examined.",
+    "specific_value": "73% of 11 studies",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Train-low approaches enhance gene expression related to endurance adaptations in approximately 75% of studies examined.",
+    "specific_value": "75% of 12 studies",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Train-low approaches increase oxidative enzyme activity and protein content in approximately 78% of studies examined.",
+    "specific_value": "78% of 9 studies",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Despite enhanced molecular and metabolic adaptations, train-low approaches only improve exercise performance in about 37% of studies, with 63% showing no change.",
+    "specific_value": "37% improve, 63% no change (of 11 studies)",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Train-low sessions should be periodized to comprise approximately 30-50% of total training sessions, not applied universally to all sessions.",
+    "specific_value": "30-50% of training sessions",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "There exists a glycogen threshold \u2014 a specific range of muscle glycogen concentrations that simultaneously permits completion of training workloads and activates molecular signalling for training adaptations.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Carbohydrate availability should be adjusted according to the demands of upcoming training sessions ('fuel for the work required'), with high carbohydrate for high-intensity sessions and low carbohydrate for selected lower-intensity sessions.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "When implementing train-low sessions, absolute training intensity must not be compromised \u2014 reduced carbohydrate availability should only be applied to sessions where intensity can be maintained.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

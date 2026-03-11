@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Runners who increased weekly running distance by 20-60% had significantly more injuries at 21 days compared to those who increased by less than 20%.",
+    "specific_value": "20-60% weekly distance increase",
+    "category": "training_load_acwr",
+    "population": "recreational half-marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The risk difference for injury when increasing weekly distance by 20-60% versus less than 20% was 22.6% at 21 days into a training program.",
+    "specific_value": "22.6% risk difference (95% CI: 0.9%-44.3%, P=.041)",
+    "category": "training_load_acwr",
+    "population": "recreational half-marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The elevated injury risk from 20-60% weekly distance increases was significant at 21 days but not at 56 or 98 days, suggesting acute spikes in load are most dangerous in the short term.",
+    "specific_value": "significant at 21 days, not at 56 or 98 days",
+    "category": "training_load_acwr",
+    "population": "recreational half-marathon runners",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Keeping weekly running distance increases below 20% is associated with lower injury risk during half-marathon preparation.",
+    "specific_value": "<20% weekly distance increase",
+    "category": "training_load_acwr",
+    "population": "recreational half-marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The running schedule followed prior to a sudden change in training load did not significantly modify the association between weekly distance change and injury risk.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "recreational half-marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "In a 14-week half-marathon preparation period, 21.5% of recreational runners sustained a running-related injury.",
+    "specific_value": "21.5% injury incidence over 14 weeks",
+    "category": "training_load_acwr",
+    "population": "recreational half-marathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  }
+]

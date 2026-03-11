@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Caffeine supplementation (3-9 mg/kg) improves time to exhaustion in endurance running with a medium effect size",
+    "specific_value": "g = 0.392 (95% CI 0.214-0.571, p < 0.001)",
+    "category": "nutrition_general",
+    "population": "recreational and trained runners",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine improves endurance running time trial performance with a small but significant effect size compared to placebo",
+    "specific_value": "g = -0.101 (95% CI -0.190 to -0.012, p = 0.026)",
+    "category": "nutrition_general",
+    "population": "recreational and trained runners",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine has a medium ergogenic effect on time to exhaustion in recreational runners",
+    "specific_value": "g = 0.469 (95% CI 0.185-0.754, p = 0.001)",
+    "category": "nutrition_general",
+    "population": "recreational runners",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine has a medium ergogenic effect on time to exhaustion in trained runners",
+    "specific_value": "g = 0.344 (95% CI 0.122-0.566, p = 0.002)",
+    "category": "nutrition_general",
+    "population": "trained runners",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Effective caffeine doses for endurance running performance range between 3 and 9 mg/kg body mass",
+    "specific_value": "3-9 mg/kg",
+    "category": "nutrition_general",
+    "population": "recreational and trained runners",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The ergogenic effect of caffeine on endurance running is insufficiently studied in women, limiting evidence-based recommendations for female runners",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "female runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

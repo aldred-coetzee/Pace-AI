@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Strength training reduces sports injuries to less than one-third of baseline risk (RR 0.315, 95% CI 0.207-0.480).",
+    "specific_value": "RR 0.315 (0.207-0.480)",
+    "category": "injury_prevention_general",
+    "population": "general athletes",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Stretching has no statistically significant effect on sports injury prevention (RR 0.963, 95% CI 0.846-1.095).",
+    "specific_value": "RR 0.963 (0.846-1.095)",
+    "category": "injury_prevention_general",
+    "population": "general athletes",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Proprioception training reduces sports injury risk by approximately 45% (RR 0.550, 95% CI 0.347-0.869).",
+    "specific_value": "RR 0.550 (0.347-0.869)",
+    "category": "injury_prevention_general",
+    "population": "general athletes",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Multi-component exercise programmes (combining strength, proprioception, and other modalities) reduce sports injury risk by approximately 35% (RR 0.655, 95% CI 0.520-0.826).",
+    "specific_value": "RR 0.655 (0.520-0.826)",
+    "category": "injury_prevention_general",
+    "population": "general athletes",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Overuse injuries can be reduced by approximately 47% through physical activity exercise programmes (RR 0.527, 95% CI 0.373-0.746).",
+    "specific_value": "RR 0.527 (0.373-0.746)",
+    "category": "injury_prevention_general",
+    "population": "general athletes",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Acute injuries can be reduced by approximately 35% through physical activity exercise programmes (RR 0.647, 95% CI 0.502-0.836).",
+    "specific_value": "RR 0.647 (0.502-0.836)",
+    "category": "injury_prevention_general",
+    "population": "general athletes",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Among injury prevention strategies, strength training shows the largest effect, followed by proprioception training, then multi-component programmes, while stretching alone shows no benefit.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "general athletes",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  }
+]

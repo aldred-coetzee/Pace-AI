@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Evidence is equivocal on whether iron supplementation improves athletic performance in iron-deficient nonanemic athletes, with half of reviewed studies showing benefit and half showing none.",
+    "specific_value": "6 of 12 studies showed improvement",
+    "category": "iron_bone_health",
+    "population": "iron-deficient nonanemic athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron supplementation is more likely to improve performance in athletes with ferritin levels below 20 \u03bcg/L compared to those with higher baseline ferritin.",
+    "specific_value": "\u226420 \u03bcg/L ferritin cutoff",
+    "category": "iron_bone_health",
+    "population": "iron-deficient nonanemic athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "All studies demonstrating performance improvement from iron supplementation in nonanemic athletes used oral iron rather than intravenous administration.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "iron-deficient nonanemic athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A ferritin level of 20 \u03bcg/L may serve as a clinically useful threshold for deciding whether to supplement iron-deficient nonanemic athletes.",
+    "specific_value": "20 \u03bcg/L",
+    "category": "iron_bone_health",
+    "population": "iron-deficient nonanemic athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron deficiency without anemia is prevalent enough in endurance athletes that supplementation has become a common practice in endurance sports.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

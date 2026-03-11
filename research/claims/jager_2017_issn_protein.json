@@ -1,0 +1,66 @@
+[
+  {
+    "text": "For building and maintaining muscle mass, an overall daily protein intake of 1.4-2.0 g/kg body weight/day is sufficient for most exercising individuals.",
+    "specific_value": "1.4-2.0 g/kg/d",
+    "category": "protein_runners",
+    "population": "exercising individuals",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Higher protein intakes of 2.3-3.1 g/kg/day may be needed to maximize retention of lean body mass during hypocaloric (calorie-deficit) periods.",
+    "specific_value": "2.3-3.1 g/kg/d",
+    "category": "protein_runners",
+    "population": "resistance-trained subjects in caloric deficit",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Optimal protein intake per serving to maximize muscle protein synthesis is approximately 0.25 g/kg body weight, or an absolute dose of 20-40 g.",
+    "specific_value": "0.25 g/kg or 20-40 g per serving",
+    "category": "protein_runners",
+    "population": "athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Acute protein doses should contain 700-3000 mg of leucine alongside a balanced array of essential amino acids to optimally stimulate muscle protein synthesis.",
+    "specific_value": "700-3000 mg leucine per dose",
+    "category": "protein_runners",
+    "population": "exercising individuals",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein doses should be evenly distributed every 3-4 hours across the day for optimal muscle protein synthesis.",
+    "specific_value": "every 3-4 hours",
+    "category": "protein_runners",
+    "population": "exercising individuals",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The anabolic effect of exercise on muscle protein synthesis is long-lasting (at least 24 hours) but likely diminishes with increasing time post-exercise.",
+    "specific_value": "at least 24 hours",
+    "category": "protein_runners",
+    "population": "exercising individuals",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Pre-sleep casein protein intake of 30-40 g increases overnight muscle protein synthesis and metabolic rate without influencing lipolysis.",
+    "specific_value": "30-40 g casein pre-sleep",
+    "category": "protein_runners",
+    "population": "exercising individuals",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Endurance athletes should prioritize adequate carbohydrate intake for optimal performance, with added protein to help offset muscle damage and promote recovery.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Postpartum return-to-running programmes should begin with a walk-run protocol before progressing to continuous running.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "postpartum females",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Postpartum return-to-running should include a period of relative rest before initiating a graduated training programme.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "postpartum females",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Postpartum running programmes should incorporate gradual increases in both duration and intensity rather than rapid progression.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "postpartum females",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Targeted strength training for key muscle groups should be incorporated alongside a postpartum return-to-running programme.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "postpartum females",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Postpartum running training should be modified based on musculoskeletal or pelvic floor symptoms, sleep quality, mental health status, lactation demands, and energy availability.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "postpartum females",
+    "confidence": 0.6,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Returning to running postpartum carries risks of musculoskeletal pain and pelvic floor dysfunction that require individualised exercise prescription.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "postpartum females",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

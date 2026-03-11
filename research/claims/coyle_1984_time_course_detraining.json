@@ -1,0 +1,58 @@
+[
+  {
+    "text": "VO2max declines approximately 7% during the first 21 days after stopping endurance training.",
+    "specific_value": "7% decline in 21 days",
+    "category": "detraining",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "VO2max stabilizes after approximately 56 days of detraining at a level 16% below trained values.",
+    "specific_value": "16% decline, stabilizing at ~56 days",
+    "category": "detraining",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "After 84 days of detraining, previously trained athletes still maintain a higher VO2max than sedentary controls (50.8 vs 43.3 ml/kg/min), indicating that fitness is not fully lost even after prolonged inactivity.",
+    "specific_value": "50.8 vs 43.3 ml/kg/min after 84 days",
+    "category": "detraining",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The initial decline in VO2max during early detraining is primarily caused by reduced stroke volume, while later declines are driven by reduced arteriovenous oxygen difference.",
+    "specific_value": null,
+    "category": "detraining",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Skeletal muscle capillarization does not decline with detraining and remains approximately 50% above sedentary levels even after 84 days of inactivity.",
+    "specific_value": "50% above sedentary after 84 days",
+    "category": "detraining",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Muscle oxidative enzyme activity (citrate synthase, succinate dehydrogenase) declines with a half-time of approximately 12 days after stopping training but stabilizes at levels 50% above sedentary controls.",
+    "specific_value": "12-day half-life, stabilizes 50% above sedentary",
+    "category": "detraining",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Stroke volume during exercise declines during early detraining to levels not different from sedentary controls, representing the fastest-lost cardiovascular adaptation.",
+    "specific_value": null,
+    "category": "detraining",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

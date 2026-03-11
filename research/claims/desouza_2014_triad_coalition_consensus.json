@@ -1,0 +1,50 @@
+[
+  {
+    "text": "The Female Athlete Triad involves three interrelated components: low energy availability (with or without disordered eating), menstrual dysfunction, and low bone mineral density.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "physically active girls and women",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Early intervention in female athletes presenting with any one or more Triad components is essential to prevent progression to serious endpoints including clinical eating disorders, amenorrhea, and osteoporosis.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "A risk stratification point system accounting for magnitude of risk across all three Triad components should be used to guide decisions on sport participation clearance and return to play for female athletes.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Management of the Female Athlete Triad requires a multidisciplinary team approach including physicians, athletic trainers, and other health care providers.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Treatment contracts should be implemented for female athletes diagnosed with the Triad to formalize expectations around recovery milestones and return-to-play criteria.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low energy availability is the underlying driver of the Female Athlete Triad and can occur with or without clinically disordered eating behaviors.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  }
+]

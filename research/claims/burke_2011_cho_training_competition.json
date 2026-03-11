@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Carbohydrate availability for training and competition is increased by consuming carbohydrate in the hours or days prior to the session, during exercise, and during recovery between sessions.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "general athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "During sustained high-intensity sports lasting approximately 1 hour, small amounts of carbohydrate or even mouth-rinsing enhance performance via central nervous system effects.",
+    "specific_value": "~1 h duration",
+    "category": "carbohydrate_fueling",
+    "population": "general athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For endurance sports lasting longer than 1 hour but less than 2.5 hours, 30-60 g of carbohydrate per hour is an appropriate intake target during exercise.",
+    "specific_value": "30-60 g/h",
+    "category": "carbohydrate_fueling",
+    "population": "general athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For endurance events lasting more than 2.5 hours, athletes may benefit from carbohydrate intakes of up to 90 g per hour during exercise.",
+    "specific_value": "up to 90 g/h for events >2.5 h",
+    "category": "carbohydrate_fueling",
+    "population": "general athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Products containing blends of different carbohydrate types (e.g. glucose and fructose) may maximize absorption at high ingestion rates above 60 g per hour.",
+    "specific_value": ">60 g/h with multiple transportable carbohydrates",
+    "category": "carbohydrate_fueling",
+    "population": "general athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Whether deliberately training with low carbohydrate availability ('train-low' strategies) enhances competitive performance in well-trained athletes remains unclear despite evidence of increased training adaptation signals.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "well-trained athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

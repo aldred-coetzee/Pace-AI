@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Research on ultramarathon running is predominantly observational, with 83.3% of publications being observational studies rather than experimental.",
+    "specific_value": "83.3% observational",
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Race performance is the most studied topic in ultramarathon research, comprising 21.8% of all publications.",
+    "specific_value": "21.8%",
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The rate of experimental studies in ultramarathon research has remained unchanged at a mean of 1.6 per year from 1999 to 2019, indicating a persistent gap in high-quality interventional evidence for ultramarathon training and racing practices.",
+    "specific_value": "1.6 experimental studies per year",
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Ultramarathon running research publication plateaued at approximately 49 annual publications from 2014 to 2018 after a rapid increase around 2010.",
+    "specific_value": "~49 annual publications",
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Ultramarathons can serve as a valuable model for studying physiological stress responses with relevance extending beyond ultramarathon runners to the wider population.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "mixed",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

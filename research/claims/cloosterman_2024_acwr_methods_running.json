@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Weekly training load method classifies a much higher proportion of sessions as significant load increases (33.4%) compared to ACWR coupled rolling average (16.2%), EWMA (18.9%), or uncoupled rolling average (25.8%) methods when using \u226530% weekly progression and \u22651.5 ACWR thresholds.",
+    "specific_value": "33.4% weekly vs 16.2% coupled RA vs 25.8% uncoupled RA vs 18.9% EWMA",
+    "category": "training_load_acwr",
+    "population": "recreational runners (10K to marathon)",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "43% of training sessions flagged as significant load increases by the weekly training load method are NOT flagged by the ACWR coupled rolling average or EWMA methods, indicating poor agreement between weekly and ratio-based approaches.",
+    "specific_value": "43% disagreement",
+    "category": "training_load_acwr",
+    "population": "recreational runners (10K to marathon)",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "All training sessions flagged as significant load increases by the ACWR coupled rolling average method were also flagged by both the uncoupled rolling average and EWMA methods (100% overlap), making coupled RA the most conservative ACWR variant.",
+    "specific_value": "100% overlap",
+    "category": "training_load_acwr",
+    "population": "recreational runners (10K to marathon)",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "An ACWR threshold of \u22651.5 and a weekly load progression threshold of \u226530% are commonly used to define a significant increase in training load, but these thresholds identify substantially different training sessions depending on the calculation method used.",
+    "specific_value": "\u22651.5 ACWR, \u226530% weekly progression",
+    "category": "training_load_acwr",
+    "population": "recreational runners (10K to marathon)",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The ACWR coupled rolling average method is the most conservative approach, flagging only 16.2% of sessions as significant load spikes compared to 25.8% for uncoupled RA and 18.9% for EWMA, because including the acute period within the chronic calculation dampens the ratio.",
+    "specific_value": "16.2% coupled RA",
+    "category": "training_load_acwr",
+    "population": "recreational runners (10K to marathon)",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Coaches and researchers should not treat different ACWR calculation methods (coupled RA, uncoupled RA, EWMA) and simple weekly load changes as interchangeable, as they produce materially different risk classifications for the same training data.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "recreational runners (10K to marathon)",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  }
+]

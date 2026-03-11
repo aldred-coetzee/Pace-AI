@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Amenorrheic female distance athletes have approximately 4.5-fold more bone injuries than eumenorrheic athletes, with a large effect size.",
+    "specific_value": "4.5-fold, ES = 0.85",
+    "category": "red_s",
+    "population": "elite female distance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Male distance athletes with low testosterone (lowest quartile of reference range) have approximately 4.5-fold more bone injuries than those with normal testosterone, with a moderate effect size.",
+    "specific_value": "4.5-fold, ES = 0.52",
+    "category": "red_s",
+    "population": "elite male distance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low energy availability defined as less than 30 kcal per kg of fat-free mass per day is associated with impaired reproductive function and lower bone mineral density in distance athletes.",
+    "specific_value": "<30 kcal/kg FFM/day",
+    "category": "red_s",
+    "population": "elite distance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Amenorrheic female athletes and low-testosterone male athletes show significantly lower triiodothyronine (T3) levels, indicating suppressed metabolic function from low energy availability.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "elite distance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Reproductive function markers (menstrual status in females, testosterone concentrations in males) are more objective and accurate indicators of adequate energy availability than dietary and training log-based energy availability calculations.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "elite distance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Athletes categorized as higher risk by Female Athlete Triad or RED-S screening tools had up to 10-fold more training days lost to bone injuries in the preceding year compared to lower-risk groups.",
+    "specific_value": "up to 10-fold",
+    "category": "red_s",
+    "population": "elite distance athletes",
+    "confidence": 0.6,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low testosterone in male distance athletes, defined as the lowest quartile of reference range (mean 15.1 nmol/L), is associated with significantly lower bone mineral density and higher fracture rates.",
+    "specific_value": "15.1 \u00b1 3.0 nmol/L",
+    "category": "red_s",
+    "population": "elite male distance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "text": "The incidence of lower extremity running injuries in long distance runners ranges from 19.4% to 79.3%.",
+    "specific_value": "19.4%-79.3%",
+    "category": "injury_prevention_general",
+    "population": "long distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The knee is the predominant site of lower extremity running injuries in long distance runners.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "long distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "A long training distance per week is a risk factor for running injuries in male runners.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "male long distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "A history of previous injuries is a risk factor for future lower extremity running injuries.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "long distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "A gradual increase in training distance per week is a protective factor against knee injuries in runners.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "long distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "Gabbett load management"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Replacing 2 easy runs per week with outdoor elliptical bike cross-training improved functional movement screen scores with a large effect size in high school cross-country runners over 4 weeks.",
+    "specific_value": "d = 1.36",
+    "category": "cross_training",
+    "population": "high school male cross-country runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Outdoor elliptical bike cross-training was the only modality that improved running economy when substituted for 2 easy runs per week over 4 weeks.",
+    "specific_value": "d = 0.48",
+    "category": "cross_training",
+    "population": "high school male cross-country runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cycling cross-training substituted for 2 easy runs per week produced large improvements in 3,000-m performance over 4 weeks, comparable to outdoor elliptical bike training.",
+    "specific_value": "d = 1.50 (cycling), d = 1.41 (elliptical bike)",
+    "category": "cross_training",
+    "population": "high school male cross-country runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "All cross-training modalities (cycling, indoor elliptical, outdoor elliptical bike) and running-only training improved 3,000-m performance over 4 weeks, but only cycling and outdoor elliptical bike showed large effect sizes.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "high school male cross-country runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running-only, cycling, and outdoor elliptical bike training all improved maximal hip extensor strength, while indoor elliptical training did not.",
+    "specific_value": "d = 1.25 (running-only), d = 1.17 (cycling), d = 0.82 (elliptical bike)",
+    "category": "cross_training",
+    "population": "high school male cross-country runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Outdoor cycling and outdoor elliptical bike are the most effective cross-training modalities for early-season training to improve running performance when replacing easy runs.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "high school male cross-country runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

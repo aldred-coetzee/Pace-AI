@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Peak impact, active, and braking ground reaction forces are not significantly different between runners with tibial stress fracture history and healthy controls based on meta-analytic evidence.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners with tibial stress fracture vs controls",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Discrete ground reaction force variables alone are insufficient to identify runners at risk for tibial stress fracture.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Runners with tibial stress fracture history tend to exhibit greater peak tibial anterior tensile stress and peak posterior compressive stress compared to controls.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners with tibial stress fracture vs controls",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Greater peak tibial axial acceleration during running is associated with tibial stress fracture history.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners with tibial stress fracture vs controls",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Greater peak rearfoot eversion during running is associated with tibial stress fracture history.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners with tibial stress fracture vs controls",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Greater hip adduction during running is associated with tibial stress fracture history.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners with tibial stress fracture vs controls",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Tibial stress fracture is an overuse injury with a long recovery period, making prevention through biomechanical screening a priority for high-mileage runners.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  }
+]

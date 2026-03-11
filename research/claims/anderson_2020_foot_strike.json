@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Non-rearfoot strike running is retrospectively associated with lower rates of mild, moderate, and severe repetitive stress injury compared to rearfoot strike running.",
+    "specific_value": "SMD 3.25 mild, 3.65 moderate, 0.93 severe",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running economy does not differ between habitual rearfoot strike and habitual non-rearfoot strike runners at slow (10.8-11.0 km/h), moderate (12.6-13.5 km/h), and fast (14.0-15.0 km/h) speeds.",
+    "specific_value": null,
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Imposing a non-rearfoot strike pattern on habitual rearfoot strike runners reduces running economy in the immediate term at slow and moderate speeds.",
+    "specific_value": "SMD -1.67 at 10.8 km/h, SMD -1.26 at 12.6 km/h",
+    "category": "biomechanics_form",
+    "population": "habitual rearfoot strike runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Non-rearfoot strike running is associated with lower average and peak vertical loading rates compared to rearfoot strike running.",
+    "specific_value": "SMD 0.72-2.15",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Non-rearfoot strike running is associated with reduced patellofemoral joint stress compared to rearfoot strike running.",
+    "specific_value": "SMD 0.63-0.68",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Non-rearfoot strike running is associated with greater peak internal ankle plantar flexor moment, shifting load from the knee to the ankle and calf complex.",
+    "specific_value": "SMD 0.73-1.33",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Changing foot strike pattern from rearfoot to non-rearfoot cannot be recommended for uninjured rearfoot strike runners, given no evidence of improved running economy and an associated shift in loading to the ankle and plantarflexors.",
+    "specific_value": null,
+    "category": "biomechanics_form",
+    "population": "uninjured habitual rearfoot strike runners",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Non-rearfoot strike running is associated with lower knee flexion range of motion compared to rearfoot strike running.",
+    "specific_value": "SMD 0.76-0.88",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  }
+]

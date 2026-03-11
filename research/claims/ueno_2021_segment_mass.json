@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Absolute body segment masses (total, lean, and fat) of legs, arms, and trunk show no significant correlation with 5000-m race performance in well-trained endurance runners.",
+    "specific_value": null,
+    "category": "body_composition",
+    "population": "well-trained endurance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Higher relative leg mass (normalized to body mass) is associated with slower 5000-m race times, with medium positive correlations for both total and lean leg mass.",
+    "specific_value": "r = .387 (total), r = .335 (lean), P \u2264 .031",
+    "category": "body_composition",
+    "population": "well-trained endurance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Higher relative trunk mass (normalized to body mass) is associated with faster 5000-m race times, with large negative correlations for both total and lean trunk mass.",
+    "specific_value": "r = -.500 (total), r = -.548 (lean), P \u2264 .002",
+    "category": "body_composition",
+    "population": "well-trained endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Relative arm segment mass (total, lean, and fat) shows no significant correlation with 5000-m race performance.",
+    "specific_value": null,
+    "category": "body_composition",
+    "population": "well-trained endurance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A body mass distribution favoring smaller relative leg mass and greater relative trunk mass may be advantageous for endurance running performance.",
+    "specific_value": null,
+    "category": "body_composition",
+    "population": "well-trained endurance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Lighter legs reduce the metabolic cost of swinging the limbs during running, making relative leg mass more important than absolute leg mass for performance.",
+    "specific_value": null,
+    "category": "body_composition",
+    "population": "well-trained endurance runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

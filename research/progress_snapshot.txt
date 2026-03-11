@@ -1,0 +1,78 @@
+Progress Snapshot — After Domain 33
+=====================================
+Date: 2026-03-07
+
+Domains complete: 33 / 52
+Total papers found: 310
+
+Completed domains (wave 1, domains 1-23):
+  1. training_load_acwr — 12 papers
+  2. polarized_training — 10 papers
+  3. interval_training — 12 papers
+  4. long_run_physiology — 10 papers
+  5. threshold_tempo — 10 papers
+  6. easy_recovery_running — 8 papers
+  7. vo2max_development — 10 papers
+  8. running_economy — 10 papers
+  9. lactate_threshold — 10 papers
+  10. marathon_training — 12 papers
+  11. half_marathon_training — 8 papers
+  12. 5k_track_training — 8 papers
+  13. taper_science — 10 papers
+  14. periodisation — 10 papers
+  15. strength_training_runners — 10 papers
+  16. cross_training — 8 papers
+  17. injury_prevention_general — 10 papers
+  18. injury_knee — 8 papers
+  19. injury_lower_leg — 8 papers
+  20. injury_stress_fracture — 8 papers
+  21. injury_foot — 6 papers
+  22. return_to_running — 8 papers
+  23. heart_rate_training — 8 papers
+
+Completed domains (wave 2, domains 24-33):
+  24. biomechanics_form — 10 papers
+  25. hrv_monitoring — 8 papers
+  26. overtraining_recovery — 10 papers
+  27. detraining — 8 papers
+  28. sleep_recovery — 10 papers
+  29. nutrition_general — 10 papers
+  30. carbohydrate_fueling — 10 papers
+  31. protein_runners — 8 papers
+  32. hydration — 8 papers
+  33. supplements — 14 papers
+
+Remaining domains (19):
+  34. female_physiology (12)
+  35. red_s (10)
+  36. masters_running (10)
+  37. youth_running (10)
+  38. beginner_running (8)
+  39. altitude_training (8)
+  40. heat_cold_environment (8)
+  41. mental_performance (10)
+  42. pacing_strategy (8)
+  43. recovery_modalities (10)
+  44. warmup_cooldown (6)
+  45. race_prediction (8)
+  46. training_zones_systems (8)
+  47. genetics_individual_response (8)
+  48. foam_rolling_mobility (6)
+  49. shoe_technology (8)
+  50. concurrent_training (8)
+  51. body_composition (6)
+  52. ultramarathon (8)
+  (+ tendon_health 8, iron_bone_health 8)
+
+Coverage quality notes (wave 2):
+- All 10 domains reached or exceeded target paper counts
+- supplements exceeded target (14 vs 12) with strong multi-category coverage
+- Every domain has at least 1 systematic review or meta-analysis
+- Running-specific populations well represented across all domains
+- DOI verification: all papers verified via PubMed page fetches
+- Good mix of foundational and recent papers (1981-2025)
+
+Lessons learned:
+- Single-domain agents more reliable than paired agents for large domains
+- Supplements (12+ target) should always be solo to avoid context bloat
+- Agent stalling detected after ~25 min inactivity; check file timestamps proactively

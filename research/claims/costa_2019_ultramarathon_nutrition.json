@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Daily dietary carbohydrate intake up to 12 g\u00b7kg\u207b\u00b9\u00b7day\u207b\u00b9 supports endurance training adaptations in ultramarathon runners.",
+    "specific_value": "up to 12 g\u00b7kg\u207b\u00b9\u00b7day\u207b\u00b9",
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Multiple-transportable carbohydrate intake of approximately 90 g\u00b7hr\u207b\u00b9 during exercise lasting 3 hours or more enhances real-time endurance performance.",
+    "specific_value": "~90 g\u00b7hr\u207b\u00b9 for \u22653 hr",
+    "category": "ultramarathon",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Whether carbohydrate intake rates of ~90 g\u00b7hr\u207b\u00b9 are tolerable during ultramarathon competition is questionable from both practical and gastrointestinal perspectives.",
+    "specific_value": "~90 g\u00b7hr\u207b\u00b9",
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Low-carbohydrate high-fat diets increase total fat oxidation rates during submaximal exercise but are not currently supported as enhancing ultramarathon running performance.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Ultramarathon runners may develop both hypohydration and hyperhydration with exercise-associated hyponatremia, depending on event duration and environmental conditions.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Drinking to thirst is generally sufficient to maintain euhydration and avoid both hypohydration and hyperhydration during ultramarathon events.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A well-practiced and individualized nutrition strategy is required to optimize both training and competition performance in ultramarathon running, whether single-stage or multistage events.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

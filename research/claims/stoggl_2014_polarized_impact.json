@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Polarized training produces the greatest increase in VO2peak among endurance training approaches, with an 11.7% improvement over 9 weeks compared to threshold, high-volume, or high-intensity interval training alone.",
+    "specific_value": "+6.8 ml\u00b7min\u00b7kg\u207b\u00b9 or 11.7%",
+    "category": "polarized_training",
+    "population": "well-trained endurance athletes (VO2peak ~62.6 mL\u00b7min\u207b\u00b9\u00b7kg\u207b\u00b9)",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Polarized training increases time to exhaustion by 17.4% and peak velocity/power by 5.1% over 9 weeks, outperforming threshold, high-volume, and HIIT-only approaches.",
+    "specific_value": "+17.4% TTE, +5.1% peak velocity/power",
+    "category": "polarized_training",
+    "population": "well-trained endurance athletes (VO2peak ~62.6 mL\u00b7min\u207b\u00b9\u00b7kg\u207b\u00b9)",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Both polarized training and HIIT improve lactate threshold (velocity/power at 4 mmol\u00b7L\u207b\u00b9), but polarized training produces a larger gain (+8.1%) than HIIT (+5.6%).",
+    "specific_value": "POL +8.1%, HIIT +5.6%",
+    "category": "polarized_training",
+    "population": "well-trained endurance athletes (VO2peak ~62.6 mL\u00b7min\u207b\u00b9\u00b7kg\u207b\u00b9)",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Threshold-only and high-volume-only training do not produce further improvements in endurance performance variables in athletes who are already well-trained.",
+    "specific_value": null,
+    "category": "polarized_training",
+    "population": "well-trained endurance athletes (VO2peak ~62.6 mL\u00b7min\u207b\u00b9\u00b7kg\u207b\u00b9)",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "HIIT-only training reduces body mass by 3.7% over 9 weeks, while polarized, threshold, and high-volume training do not significantly change body mass.",
+    "specific_value": "-3.7% body mass",
+    "category": "polarized_training",
+    "population": "well-trained endurance athletes (VO2peak ~62.6 mL\u00b7min\u207b\u00b9\u00b7kg\u207b\u00b9)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "No training approach (polarized, threshold, HIIT, or high-volume) produces superior improvements in work economy over 9 weeks, suggesting economy is resistant to short-term training concept changes.",
+    "specific_value": null,
+    "category": "polarized_training",
+    "population": "well-trained endurance athletes (VO2peak ~62.6 mL\u00b7min\u207b\u00b9\u00b7kg\u207b\u00b9)",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  }
+]

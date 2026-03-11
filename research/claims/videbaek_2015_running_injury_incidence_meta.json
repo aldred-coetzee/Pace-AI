@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Running-related injury incidence per 1000 hours of running ranges from 2.5 in long-distance track and field athletes to 33.0 in novice runners.",
+    "specific_value": "2.5-33.0 per 1000 h",
+    "category": "injury_prevention_general",
+    "population": "all runner types",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Novice runners have a weighted injury incidence of 17.8 per 1000 hours of running.",
+    "specific_value": "17.8 per 1000 h (95% CI 16.7-19.1)",
+    "category": "injury_prevention_general",
+    "population": "novice runners",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Recreational runners have a weighted injury incidence of 7.7 per 1000 hours of running.",
+    "specific_value": "7.7 per 1000 h (95% CI 6.9-8.7)",
+    "category": "injury_prevention_general",
+    "population": "recreational runners",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Novice runners face approximately 2.3 times greater injury risk per 1000 hours of running compared to recreational runners.",
+    "specific_value": "~2.3x higher risk (17.8 vs 7.7 per 1000 h)",
+    "category": "injury_prevention_general",
+    "population": "novice vs recreational runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Long-distance track and field athletes have the lowest reported injury incidence at 2.5 per 1000 hours of running, suggesting experienced and structured training reduces injury risk.",
+    "specific_value": "2.5 per 1000 h",
+    "category": "injury_prevention_general",
+    "population": "long-distance track and field athletes",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  }
+]

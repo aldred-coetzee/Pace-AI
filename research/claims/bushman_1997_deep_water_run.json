@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Deep water running for 4 weeks can maintain 5-km race performance in trained competitive runners with no significant change in finish time.",
+    "specific_value": "pre 1142.7s vs post 1149.8s, P=0.28",
+    "category": "cross_training",
+    "population": "trained competitive runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Four weeks of deep water running maintains maximal oxygen consumption (VO2max) in trained runners.",
+    "specific_value": "pre 63.4 vs post 62.2 mL/kg/min, P=0.11",
+    "category": "cross_training",
+    "population": "trained competitive runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running economy (submaximal oxygen consumption at a fixed workload) is preserved after 4 weeks of exclusive deep water run training.",
+    "specific_value": "pre 44.8 vs post 45.3 mL/kg/min, P=0.47",
+    "category": "cross_training",
+    "population": "trained competitive runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Lactate threshold running velocity is maintained after 4 weeks of deep water running replacing all on-land training.",
+    "specific_value": "pre 249.1 vs post 253.6 m/min, P=0.44",
+    "category": "cross_training",
+    "population": "trained competitive runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A deep water running frequency of 5-6 sessions per week (20-24 total sessions over 4 weeks) is sufficient to maintain on-land running fitness.",
+    "specific_value": "5-6 d/wk, 22 \u00b1 1.5 sessions over 4 wk",
+    "category": "cross_training",
+    "population": "trained competitive runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Deep water running as a complete substitute for land-based training does not negatively affect mood states over a 4-week period.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "trained competitive runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

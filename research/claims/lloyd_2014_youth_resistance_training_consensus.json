@@ -1,0 +1,18 @@
+[
+  {
+    "text": "Youth resistance training is supported by leading professional organisations in sports medicine, exercise science, and paediatrics as safe and beneficial when appropriately designed.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "youth athletes and children",
+    "confidence": 0.3,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Youth resistance training programs should be designed with input spanning paediatric exercise science, paediatric medicine, physical education, and strength and conditioning expertise.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "youth athletes and children",
+    "confidence": 0.3,
+    "school_of_thought": "IOC consensus"
+  }
+]

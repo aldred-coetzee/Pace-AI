@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Polarized training distribution (~77% zone 1, 3% zone 2, 20% zone 3) produces greater performance improvements than threshold-dominant distribution (~46% zone 1, 35% zone 2, 19% zone 3) in recreational runners over 10 weeks.",
+    "specific_value": "77/3/20 vs 46/35/19 intensity distribution",
+    "category": "half_marathon_training",
+    "population": "recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Polarized training improved 10K time by 5.0% compared to 3.6% for threshold-dominant training over a 10-week intervention, a difference of approximately 41 seconds.",
+    "specific_value": "5.0% vs 3.6%, ~41s difference",
+    "category": "half_marathon_training",
+    "population": "recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Among runners who most closely adhered to their prescribed intensity distribution, polarized training showed a large effect size advantage of 1.29 Cohen's d units over threshold training.",
+    "specific_value": "1.29 Cohen's d (90% CI 0.31-2.27, P = .038)",
+    "category": "half_marathon_training",
+    "population": "recreational runners",
+    "confidence": 0.65,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Both polarized and threshold-dominant training produce significant 10K performance improvements in recreational runners over 10 weeks of structured training.",
+    "specific_value": "P < .0001 polarized, P < .001 threshold",
+    "category": "half_marathon_training",
+    "population": "recreational runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Keeping zone 2 (between ventilatory threshold and respiratory compensation threshold) volume below 5% of total training time characterizes an effective polarized training distribution for recreational runners.",
+    "specific_value": "~3% zone 2 time",
+    "category": "half_marathon_training",
+    "population": "recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "A 10-week polarized training program reduced recreational runners' 10K times from an average of 39:18 to 37:19.",
+    "specific_value": "39:18 to 37:19 (1:59 improvement)",
+    "category": "half_marathon_training",
+    "population": "recreational runners (mean ~39 min 10K)",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  }
+]

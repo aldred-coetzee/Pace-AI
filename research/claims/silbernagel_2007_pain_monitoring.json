@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Continuing Achilles tendon-loading activity (running and jumping) using a pain-monitoring model during rehabilitation produces no worse outcomes than stopping such activity for the first 6 weeks.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "recreational athletes with Achilles tendinopathy",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A graduated Achilles tendon-loading strengthening program significantly improves VISA-A-S scores from baseline (~57) to 12-month follow-up (~85-91) regardless of whether running/jumping is continued or paused initially.",
+    "specific_value": "VISA-A-S 57 \u2192 85-91 at 12 months (P < .01)",
+    "category": "tendon_health",
+    "population": "recreational athletes with Achilles tendinopathy",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A pain-monitoring model can be used to safely guide continued running and jumping during Achilles tendinopathy rehabilitation without demonstrable negative effects.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "recreational athletes with Achilles tendinopathy",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Complete rest from tendon-loading activities is not necessary during Achilles tendinopathy rehabilitation when a pain-monitoring model is used to regulate activity levels.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "recreational athletes with Achilles tendinopathy",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Significant improvements in Achilles tendinopathy symptoms can be observed as early as the first evaluation time point and are maintained through 12 months with a progressive tendon-loading program.",
+    "specific_value": "P < .01 at all evaluation time points",
+    "category": "tendon_health",
+    "population": "recreational athletes with Achilles tendinopathy",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  }
+]

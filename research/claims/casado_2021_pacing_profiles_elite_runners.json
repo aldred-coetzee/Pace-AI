@@ -1,0 +1,66 @@
+[
+  {
+    "text": "In 100m and 200m events, elite runners use an 'all-out' pacing strategy characterized by initial rapid acceleration followed by speed reduction in later stages.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite sprinters",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Elite 400m runners display a positive pacing pattern with speed reduction throughout the race.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite 400m runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Elite 800m runners typically adopt positive pacing in meet races but may use positive or negative pacing in championship races depending on tactical approaches of dominant athletes.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite 800m runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A U-shaped pacing strategy (faster start and end than the middle) is evident during world record performances in meet races at 1500m, 5000m, and 10,000m distances.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite middle- and long-distance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "In championship 5000m and 10,000m races, elite runners adopt a negative pacing strategy with microvariations of pace, while championship 1500m races show a parabolic J-shaped profile.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite distance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Recent world record marathon performances are characterized by even pacing, in contrast to major championship marathons which feature positive pacing.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "In major championship 1500m and 5000m races, staying within leading positions during the last lap optimizes finishing position.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite 1500m and 5000m runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Athletes with more modest aims than winning medals should adopt a realistic initial pace in long-distance races and stay within a pack of runners.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "sub-elite and competitive distance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

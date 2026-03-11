@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Masters runners (\u226540 years) have a significantly higher injury rate than younger runners.",
+    "specific_value": "46% overall injury rate, masters significantly higher (P<0.05)",
+    "category": "masters_running",
+    "population": "masters runners (\u226540 years) vs younger runners",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Masters runners are more likely to suffer multiple injuries compared to younger runners.",
+    "specific_value": "P<0.001",
+    "category": "masters_running",
+    "population": "masters runners (\u226540 years)",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Soft-tissue injuries to the calf, Achilles, and hamstrings are significantly more prevalent in masters runners than younger runners.",
+    "specific_value": "P<0.001",
+    "category": "masters_running",
+    "population": "masters runners (\u226540 years)",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Younger runners suffer more knee and leg injuries than masters runners.",
+    "specific_value": "P<0.005",
+    "category": "masters_running",
+    "population": "younger runners (<40 years)",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Running more times per week increases the risk of injury for both masters and younger runners.",
+    "specific_value": null,
+    "category": "masters_running",
+    "population": "recreational runners of all ages",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The knee and foot are the most common injury locations for runners regardless of age.",
+    "specific_value": null,
+    "category": "masters_running",
+    "population": "recreational runners of all ages",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Masters runners who run more than 30 miles per week and 6 or more times per week have elevated injury risk profiles.",
+    "specific_value": ">30 miles/week, \u22656 sessions/week",
+    "category": "masters_running",
+    "population": "masters runners (\u226540 years)",
+    "confidence": 0.6,
+    "school_of_thought": "Gabbett load management"
+  }
+]

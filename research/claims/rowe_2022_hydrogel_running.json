@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Ingesting 90 g/h of 2:1 glucose-fructose during a 120-min steady-state run improves subsequent 5-km time-trial performance by 5.6-7.6% compared to placebo.",
+    "specific_value": "5.6-7.6% improvement",
+    "category": "carbohydrate_fueling",
+    "population": "trained male runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A glucose-fructose hydrogel formulation (with sodium alginate and pectin) produces a 2.1% faster 5-km time-trial performance after 120 min of running compared to the same carbohydrate dose in standard solution form.",
+    "specific_value": "2.1% faster",
+    "category": "carbohydrate_fueling",
+    "population": "trained male runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Carbohydrate hydrogel formulation increases exogenous carbohydrate oxidation compared to standard solution (68.6 vs 63.4 g absolute; 31.9% vs 29.3% relative oxidation rate).",
+    "specific_value": "68.6 vs 63.4 g; 31.9% vs 29.3%",
+    "category": "carbohydrate_fueling",
+    "population": "trained male runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Standard (non-hydrogel) carbohydrate solution at 90 g/h causes significantly more gastrointestinal symptoms during running than both hydrogel and placebo, while hydrogel GI symptoms are no different from placebo.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained male runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Ingesting carbohydrate (90 g/h glucose-fructose) during prolonged running reduces endogenous carbohydrate oxidation compared to placebo, regardless of delivery form (hydrogel or solution).",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained male runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Liver glucose oxidation and muscle glycogen oxidation rates are not significantly different between hydrogel and standard carbohydrate solution forms, suggesting the hydrogel benefit comes from improved gut absorption rather than altered substrate partitioning.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained male runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "The prevalence of low energy availability (LEA) in female and male track and field athletes ranges between 18% and 58%, with the highest prevalence among endurance and jump event athletes.",
+    "specific_value": "18-58%",
+    "category": "red_s",
+    "population": "track and field athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low energy availability in male athletes may result in reduced testosterone levels, reduced libido, and impaired training capacity.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Functional hypothalamic amenorrhea as a consequence of LEA has been reported in 60% of elite middle- and long-distance female athletes and 23% of elite female sprinters.",
+    "specific_value": "60% distance, 23% sprinters",
+    "category": "red_s",
+    "population": "elite female track and field athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Functional hypothalamic amenorrhea is associated with impaired bone health, elevated risk for bone stress injury, and cardiovascular disease.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low energy availability negatively affects recovery, muscle mass, neuromuscular function, and increases the risk of injuries and illness.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Athletes with long-term LEA may be weight stable yet have impaired physiological function due to metabolic and physiological adaptations that prevent further weight loss.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Treatment for athletes with LEA requires a multidisciplinary team approach including a sport physician, sports dietitian, physiologist, and psychologist, with the primary goal of increasing energy availability.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  }
+]

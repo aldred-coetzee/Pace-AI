@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Running shoe selection should consider specific shoe category features that differentially affect running economy, performance, and biomechanics.",
+    "specific_value": null,
+    "category": "shoe_technology",
+    "population": "runners with established fitness and training routine",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running shoe effects on runners span at least 10 distinct biomechanical and performance domains: running economy, running performance, spatiotemporal parameters, ground reaction forces, joint stiffness, achilles tendon loading, plantar pressure, tibiofemoral load, foot strike pattern, and joint coordination.",
+    "specific_value": "10 domains",
+    "category": "shoe_technology",
+    "population": "runners with established fitness and training routine",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Shoe brand and model specificity matters when evaluating running shoe effects \u2014 generic shoe category labels alone are insufficient due to lack of consensus in shoe classification.",
+    "specific_value": null,
+    "category": "shoe_technology",
+    "population": "runners with established fitness and training routine",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Different running shoe models can meaningfully affect achilles tendon loading and tibiofemoral load, making shoe selection relevant for injury prevention in addition to performance.",
+    "specific_value": null,
+    "category": "shoe_technology",
+    "population": "runners with established fitness and training routine",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "At least 61 distinct shoe models across multiple brands have been studied for their effects on running biomechanics and performance since 2015, indicating rapid evolution in shoe technology.",
+    "specific_value": "61 shoe models across 36 studies",
+    "category": "shoe_technology",
+    "population": "mixed",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

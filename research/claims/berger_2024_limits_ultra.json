@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Minimising the metabolic cost of running, lower limb tissue damage, and muscle fatigability are crucial performance factors in ultra-endurance running events.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Maintaining a sustainable core body temperature is critical to ultra-endurance running performance, supported by strategic heat acclimation and individually calculated hydration.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "An even pacing strategy contributes to sustained performance in ultra-endurance running events.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Gastrointestinal issues affect nearly all ultra-endurance running participants and can arise from multiple factors including mechanical stress, reduced blood flow to the gut, and nutritional choices.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Nutritional strategies for ultra-endurance events should be personalised with evidence-based approaches for varying types of carbohydrate, protein, and fat intake in fluid or solid form, and should address flavour fatigue.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Specific long-term and short-term goal setting improves performance in ultra-endurance running.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-endurance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Fatigue in ultra-endurance running is multi-factorial, encompassing both physical and mental components, with perceived effort and perceived fatigue level having a major impact on ability to sustain pace.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

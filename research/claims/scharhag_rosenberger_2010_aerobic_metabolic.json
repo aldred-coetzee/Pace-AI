@@ -1,0 +1,50 @@
+[
+  {
+    "text": "One year of recreational endurance training at 60% heart rate reserve, 3 days/week for 45 min/session, significantly reduces body fat by approximately 3.4% without changing body weight in previously sedentary adults.",
+    "specific_value": "3.4 \u00b1 2.1% body fat reduction",
+    "category": "easy_recovery_running",
+    "population": "previously sedentary adults (age ~42, BMI ~24.6)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Resting metabolic rate does not change significantly after 12 months of moderate-intensity aerobic endurance training in previously untrained non-obese individuals.",
+    "specific_value": null,
+    "category": "easy_recovery_running",
+    "population": "previously sedentary non-obese adults",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Substrate oxidation at rest does not change significantly after one year of moderate-intensity endurance training in previously untrained individuals.",
+    "specific_value": null,
+    "category": "easy_recovery_running",
+    "population": "previously sedentary non-obese adults",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Maximal fat oxidation rate during exercise increases significantly and progressively over at least 12 months of consistent moderate-intensity endurance training at 60% heart rate reserve.",
+    "specific_value": "increase of 0.07 \u00b1 0.08 g/min over 12 months",
+    "category": "easy_recovery_running",
+    "population": "previously sedentary adults",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The exercise intensity at which maximal fat oxidation occurs shifts progressively higher with training, increasing from 35% to 50% VO2max over 12 months of moderate endurance training.",
+    "specific_value": "35% \u2192 44% \u2192 50% VO2max over 0, 6, 12 months",
+    "category": "easy_recovery_running",
+    "population": "previously sedentary adults",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A constant moderate training stimulus within ACSM guidelines (3\u00d745 min/week at 60% HRR) continues to elicit sustained metabolic improvements in fat oxidation for at least one year without requiring progressive overload.",
+    "specific_value": "3 days/week, 45 min/session, 60% HRR",
+    "category": "easy_recovery_running",
+    "population": "previously sedentary adults",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

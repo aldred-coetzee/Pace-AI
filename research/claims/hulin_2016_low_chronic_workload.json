@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Short (<7 days) and long (\u22657 days) between-match recovery periods show no significant difference in match-injury risk (7.5% vs 6.8%).",
+    "specific_value": "7.5% vs 6.8%",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "High chronic workloads (18.9-22.0 km weekly) are associated with a reduced risk of match injury compared to lower chronic workloads (<18.9 km) during short recovery periods, with relative risk of 0.27-0.32.",
+    "specific_value": "RR 0.27-0.32, chronic workload 18.9-22.0 km",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "An acute:chronic workload ratio \u22651.6 during short between-match recovery increases match injury risk by 3.4-5.8 times compared to lower ratios.",
+    "specific_value": "ACWR \u22651.6, RR 3.41-5.80",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.85,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Acute:chronic workload ratios between 1.2 and 1.6 are associated with greater injury risk than ratios between 1.0 and 1.2 during short recovery periods (RR=2.88).",
+    "specific_value": "ACWR 1.2-1.6 vs 1.0-1.2, RR 2.88",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "High chronic workloads may have a protective effect against injury, even when recovery time between matches is short, contradicting the assumption that high workloads always increase injury risk.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Acute:chronic workload ratios around 1.5 represent an elevated injury risk zone, and workloads can be strategically manipulated to decrease injury risk associated with shorter recovery periods.",
+    "specific_value": "ACWR ~1.5",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  }
+]

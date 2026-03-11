@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Female runners with a history of plantar fasciitis exhibit greater maximum instantaneous vertical ground reaction force load rates compared to healthy controls.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "female recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "A lower medial longitudinal arch (lower arch index) is associated with a history of plantar fasciitis in female runners.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "female recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increased passive ankle dorsiflexion range of motion is associated with a history of plantar fasciitis in female runners.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "female recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Rearfoot kinematics (peak eversion, eversion excursion, time to peak eversion, peak dorsiflexion) do not differ between female runners with and without a history of plantar fasciitis.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "female recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Calcaneal valgus during standing does not differ between female runners with and without a history of plantar fasciitis.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "female recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Reducing vertical impact loading rate (e.g., through cadence increase, softer landing, or gait retraining) may help prevent plantar fasciitis in runners with low arches.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "female recreational runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  }
+]

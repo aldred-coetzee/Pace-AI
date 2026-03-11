@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Replacing 32% of endurance training volume with explosive-strength training improves 5-km race time in well-trained endurance athletes over 9 weeks.",
+    "specific_value": "32% volume replaced, 9 weeks",
+    "category": "5k_track_training",
+    "population": "well-trained recreational endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Explosive-strength training improves 5K performance through improved running economy and neuromuscular characteristics, not through changes in VO2max.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "well-trained recreational endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Simultaneous explosive-strength and endurance training improves running economy, maximal anaerobic running velocity (VMART), 20-m sprint speed, and 5-jump performance compared to endurance-only training.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "well-trained recreational endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Changes in 5K velocity correlate with changes in running economy (r = -0.54) and maximal anaerobic running velocity (r = 0.55).",
+    "specific_value": "r = -0.54 (RE), r = 0.55 (VMART)",
+    "category": "5k_track_training",
+    "population": "well-trained recreational endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Endurance-only training without explosive-strength work can lead to decreases in sprint speed and muscular power even as VO2max improves.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "well-trained recreational endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Explosive-strength training can improve 5K performance without increasing total training volume, by substituting a portion of endurance training.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "well-trained recreational endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  }
+]

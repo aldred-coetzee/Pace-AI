@@ -1,0 +1,58 @@
+[
+  {
+    "text": "An 18-day taper following 40 days of high-volume sprint interval training improves short-duration exercise capacity (repeated runs at 90% vVO2max) by ~21% compared to pre-training values in moderately trained runners.",
+    "specific_value": "6.8 vs 5.6 min repeated running test",
+    "category": "taper_science",
+    "population": "moderately trained runners (VO2max ~57 ml/min/kg)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Tapering for 18 days after high-volume sprint interval training improves 10-km performance by 2.7% compared to the end of the high-volume phase, but does not significantly improve it beyond pre-training levels.",
+    "specific_value": "2.7% improvement (41.8 to 40.7 min)",
+    "category": "taper_science",
+    "population": "moderately trained runners (VO2max ~57 ml/min/kg)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A taper structure of reducing sprint interval sessions from 20 sessions over 40 days to 4 sessions over 18 days (with reduced volume per session from 8-12 to 4 repetitions) effectively restores and improves performance.",
+    "specific_value": "20 sessions/40 days reduced to 4 sessions/18 days",
+    "category": "taper_science",
+    "population": "moderately trained runners (VO2max ~57 ml/min/kg)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running economy (oxygen uptake at 60% vVO2max) improves after an 18-day taper from high-volume sprint interval training compared to both pre-training and post-high-volume values.",
+    "specific_value": null,
+    "category": "taper_science",
+    "population": "moderately trained runners (VO2max ~57 ml/min/kg)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Muscular adaptations from high-volume sprint interval training (increased Na+/K+ ATPase and SERCA1 expression) are retained through an 18-day taper despite large reductions in training volume.",
+    "specific_value": null,
+    "category": "taper_science",
+    "population": "moderately trained runners (VO2max ~57 ml/min/kg)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The optimal taper duration should be matched to the target competition distance \u2014 tapering from sprint interval training benefits short-duration performance more than longer-distance (10-km) performance.",
+    "specific_value": null,
+    "category": "taper_science",
+    "population": "moderately trained runners (VO2max ~57 ml/min/kg)",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "10-km performance improvements from tapering appear to plateau midway through an 18-day taper, with no additional gains in the second half of the taper period.",
+    "specific_value": "40.7 min at both midway and end of taper",
+    "category": "taper_science",
+    "population": "moderately trained runners (VO2max ~57 ml/min/kg)",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

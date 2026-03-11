@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Strength training improves running economy by 2-8% in middle- and long-distance runners compared to running-only controls.",
+    "specific_value": "2-8% improvement",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with \u22656 months experience",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training improves time trial performance over 1.5-10 km distances in middle- and long-distance runners.",
+    "specific_value": "1.5-10 km",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with \u22656 months experience",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training improves anaerobic speed qualities in distance runners.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with \u22656 months experience",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training does not negatively impact body composition in distance runners, alleviating concerns about unwanted weight gain.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with \u22656 months experience",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "VO2max, velocity at VO2max, and blood lactate markers are typically unaffected by the addition of strength training to a running program.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with \u22656 months experience",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Two to three strength training sessions per week using a variety of modalities (heavy resistance, explosive resistance, and plyometric training) are recommended for middle- and long-distance runners.",
+    "specific_value": "2-3 sessions per week",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with \u22656 months experience",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training interventions must last at least 4 weeks to produce measurable physiological benefits in distance runners.",
+    "specific_value": "\u22654 weeks",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with \u22656 months experience",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

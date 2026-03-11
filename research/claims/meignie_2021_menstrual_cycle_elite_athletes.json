@@ -1,0 +1,50 @@
+[
+  {
+    "text": "The association between menstrual cycle phase and sports performance parameters such as endurance, power resistance, ligament stiffness, decision-making skills, and competitiveness is variable and inconclusive in elite female athletes.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "elite female athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Only 1% of studies investigating menstrual cycle and performance in female athletes precisely examined elite populations, indicating a critical lack of evidence for training individualization based on menstrual cycle phase at the elite level.",
+    "specific_value": "1%",
+    "category": "female_physiology",
+    "population": "elite female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Training individualization based on menstrual cycle phase is widely recommended but currently lacks sufficient systematic evidence to provide specific evidence-based guidelines for elite female athletes.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "elite female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Hormonal fluctuations across menstrual cycle phases have demonstrated impacts on performance parameters in female athletes, though the magnitude and direction of effects vary across studies.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "elite female athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Ligament stiffness varies across menstrual cycle phases in elite female athletes, which may have implications for injury risk management during training periodization.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "elite female athletes",
+    "confidence": 0.4,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Hormonal verification through blood, saliva, or urine sampling is necessary to accurately determine menstrual cycle phase, as self-reported menstruation diaries alone are unreliable for research and individualization purposes.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "elite female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Total daily caloric and protein intake over the long term are more important for exercise adaptations than nutrient timing.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Consuming protein pre- and/or post-workout induces a significant rise in muscle protein synthesis.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Peri-exercise protein intake, particularly post-training, can optimize physical performance and recovery for both resistance and endurance exercise once total daily intake is adequate.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The utility of post-workout protein feeding varies by training status, exercise duration, and number of training or competitive sessions per day.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Consuming nothing post-training offers no advantage over consuming protein and may represent a disadvantage for performance and recovery.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Athletes should consume protein post-training and post-competition as a prudent approach to support performance and recovery.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

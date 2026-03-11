@@ -1,0 +1,3110 @@
+{
+  "llanos_lagos_2024_strength_runners_performance_meta": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 7,
+    "output_path": "claims/llanos_lagos_2024_strength_runners_performance_meta.json"
+  },
+  "llanos_lagos_2024_strength_runners_economy_meta": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 8,
+    "output_path": "claims/llanos_lagos_2024_strength_runners_economy_meta.json"
+  },
+  "bacon_2013_vo2max_hiit_meta": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 6,
+    "output_path": "claims/bacon_2013_vo2max_hiit_meta.json"
+  },
+  "blagrove_2018_strength_training_determinants_sr": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 7,
+    "output_path": "claims/blagrove_2018_strength_training_determinants_sr.json"
+  },
+  "denham_2015_sprint_interval_5km": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 5,
+    "output_path": "claims/denham_2015_sprint_interval_5km.json"
+  },
+  "paavolainen_1999_explosive_strength_5km": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 6,
+    "output_path": "claims/paavolainen_1999_explosive_strength_5km.json"
+  },
+  "skovgaard_2018_speed_endurance_running_economy": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 6,
+    "output_path": "claims/skovgaard_2018_speed_endurance_running_economy.json"
+  },
+  "nummela_2006_neuromuscular_5km": {
+    "status": "complete",
+    "domain_id": "5k_track_training",
+    "claims_count": 5,
+    "output_path": "claims/nummela_2006_neuromuscular_5km.json"
+  },
+  "levine_1997_living_high_training_low": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 7,
+    "output_path": "claims/levine_1997_living_high_training_low.json"
+  },
+  "stray-gundersen_2001_lhtl_elite_runners": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 7,
+    "output_path": "claims/stray-gundersen_2001_lhtl_elite_runners.json"
+  },
+  "girard_2023_lhtl_olympic_25_years": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 8,
+    "output_path": "claims/girard_2023_lhtl_olympic_25_years.json"
+  },
+  "chen_2023_altitude_aerobic_meta": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 6,
+    "output_path": "claims/chen_2023_altitude_aerobic_meta.json"
+  },
+  "deng_2025_altitude_aerobic_meta": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 7,
+    "output_path": "claims/deng_2025_altitude_aerobic_meta.json"
+  },
+  "feng_2023_hypoxic_dose_network_meta": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 7,
+    "output_path": "claims/feng_2023_hypoxic_dose_network_meta.json"
+  },
+  "ploszczyca_2018_erythropoietic_response_altitude": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 6,
+    "output_path": "claims/ploszczyca_2018_erythropoietic_response_altitude.json"
+  },
+  "saunders_2009_cumulative_altitude_elite_runners": {
+    "status": "complete",
+    "domain_id": "altitude_training",
+    "claims_count": 5,
+    "output_path": "claims/saunders_2009_cumulative_altitude_elite_runners.json"
+  },
+  "ooms_2013_start_to_run_effectiveness": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 5,
+    "output_path": "claims/ooms_2013_start_to_run_effectiveness.json"
+  },
+  "relph_2023_couch_to_5k_injury_completion": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 7,
+    "output_path": "claims/relph_2023_couch_to_5k_injury_completion.json"
+  },
+  "bertelsen_2018_start_to_run_distance_obese": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 6,
+    "output_path": "claims/bertelsen_2018_start_to_run_distance_obese.json"
+  },
+  "videbaek_2015_injury_incidence_meta_analysis": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 6,
+    "output_path": "claims/videbaek_2015_injury_incidence_meta_analysis.json"
+  },
+  "nielsen_2013_predictors_930_novice_runners": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 7,
+    "output_path": "claims/nielsen_2013_predictors_930_novice_runners.json"
+  },
+  "buist_2008_graded_training_rct": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 5,
+    "output_path": "claims/buist_2008_graded_training_rct.json"
+  },
+  "hespanhol_2015_habitual_running_health_meta": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 8,
+    "output_path": "claims/hespanhol_2015_habitual_running_health_meta.json"
+  },
+  "plateau_2024_beginner_running_groups_psychological": {
+    "status": "complete",
+    "domain_id": "beginner_running",
+    "claims_count": 6,
+    "output_path": "claims/plateau_2024_beginner_running_groups_psychological.json"
+  },
+  "vanhooren_2024_biomechanics_economy": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 7,
+    "output_path": "claims/vanhooren_2024_biomechanics_economy.json"
+  },
+  "peterson_2022_biomechanical_risk": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 6,
+    "output_path": "claims/peterson_2022_biomechanical_risk.json"
+  },
+  "anderson_2022_step_rate": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 7,
+    "output_path": "claims/anderson_2022_step_rate.json"
+  },
+  "anderson_2020_foot_strike": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 8,
+    "output_path": "claims/anderson_2020_foot_strike.json"
+  },
+  "burke_2021_foot_strike_injury": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 5,
+    "output_path": "claims/burke_2021_foot_strike_injury.json"
+  },
+  "vannatta_2020_risk_population": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 5,
+    "output_path": "claims/vannatta_2020_risk_population.json"
+  },
+  "heiderscheit_2011_step_rate": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 6,
+    "output_path": "claims/heiderscheit_2011_step_rate.json"
+  },
+  "folland_2017_technique_economy": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 7,
+    "output_path": "claims/folland_2017_technique_economy.json"
+  },
+  "moore_2016_economical_technique": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 8,
+    "output_path": "claims/moore_2016_economical_technique.json"
+  },
+  "liu_2022_stiffness_economy": {
+    "status": "complete",
+    "domain_id": "biomechanics_form",
+    "claims_count": 6,
+    "output_path": "claims/liu_2022_stiffness_economy.json"
+  },
+  "herrmann_2019_bodycomp_cityrun": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 6,
+    "output_path": "claims/herrmann_2019_bodycomp_cityrun.json"
+  },
+  "tanda_2013_marathon_bodyfat": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 5,
+    "output_path": "claims/tanda_2013_marathon_bodyfat.json"
+  },
+  "barandun_2012_speed_bodyfat_marathon": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 6,
+    "output_path": "claims/barandun_2012_speed_bodyfat_marathon.json"
+  },
+  "knechtle_2012_musclemass_masters": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 5,
+    "output_path": "claims/knechtle_2012_musclemass_masters.json"
+  },
+  "ueno_2021_segment_mass": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 6,
+    "output_path": "claims/ueno_2021_segment_mass.json"
+  },
+  "stachon_2023_anthropometric_distances": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 6,
+    "output_path": "claims/stachon_2023_anthropometric_distances.json"
+  },
+  "alvero-cruz_2020_predictive_models": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 7,
+    "output_path": "claims/alvero-cruz_2020_predictive_models.json"
+  },
+  "knechtle_2014_anthropometric_endurance": {
+    "status": "complete",
+    "domain_id": "body_composition",
+    "claims_count": 6,
+    "output_path": "claims/knechtle_2014_anthropometric_endurance.json"
+  },
+  "stellingwerff_2014_cho_supplementation": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 7,
+    "output_path": "claims/stellingwerff_2014_cho_supplementation.json"
+  },
+  "jeukendrup_2014_personalized_cho": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 7,
+    "output_path": "claims/jeukendrup_2014_personalized_cho.json"
+  },
+  "cermak_2013_cho_ergogenic": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 7,
+    "output_path": "claims/cermak_2013_cho_ergogenic.json"
+  },
+  "burke_2011_cho_training_competition": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 6,
+    "output_path": "claims/burke_2011_cho_training_competition.json"
+  },
+  "rowlands_2015_fructose_glucose_composite": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 7,
+    "output_path": "claims/rowlands_2015_fructose_glucose_composite.json"
+  },
+  "jentjens_2005_glucose_fructose_oxidation": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 6,
+    "output_path": "claims/jentjens_2005_glucose_fructose_oxidation.json"
+  },
+  "rowe_2022_hydrogel_running": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 6,
+    "output_path": "claims/rowe_2022_hydrogel_running.json"
+  },
+  "costa_2017_gut_training": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 7,
+    "output_path": "claims/costa_2017_gut_training.json"
+  },
+  "impey_2018_fuel_for_work": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 8,
+    "output_path": "claims/impey_2018_fuel_for_work.json"
+  },
+  "gejl_2021_cho_periodization_meta": {
+    "status": "complete",
+    "domain_id": "carbohydrate_fueling",
+    "claims_count": 5,
+    "output_path": "claims/gejl_2021_cho_periodization_meta.json"
+  },
+  "hickson_1980_interference": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 6,
+    "output_path": "claims/hickson_1980_interference.json"
+  },
+  "wilson_2012_interference_meta": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 7,
+    "output_path": "claims/wilson_2012_interference_meta.json"
+  },
+  "fyfe_2014_molecular_interference": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 5,
+    "output_path": "claims/fyfe_2014_molecular_interference.json"
+  },
+  "coffey_2017_opposites": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 5,
+    "output_path": "claims/coffey_2017_opposites.json"
+  },
+  "denadai_2017_running_economy": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 6,
+    "output_path": "claims/denadai_2017_running_economy.json"
+  },
+  "ferrauti_2010_marathon_concurrent": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 6,
+    "output_path": "claims/ferrauti_2010_marathon_concurrent.json"
+  },
+  "sedano_2013_elite_runners": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 6,
+    "output_path": "claims/sedano_2013_elite_runners.json"
+  },
+  "piacentini_2013_masters_economy": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 5,
+    "output_path": "claims/piacentini_2013_masters_economy.json"
+  },
+  "gao_2023_sequence_meta": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 6,
+    "output_path": "claims/gao_2023_sequence_meta.json"
+  },
+  "huiberts_2024_sex_training_status": {
+    "status": "complete",
+    "domain_id": "concurrent_training",
+    "claims_count": 7,
+    "output_path": "claims/huiberts_2024_sex_training_status.json"
+  },
+  "kwok_2022_deep_water_running_sr": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 5,
+    "output_path": "claims/kwok_2022_deep_water_running_sr.json"
+  },
+  "klein_2016_elliptical_vs_run": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 5,
+    "output_path": "claims/klein_2016_elliptical_vs_run.json"
+  },
+  "paquette_2018_cross_training_hs_runners": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 6,
+    "output_path": "claims/paquette_2018_cross_training_hs_runners.json"
+  },
+  "martinez_navarro_2021_post_marathon_recovery": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 6,
+    "output_path": "claims/martinez_navarro_2021_post_marathon_recovery.json"
+  },
+  "bushman_1997_deep_water_run": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 6,
+    "output_path": "claims/bushman_1997_deep_water_run.json"
+  },
+  "wilber_1996_water_run_maintenance": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 6,
+    "output_path": "claims/wilber_1996_water_run_maintenance.json"
+  },
+  "bosch_2021_treadmill_elliptical_stepper": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 5,
+    "output_path": "claims/bosch_2021_treadmill_elliptical_stepper.json"
+  },
+  "tanaka_1994_cross_training_transfer": {
+    "status": "complete",
+    "domain_id": "cross_training",
+    "claims_count": 6,
+    "output_path": "claims/tanaka_1994_cross_training_transfer.json"
+  },
+  "zheng_2022_detraining_vo2max_meta": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 7,
+    "output_path": "claims/zheng_2022_detraining_vo2max_meta.json"
+  },
+  "barbieri_2024_detraining_consequences": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 6,
+    "output_path": "claims/barbieri_2024_detraining_consequences.json"
+  },
+  "coyle_1984_time_course_detraining": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 7,
+    "output_path": "claims/coyle_1984_time_course_detraining.json"
+  },
+  "chen_2022_two_weeks_detraining": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 7,
+    "output_path": "claims/chen_2022_two_weeks_detraining.json"
+  },
+  "hickson_1981_reduced_frequency": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 5,
+    "output_path": "claims/hickson_1981_reduced_frequency.json"
+  },
+  "hickson_1985_reduced_intensity": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 7,
+    "output_path": "claims/hickson_1985_reduced_intensity.json"
+  },
+  "spiering_2021_minimal_dose": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 6,
+    "output_path": "claims/spiering_2021_minimal_dose.json"
+  },
+  "lepers_2024_detraining_retraining_masters": {
+    "status": "complete",
+    "domain_id": "detraining",
+    "claims_count": 7,
+    "output_path": "claims/lepers_2024_detraining_retraining_masters.json"
+  },
+  "dudley_1982_intensity_duration_adaptations": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 6,
+    "output_path": "claims/dudley_1982_intensity_duration_adaptations.json"
+  },
+  "shono_2002_low_intensity_capillary": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 5,
+    "output_path": "claims/shono_2002_low_intensity_capillary.json"
+  },
+  "achten_2004_fat_oxidation_optimization": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 7,
+    "output_path": "claims/achten_2004_fat_oxidation_optimization.json"
+  },
+  "menzies_2010_active_recovery_lactate": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 6,
+    "output_path": "claims/menzies_2010_active_recovery_lactate.json"
+  },
+  "scharhag_rosenberger_2010_aerobic_metabolic": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 6,
+    "output_path": "claims/scharhag_rosenberger_2010_aerobic_metabolic.json"
+  },
+  "sanchez_otero_2022_active_passive_recovery": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 6,
+    "output_path": "claims/sanchez_otero_2022_active_passive_recovery.json"
+  },
+  "molmen_2025_mitochondrial_capillary_meta": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 8,
+    "output_path": "claims/molmen_2025_mitochondrial_capillary_meta.json"
+  },
+  "storoschuk_2025_zone2_narrative": {
+    "status": "complete",
+    "domain_id": "easy_recovery_running",
+    "claims_count": 5,
+    "output_path": "claims/storoschuk_2025_zone2_narrative.json"
+  },
+  "mcnulty_2020_menstrual_cycle_exercise_meta_analysis": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 6,
+    "output_path": "claims/mcnulty_2020_menstrual_cycle_exercise_meta_analysis.json"
+  },
+  "meignie_2021_menstrual_cycle_elite_athletes": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 6,
+    "output_path": "claims/meignie_2021_menstrual_cycle_elite_athletes.json"
+  },
+  "elliott_sale_2020_oral_contraceptives_exercise": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 6,
+    "output_path": "claims/elliott_sale_2020_oral_contraceptives_exercise.json"
+  },
+  "kissow_2022_follicular_luteal_resistance_training": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 4,
+    "output_path": "claims/kissow_2022_follicular_luteal_resistance_training.json"
+  },
+  "acog_2020_pregnancy_exercise": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 7,
+    "output_path": "claims/acog_2020_pregnancy_exercise.json"
+  },
+  "cilar_budler_2022_pregnancy_physical_activity": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 5,
+    "output_path": "claims/cilar_budler_2022_pregnancy_physical_activity.json"
+  },
+  "donnelly_2020_postnatal_running_guidelines": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 4,
+    "output_path": "claims/donnelly_2020_postnatal_running_guidelines.json"
+  },
+  "deering_2024_postpartum_running_programme_delphi": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 6,
+    "output_path": "claims/deering_2024_postpartum_running_programme_delphi.json"
+  },
+  "schulz_2023_postpartum_return_sport_scoping": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 5,
+    "output_path": "claims/schulz_2023_postpartum_return_sport_scoping.json"
+  },
+  "pengelly_2025_iron_deficiency_female_athletes": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 7,
+    "output_path": "claims/pengelly_2025_iron_deficiency_female_athletes.json"
+  },
+  "sim_2019_iron_considerations_athlete": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 6,
+    "output_path": "claims/sim_2019_iron_considerations_athlete.json"
+  },
+  "besson_2022_sex_differences_endurance_running": {
+    "status": "complete",
+    "domain_id": "female_physiology",
+    "claims_count": 6,
+    "output_path": "claims/besson_2022_sex_differences_endurance_running.json"
+  },
+  "wiewelhove_2019_foam_rolling": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 7,
+    "output_path": "claims/wiewelhove_2019_foam_rolling.json"
+  },
+  "skinner_2020_foam_rolling": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 5,
+    "output_path": "claims/skinner_2020_foam_rolling.json"
+  },
+  "cheatham_2015_smr_systematic": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 5,
+    "output_path": "claims/cheatham_2015_smr_systematic.json"
+  },
+  "pearcey_2015_foam_doms": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 6,
+    "output_path": "claims/pearcey_2015_foam_doms.json"
+  },
+  "sulowska-daszyk_2022_smr_runners": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 5,
+    "output_path": "claims/sulowska-daszyk_2022_smr_runners.json"
+  },
+  "behm_2016_stretching_performance": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 8,
+    "output_path": "claims/behm_2016_stretching_performance.json"
+  },
+  "warneke_2025_stretching_running_economy": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 6,
+    "output_path": "claims/warneke_2025_stretching_running_economy.json"
+  },
+  "craib_1996_flexibility_running_economy": {
+    "status": "complete",
+    "domain_id": "foam_rolling_mobility",
+    "claims_count": 5,
+    "output_path": "claims/craib_1996_flexibility_running_economy.json"
+  },
+  "bouchard_1999_heritage_heritability": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 6,
+    "output_path": "claims/bouchard_1999_heritage_heritability.json"
+  },
+  "bouchard_2011_genomic_predictors": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 6,
+    "output_path": "claims/bouchard_2011_genomic_predictors.json"
+  },
+  "ma_2013_ace_actn3_meta": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 6,
+    "output_path": "claims/ma_2013_ace_actn3_meta.json"
+  },
+  "williams_2017_vo2max_genes_sr": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 6,
+    "output_path": "claims/williams_2017_vo2max_genes_sr.json"
+  },
+  "montero_2017_nonresponse_dose": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 7,
+    "output_path": "claims/montero_2017_nonresponse_dose.json"
+  },
+  "pickering_2019_nonresponders": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 5,
+    "output_path": "claims/pickering_2019_nonresponders.json"
+  },
+  "pickering_2019_genetic_testing": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 6,
+    "output_path": "claims/pickering_2019_genetic_testing.json"
+  },
+  "moir_2019_marathon_genes_sr": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 6,
+    "output_path": "claims/moir_2019_marathon_genes_sr.json"
+  },
+  "meyler_2021_response_variability": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 6,
+    "output_path": "claims/meyler_2021_response_variability.json"
+  },
+  "elouali_2024_actn3_meta": {
+    "status": "complete",
+    "domain_id": "genetics_individual_response",
+    "claims_count": 7,
+    "output_path": "claims/elouali_2024_actn3_meta.json"
+  },
+  "alvero_cruz_2020_prediction_models_review": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/alvero_cruz_2020_prediction_models_review.json"
+  },
+  "gomez_molina_2017_hm_predictive_variables": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/gomez_molina_2017_hm_predictive_variables.json"
+  },
+  "nikolaidis_2023_hm_predictors_recreational": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/nikolaidis_2023_hm_predictors_recreational.json"
+  },
+  "nikolaidis_2023_hm_participation_review": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 5,
+    "output_path": "claims/nikolaidis_2023_hm_participation_review.json"
+  },
+  "alvero_cruz_2019_cooper_test_hm": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/alvero_cruz_2019_cooper_test_hm.json"
+  },
+  "rust_2011_hm_predictor_variables": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/rust_2011_hm_predictor_variables.json"
+  },
+  "lima_silva_2010_10k_pacing_performance": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/lima_silva_2010_10k_pacing_performance.json"
+  },
+  "ristanovic_2023_hm_marathon_pacing": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/ristanovic_2023_hm_marathon_pacing.json"
+  },
+  "williams_1983_hm_physiological_demands": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/williams_1983_hm_physiological_demands.json"
+  },
+  "del_coso_2017_hm_vs_marathon_physiology": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/del_coso_2017_hm_vs_marathon_physiology.json"
+  },
+  "damasceno_2015_energy_systems_10k": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 5,
+    "output_path": "claims/damasceno_2015_energy_systems_10k.json"
+  },
+  "esteve_lanao_2007_intensity_distribution_rct": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/esteve_lanao_2007_intensity_distribution_rct.json"
+  },
+  "munoz_2014_polarized_training_10k_rct": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/munoz_2014_polarized_training_10k_rct.json"
+  },
+  "seiler_2010_training_intensity_best_practice": {
+    "status": "complete",
+    "domain_id": "half_marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/seiler_2010_training_intensity_best_practice.json"
+  },
+  "tanaka_2001_age_predicted_hrmax_revisited": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 6,
+    "output_path": "claims/tanaka_2001_age_predicted_hrmax_revisited.json"
+  },
+  "nes_2013_hunt_fitness_hrmax": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 6,
+    "output_path": "claims/nes_2013_hunt_fitness_hrmax.json"
+  },
+  "shookster_2020_apmhr_accuracy": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 6,
+    "output_path": "claims/shookster_2020_apmhr_accuracy.json"
+  },
+  "nikolaidis_2018_hrmax_marathon_runners": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 7,
+    "output_path": "claims/nikolaidis_2018_hrmax_marathon_runners.json"
+  },
+  "swain_1997_hrr_vo2r_equivalence": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 5,
+    "output_path": "claims/swain_1997_hrr_vo2r_equivalence.json"
+  },
+  "vachon_1999_hr_deflection_lactate_threshold": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 6,
+    "output_path": "claims/vachon_1999_hr_deflection_lactate_threshold.json"
+  },
+  "kaufmann_2023_hrv_thresholds_systematic_review": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 6,
+    "output_path": "claims/kaufmann_2023_hrv_thresholds_systematic_review.json"
+  },
+  "stoggl_2014_polarized_training_rct": {
+    "status": "complete",
+    "domain_id": "heart_rate_training",
+    "claims_count": 6,
+    "output_path": "claims/stoggl_2014_polarized_training_rct.json"
+  },
+  "ely_2007_weather_marathon_performance": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 6,
+    "output_path": "claims/ely_2007_weather_marathon_performance.json"
+  },
+  "mantzios_2022_weather_endurance_running_1258_races": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 6,
+    "output_path": "claims/mantzios_2022_weather_endurance_running_1258_races.json"
+  },
+  "periard_2021_exercise_heat_stress_comprehensive_review": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 6,
+    "output_path": "claims/periard_2021_exercise_heat_stress_comprehensive_review.json"
+  },
+  "racinais_2015_consensus_training_competing_heat": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 6,
+    "output_path": "claims/racinais_2015_consensus_training_competing_heat.json"
+  },
+  "tyler_2016_heat_adaptation_meta_analysis": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 7,
+    "output_path": "claims/tyler_2016_heat_adaptation_meta_analysis.json"
+  },
+  "daanen_2018_heat_acclimation_decay_reinduction": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 8,
+    "output_path": "claims/daanen_2018_heat_acclimation_decay_reinduction.json"
+  },
+  "lorenzo_2010_heat_acclimation_improves_performance": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 7,
+    "output_path": "claims/lorenzo_2010_heat_acclimation_improves_performance.json"
+  },
+  "castellani_2016_cold_stress_exercise_performance": {
+    "status": "complete",
+    "domain_id": "heat_cold_environment",
+    "claims_count": 6,
+    "output_path": "claims/castellani_2016_cold_stress_exercise_performance.json"
+  },
+  "manresa-rocamora_2021_hrv_guided_meta": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 7,
+    "output_path": "claims/manresa-rocamora_2021_hrv_guided_meta.json"
+  },
+  "granero-gallegos_2020_hrv_vo2max_meta": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 6,
+    "output_path": "claims/granero-gallegos_2020_hrv_vo2max_meta.json"
+  },
+  "bellenger_2016_autonomic_monitoring": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 7,
+    "output_path": "claims/bellenger_2016_autonomic_monitoring.json"
+  },
+  "kiviniemi_2007_hrv_guided_training": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 6,
+    "output_path": "claims/kiviniemi_2007_hrv_guided_training.json"
+  },
+  "vesterinen_2016_hrv_prescription": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 6,
+    "output_path": "claims/vesterinen_2016_hrv_prescription.json"
+  },
+  "carrasco-poyatos_2022_hrv_professional_runners": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 7,
+    "output_path": "claims/carrasco-poyatos_2022_hrv_professional_runners.json"
+  },
+  "plews_2017_smartphone_hrv_validation": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 6,
+    "output_path": "claims/plews_2017_smartphone_hrv_validation.json"
+  },
+  "lundstrom_2023_hrv_endurance_review": {
+    "status": "complete",
+    "domain_id": "hrv_monitoring",
+    "claims_count": 7,
+    "output_path": "claims/lundstrom_2023_hrv_endurance_review.json"
+  },
+  "goulet_2011_dehydration_timetrial": {
+    "status": "complete",
+    "domain_id": "hydration",
+    "claims_count": 6,
+    "output_path": "claims/goulet_2011_dehydration_timetrial.json"
+  },
+  "deshayes_2022_dehydration_rpe": {
+    "status": "complete",
+    "domain_id": "hydration",
+    "claims_count": 5,
+    "output_path": "claims/deshayes_2022_dehydration_rpe.json"
+  },
+  "james_2019_hypohydration_methodology": {
+    "status": "complete",
+    "domain_id": "hydration",
+    "claims_count": 5,
+    "output_path": "claims/james_2019_hypohydration_methodology.json"
+  },
+  "almond_2005_hyponatremia_boston": {
+    "status": "complete",
+    "domain_id": "hydration",
+    "claims_count": 8,
+    "output_path": "claims/almond_2005_hyponatremia_boston.json"
+  },
+  "hewbutler_2015_eah_consensus": {
+    "status": "failed",
+    "domain_id": "hydration",
+    "reason": "no_abstract"
+  },
+  "kenefick_2018_drinking_strategies": {
+    "status": "complete",
+    "domain_id": "hydration",
+    "claims_count": 7,
+    "output_path": "claims/kenefick_2018_drinking_strategies.json"
+  },
+  "baker_2017_sweat_variability": {
+    "status": "complete",
+    "domain_id": "hydration",
+    "claims_count": 7,
+    "output_path": "claims/baker_2017_sweat_variability.json"
+  },
+  "lipman_2021_wassup_sodium": {
+    "status": "complete",
+    "domain_id": "hydration",
+    "claims_count": 5,
+    "output_path": "claims/lipman_2021_wassup_sodium.json"
+  },
+  "guimaraes_2023_pf_treatment_meta": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 7,
+    "output_path": "claims/guimaraes_2023_pf_treatment_meta.json"
+  },
+  "hamstra_wright_2021_pf_risk_factors_meta": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 5,
+    "output_path": "claims/hamstra_wright_2021_pf_risk_factors_meta.json"
+  },
+  "rathleff_2015_pf_highload_rct": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 5,
+    "output_path": "claims/rathleff_2015_pf_highload_rct.json"
+  },
+  "morrissey_2021_plantar_heel_guideline": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 7,
+    "output_path": "claims/morrissey_2021_plantar_heel_guideline.json"
+  },
+  "pohl_2009_pf_biomechanics_female_runners": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 6,
+    "output_path": "claims/pohl_2009_pf_biomechanics_female_runners.json"
+  },
+  "wiegand_2022_pf_running_foot_mechanics": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 5,
+    "output_path": "claims/wiegand_2022_pf_running_foot_mechanics.json"
+  },
+  "kakouris_2021_running_injury_epidemiology_sr": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 7,
+    "output_path": "claims/kakouris_2021_running_injury_epidemiology_sr.json"
+  },
+  "matthews_2019_morton_neuroma_nonsurgical_sr_ma": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 6,
+    "output_path": "claims/matthews_2019_morton_neuroma_nonsurgical_sr_ma.json"
+  },
+  "attia_2021_navicular_stress_fracture_rts_sr_ma": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 7,
+    "output_path": "claims/attia_2021_navicular_stress_fracture_rts_sr_ma.json"
+  },
+  "bonanno_2017_foot_orthoses_injury_prevention_sr_ma": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 7,
+    "output_path": "claims/bonanno_2017_foot_orthoses_injury_prevention_sr_ma.json"
+  },
+  "espinosa_2015_pttd_return_running": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 5,
+    "output_path": "claims/espinosa_2015_pttd_return_running.json"
+  },
+  "murawski_2024_hallux_rigidus_elite_athlete": {
+    "status": "complete",
+    "domain_id": "injury_foot",
+    "claims_count": 5,
+    "output_path": "claims/murawski_2024_hallux_rigidus_elite_athlete.json"
+  },
+  "neal_2016_pfp_biomechanics_sr": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 7,
+    "output_path": "claims/neal_2016_pfp_biomechanics_sr.json"
+  },
+  "alexander_2022_running_knee_sr": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 5,
+    "output_path": "claims/alexander_2022_running_knee_sr.json"
+  },
+  "neal_2019_pfp_risk_factors_meta": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 6,
+    "output_path": "claims/neal_2019_pfp_risk_factors_meta.json"
+  },
+  "esculier_2020_pfp_contemporary": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 7,
+    "output_path": "claims/esculier_2020_pfp_contemporary.json"
+  },
+  "sanchez_alvarado_2024_itbs_conservative_sr": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 6,
+    "output_path": "claims/sanchez_alvarado_2024_itbs_conservative_sr.json"
+  },
+  "van_der_worp_2012_itbs_runners_sr": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 6,
+    "output_path": "claims/van_der_worp_2012_itbs_runners_sr.json"
+  },
+  "mckay_2020_itbs_rehab_rct": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 6,
+    "output_path": "claims/mckay_2020_itbs_rehab_rct.json"
+  },
+  "friede_2022_itbs_treatment_targets": {
+    "status": "complete",
+    "domain_id": "injury_knee",
+    "claims_count": 6,
+    "output_path": "claims/friede_2022_itbs_treatment_targets.json"
+  },
+  "van_der_vlist_2021_achilles_nma": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 6,
+    "output_path": "claims/van_der_vlist_2021_achilles_nma.json"
+  },
+  "maetz_2023_achilles_loading_sr": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 5,
+    "output_path": "claims/maetz_2023_achilles_loading_sr.json"
+  },
+  "beyer_2015_hsr_eccentric_achilles_rct": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 6,
+    "output_path": "claims/beyer_2015_hsr_eccentric_achilles_rct.json"
+  },
+  "silbernagel_2020_achilles_conservative": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 5,
+    "output_path": "claims/silbernagel_2020_achilles_conservative.json"
+  },
+  "reinking_2017_mtss_risk_factors_meta": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 6,
+    "output_path": "claims/reinking_2017_mtss_risk_factors_meta.json"
+  },
+  "newman_2013_mtss_runners_meta": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 8,
+    "output_path": "claims/newman_2013_mtss_runners_meta.json"
+  },
+  "green_2017_calf_strain_risk_sr": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 6,
+    "output_path": "claims/green_2017_calf_strain_risk_sr.json"
+  },
+  "mattock_2021_mtss_lower_leg_muscle": {
+    "status": "complete",
+    "domain_id": "injury_lower_leg",
+    "claims_count": 7,
+    "output_path": "claims/mattock_2021_mtss_lower_leg_muscle.json"
+  },
+  "van_gent_2007_running_injury_epidemiology": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 5,
+    "output_path": "claims/van_gent_2007_running_injury_epidemiology.json"
+  },
+  "lauersen_2014_exercise_injury_prevention_meta": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 7,
+    "output_path": "claims/lauersen_2014_exercise_injury_prevention_meta.json"
+  },
+  "videbaek_2015_running_injury_incidence_meta": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 5,
+    "output_path": "claims/videbaek_2015_running_injury_incidence_meta.json"
+  },
+  "chan_2018_gait_retraining_rct": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 7,
+    "output_path": "claims/chan_2018_gait_retraining_rct.json"
+  },
+  "damsted_2018_training_load_injury_sr": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 6,
+    "output_path": "claims/damsted_2018_training_load_injury_sr.json"
+  },
+  "lauersen_2018_strength_dose_response_meta": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 5,
+    "output_path": "claims/lauersen_2018_strength_dose_response_meta.json"
+  },
+  "ceyssens_2019_biomechanical_risk_sr": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 5,
+    "output_path": "claims/ceyssens_2019_biomechanical_risk_sr.json"
+  },
+  "kakouris_2021_running_injury_incidence_sr": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 6,
+    "output_path": "claims/kakouris_2021_running_injury_incidence_sr.json"
+  },
+  "peterson_2022_biomechanical_risk_recreational_meta": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 5,
+    "output_path": "claims/peterson_2022_biomechanical_risk_recreational_meta.json"
+  },
+  "correia_2024_risk_factors_umbrella": {
+    "status": "complete",
+    "domain_id": "injury_prevention_general",
+    "claims_count": 6,
+    "output_path": "claims/correia_2024_risk_factors_umbrella.json"
+  },
+  "wright_2015_stress_fracture_risk_meta": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 5,
+    "output_path": "claims/wright_2015_stress_fracture_risk_meta.json"
+  },
+  "hoenig_2023_bsi_return_to_sport_meta": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 8,
+    "output_path": "claims/hoenig_2023_bsi_return_to_sport_meta.json"
+  },
+  "milner_2023_tibial_sf_biomechanics_meta": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 7,
+    "output_path": "claims/milner_2023_tibial_sf_biomechanics_meta.json"
+  },
+  "george_2024_return_running_tibial_bsi": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 7,
+    "output_path": "claims/george_2024_return_running_tibial_bsi.json"
+  },
+  "sun_2024_metatarsal_sf_risk_sr": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 7,
+    "output_path": "claims/sun_2024_metatarsal_sf_risk_sr.json"
+  },
+  "milner_2006_tibial_sf_biomechanics": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 5,
+    "output_path": "claims/milner_2006_tibial_sf_biomechanics.json"
+  },
+  "warden_2021_bsi_prevention_workload": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 7,
+    "output_path": "claims/warden_2021_bsi_prevention_workload.json"
+  },
+  "warden_2014_bsi_management_runners": {
+    "status": "complete",
+    "domain_id": "injury_stress_fracture",
+    "claims_count": 7,
+    "output_path": "claims/warden_2014_bsi_management_runners.json"
+  },
+  "billat_1999_interval_vo2max": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 7,
+    "output_path": "claims/billat_1999_interval_vo2max.json"
+  },
+  "billat_2001_interval_review": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 5,
+    "output_path": "claims/billat_2001_interval_review.json"
+  },
+  "laursen_2002_hiit_scientific_basis": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 6,
+    "output_path": "claims/laursen_2002_hiit_scientific_basis.json"
+  },
+  "midgley_2006_optimal_intensity_vo2max": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 7,
+    "output_path": "claims/midgley_2006_optimal_intensity_vo2max.json"
+  },
+  "helgerud_2007_4x4_vo2max": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 6,
+    "output_path": "claims/helgerud_2007_4x4_vo2max.json"
+  },
+  "seiler_2013_interval_intensity_duration": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 7,
+    "output_path": "claims/seiler_2013_interval_intensity_duration.json"
+  },
+  "buchheit_2013_hiit_part1": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 6,
+    "output_path": "claims/buchheit_2013_hiit_part1.json"
+  },
+  "buchheit_2013_hiit_part2": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 7,
+    "output_path": "claims/buchheit_2013_hiit_part2.json"
+  },
+  "milanovic_2015_hiit_ct_meta": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 8,
+    "output_path": "claims/milanovic_2015_hiit_ct_meta.json"
+  },
+  "koral_2018_sprint_interval_runners": {
+    "status": "failed",
+    "domain_id": "interval_training",
+    "reason": "claude_extraction_failed"
+  },
+  "gibala_2021_interval_physiology": {
+    "status": "complete",
+    "domain_id": "interval_training",
+    "claims_count": 5,
+    "output_path": "claims/gibala_2021_interval_physiology.json"
+  },
+  "burden_2015_iron_idna": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 6,
+    "output_path": "claims/burden_2015_iron_idna.json"
+  },
+  "smid_2024_oral_iron": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 7,
+    "output_path": "claims/smid_2024_oral_iron.json"
+  },
+  "rubeor_2018_iron_performance": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 5,
+    "output_path": "claims/rubeor_2018_iron_performance.json"
+  },
+  "clenin_2015_iron_sports": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 8,
+    "output_path": "claims/clenin_2015_iron_sports.json"
+  },
+  "solberg_2023_iron_performance": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 7,
+    "output_path": "claims/solberg_2023_iron_performance.json"
+  },
+  "sim_2019_iron_athlete": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 6,
+    "output_path": "claims/sim_2019_iron_athlete.json"
+  },
+  "peeling_2008_iron_inflammation": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 6,
+    "output_path": "claims/peeling_2008_iron_inflammation.json"
+  },
+  "telford_2003_footstrike_hemolysis": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 6,
+    "output_path": "claims/telford_2003_footstrike_hemolysis.json"
+  },
+  "gartner_2024_footstrike_review": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 5,
+    "output_path": "claims/gartner_2024_footstrike_review.json"
+  },
+  "goolsby_2017_bone_health": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 6,
+    "output_path": "claims/goolsby_2017_bone_health.json"
+  },
+  "knechtle_2021_vitamind_stress_fractures": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 7,
+    "output_path": "claims/knechtle_2021_vitamind_stress_fractures.json"
+  },
+  "lappe_2008_calcium_vitd_fractures": {
+    "status": "complete",
+    "domain_id": "iron_bone_health",
+    "claims_count": 5,
+    "output_path": "claims/lappe_2008_calcium_vitd_fractures.json"
+  },
+  "kindermann_1979_aerobic_anaerobic_transition": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 6,
+    "output_path": "claims/kindermann_1979_aerobic_anaerobic_transition.json"
+  },
+  "heck_1985_4mmol_justification": {
+    "status": "failed",
+    "domain_id": "lactate_threshold",
+    "reason": "no_abstract"
+  },
+  "yoshida_1987_lactate_parameters_performance": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 6,
+    "output_path": "claims/yoshida_1987_lactate_parameters_performance.json"
+  },
+  "svedahl_2003_anaerobic_threshold_concept": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 6,
+    "output_path": "claims/svedahl_2003_anaerobic_threshold_concept.json"
+  },
+  "goodwin_2007_lactate_clinician_guide": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 6,
+    "output_path": "claims/goodwin_2007_lactate_clinician_guide.json"
+  },
+  "faude_2009_lactate_threshold_concepts": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 7,
+    "output_path": "claims/faude_2009_lactate_threshold_concepts.json"
+  },
+  "hauser_2013_mlss_reliability": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 7,
+    "output_path": "claims/hauser_2013_mlss_reliability.json"
+  },
+  "heuberger_2018_lt_repeatability_predictive": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 6,
+    "output_path": "claims/heuberger_2018_lt_repeatability_predictive.json"
+  },
+  "jamnick_2018_gxt_variables_lt_validity": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 6,
+    "output_path": "claims/jamnick_2018_gxt_variables_lt_validity.json"
+  },
+  "jamnick_2020_exercise_intensity_critique": {
+    "status": "complete",
+    "domain_id": "lactate_threshold",
+    "claims_count": 6,
+    "output_path": "claims/jamnick_2020_exercise_intensity_critique.json"
+  },
+  "holloszy_1967_mitochondrial_exercise": {
+    "status": "failed",
+    "domain_id": "long_run_physiology",
+    "reason": "no_abstract"
+  },
+  "irrcher_2003_mitochondrial_biogenesis": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 5,
+    "output_path": "claims/irrcher_2003_mitochondrial_biogenesis.json"
+  },
+  "coyle_2007_marathon_regulation": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 5,
+    "output_path": "claims/coyle_2007_marathon_regulation.json"
+  },
+  "rapoport_2010_metabolic_marathon": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 6,
+    "output_path": "claims/rapoport_2010_metabolic_marathon.json"
+  },
+  "spriet_2014_carb_fat_interaction": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 6,
+    "output_path": "claims/spriet_2014_carb_fat_interaction.json"
+  },
+  "hawley_2018_cellular_adaptation": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 4,
+    "output_path": "claims/hawley_2018_cellular_adaptation.json"
+  },
+  "hearris_2018_glycogen_regulation": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 6,
+    "output_path": "claims/hearris_2018_glycogen_regulation.json"
+  },
+  "hughes_2018_endurance_strength_adaptations": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 4,
+    "output_path": "claims/hughes_2018_endurance_strength_adaptations.json"
+  },
+  "fokkema_2020_marathon_training_volume": {
+    "status": "complete",
+    "domain_id": "long_run_physiology",
+    "claims_count": 7,
+    "output_path": "claims/fokkema_2020_marathon_training_volume.json"
+  },
+  "doherty_2020_marathon_determinants_meta": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/doherty_2020_marathon_determinants_meta.json"
+  },
+  "wang_2023_tapering_endurance_meta": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/wang_2023_tapering_endurance_meta.json"
+  },
+  "bosquet_2007_tapering_meta": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/bosquet_2007_tapering_meta.json"
+  },
+  "llanos_lagos_2024_strength_runners_meta": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/llanos_lagos_2024_strength_runners_meta.json"
+  },
+  "sha_2024_marathon_pacing_sr": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/sha_2024_marathon_pacing_sr.json"
+  },
+  "muniz_pumares_2025_marathon_intensity_distribution": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/muniz_pumares_2025_marathon_intensity_distribution.json"
+  },
+  "yamaguchi_2023_volume_frequency_marathon": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/yamaguchi_2023_volume_frequency_marathon.json"
+  },
+  "smyth_2021_marathon_taper": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/smyth_2021_marathon_taper.json"
+  },
+  "keogh_2020_marathon_determinants": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 6,
+    "output_path": "claims/keogh_2020_marathon_determinants.json"
+  },
+  "knopp_2024_marathon_plan_benchmarks": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 7,
+    "output_path": "claims/knopp_2024_marathon_plan_benchmarks.json"
+  },
+  "hansen_2014_marathon_nutrition_intervention": {
+    "status": "complete",
+    "domain_id": "marathon_training",
+    "claims_count": 5,
+    "output_path": "claims/hansen_2014_marathon_nutrition_intervention.json"
+  },
+  "wilson_2000_vo2max_age_decline_meta": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 7,
+    "output_path": "claims/wilson_2000_vo2max_age_decline_meta.json"
+  },
+  "rogers_1990_vo2max_masters_sedentary": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 5,
+    "output_path": "claims/rogers_1990_vo2max_masters_sedentary.json"
+  },
+  "tanaka_2001_maxhr_meta": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 6,
+    "output_path": "claims/tanaka_2001_maxhr_meta.json"
+  },
+  "hawkins_2001_vo2max_hrmax_longitudinal": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 7,
+    "output_path": "claims/hawkins_2001_vo2max_hrmax_longitudinal.json"
+  },
+  "tanaka_2008_masters_endurance_physiology": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 6,
+    "output_path": "claims/tanaka_2008_masters_endurance_physiology.json"
+  },
+  "nikolaidis_2019_berlin_marathon_aging": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 6,
+    "output_path": "claims/nikolaidis_2019_berlin_marathon_aging.json"
+  },
+  "wroblewski_2011_muscle_mass_masters": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 7,
+    "output_path": "claims/wroblewski_2011_muscle_mass_masters.json"
+  },
+  "pugliese_2018_training_modalities_masters": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 7,
+    "output_path": "claims/pugliese_2018_training_modalities_masters.json"
+  },
+  "lepers_2021_sub3_marathon_decades": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 6,
+    "output_path": "claims/lepers_2021_sub3_marathon_decades.json"
+  },
+  "mckendry_2018_muscle_morphology_masters_meta": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 7,
+    "output_path": "claims/mckendry_2018_muscle_morphology_masters_meta.json"
+  },
+  "mckean_2006_masters_runner_injuries": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 7,
+    "output_path": "claims/mckean_2006_masters_runner_injuries.json"
+  },
+  "lepers_2016_masters_extending_endurance": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 6,
+    "output_path": "claims/lepers_2016_masters_extending_endurance.json"
+  },
+  "valenzuela_2020_lifelong_endurance_vo2max": {
+    "status": "complete",
+    "domain_id": "masters_running",
+    "claims_count": 6,
+    "output_path": "claims/valenzuela_2020_lifelong_endurance_vo2max.json"
+  },
+  "mccormick_2015_psychological_determinants_endurance": {
+    "status": "complete",
+    "domain_id": "mental_performance",
+    "claims_count": 8,
+    "output_path": "claims/mccormick_2015_psychological_determinants_endurance.json"
+  },
+  "hatzigeorgiadis_2011_selftalk_meta_analysis": {
+    "status": "complete",
+    "domain_id": "mental_performance",
+    "claims_count": 6,
+    "output_path": "claims/hatzigeorgiadis_2011_selftalk_meta_analysis.json"
+  },
+  "blanchfield_2014_selftalk_endurance": {
+    "status": "complete",
+    "domain_id": "mental_performance",
+    "claims_count": 5,
+    "output_path": "claims/blanchfield_2014_selftalk_endurance.json"
+  },
+  "vanraalte_2016_selftalk_review_model": {
+    "status": "failed",
+    "domain_id": "mental_performance",
+    "reason": "no_abstract"
+  },
+  "brick_2014_attentional_focus_endurance_review": {
+    "status": "failed",
+    "domain_id": "mental_performance",
+    "reason": "no_abstract"
+  },
+  "brick_2015_metacognitive_elite_runners": {
+    "status": "failed",
+    "domain_id": "mental_performance",
+    "reason": "no_abstract"
+  },
+  "marcora_2009_mental_fatigue_performance": {
+    "status": "complete",
+    "domain_id": "mental_performance",
+    "claims_count": 6,
+    "output_path": "claims/marcora_2009_mental_fatigue_performance.json"
+  },
+  "pageaux_2014_psychobiological_model_endurance": {
+    "status": "failed",
+    "domain_id": "mental_performance",
+    "reason": "no_abstract"
+  },
+  "hsieh_2023_mental_toughness_meta_analysis": {
+    "status": "complete",
+    "domain_id": "mental_performance",
+    "claims_count": 6,
+    "output_path": "claims/hsieh_2023_mental_toughness_meta_analysis.json"
+  },
+  "konings_2018_pacing_decision_making_competition": {
+    "status": "complete",
+    "domain_id": "mental_performance",
+    "claims_count": 5,
+    "output_path": "claims/konings_2018_pacing_decision_making_competition.json"
+  },
+  "vitale_2019_nutrition_endurance": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 6,
+    "output_path": "claims/vitale_2019_nutrition_endurance.json"
+  },
+  "jeukendrup_2011_nutrition_endurance": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 7,
+    "output_path": "claims/jeukendrup_2011_nutrition_endurance.json"
+  },
+  "gejl_2021_carb_periodization": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 5,
+    "output_path": "claims/gejl_2021_carb_periodization.json"
+  },
+  "lin_2021_protein_supplementation": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 6,
+    "output_path": "claims/lin_2021_protein_supplementation.json"
+  },
+  "tanous_2022_dietary_intake_runners": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 6,
+    "output_path": "claims/tanous_2022_dietary_intake_runners.json"
+  },
+  "beermann_2020_collegiate_runners_nutrition": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 7,
+    "output_path": "claims/beermann_2020_collegiate_runners_nutrition.json"
+  },
+  "gallant_2025_lea_reds_meta": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 7,
+    "output_path": "claims/gallant_2025_lea_reds_meta.json"
+  },
+  "hinton_2014_iron_endurance": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 6,
+    "output_path": "claims/hinton_2014_iron_endurance.json"
+  },
+  "wang_2022_caffeine_running": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 6,
+    "output_path": "claims/wang_2022_caffeine_running.json"
+  },
+  "dominguez_2017_beetroot_endurance": {
+    "status": "complete",
+    "domain_id": "nutrition_general",
+    "claims_count": 6,
+    "output_path": "claims/dominguez_2017_beetroot_endurance.json"
+  },
+  "carrard_2022_diagnosing_ots": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 7,
+    "output_path": "claims/carrard_2022_diagnosing_ots.json"
+  },
+  "weakley_2022_ots_symptoms": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 6,
+    "output_path": "claims/weakley_2022_ots_symptoms.json"
+  },
+  "kreher_2012_ots_practical_guide": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 5,
+    "output_path": "claims/kreher_2012_ots_practical_guide.json"
+  },
+  "armstrong_2022_ots_complex_systems": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 5,
+    "output_path": "claims/armstrong_2022_ots_complex_systems.json"
+  },
+  "buyse_2019_nfo_diagnosis": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 6,
+    "output_path": "claims/buyse_2019_nfo_diagnosis.json"
+  },
+  "foster_1998_monitoring_training": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 7,
+    "output_path": "claims/foster_1998_monitoring_training.json"
+  },
+  "halson_2014_monitoring_fatigue": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 6,
+    "output_path": "claims/halson_2014_monitoring_fatigue.json"
+  },
+  "kellmann_2010_preventing_overtraining": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 5,
+    "output_path": "claims/kellmann_2010_preventing_overtraining.json"
+  },
+  "cadegiani_2019_eros_insights": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 6,
+    "output_path": "claims/cadegiani_2019_eros_insights.json"
+  },
+  "lehmann_1991_training_overtraining": {
+    "status": "complete",
+    "domain_id": "overtraining_recovery",
+    "claims_count": 7,
+    "output_path": "claims/lehmann_1991_training_overtraining.json"
+  },
+  "sha_2024_pacing_strategies_marathon_systematic_review": {
+    "status": "complete",
+    "domain_id": "pacing_strategy",
+    "claims_count": 7,
+    "output_path": "claims/sha_2024_pacing_strategies_marathon_systematic_review.json"
+  },
+  "ramos-campo_2025_pacing_network_meta_analysis": {
+    "status": "failed",
+    "domain_id": "pacing_strategy",
+    "reason": "no_abstract"
+  },
+  "abbiss_2008_describing_understanding_pacing": {
+    "status": "complete",
+    "domain_id": "pacing_strategy",
+    "claims_count": 6,
+    "output_path": "claims/abbiss_2008_describing_understanding_pacing.json"
+  },
+  "grivas_2025_physiology_psychology_negative_splits": {
+    "status": "complete",
+    "domain_id": "pacing_strategy",
+    "claims_count": 6,
+    "output_path": "claims/grivas_2025_physiology_psychology_negative_splits.json"
+  },
+  "smyth_2021_hitting_the_wall_marathon": {
+    "status": "complete",
+    "domain_id": "pacing_strategy",
+    "claims_count": 7,
+    "output_path": "claims/smyth_2021_hitting_the_wall_marathon.json"
+  },
+  "smyth_2018_fast_starters_slow_finishers": {
+    "status": "complete",
+    "domain_id": "pacing_strategy",
+    "claims_count": 6,
+    "output_path": "claims/smyth_2018_fast_starters_slow_finishers.json"
+  },
+  "casado_2021_pacing_profiles_elite_runners": {
+    "status": "complete",
+    "domain_id": "pacing_strategy",
+    "claims_count": 8,
+    "output_path": "claims/casado_2021_pacing_profiles_elite_runners.json"
+  },
+  "vanhooren_2020_realtime_feedback_wearables_running": {
+    "status": "complete",
+    "domain_id": "pacing_strategy",
+    "claims_count": 7,
+    "output_path": "claims/vanhooren_2020_realtime_feedback_wearables_running.json"
+  },
+  "issurin_2010_block_periodization": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 6,
+    "output_path": "claims/issurin_2010_block_periodization.json"
+  },
+  "molmen_2019_block_periodization_meta": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 5,
+    "output_path": "claims/molmen_2019_block_periodization_meta.json"
+  },
+  "stoggl_2014_polarized_training": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 7,
+    "output_path": "claims/stoggl_2014_polarized_training.json"
+  },
+  "filipas_2022_pyramidal_polarized_runners": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 7,
+    "output_path": "claims/filipas_2022_pyramidal_polarized_runners.json"
+  },
+  "ronnestad_2014a_block_hit_cyclists": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 5,
+    "output_path": "claims/ronnestad_2014a_block_hit_cyclists.json"
+  },
+  "ronnestad_2014b_block_12weeks_cyclists": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 5,
+    "output_path": "claims/ronnestad_2014b_block_12weeks_cyclists.json"
+  },
+  "almquist_2022_block_vs_traditional_cyclists": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 7,
+    "output_path": "claims/almquist_2022_block_vs_traditional_cyclists.json"
+  },
+  "kenneally_2018_periodization_runners_sr": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 5,
+    "output_path": "claims/kenneally_2018_periodization_runners_sr.json"
+  },
+  "casado_2022_elite_distance_runners_sr": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 6,
+    "output_path": "claims/casado_2022_elite_distance_runners_sr.json"
+  },
+  "issurin_2008_block_vs_traditional": {
+    "status": "complete",
+    "domain_id": "periodisation",
+    "claims_count": 6,
+    "output_path": "claims/issurin_2008_block_vs_traditional.json"
+  },
+  "seiler_2006_quantifying_tid": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 6,
+    "output_path": "claims/seiler_2006_quantifying_tid.json"
+  },
+  "esteve-lanao_2007_tid_performance": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 6,
+    "output_path": "claims/esteve-lanao_2007_tid_performance.json"
+  },
+  "seiler_2010_best_practice_tid": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 7,
+    "output_path": "claims/seiler_2010_best_practice_tid.json"
+  },
+  "stoggl_2014_polarized_impact": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 6,
+    "output_path": "claims/stoggl_2014_polarized_impact.json"
+  },
+  "munoz_2014_polarized_recreational": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 6,
+    "output_path": "claims/munoz_2014_polarized_recreational.json"
+  },
+  "stoggl_2015_tid_elite_review": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 5,
+    "output_path": "claims/stoggl_2015_tid_elite_review.json"
+  },
+  "rosenblat_2019_polarized_threshold_meta": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 5,
+    "output_path": "claims/rosenblat_2019_polarized_threshold_meta.json"
+  },
+  "oliveira_2024_polarized_meta": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 7,
+    "output_path": "claims/oliveira_2024_polarized_meta.json"
+  },
+  "rosenblat_2025_network_meta": {
+    "status": "complete",
+    "domain_id": "polarized_training",
+    "claims_count": 6,
+    "output_path": "claims/rosenblat_2025_network_meta.json"
+  },
+  "witard_2025_protein_endurance": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 7,
+    "output_path": "claims/witard_2025_protein_endurance.json"
+  },
+  "kato_2016_iaao_endurance": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 6,
+    "output_path": "claims/kato_2016_iaao_endurance.json"
+  },
+  "lin_2021_protein_endurance_meta": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 6,
+    "output_path": "claims/lin_2021_protein_endurance_meta.json"
+  },
+  "churchward-venne_2020_protein_dose_endurance": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 7,
+    "output_path": "claims/churchward-venne_2020_protein_dose_endurance.json"
+  },
+  "jager_2017_issn_protein": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 8,
+    "output_path": "claims/jager_2017_issn_protein.json"
+  },
+  "cintineo_2018_protein_performance_recovery": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 6,
+    "output_path": "claims/cintineo_2018_protein_performance_recovery.json"
+  },
+  "knuiman_2018_protein_endurance_adaptation": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 5,
+    "output_path": "claims/knuiman_2018_protein_endurance_adaptation.json"
+  },
+  "lim_2021_animal_plant_protein_meta": {
+    "status": "complete",
+    "domain_id": "protein_runners",
+    "claims_count": 6,
+    "output_path": "claims/lim_2021_animal_plant_protein_meta.json"
+  },
+  "riegel_1981_athletic_records_endurance": {
+    "status": "failed",
+    "domain_id": "race_prediction",
+    "reason": "no_abstract"
+  },
+  "vickers_2016_empirical_race_times_recreational": {
+    "status": "complete",
+    "domain_id": "race_prediction",
+    "claims_count": 6,
+    "output_path": "claims/vickers_2016_empirical_race_times_recreational.json"
+  },
+  "scudamore_2018_vdot_evaluation_training_paces": {
+    "status": "complete",
+    "domain_id": "race_prediction",
+    "claims_count": 7,
+    "output_path": "claims/scudamore_2018_vdot_evaluation_training_paces.json"
+  },
+  "mulligan_2018_minimal_power_model_running": {
+    "status": "complete",
+    "domain_id": "race_prediction",
+    "claims_count": 5,
+    "output_path": "claims/mulligan_2018_minimal_power_model_running.json"
+  },
+  "doherty_2020_training_determinants_marathon_meta_analysis": {
+    "status": "complete",
+    "domain_id": "race_prediction",
+    "claims_count": 7,
+    "output_path": "claims/doherty_2020_training_determinants_marathon_meta_analysis.json"
+  },
+  "emig_2020_running_performance_big_data": {
+    "status": "complete",
+    "domain_id": "race_prediction",
+    "claims_count": 5,
+    "output_path": "claims/emig_2020_running_performance_big_data.json"
+  },
+  "smyth_2021_recommendations_marathon_runners_ml": {
+    "status": "complete",
+    "domain_id": "race_prediction",
+    "claims_count": 3,
+    "output_path": "claims/smyth_2021_recommendations_marathon_runners_ml.json"
+  },
+  "lerebourg_2023_marathon_prediction_artificial_intelligence": {
+    "status": "complete",
+    "domain_id": "race_prediction",
+    "claims_count": 5,
+    "output_path": "claims/lerebourg_2023_marathon_prediction_artificial_intelligence.json"
+  },
+  "moore_2022_cwi_passive_recovery": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 7,
+    "output_path": "claims/moore_2022_cwi_passive_recovery.json"
+  },
+  "moore_2023_cwi_vs_other_modalities": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 5,
+    "output_path": "claims/moore_2023_cwi_vs_other_modalities.json"
+  },
+  "brown_2017_compression_recovery": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 7,
+    "output_path": "claims/brown_2017_compression_recovery.json"
+  },
+  "marques-jimenez_2016_compression_eimd": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 7,
+    "output_path": "claims/marques-jimenez_2016_compression_eimd.json"
+  },
+  "poppendieck_2016_massage_recovery": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 6,
+    "output_path": "claims/poppendieck_2016_massage_recovery.json"
+  },
+  "davis_2020_sports_massage": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 7,
+    "output_path": "claims/davis_2020_sports_massage.json"
+  },
+  "skinner_2020_foam_rolling_rom": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 5,
+    "output_path": "claims/skinner_2020_foam_rolling_rom.json"
+  },
+  "ortiz_2019_active_recovery": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 5,
+    "output_path": "claims/ortiz_2019_active_recovery.json"
+  },
+  "li_2024_endurance_umbrella": {
+    "status": "complete",
+    "domain_id": "recovery_modalities",
+    "claims_count": 5,
+    "output_path": "claims/li_2024_endurance_umbrella.json"
+  },
+  "mountjoy_2023_ioc_reds_consensus": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 7,
+    "output_path": "claims/mountjoy_2023_ioc_reds_consensus.json"
+  },
+  "mountjoy_2018_ioc_reds_update": {
+    "status": "failed",
+    "domain_id": "red_s",
+    "reason": "no_abstract"
+  },
+  "mountjoy_2014_ioc_reds_original": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 5,
+    "output_path": "claims/mountjoy_2014_ioc_reds_original.json"
+  },
+  "gallant_2025_lea_reds_meta_analysis": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 8,
+    "output_path": "claims/gallant_2025_lea_reds_meta_analysis.json"
+  },
+  "nattiv_2007_acsm_female_athlete_triad": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 7,
+    "output_path": "claims/nattiv_2007_acsm_female_athlete_triad.json"
+  },
+  "desouza_2014_triad_coalition_consensus": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 6,
+    "output_path": "claims/desouza_2014_triad_coalition_consensus.json"
+  },
+  "heikura_2018_lea_bone_injury_elite_distance": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 7,
+    "output_path": "claims/heikura_2018_lea_bone_injury_elite_distance.json"
+  },
+  "melin_2019_energy_availability_athletics": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 7,
+    "output_path": "claims/melin_2019_energy_availability_athletics.json"
+  },
+  "logue_2020_lea_athletes_narrative_review": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 7,
+    "output_path": "claims/logue_2020_lea_athletes_narrative_review.json"
+  },
+  "dipla_2021_reds_endocrine_males_females": {
+    "status": "complete",
+    "domain_id": "red_s",
+    "claims_count": 6,
+    "output_path": "claims/dipla_2021_reds_endocrine_males_females.json"
+  },
+  "george_2024_bsi_rtr_scoping": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 7,
+    "output_path": "claims/george_2024_bsi_rtr_scoping.json"
+  },
+  "rambaud_2018_acl_rtr_criteria_scoping": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 7,
+    "output_path": "claims/rambaud_2018_acl_rtr_criteria_scoping.json"
+  },
+  "silbernagel_2007_achilles_pain_monitoring_rct": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 6,
+    "output_path": "claims/silbernagel_2007_achilles_pain_monitoring_rct.json"
+  },
+  "hegedus_2021_competitive_rtr_framework": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 6,
+    "output_path": "claims/hegedus_2021_competitive_rtr_framework.json"
+  },
+  "silbernagel_2015_achilles_rts_framework": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 5,
+    "output_path": "claims/silbernagel_2015_achilles_rts_framework.json"
+  },
+  "pairot_2022_acl_rtr_predictors": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 6,
+    "output_path": "claims/pairot_2022_acl_rtr_predictors.json"
+  },
+  "vincent_2022_antigravity_rtr": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 7,
+    "output_path": "claims/vincent_2022_antigravity_rtr.json"
+  },
+  "lorenz_2020_sprinting_criteria_progression": {
+    "status": "complete",
+    "domain_id": "return_to_running",
+    "claims_count": 5,
+    "output_path": "claims/lorenz_2020_sprinting_criteria_progression.json"
+  },
+  "conley_1980_running_economy_performance": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 5,
+    "output_path": "claims/conley_1980_running_economy_performance.json"
+  },
+  "saunders_2004_factors_running_economy": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 7,
+    "output_path": "claims/saunders_2004_factors_running_economy.json"
+  },
+  "fletcher_2009_economy_beyond_oxygen": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 5,
+    "output_path": "claims/fletcher_2009_economy_beyond_oxygen.json"
+  },
+  "shaw_2014_valid_measurement_re": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 6,
+    "output_path": "claims/shaw_2014_valid_measurement_re.json"
+  },
+  "barnes_2015a_re_measurement_norms": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 6,
+    "output_path": "claims/barnes_2015a_re_measurement_norms.json"
+  },
+  "barnes_2015b_strategies_improve_re": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 7,
+    "output_path": "claims/barnes_2015b_strategies_improve_re.json"
+  },
+  "balsalobre_2016_strength_re_meta": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 5,
+    "output_path": "claims/balsalobre_2016_strength_re_meta.json"
+  },
+  "llanos_lagos_2024_strength_re_speeds_meta": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 8,
+    "output_path": "claims/llanos_lagos_2024_strength_re_speeds_meta.json"
+  },
+  "van_hooren_2024_biomechanics_re_meta": {
+    "status": "complete",
+    "domain_id": "running_economy",
+    "claims_count": 7,
+    "output_path": "claims/van_hooren_2024_biomechanics_re_meta.json"
+  },
+  "kobayashi_2026_carbon_plate_meta": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/kobayashi_2026_carbon_plate_meta.json"
+  },
+  "fuller_2015_footwear_meta": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 8,
+    "output_path": "claims/fuller_2015_footwear_meta.json"
+  },
+  "ruiz-alias_2023_shoe_systematic": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 5,
+    "output_path": "claims/ruiz-alias_2023_shoe_systematic.json"
+  },
+  "sun_2020_footwear_constructions": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/sun_2020_footwear_constructions.json"
+  },
+  "hoogkamer_2018_vaporfly_energetic": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/hoogkamer_2018_vaporfly_energetic.json"
+  },
+  "barnes_2019_racing_shoes_spikes": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/barnes_2019_racing_shoes_spikes.json"
+  },
+  "hebert-losier_2022_vaporfly_footwear": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/hebert-losier_2022_vaporfly_footwear.json"
+  },
+  "malisoux_2020_cushioning_injury": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/malisoux_2020_cushioning_injury.json"
+  },
+  "fuller_2016_minimalist_5km": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/fuller_2016_minimalist_5km.json"
+  },
+  "senefeld_2021_marathon_technology": {
+    "status": "complete",
+    "domain_id": "shoe_technology",
+    "claims_count": 6,
+    "output_path": "claims/senefeld_2021_marathon_technology.json"
+  },
+  "cunha_2023_sleep_interventions": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 7,
+    "output_path": "claims/cunha_2023_sleep_interventions.json"
+  },
+  "lopes_2023_sleep_deprivation_endurance": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 7,
+    "output_path": "claims/lopes_2023_sleep_deprivation_endurance.json"
+  },
+  "craven_2022_acute_sleep_loss": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 7,
+    "output_path": "claims/craven_2022_acute_sleep_loss.json"
+  },
+  "silva_2021_sleep_extension": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 4,
+    "output_path": "claims/silva_2021_sleep_extension.json"
+  },
+  "mah_2011_sleep_extension_basketball": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 6,
+    "output_path": "claims/mah_2011_sleep_extension_basketball.json"
+  },
+  "lastella_2021_napping_athletes": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 5,
+    "output_path": "claims/lastella_2021_napping_athletes.json"
+  },
+  "charest_2020_sleep_athletic_performance": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 5,
+    "output_path": "claims/charest_2020_sleep_athletic_performance.json"
+  },
+  "johnston_2020_sleep_injury_endurance": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 6,
+    "output_path": "claims/johnston_2020_sleep_injury_endurance.json"
+  },
+  "vitale_2019_sleep_hygiene_athletes": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 6,
+    "output_path": "claims/vitale_2019_sleep_hygiene_athletes.json"
+  },
+  "souissi_2020_partial_sleep_running": {
+    "status": "complete",
+    "domain_id": "sleep_recovery",
+    "claims_count": 7,
+    "output_path": "claims/souissi_2020_partial_sleep_running.json"
+  },
+  "blagrove_2018_strength_determinants_sr": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 7,
+    "output_path": "claims/blagrove_2018_strength_determinants_sr.json"
+  },
+  "llanos_lagos_2024a_strength_performance_meta": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 7,
+    "output_path": "claims/llanos_lagos_2024a_strength_performance_meta.json"
+  },
+  "llanos_lagos_2024b_strength_economy_meta": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 8,
+    "output_path": "claims/llanos_lagos_2024b_strength_economy_meta.json"
+  },
+  "eihara_2022_heavy_rt_vs_plyometrics_meta": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 6,
+    "output_path": "claims/eihara_2022_heavy_rt_vs_plyometrics_meta.json"
+  },
+  "balsalobre_fernandez_2016_strength_re_elite_meta": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 5,
+    "output_path": "claims/balsalobre_fernandez_2016_strength_re_elite_meta.json"
+  },
+  "trowell_2020_biomechanical_neuromuscular_meta": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 7,
+    "output_path": "claims/trowell_2020_biomechanical_neuromuscular_meta.json"
+  },
+  "saunders_2006_plyometric_re_rct": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 6,
+    "output_path": "claims/saunders_2006_plyometric_re_rct.json"
+  },
+  "zanini_2025_re_durability_rct": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 6,
+    "output_path": "claims/zanini_2025_re_durability_rct.json"
+  },
+  "wilson_2012_concurrent_training_meta": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 7,
+    "output_path": "claims/wilson_2012_concurrent_training_meta.json"
+  },
+  "wu_2024_exercise_injury_prevention_runners_meta": {
+    "status": "complete",
+    "domain_id": "strength_training_runners",
+    "claims_count": 5,
+    "output_path": "claims/wu_2024_exercise_injury_prevention_runners_meta.json"
+  },
+  "southward_2018_caffeine_endurance": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 5,
+    "output_path": "claims/southward_2018_caffeine_endurance.json"
+  },
+  "guest_2021_issn_caffeine": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 8,
+    "output_path": "claims/guest_2021_issn_caffeine.json"
+  },
+  "senefeld_2020_nitrate_meta": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 6,
+    "output_path": "claims/senefeld_2020_nitrate_meta.json"
+  },
+  "hurst_2020_beetroot_5km": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 5,
+    "output_path": "claims/hurst_2020_beetroot_5km.json"
+  },
+  "pengelly_2025_iron_female": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 8,
+    "output_path": "claims/pengelly_2025_iron_female.json"
+  },
+  "solberg_2023_iron_athletes": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 6,
+    "output_path": "claims/solberg_2023_iron_athletes.json"
+  },
+  "smid_2024_iron_oral": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 7,
+    "output_path": "claims/smid_2024_iron_oral.json"
+  },
+  "wyatt_2024_vitamind_elite": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 7,
+    "output_path": "claims/wyatt_2024_vitamind_elite.json"
+  },
+  "farrokhyar_2015_vitamind_prevalence": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 6,
+    "output_path": "claims/farrokhyar_2015_vitamind_prevalence.json"
+  },
+  "saunders_2017_betaalanine": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 7,
+    "output_path": "claims/saunders_2017_betaalanine.json"
+  },
+  "hobson_2012_betaalanine": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 7,
+    "output_path": "claims/hobson_2012_betaalanine.json"
+  },
+  "grgic_2021_bicarbonate_umbrella": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 6,
+    "output_path": "claims/grgic_2021_bicarbonate_umbrella.json"
+  },
+  "fernandez-landa_2023_creatine_endurance": {
+    "status": "complete",
+    "domain_id": "supplements",
+    "claims_count": 4,
+    "output_path": "claims/fernandez-landa_2023_creatine_endurance.json"
+  },
+  "houmard_1994_taper_distance_runners": {
+    "status": "complete",
+    "domain_id": "taper_science",
+    "claims_count": 6,
+    "output_path": "claims/houmard_1994_taper_distance_runners.json"
+  },
+  "skovgaard_2018_taper_sit_runners": {
+    "status": "complete",
+    "domain_id": "taper_science",
+    "claims_count": 7,
+    "output_path": "claims/skovgaard_2018_taper_sit_runners.json"
+  },
+  "houmard_1990_reduced_training_runners": {
+    "status": "complete",
+    "domain_id": "taper_science",
+    "claims_count": 7,
+    "output_path": "claims/houmard_1990_reduced_training_runners.json"
+  },
+  "mujika_2002_taper_frequency_middle_distance": {
+    "status": "complete",
+    "domain_id": "taper_science",
+    "claims_count": 6,
+    "output_path": "claims/mujika_2002_taper_frequency_middle_distance.json"
+  },
+  "spilsbury_2015_elite_taper_practices": {
+    "status": "complete",
+    "domain_id": "taper_science",
+    "claims_count": 7,
+    "output_path": "claims/spilsbury_2015_elite_taper_practices.json"
+  },
+  "mujika_2003_taper_scientific_bases": {
+    "status": "complete",
+    "domain_id": "taper_science",
+    "claims_count": 6,
+    "output_path": "claims/mujika_2003_taper_scientific_bases.json"
+  },
+  "mujika_2004_taper_physiology": {
+    "status": "complete",
+    "domain_id": "taper_science",
+    "claims_count": 8,
+    "output_path": "claims/mujika_2004_taper_physiology.json"
+  },
+  "bohm_2015_tendon_adaptation": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 7,
+    "output_path": "claims/bohm_2015_tendon_adaptation.json"
+  },
+  "maetz_2023_achilles_loading": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 6,
+    "output_path": "claims/maetz_2023_achilles_loading.json"
+  },
+  "malliaras_2013_loading_programmes": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 7,
+    "output_path": "claims/malliaras_2013_loading_programmes.json"
+  },
+  "escriche-escuder_2020_load_progression": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 6,
+    "output_path": "claims/escriche-escuder_2020_load_progression.json"
+  },
+  "alfredson_1998_eccentric": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 5,
+    "output_path": "claims/alfredson_1998_eccentric.json"
+  },
+  "beyer_2015_hsr_vs_eccentric": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 6,
+    "output_path": "claims/beyer_2015_hsr_vs_eccentric.json"
+  },
+  "kongsgaard_2009_patellar_hsr": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 7,
+    "output_path": "claims/kongsgaard_2009_patellar_hsr.json"
+  },
+  "silbernagel_2007_pain_monitoring": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 5,
+    "output_path": "claims/silbernagel_2007_pain_monitoring.json"
+  },
+  "kjaer_2009_collagen_synthesis": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 6,
+    "output_path": "claims/kjaer_2009_collagen_synthesis.json"
+  },
+  "magnusson_2010_pathogenesis": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 7,
+    "output_path": "claims/magnusson_2010_pathogenesis.json"
+  },
+  "stevens_2014_alfredson_dosage": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 6,
+    "output_path": "claims/stevens_2014_alfredson_dosage.json"
+  },
+  "habets_2021_alfredson_vs_silbernagel": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 6,
+    "output_path": "claims/habets_2021_alfredson_vs_silbernagel.json"
+  },
+  "baxter_2021_exercise_progression": {
+    "status": "complete",
+    "domain_id": "tendon_health",
+    "claims_count": 6,
+    "output_path": "claims/baxter_2021_exercise_progression.json"
+  },
+  "sjodin_1985_applied_physiology_marathon": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 7,
+    "output_path": "claims/sjodin_1985_applied_physiology_marathon.json"
+  },
+  "joyner_1991_modeling_marathon": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 6,
+    "output_path": "claims/joyner_1991_modeling_marathon.json"
+  },
+  "jones_1998_mlss_validity": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 6,
+    "output_path": "claims/jones_1998_mlss_validity.json"
+  },
+  "billat_2003_mlss_concept": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 6,
+    "output_path": "claims/billat_2003_mlss_concept.json"
+  },
+  "philp_2008_mlss_training_stimulus": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 7,
+    "output_path": "claims/philp_2008_mlss_training_stimulus.json"
+  },
+  "jones_2010_critical_power": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 6,
+    "output_path": "claims/jones_2010_critical_power.json"
+  },
+  "beneke_2011_lactate_diagnostics": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 6,
+    "output_path": "claims/beneke_2011_lactate_diagnostics.json"
+  },
+  "poole_2016_critical_power_threshold": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 6,
+    "output_path": "claims/poole_2016_critical_power_threshold.json"
+  },
+  "casado_2023_lactate_guided_threshold": {
+    "status": "complete",
+    "domain_id": "threshold_tempo",
+    "claims_count": 6,
+    "output_path": "claims/casado_2023_lactate_guided_threshold.json"
+  },
+  "gabbett_2016_training_injury_paradox": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 7,
+    "output_path": "claims/gabbett_2016_training_injury_paradox.json"
+  },
+  "hulin_2014_acute_workload_cricket": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 6,
+    "output_path": "claims/hulin_2014_acute_workload_cricket.json"
+  },
+  "hulin_2016_acwr_predicts_injury": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 7,
+    "output_path": "claims/hulin_2016_acwr_predicts_injury.json"
+  },
+  "hulin_2016_low_chronic_workload": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 6,
+    "output_path": "claims/hulin_2016_low_chronic_workload.json"
+  },
+  "windt_2017_workload_injury_model": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 6,
+    "output_path": "claims/windt_2017_workload_injury_model.json"
+  },
+  "impellizzeri_2020_acwr_pitfalls": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 6,
+    "output_path": "claims/impellizzeri_2020_acwr_pitfalls.json"
+  },
+  "qin_2025_acwr_meta_analysis": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 6,
+    "output_path": "claims/qin_2025_acwr_meta_analysis.json"
+  },
+  "dijkhuis_2020_acwr_runners": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 5,
+    "output_path": "claims/dijkhuis_2020_acwr_runners.json"
+  },
+  "cloosterman_2024_acwr_methods_running": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 6,
+    "output_path": "claims/cloosterman_2024_acwr_methods_running.json"
+  },
+  "damsted_2019_running_distance_injury": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 6,
+    "output_path": "claims/damsted_2019_running_distance_injury.json"
+  },
+  "soligard_2016_ioc_load_injury": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 5,
+    "output_path": "claims/soligard_2016_ioc_load_injury.json"
+  },
+  "bourdon_2017_monitoring_consensus": {
+    "status": "complete",
+    "domain_id": "training_load_acwr",
+    "claims_count": 4,
+    "output_path": "claims/bourdon_2017_monitoring_consensus.json"
+  },
+  "seiler_2006_intensity_distribution": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 6,
+    "output_path": "claims/seiler_2006_intensity_distribution.json"
+  },
+  "seiler_2010_best_practice": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 6,
+    "output_path": "claims/seiler_2010_best_practice.json"
+  },
+  "sylta_2014_hr_quantification": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 6,
+    "output_path": "claims/sylta_2014_hr_quantification.json"
+  },
+  "stoggl_2015_tid_review": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 5,
+    "output_path": "claims/stoggl_2015_tid_review.json"
+  },
+  "rosenblat_2019_pol_vs_thr_meta": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 5,
+    "output_path": "claims/rosenblat_2019_pol_vs_thr_meta.json"
+  },
+  "oliveira_2024_pol_vs_other_meta": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 7,
+    "output_path": "claims/oliveira_2024_pol_vs_other_meta.json"
+  },
+  "meixner_2025_zone2_variability": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 6,
+    "output_path": "claims/meixner_2025_zone2_variability.json"
+  },
+  "sitko_2025_zone2_experts": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 5,
+    "output_path": "claims/sitko_2025_zone2_experts.json"
+  },
+  "seiler-viken_2025_norwegian_zones": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 7,
+    "output_path": "claims/seiler-viken_2025_norwegian_zones.json"
+  },
+  "sun_2025_tid_theory_advances": {
+    "status": "complete",
+    "domain_id": "training_zones_systems",
+    "claims_count": 6,
+    "output_path": "claims/sun_2025_tid_theory_advances.json"
+  },
+  "hoffman_2020_ultramarathon_science": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 5,
+    "output_path": "claims/hoffman_2020_ultramarathon_science.json"
+  },
+  "garbisu-hualde_2020_limiting_factors": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 6,
+    "output_path": "claims/garbisu-hualde_2020_limiting_factors.json"
+  },
+  "berger_2024_limits_ultra": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 7,
+    "output_path": "claims/berger_2024_limits_ultra.json"
+  },
+  "millet_2011_flush_model": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 6,
+    "output_path": "claims/millet_2011_flush_model.json"
+  },
+  "coates_2021_trail_determinants": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 7,
+    "output_path": "claims/coates_2021_trail_determinants.json"
+  },
+  "knechtle_2018_physiology_pathophysiology": {
+    "status": "failed",
+    "domain_id": "ultramarathon",
+    "reason": "claude_extraction_failed"
+  },
+  "tiller_2019_issn_ultramarathon": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 8,
+    "output_path": "claims/tiller_2019_issn_ultramarathon.json"
+  },
+  "costa_2019_ultramarathon_nutrition": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 7,
+    "output_path": "claims/costa_2019_ultramarathon_nutrition.json"
+  },
+  "kelly_2023_sex_specific": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 5,
+    "output_path": "claims/kelly_2023_sex_specific.json"
+  },
+  "viljoen_2021_trail_injury": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 7,
+    "output_path": "claims/viljoen_2021_trail_injury.json"
+  },
+  "scheer_2022_longterm_health": {
+    "status": "complete",
+    "domain_id": "ultramarathon",
+    "claims_count": 6,
+    "output_path": "claims/scheer_2022_longterm_health.json"
+  },
+  "wenger_1986_intensity_frequency_duration": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 7,
+    "output_path": "claims/wenger_1986_intensity_frequency_duration.json"
+  },
+  "saltin_1992_cardiovascular_limitation": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 5,
+    "output_path": "claims/saltin_1992_cardiovascular_limitation.json"
+  },
+  "wagner_1996_oxygen_transport_determinants": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 5,
+    "output_path": "claims/wagner_1996_oxygen_transport_determinants.json"
+  },
+  "bouchard_1999_heritage_vo2max_trainability": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 6,
+    "output_path": "claims/bouchard_1999_heritage_vo2max_trainability.json"
+  },
+  "bassett_2000_limiting_factors_vo2max": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 7,
+    "output_path": "claims/bassett_2000_limiting_factors_vo2max.json"
+  },
+  "hawkins_2003_vo2max_decline_aging": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 8,
+    "output_path": "claims/hawkins_2003_vo2max_decline_aging.json"
+  },
+  "levine_2008_vo2max_what_we_know": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 6,
+    "output_path": "claims/levine_2008_vo2max_what_we_know.json"
+  },
+  "joyner_2008_physiology_champions": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 6,
+    "output_path": "claims/joyner_2008_physiology_champions.json"
+  },
+  "lundby_2017_biology_vo2max": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 5,
+    "output_path": "claims/lundby_2017_biology_vo2max.json"
+  },
+  "crowley_2022_training_intensity_vo2max_umbrella": {
+    "status": "complete",
+    "domain_id": "vo2max_development",
+    "claims_count": 6,
+    "output_path": "claims/crowley_2022_training_intensity_vo2max_umbrella.json"
+  },
+  "fradkin_2010_warmup_performance_meta": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 4,
+    "output_path": "claims/fradkin_2010_warmup_performance_meta.json"
+  },
+  "vanhooren_2018_cooldown_review": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 8,
+    "output_path": "claims/vanhooren_2018_cooldown_review.json"
+  },
+  "opplert_2018_dynamic_stretching_review": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 7,
+    "output_path": "claims/opplert_2018_dynamic_stretching_review.json"
+  },
+  "sople_2025_dynamic_warmups_review": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 5,
+    "output_path": "claims/sople_2025_dynamic_warmups_review.json"
+  },
+  "panasci_2025_dynamic_stretching_running_economy": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 6,
+    "output_path": "claims/panasci_2025_dynamic_stretching_running_economy.json"
+  },
+  "boullosa_2018_pap_endurance_review": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 5,
+    "output_path": "claims/boullosa_2018_pap_endurance_review.json"
+  },
+  "vasconcelos_2024_pape_endurance_meta": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 6,
+    "output_path": "claims/vasconcelos_2024_pape_endurance_meta.json"
+  },
+  "simic_2013_static_stretching_performance_meta": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 7,
+    "output_path": "claims/simic_2013_static_stretching_performance_meta.json"
+  },
+  "mcgowan_2015_warmup_strategies_review": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 6,
+    "output_path": "claims/mcgowan_2015_warmup_strategies_review.json"
+  },
+  "menzies_2010_lactate_clearance_active_recovery": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 6,
+    "output_path": "claims/menzies_2010_lactate_clearance_active_recovery.json"
+  },
+  "alves_2023_highintensity_warmup_5000m": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 6,
+    "output_path": "claims/alves_2023_highintensity_warmup_5000m.json"
+  },
+  "barnes_2015_weighted_vest_strides_warmup": {
+    "status": "complete",
+    "domain_id": "warmup_cooldown",
+    "claims_count": 6,
+    "output_path": "claims/barnes_2015_weighted_vest_strides_warmup.json"
+  },
+  "brenner_2016_sport_specialization_aap": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 4,
+    "output_path": "claims/brenner_2016_sport_specialization_aap.json"
+  },
+  "jayanthi_2013_specialization_recommendations": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 6,
+    "output_path": "claims/jayanthi_2013_specialization_recommendations.json"
+  },
+  "kliethermes_2020_specialisation_performance_review": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 5,
+    "output_path": "claims/kliethermes_2020_specialisation_performance_review.json"
+  },
+  "moseid_2019_specialization_injury_illness": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 5,
+    "output_path": "claims/moseid_2019_specialization_injury_illness.json"
+  },
+  "ford_2011_ltad_physiological_evidence": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 5,
+    "output_path": "claims/ford_2011_ltad_physiological_evidence.json"
+  },
+  "lloyd_2014_youth_resistance_training_consensus": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 2,
+    "output_path": "claims/lloyd_2014_youth_resistance_training_consensus.json"
+  },
+  "caine_2006_physeal_injuries_youth_sports": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 5,
+    "output_path": "claims/caine_2006_physeal_injuries_youth_sports.json"
+  },
+  "seto_2010_pediatric_running_injuries": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 4,
+    "output_path": "claims/seto_2010_pediatric_running_injuries.json"
+  },
+  "paz_2021_youth_distance_running_injury_review": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 6,
+    "output_path": "claims/paz_2021_youth_distance_running_injury_review.json"
+  },
+  "mann_2021_adolescent_distance_runner_injuries": {
+    "status": "complete",
+    "domain_id": "youth_running",
+    "claims_count": 6,
+    "output_path": "claims/mann_2021_adolescent_distance_runner_injuries.json"
+  }
+}

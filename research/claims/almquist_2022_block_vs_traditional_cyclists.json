@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Block periodization and traditional periodization produce equivalent performance improvements in time-trial power over 12 weeks when total training load is matched in trained cyclists.",
+    "specific_value": null,
+    "category": "periodisation",
+    "population": "trained cyclists (VO2peak ~58 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Both block and traditional periodization improved 5-min and 40-min time-trial power by approximately 8-9% over 12 weeks in trained cyclists.",
+    "specific_value": "5-min TT: +9\u00b19%, 40-min TT: +8\u00b19%",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2peak ~58 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Block periodization increased red blood cell volume 10% more than traditional periodization over 12 weeks, suggesting different hematological adaptation pathways.",
+    "specific_value": "10\u00b116% greater RBC volume increase",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2peak ~58 ml/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Traditional periodization with progressive cyclic loading increased capillaries around type I muscle fibers 20% more than block periodization over 12 weeks.",
+    "specific_value": "20\u00b112% greater capillary increase around type I fibers",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2peak ~58 ml/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Power output at 4 mmol/L blood lactate threshold improved by approximately 10% over 12 weeks of structured periodized training in trained cyclists, regardless of block or traditional organization.",
+    "specific_value": "10\u00b112% improvement in W4mmol",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2peak ~58 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "VO2peak remained unaltered after 12 weeks of either block or traditional periodized training in already-trained cyclists, suggesting performance gains came from other adaptations.",
+    "specific_value": null,
+    "category": "periodisation",
+    "population": "trained cyclists (VO2peak ~58 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Block and traditional periodization may produce different muscular capillarization adaptations \u2014 block periodization increases capillary density while traditional periodization increases capillary-to-fiber ratio and capillaries around type I fibers.",
+    "specific_value": "BP: +28\u00b124% capillary density; TP: +36\u00b115% capillary-to-fiber ratio, +17\u00b18% CAF type I",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2peak ~58 ml/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

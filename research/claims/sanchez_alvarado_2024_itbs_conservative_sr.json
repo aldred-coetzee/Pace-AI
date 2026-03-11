@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Iliotibial band syndrome constitutes approximately 10% of all running-related injuries.",
+    "specific_value": "~10% of running injuries",
+    "category": "injury_knee",
+    "population": "runners",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Hip abductor strengthening exercises are a consistently recommended conservative treatment strategy for iliotibial band syndrome in runners.",
+    "specific_value": null,
+    "category": "injury_knee",
+    "population": "runners with ITBS",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Conservative treatment for ITBS can achieve pain reduction ranging from 27% to 100% over 2 to 8 weeks of intervention.",
+    "specific_value": "27-100% pain reduction over 2-8 weeks",
+    "category": "injury_knee",
+    "population": "runners with ITBS",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Conservative treatment for ITBS can achieve functional improvement ranging from 10% to 57% over 2 to 8 weeks of intervention.",
+    "specific_value": "10-57% functional improvement over 2-8 weeks",
+    "category": "injury_knee",
+    "population": "runners with ITBS",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Augmenting hip abductor strengthening with shockwave therapy or manual therapy may enhance conservative treatment outcomes for ITBS.",
+    "specific_value": null,
+    "category": "injury_knee",
+    "population": "runners with ITBS",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Gait retraining is an emerging strategy for ITBS management that requires further rigorous investigation.",
+    "specific_value": null,
+    "category": "injury_knee",
+    "population": "runners with ITBS",
+    "confidence": 0.4,
+    "school_of_thought": "injury prevention"
+  }
+]

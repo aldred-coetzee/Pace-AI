@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Successful endurance athletes typically distribute training intensity so that about 80% of sessions are performed at low intensity (below 2 mM blood lactate) and about 20% at high intensity.",
+    "specific_value": "80% low intensity / 20% high intensity",
+    "category": "training_zones_systems",
+    "population": "nationally/internationally competitive endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "The low-intensity threshold for polarized training corresponds to approximately 2 mM blood lactate concentration.",
+    "specific_value": "2 mM blood lactate",
+    "category": "training_zones_systems",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "High-intensity interval training sessions in polarized training are typically performed at approximately 90% of VO2max.",
+    "specific_value": "~90% VO2max",
+    "category": "training_zones_systems",
+    "population": "nationally/internationally competitive endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Elite endurance athletes typically train 10 to 13 sessions per week, self-organizing toward a high-volume approach with careful incorporation of high-intensity work.",
+    "specific_value": "10-13 sessions/week",
+    "category": "training_zones_systems",
+    "population": "nationally/internationally competitive endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Increasing the proportion of high-intensity interval training beyond the typical polarized distribution does not provide convincing evidence of long-term performance gains in already well-trained athletes.",
+    "specific_value": null,
+    "category": "training_zones_systems",
+    "population": "well-trained endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "The combination of predominantly low-intensity, long-duration training with fewer high-intensity bouts may optimize adaptive signaling and technical mastery at an acceptable stress level.",
+    "specific_value": null,
+    "category": "training_zones_systems",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  }
+]

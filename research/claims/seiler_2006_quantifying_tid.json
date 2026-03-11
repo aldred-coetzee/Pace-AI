@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Elite junior cross-country skiers distribute approximately 75% of endurance training sessions in zone 1 (below VT1), 6-8% in zone 2 (between VT1 and VT2), and 15-20% in zone 3 (above VT2).",
+    "specific_value": "75% zone 1, 6-8% zone 2, 15-20% zone 3",
+    "category": "polarized_training",
+    "population": "nationally competitive junior cross-country skiers",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Heart rate-based and session RPE-based methods produce similar training intensity distributions, validating session RPE as a practical alternative to continuous heart rate monitoring.",
+    "specific_value": null,
+    "category": "polarized_training",
+    "population": "nationally competitive junior cross-country skiers",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Elite endurance athletes train surprisingly little at lactate threshold intensity, with only 6-8% of sessions falling in the zone between VT1 and VT2.",
+    "specific_value": "6-8% of sessions in threshold zone",
+    "category": "polarized_training",
+    "population": "elite endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "A polarized training distribution with most sessions clearly below or substantially above the lactate accommodation zone is consistently observed across multiple elite endurance sports.",
+    "specific_value": null,
+    "category": "polarized_training",
+    "population": "elite endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Blood lactate measurements confirm the polarized pattern: 71% of sessions were performed at \u22642.0 mM, 7% between 2-4 mM, and 22% above 4 mM (mean 9.5 mM for high-intensity sessions).",
+    "specific_value": "71% \u22642.0 mM, 7% 2-4 mM, 22% >4 mM (mean 9.5 mM)",
+    "category": "polarized_training",
+    "population": "nationally competitive junior cross-country skiers",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Training intensity zones should be delineated using ventilatory thresholds (VT1 and VT2) to create a three-zone model that distinguishes easy, threshold, and high-intensity work.",
+    "specific_value": null,
+    "category": "polarized_training",
+    "population": "elite endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  }
+]

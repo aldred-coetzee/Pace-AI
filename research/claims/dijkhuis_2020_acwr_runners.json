@@ -1,0 +1,42 @@
+[
+  {
+    "text": "A fortnightly low increase in the acute:chronic workload ratio (0.10-0.78) is associated with increased injury risk in competitive runners.",
+    "specific_value": "ACWR increase 0.10-0.78 over two weeks",
+    "category": "training_load_acwr",
+    "population": "competitive recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "An increase in the acute:chronic workload ratio between the second and third week before an injury (0.05-0.62) is associated with increased injury risk, suggesting a delayed effect of workload spikes.",
+    "specific_value": "ACWR increase 0.05-0.62, 2-3 weeks pre-injury",
+    "category": "training_load_acwr",
+    "population": "competitive recreational runners",
+    "confidence": 0.65,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The acute:chronic workload ratio, calculated as 1-week workload divided by 4-week rolling average workload, is a useful metric for monitoring injury risk in runners.",
+    "specific_value": "1-week acute / 4-week chronic ratio",
+    "category": "training_load_acwr",
+    "population": "competitive recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Workload should be calculated as training duration multiplied by training intensity (session RPE method) for monitoring injury risk in runners.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "competitive recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Even small increases in the acute:chronic workload ratio can elevate injury risk, indicating that gradual and consistent load progression is critical for injury prevention.",
+    "specific_value": "increases as low as 0.05-0.10 ACWR",
+    "category": "training_load_acwr",
+    "population": "competitive recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "Gabbett load management"
+  }
+]

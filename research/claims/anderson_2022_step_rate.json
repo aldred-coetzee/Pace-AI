@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Increasing running step rate is associated with improvements in pain and function in recreational runners with patellofemoral pain at both 4 and 12 weeks.",
+    "specific_value": "pain SMD 2.68 at 4 weeks, 3.62 at 12 weeks",
+    "category": "biomechanics_form",
+    "population": "recreational runners with patellofemoral pain",
+    "confidence": 0.4,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increasing running step rate reduces peak knee flexion angle with strong evidence.",
+    "specific_value": "SMD 0.66 (0.40\u20130.92)",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Increasing running step rate reduces step length, peak hip adduction, peak knee extensor moment, and foot strike angle with moderate evidence.",
+    "specific_value": "step length SMD 0.93, hip adduction SMD 0.40, knee extensor moment SMD 0.50, foot strike angle SMD 0.62",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Increasing running step rate reduces braking impulse, peak hip flexion, and peak patellofemoral joint stress with limited evidence.",
+    "specific_value": "braking impulse SMD 0.64, hip flexion SMD 0.42, patellofemoral stress SMD 0.56",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increasing step rate above preferred rate increases perceived exertion, awkwardness, effort, and metabolic energy consumption.",
+    "specific_value": "exertion SMD -0.49, awkwardness SMD -0.72, effort SMD -0.69, metabolic cost SMD -0.84",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Decreasing running step rate increases step length, contact time, braking impulse, and negative knee work.",
+    "specific_value": "step length SMD -0.76, contact time SMD -0.95, braking impulse SMD -0.73, negative knee work SMD -0.88",
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Most evidence on step rate changes reflects only immediate effects; longer-term biomechanical and injury effects remain largely unknown.",
+    "specific_value": null,
+    "category": "biomechanics_form",
+    "population": "mixed runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

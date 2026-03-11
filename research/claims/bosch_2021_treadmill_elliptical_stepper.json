@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Maximal oxygen consumption does not differ significantly between treadmill running, elliptical trainer, and stair stepper exercise in trained runners.",
+    "specific_value": "49.3 vs 48.0 vs 46.7 ml\u00b7min-1\u00b7kg-1",
+    "category": "cross_training",
+    "population": "trained runners (male and female, ~23 years old)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Heart rate response at matched submaximal intensities (60%, 70%, 80% of peak) does not differ between treadmill running, elliptical trainer, and stair stepper, making heart rate a valid intensity guide across these modalities.",
+    "specific_value": "60%, 70%, 80% of peak workload",
+    "category": "cross_training",
+    "population": "trained runners (male and female, ~23 years old)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Carbohydrate and fat oxidation rates at matched submaximal intensities do not differ between treadmill running, elliptical trainer, and stair stepper, indicating equivalent fuel utilization across modalities.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "trained runners (male and female, ~23 years old)",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Elliptical trainers and stair steppers are suitable aerobic substitutes for running during injury rehabilitation periods requiring reduced running load, as they produce equivalent physiological responses at matched intensities.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "trained runners",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Elliptical trainers and stair steppers impose reduced stress on muscles and joints compared to running while maintaining equivalent oxygen consumption and energy expenditure.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "trained runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  }
+]

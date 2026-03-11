@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Plantar fascia stretching is effective for reducing first step pain in plantar heel pain in the short term, with a large effect size.",
+    "specific_value": "SMD: 1.21, 95% CI 0.78 to 1.63",
+    "category": "injury_foot",
+    "population": "people with plantar heel pain",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Taping provides small-to-moderate short-term relief of first step pain in plantar heel pain.",
+    "specific_value": "SMD: 0.47, 95% CI 0.05 to 0.88",
+    "category": "injury_foot",
+    "population": "people with plantar heel pain",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Core self-management for plantar heel pain should combine taping, plantar fascia stretching, education, and footwear advice.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "people with plantar heel pain",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Focused shockwave therapy is effective for first step pain in plantar heel pain across short-term, medium-term, and long-term timeframes.",
+    "specific_value": "Short-term OR: 1.89 (95% CI 1.18-3.04); Medium-term SMD: 1.31 (95% CI 0.61-2.01); Long-term SMD: 1.67 (95% CI 0.88-2.45)",
+    "category": "injury_foot",
+    "population": "people with plantar heel pain",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Radial shockwave therapy is effective for first step pain in plantar heel pain in the short term and long term.",
+    "specific_value": "Short-term OR: 1.66 (95% CI 1.00-2.76); Long-term OR: 1.78 (95% CI 1.07-2.96)",
+    "category": "injury_foot",
+    "population": "people with plantar heel pain",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Custom foot orthoses provide small-to-moderate relief for general pain in plantar heel pain in the short and medium term.",
+    "specific_value": "Short-term SMD: 0.41 (95% CI 0.07-0.74); Medium-term SMD: 0.55 (95% CI 0.09-1.02)",
+    "category": "injury_foot",
+    "population": "people with plantar heel pain",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "A stepped care approach is recommended for plantar heel pain: start with taping, stretching, and education; if insufficient improvement, add shockwave therapy; then custom orthoses.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "people with plantar heel pain",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  }
+]

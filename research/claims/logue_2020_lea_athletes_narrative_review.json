@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Low energy availability arises when insufficient calories are consumed to support exercise energy expenditure, resulting in compromised physiological processes including menstrual irregularities, gastrointestinal and cardiovascular dysfunction, and compromised bone health.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Longstanding low energy availability can impair sporting performance through its effects on menstrual/libido dysfunction, gastrointestinal issues, cardiovascular dysfunction, and compromised bone health.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Methods to assess energy availability remain a challenge and contribute to methodological difficulties in identifying true low energy availability in athletes.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The Low Energy Availability in Females Questionnaire (LEAF-Q) is a validated screening tool that has shown promise in identifying endurance athletes at risk of low energy availability.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Knowledge of RED-S and its potential implications for performance is low among both coaches and athletes.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "coaches and athletes",
+    "confidence": 0.6,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Within-day energy deficiency (prolonged periods of energy deficit within a single day) is a concern distinct from overall daily energy balance and may independently contribute to low energy availability consequences.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Sport-specific and gender-specific screening tools are needed to identify both adolescent and senior athletes at risk of RED-S across different sports.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "adolescent and senior athletes",
+    "confidence": 0.6,
+    "school_of_thought": "IOC consensus"
+  }
+]

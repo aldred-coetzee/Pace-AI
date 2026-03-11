@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Among novice runners, Type B (noncompetitive) behavior is a significant predictor of running-related injury, with an 11.9% higher cumulative injury risk after 500 km of running compared to Type A behavior.",
+    "specific_value": "11.9% cumulative injury risk difference after 500 km",
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Novice runners aged 45-65 years have a 14.7% higher cumulative injury risk after 500 km of running compared to younger runners, though this was borderline significant.",
+    "specific_value": "14.7% cumulative injury risk difference, p=0.08",
+    "category": "beginner_running",
+    "population": "novice runners aged 45-65",
+    "confidence": 0.55,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Previous injuries not related to running are associated with an 11.1% higher cumulative injury risk after 500 km in novice runners.",
+    "specific_value": "11.1% cumulative injury risk difference, p=0.05",
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "BMI greater than 30 kg/m\u00b2 is associated with increased running-related injury risk in novice runners, while BMI below 20 kg/m\u00b2 is protective.",
+    "specific_value": "BMI >30 increased risk, BMI <20 protective, p=0.06",
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.55,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Sex, previous running-related injury, running experience, and participation in other sports activities are not significant predictors of injury among novice runners.",
+    "specific_value": null,
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Among 930 novice runners, 27.3% sustained a running-related injury during a 1-year follow-up covering 155,318 total km of running.",
+    "specific_value": "254/930 (27.3%) injury rate over 155,318 km",
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Previous running-related injuries do not predict future running-related injuries in novice runners, contrary to findings in experienced runner populations.",
+    "specific_value": "p=0.47",
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  }
+]

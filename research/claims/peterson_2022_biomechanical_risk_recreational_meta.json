@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Biomechanical and musculoskeletal measurements do not generally serve as reliable risk factors for running-related injury in non-elite runners.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "non-elite runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Lower knee extension strength is associated with increased risk of running-related injury, though the effect size is trivial to small and may not be clinically important.",
+    "specific_value": "SMD -0.19, 95% CI -0.36 to -0.02",
+    "category": "injury_prevention_general",
+    "population": "non-elite runners",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Lower hip adduction velocity is associated with increased risk of running-related injury, though based on limited evidence with small effect size.",
+    "specific_value": "MD -12.80, 95% CI -25.22 to -0.38",
+    "category": "injury_prevention_general",
+    "population": "non-elite runners",
+    "confidence": 0.45,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Injury prevention recommendations for non-elite runners cannot be reliably based on biomechanical and musculoskeletal measurements alone; other factors such as training load likely play a larger role.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "non-elite runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Over 100 discrete biomechanical and musculoskeletal variables were tested as risk factors for running-related injury across 30 prospective studies with 3,404 runners, and the vast majority showed no significant association.",
+    "specific_value": "30 studies, 3404 runners, >100 variables tested",
+    "category": "injury_prevention_general",
+    "population": "non-elite runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  }
+]

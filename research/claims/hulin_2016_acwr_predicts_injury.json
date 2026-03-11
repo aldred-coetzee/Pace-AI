@@ -1,0 +1,58 @@
+[
+  {
+    "text": "A very-high acute:chronic workload ratio (\u22652.11) is associated with the greatest risk of injury in the current week (16.7% injury risk) and subsequent week (11.8% injury risk).",
+    "specific_value": "\u22652.11 ACWR, 16.7% current week, 11.8% subsequent week",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "High chronic workload combined with a very-high 2-week average acute:chronic workload ratio (\u22651.54) produces the greatest injury risk (28.6%).",
+    "specific_value": "\u22651.54 ACWR with high chronic load, 28.6% injury risk",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Athletes with high chronic workload are more resistant to injury when maintaining moderate acute:chronic workload ratios (0.85-1.35) compared to athletes with low chronic workload.",
+    "specific_value": "0.85-1.35 ACWR",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "High chronic workload combined with a moderate workload ratio (1.02-1.18) carries lower injury risk than low chronic workload combined with several workload ratios (relative risk 0.3-0.7).",
+    "specific_value": "1.02-1.18 ACWR, RR 0.3-0.7",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Athletes with high chronic workload become less resistant to injury when subjected to acute workload spikes (acute:chronic workload ratios around 1.5 or above).",
+    "specific_value": "~1.5 ACWR spike threshold",
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Considering acute and chronic workloads in isolation (not as ratios) does not consistently predict injury risk; the ratio of acute to chronic workload is a superior predictor.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Building a high chronic workload base has a protective effect against injury, provided acute workload spikes are avoided.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite rugby league players",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  }
+]

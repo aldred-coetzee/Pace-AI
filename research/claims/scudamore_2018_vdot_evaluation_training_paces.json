@@ -1,0 +1,58 @@
+[
+  {
+    "text": "The Daniels VDOT calculator significantly underestimates laboratory-measured VO2max in both collegiate athletes and recreational runners when based on 5km time trial performance.",
+    "specific_value": null,
+    "category": "race_prediction",
+    "population": "collegiate athletes and recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "Daniels"
+  },
+  {
+    "text": "The VDOT underestimation of VO2max is significantly greater in recreational runners than in collegiate athletes, with a large effect size.",
+    "specific_value": "d = 1.59",
+    "category": "race_prediction",
+    "population": "recreational runners vs collegiate athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Daniels"
+  },
+  {
+    "text": "Daniels' recommended interval pace is significantly slower than actual pace at VO2max in recreational runners, suggesting it may be suboptimal for improving VO2max in this population.",
+    "specific_value": "d = 1.76",
+    "category": "race_prediction",
+    "population": "recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "Daniels"
+  },
+  {
+    "text": "Daniels' recommended interval pace closely matches actual pace at VO2max in collegiate athletes, making it appropriate for interval training in trained runners.",
+    "specific_value": "d = 0.14 (no significant difference)",
+    "category": "race_prediction",
+    "population": "NCAA Division 1 track athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Daniels"
+  },
+  {
+    "text": "Daniels' recommended threshold pace is faster than laboratory-measured lactate threshold pace in collegiate athletes but not significantly different in recreational runners.",
+    "specific_value": "d = 1.49 (athletes), d = 0.57 (recreational)",
+    "category": "race_prediction",
+    "population": "collegiate athletes and recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "Daniels"
+  },
+  {
+    "text": "Daniels' threshold pace can be confidently used for threshold training regardless of ability level, as it approximates or slightly exceeds lactate threshold pace.",
+    "specific_value": null,
+    "category": "race_prediction",
+    "population": "runners of all ability levels",
+    "confidence": 0.7,
+    "school_of_thought": "Daniels"
+  },
+  {
+    "text": "Recreational runners may need to run interval sessions faster than Daniels' recommended interval pace to optimally stimulate VO2max improvements.",
+    "specific_value": null,
+    "category": "race_prediction",
+    "population": "recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "Daniels"
+  }
+]

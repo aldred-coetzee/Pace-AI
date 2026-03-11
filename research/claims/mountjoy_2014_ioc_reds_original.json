@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Relative Energy Deficiency in Sport (RED-S) affects both male and female athletes, not only females as previously conceptualized in the Female Athlete Triad.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "RED-S is caused by energy deficiency relative to the balance between dietary energy intake and energy expenditure required for health, daily living, growth, and sporting activities.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "RED-S impairs multiple physiological functions including metabolic rate, menstrual function, bone health, immunity, protein synthesis, and cardiovascular health.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Psychological consequences can both precede and result from RED-S, indicating a bidirectional relationship between mental health and energy deficiency.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.6,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Athletes with RED-S should be categorized into risk groups using a Sport Risk Assessment and Return to Play Model to guide clinical management and return-to-play decisions.",
+    "specific_value": "3 risk categories",
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  }
+]

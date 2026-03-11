@@ -1,0 +1,455 @@
+{
+  "domain_id": "half_marathon_training",
+  "domain_name": "Half Marathon & 10K Training",
+  "status": "complete",
+  "papers_found": 14,
+  "search_terms_used": [
+    "half marathon training physiology performance determinants systematic review pubmed",
+    "10K race performance predictors VO2max training volume pubmed",
+    "half marathon performance prediction model recreational runners pubmed",
+    "half marathon 10K pacing strategy performance level pubmed",
+    "10km running performance pacing determinants pubmed",
+    "half marathon physiological demands VO2max intensity pubmed",
+    "10K energy system contribution aerobic glycolytic pubmed",
+    "training intensity distribution RCT endurance runners pubmed",
+    "polarized training 10K recreational runners RCT pubmed"
+  ],
+  "search_terms_not_tried": [],
+  "coverage_notes": "Expanded coverage: original 8 papers focused on prediction models and pacing; added 6 papers covering training physiology (Williams 1983 HM at 79% VO2max), HM vs marathon demands (Del Coso 2017), 10K energy systems (Damasceno 2015), training intensity distribution RCTs (Esteve-Lanao 2007, Munoz 2014), and intensity distribution best practice (Seiler 2010). Now has 2 RCTs, 1 review, 3 cross-sectional physiology studies alongside original prediction/pacing papers. Running-specific throughout.",
+  "papers": [
+    {
+      "id": "alvero_cruz_2020_prediction_models_review",
+      "authors": [
+        "Alvero-Cruz JR",
+        "Carnero EA",
+        "Giráldez García MA",
+        "Alacid F",
+        "Correas-Gómez L",
+        "Rosemann T",
+        "Nikolaidis PT",
+        "Knechtle B"
+      ],
+      "year": 2020,
+      "title": "Predictive Performance Models in Long-Distance Runners: A Narrative Review",
+      "journal": "International Journal of Environmental Research and Public Health",
+      "volume": "17",
+      "issue": "21",
+      "pages": "8289",
+      "doi": "10.3390/ijerph17218289",
+      "doi_verified": true,
+      "pubmed_id": "33182485",
+      "pmc_id": "PMC7665126",
+      "study_type": "review",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Narrative review synthesizing 58 studies on predictive performance models for half-marathon and marathon, covering laboratory (VO2max, vVO2max), training, and anthropometric predictor variables."
+    },
+    {
+      "id": "gomez_molina_2017_hm_predictive_variables",
+      "authors": [
+        "Gómez-Molina J",
+        "Ogueta-Alday A",
+        "Camara J",
+        "Stickley C",
+        "Rodríguez-Marroyo JA",
+        "García-López J"
+      ],
+      "year": 2017,
+      "title": "Predictive Variables of Half-Marathon Performance for Male Runners",
+      "journal": "Journal of Sports Science and Medicine",
+      "volume": "16",
+      "issue": "2",
+      "pages": "187-194",
+      "doi": null,
+      "doi_verified": false,
+      "pubmed_id": "28630571",
+      "pmc_id": "PMC5465980",
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 78,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Established and validated predictive equations for HM performance using 78 male runners; physiological variables predicted 94.9% of variance, training variables 90.3%, anthropometric 93.7%, and combined model 96.2%."
+    },
+    {
+      "id": "nikolaidis_2023_hm_predictors_recreational",
+      "authors": [
+        "Nikolaidis PT",
+        "Knechtle B"
+      ],
+      "year": 2023,
+      "title": "Predictors of half-marathon performance in male recreational athletes",
+      "journal": "EXCLI Journal",
+      "volume": "22",
+      "issue": null,
+      "pages": "559-566",
+      "doi": "10.17179/excli2023-6198",
+      "doi_verified": true,
+      "pubmed_id": "37534223",
+      "pmc_id": "PMC10390894",
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 134,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Developed prediction formula for HM time in 134 recreational runners: Race time = 80.056 + 2.498×BMI - 0.594×VO2max - 0.191×weekly training distance (R²=0.63)."
+    },
+    {
+      "id": "nikolaidis_2023_hm_participation_review",
+      "authors": [
+        "Nikolaidis PT",
+        "Knechtle B"
+      ],
+      "year": 2023,
+      "title": "Participation and performance characteristics in half-marathon run: a brief narrative review",
+      "journal": "Journal of Muscle Research and Cell Motility",
+      "volume": "44",
+      "issue": "2",
+      "pages": "115-122",
+      "doi": "10.1007/s10974-022-09633-1",
+      "doi_verified": true,
+      "pubmed_id": "36326961",
+      "pmc_id": "PMC10329575",
+      "study_type": "review",
+      "population": [
+        "general"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Reviewed participation trends, performance characteristics, sex and age differences in half-marathon running, providing context for training prescription and performance expectations."
+    },
+    {
+      "id": "alvero_cruz_2019_cooper_test_hm",
+      "authors": [
+        "Alvero-Cruz JR",
+        "Carnero EA",
+        "Giráldez García MA",
+        "Alacid F",
+        "Rosemann T",
+        "Nikolaidis PT",
+        "Knechtle B"
+      ],
+      "year": 2019,
+      "title": "Cooper Test Provides Better Half-Marathon Performance Prediction in Recreational Runners Than Laboratory Tests",
+      "journal": "Frontiers in Physiology",
+      "volume": "10",
+      "issue": null,
+      "pages": "1349",
+      "doi": "10.3389/fphys.2019.01349",
+      "doi_verified": true,
+      "pubmed_id": "31749711",
+      "pmc_id": "PMC6848386",
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 23,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Compared field (Cooper test) vs laboratory (treadmill VO2max, vVO2max) for predicting HM time in recreational runners; Cooper test distance was the best single predictor of HM performance."
+    },
+    {
+      "id": "rust_2011_hm_predictor_variables",
+      "authors": [
+        "Rüst CA",
+        "Knechtle B",
+        "Knechtle P",
+        "Barandun U",
+        "Lepers R",
+        "Rosemann T"
+      ],
+      "year": 2011,
+      "title": "Predictor variables for a half marathon race time in recreational male runners",
+      "journal": "Open Access Journal of Sports Medicine",
+      "volume": "2",
+      "issue": null,
+      "pages": "113-119",
+      "doi": "10.2147/OAJSM.S23027",
+      "doi_verified": true,
+      "pubmed_id": "24198577",
+      "pmc_id": "PMC3781889",
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 84,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Identified training and anthropometric predictor variables for HM race time in 84 recreational male runners, finding speed in training and body fat most predictive."
+    },
+    {
+      "id": "lima_silva_2010_10k_pacing_performance",
+      "authors": [
+        "Lima-Silva AE",
+        "Bertuzzi RCM",
+        "Pires FO",
+        "Barros RV",
+        "Gagliardi JF",
+        "Hammond J",
+        "Kiss MA",
+        "Bishop DJ"
+      ],
+      "year": 2010,
+      "title": "Effect of performance level on pacing strategy during a 10-km running race",
+      "journal": "European Journal of Applied Physiology",
+      "volume": "108",
+      "issue": "5",
+      "pages": "1045-1053",
+      "doi": "10.1007/s00421-009-1300-6",
+      "doi_verified": true,
+      "pubmed_id": "20012450",
+      "pmc_id": null,
+      "study_type": "cross_sectional",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 24,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Examined pacing strategy differences across performance levels in 10K races; high-performance runners adopted a fast-start strategy while low-performance runners used even pacing. Peak treadmill velocity, LT, and RE correlated with pacing choices."
+    },
+    {
+      "id": "ristanovic_2023_hm_marathon_pacing",
+      "authors": [
+        "Ristanović L",
+        "Cuk I",
+        "Villiger E",
+        "Stojiljković S",
+        "Nikolaidis PT",
+        "Weiss K",
+        "Knechtle B"
+      ],
+      "year": 2023,
+      "title": "The pacing differences in performance levels of marathon and half-marathon runners",
+      "journal": "Frontiers in Psychology",
+      "volume": "14",
+      "issue": null,
+      "pages": "1273451",
+      "doi": "10.3389/fpsyg.2023.1273451",
+      "doi_verified": true,
+      "pubmed_id": "38187410",
+      "pmc_id": "PMC10771621",
+      "study_type": "cross_sectional",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 208760,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Analyzed pacing across 208,760 HM and marathon finishers (2006-2018); better runners showed more even pacing, HM runners paced more evenly than marathoners across all performance groups."
+    },
+    {
+      "id": "williams_1983_hm_physiological_demands",
+      "authors": [
+        "Williams C",
+        "Nute ML"
+      ],
+      "year": 1983,
+      "title": "Some physiological demands of a half-marathon race on recreational runners",
+      "journal": "British Journal of Sports Medicine",
+      "volume": "17",
+      "issue": "3",
+      "pages": "152-161",
+      "doi": "10.1136/bjsm.17.3.152",
+      "doi_verified": true,
+      "pubmed_id": "6652396",
+      "pmc_id": "PMC1859178",
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 10,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Measured VO2, blood lactate, and energy expenditure during a half-marathon in recreational runners to quantify the physiological demands and determine that average race intensity was 79% VO2max."
+    },
+    {
+      "id": "del_coso_2017_hm_vs_marathon_physiology",
+      "authors": [
+        "Del Coso J",
+        "Salinero JJ",
+        "Lara B",
+        "Abián-Vicén J",
+        "Gallo-Salazar C",
+        "Areces F"
+      ],
+      "year": 2017,
+      "title": "A comparison of the physiological demands imposed by competing in a half-marathon vs. a marathon",
+      "journal": "Journal of Sports Medicine and Physical Fitness",
+      "volume": "57",
+      "issue": "11",
+      "pages": "1399-1406",
+      "doi": "10.23736/S0022-4707.17.07056-6",
+      "doi_verified": true,
+      "pubmed_id": "28222581",
+      "pmc_id": null,
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 22,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Compared physiological responses (muscle fatigue, fiber damage, pain, fluid/electrolyte balance) between matched pairs of half-marathoners and marathoners running at similar speeds to distinguish the demands of each distance."
+    },
+    {
+      "id": "damasceno_2015_energy_systems_10k",
+      "authors": [
+        "Damasceno MV",
+        "Pasqua LA",
+        "Lima-Silva AE",
+        "Bertuzzi R"
+      ],
+      "year": 2015,
+      "title": "Energy system contribution in a maximal incremental test: correlations with pacing and overall performance in a 10-km running trial",
+      "journal": "Brazilian Journal of Medical and Biological Research",
+      "volume": "48",
+      "issue": "11",
+      "pages": "1048-1054",
+      "doi": "10.1590/1414-431X20154787",
+      "doi_verified": true,
+      "pubmed_id": "26397970",
+      "pmc_id": "PMC4671532",
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 13,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Assessed whether aerobic and glycolytic energy system contributions measured during an incremental treadmill test correlated with pacing and overall performance during an outdoor 10-km race."
+    },
+    {
+      "id": "esteve_lanao_2007_intensity_distribution_rct",
+      "authors": [
+        "Esteve-Lanao J",
+        "Foster C",
+        "Seiler S",
+        "Lucia A"
+      ],
+      "year": 2007,
+      "title": "Impact of training intensity distribution on performance in endurance athletes",
+      "journal": "Journal of Strength and Conditioning Research",
+      "volume": "21",
+      "issue": "3",
+      "pages": "943-949",
+      "doi": "10.1519/R-19725.1",
+      "doi_verified": true,
+      "pubmed_id": "17685689",
+      "pmc_id": null,
+      "study_type": "rct",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 12,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Randomly assigned 12 sub-elite runners to two 5-month programs differing in low- vs moderate-intensity volume distribution and compared effects on 10.4-km cross-country performance."
+    },
+    {
+      "id": "munoz_2014_polarized_training_10k_rct",
+      "authors": [
+        "Muñoz I",
+        "Seiler S",
+        "Bautista J",
+        "España J",
+        "Larumbe E",
+        "Esteve-Lanao J"
+      ],
+      "year": 2014,
+      "title": "Does polarized training improve performance in recreational runners?",
+      "journal": "International Journal of Sports Physiology and Performance",
+      "volume": "9",
+      "issue": "2",
+      "pages": "265-272",
+      "doi": "10.1123/ijspp.2012-0350",
+      "doi_verified": true,
+      "pubmed_id": "23752040",
+      "pmc_id": null,
+      "study_type": "rct",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 30,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Randomly assigned 30 recreational runners to polarized or between-thresholds training over 10 weeks and compared changes in 10-km race performance and physiological markers."
+    },
+    {
+      "id": "seiler_2010_training_intensity_best_practice",
+      "authors": [
+        "Seiler S"
+      ],
+      "year": 2010,
+      "title": "What is best practice for training intensity and duration distribution in endurance athletes?",
+      "journal": "International Journal of Sports Physiology and Performance",
+      "volume": "5",
+      "issue": "3",
+      "pages": "276-291",
+      "doi": "10.1123/ijspp.5.3.276",
+      "doi_verified": true,
+      "pubmed_id": "20861519",
+      "pmc_id": null,
+      "study_type": "review",
+      "population": [
+        "elite",
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Synthesized research on training intensity distribution patterns across competitive endurance sports, establishing the ~80/20 low-to-high intensity framework as typical best practice for trained athletes."
+    }
+  ]
+}

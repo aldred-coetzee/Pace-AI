@@ -1,0 +1,50 @@
+[
+  {
+    "text": "A polarized training intensity distribution (~80% low intensity below ventilatory threshold, ~12% moderate, ~8% high intensity) produces significantly greater performance improvements than a threshold-heavy distribution (~67% low, ~25% moderate, ~8% high) over a 5-month training period.",
+    "specific_value": "80/12/8 vs 67/25/8 intensity distribution",
+    "category": "half_marathon_training",
+    "population": "subelite endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Runners following a polarized training distribution improved 10.4 km cross-country race time by 157 seconds compared to 121.5 seconds for those following a threshold-heavy distribution (p = 0.03).",
+    "specific_value": "-157 \u00b1 13 s vs -121.5 \u00b1 7.1 s, p = 0.03",
+    "category": "half_marathon_training",
+    "population": "subelite endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Reducing moderate-intensity training volume (between ventilatory and respiratory compensation thresholds) in favor of more low-intensity training improves endurance performance, even when high-intensity training volume is held constant.",
+    "specific_value": null,
+    "category": "half_marathon_training",
+    "population": "subelite endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "High-intensity training above the respiratory compensation threshold should comprise approximately 8% of total training volume to be sufficient for performance gains in a polarized model.",
+    "specific_value": "~8% of total training time",
+    "category": "half_marathon_training",
+    "population": "subelite endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Spending excessive time in the moderate-intensity zone (between ventilatory threshold and respiratory compensation threshold) may compromise endurance adaptations compared to keeping the majority of training below the ventilatory threshold.",
+    "specific_value": "24.7% vs 11.8% moderate intensity",
+    "category": "half_marathon_training",
+    "population": "subelite endurance runners",
+    "confidence": 0.75,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Training intensity distribution should be controlled using heart rate zones anchored to individually determined ventilatory and respiratory compensation thresholds from maximal exercise testing.",
+    "specific_value": null,
+    "category": "half_marathon_training",
+    "population": "subelite endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  }
+]

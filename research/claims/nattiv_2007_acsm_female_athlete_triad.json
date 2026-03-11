@@ -1,0 +1,58 @@
+[
+  {
+    "text": "The female athlete triad involves interrelationships among energy availability, menstrual function, and bone mineral density, with clinical manifestations including eating disorders, functional hypothalamic amenorrhea, and osteoporosis.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.9,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low energy availability is the primary factor that impairs both reproductive and skeletal health in the female athlete triad.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.9,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Most pathological effects of the female athlete triad appear to occur below an energy availability of 30 kcal per kg of fat-free mass per day.",
+    "specific_value": "30 kcal/kg FFM/day",
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "The first aim of treatment for any female athlete triad component is to increase energy availability by increasing energy intake and/or reducing exercise energy expenditure.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.9,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "No pharmacological agent adequately restores bone loss or corrects metabolic abnormalities that impair health and performance in athletes with functional hypothalamic amenorrhea.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes with functional hypothalamic amenorrhea",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Female athletes in sports or physical activities that emphasize leanness are at special risk for restrictive eating behaviors and the female athlete triad.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes in leanness-emphasis sports",
+    "confidence": 0.9,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Athletes should be screened for the female athlete triad at the preparticipation physical and whenever they present with any of the triad's clinical conditions.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.9,
+    "school_of_thought": "IOC consensus"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Higher foot arch is a risk factor for metatarsal stress fractures in athletes.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes and military recruits",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Abnormal foot inversion/eversion patterns are significant risk factors for metatarsal stress fractures.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes and military recruits",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Longer metatarsal length or larger metatarsal angles increase the risk of metatarsal stress fractures.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes and military recruits",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Long-distance running and recruit training are associated with stress fractures of the second or third metatarsals specifically.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners and military recruits",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Soccer is specifically associated with fifth metatarsal stress fractures, while running tends to affect the second and third metatarsals.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "High exercise intensity, non-adaptive training progressions, and inadequate equipment are modifiable risk factors that heighten metatarsal stress fracture risk.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes and military recruits",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Personalized, multifactorial injury prevention strategies addressing anatomy, biomechanics, and training load are needed to reduce metatarsal stress fracture incidence.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  }
+]

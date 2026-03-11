@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Medial tibial stress syndrome (MTSS) affects 5%-35% of runners",
+    "specific_value": "5%-35% prevalence",
+    "category": "injury_lower_leg",
+    "population": "runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Previous history of MTSS is the strongest risk factor for developing MTSS, with a risk ratio of 3.74",
+    "specific_value": "RR 3.74 (95% CI 1.17-11.91, P=0.03)",
+    "category": "injury_lower_leg",
+    "population": "runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Prior use of orthotics is significantly associated with increased MTSS risk, with a risk ratio of 2.31",
+    "specific_value": "RR 2.31 (95% CI 1.56-3.43, P<0.001)",
+    "category": "injury_lower_leg",
+    "population": "runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Female runners have a significantly higher risk of developing MTSS compared to males, with a risk ratio of 1.71",
+    "specific_value": "RR 1.71 (95% CI 1.15-2.54, P=0.008)",
+    "category": "injury_lower_leg",
+    "population": "runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Fewer years of running experience is significantly associated with increased MTSS risk",
+    "specific_value": "SMD -0.74 (95% CI -1.26 to -0.23, P=0.005)",
+    "category": "injury_lower_leg",
+    "population": "runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increased body mass index is a significant risk factor for MTSS development",
+    "specific_value": "SMD 0.24 (95% CI 0.08-0.41, P=0.003)",
+    "category": "injury_lower_leg",
+    "population": "runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Navicular drop greater than 10 mm is associated with approximately double the risk of developing MTSS",
+    "specific_value": "RR 1.99 (95% CI 1.00-3.96, P=0.05) for navicular drop >10 mm",
+    "category": "injury_lower_leg",
+    "population": "runners",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increased hip external rotation range of motion in males is significantly associated with MTSS risk",
+    "specific_value": "SMD 0.67 (95% CI 0.29-1.04, P<0.001)",
+    "category": "injury_lower_leg",
+    "population": "male runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  }
+]

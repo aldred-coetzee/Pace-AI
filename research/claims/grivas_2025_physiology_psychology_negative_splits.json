@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Negative split pacing (running the second half faster than the first) improves energy conservation and glycogen sparing during marathon racing.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Negative split pacing enhances thermoregulation and reduces cardiovascular drift compared to even or positive split strategies.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Negative split pacing delays fatigue and improves efficiency in the latter stages of a marathon.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Progressive long runs and fast-finish workouts are effective training modalities for developing the ability to execute negative split pacing in races.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite and recreational runners",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Psychological techniques such as goal setting and visualization can help runners implement negative split race strategies.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite and recreational runners",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Negative split pacing strategy should be individualized based on fitness level, environmental conditions, and race course profile rather than applied universally.",
+    "specific_value": null,
+    "category": "pacing_strategy",
+    "population": "elite and recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

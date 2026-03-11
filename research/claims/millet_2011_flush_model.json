@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Neuromuscular fatigue in ultra-marathon running has both central (CNS) and peripheral (muscular) components, and fatigue resistance is the critical performance determinant.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Central regulation of pacing in ultra-endurance running depends not only on afferent signals from muscles and peripheral organs, but also on peripheral fatigue and spinal/supraspinal inhibition, since these alterations require higher central drive for a given power output.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Fatigue measured via maximal voluntary contractions and electrical/magnetic stimulation does not necessarily predict submaximal performance limitation or pacing regulation during ultra-endurance running.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Rate of perceived exertion acts as the primary regulator of pacing strategy in ultra-marathon running, modulated by physiological filling rate, recovery capacity, and a security reserve that prevents physiological damage.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Environmental conditions, sleep deprivation, mental fatigue, pain-killers, psychostimulants, cognitive strategies, and nutritional strategies all modulate ultra-running performance through their effects on the central fatigue regulation system.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Ultra-marathon fatigue characteristics are highly specific to exercise intensity, duration, muscle groups involved, and contraction type, making direct transfer from laboratory fatigue protocols to race performance unreliable.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

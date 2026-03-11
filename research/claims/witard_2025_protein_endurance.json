@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Endurance athletes should consume approximately 1.8 g/kg body mass per day of protein to support recovery and training adaptation.",
+    "specific_value": "~1.8 g/kg BM/day",
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Habitual protein intake in male and female endurance athletes is typically around 1.5 g/kg body mass per day, which falls below the recommended level.",
+    "specific_value": "1.5 g/kg BM/day",
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "During periods of carbohydrate-restricted training and on rest days, protein requirements for endurance athletes may be elevated beyond 2.0 g/kg body mass per day.",
+    "specific_value": ">2.0 g/kg BM/day",
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Co-ingesting protein with carbohydrate before or during endurance exercise does not confer a performance advantage when carbohydrate recommendations are already met.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Co-ingesting protein with carbohydrate does not facilitate resynthesis of liver or muscle glycogen stores during recovery when adequate carbohydrate is consumed.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein nutrition may optimize the adaptive metabolic response to endurance training under conditions of low carbohydrate and/or energy availability.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Optimal per-meal protein doses for endurance athletes remain undetermined due to insufficient dose-response studies of muscle protein synthesis in relation to endurance exercise.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

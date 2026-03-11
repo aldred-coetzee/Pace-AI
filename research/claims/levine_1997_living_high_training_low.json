@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Living at moderate altitude (2,500 m) while training at low altitude (1,250 m) for 4 weeks improves 5,000-m time trial performance by approximately 13.4 seconds in competitive runners.",
+    "specific_value": "13.4 \u00b1 10 s improvement",
+    "category": "altitude_training",
+    "population": "competitive runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Both live-high/train-high and live-high/train-low protocols increase VO2max by approximately 5% through a 9% increase in red cell mass volume.",
+    "specific_value": "5% VO2max increase, 9% red cell mass increase",
+    "category": "altitude_training",
+    "population": "competitive runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Living and training at altitude (high-high) increases VO2max and red cell mass but does not improve sea-level 5,000-m race performance, likely due to reduced training velocities at altitude.",
+    "specific_value": null,
+    "category": "altitude_training",
+    "population": "competitive runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The performance benefit of live-high/train-low over live-high/train-high is attributed to maintaining sea-level training velocities, which improves velocity at VO2max and maximal steady state.",
+    "specific_value": null,
+    "category": "altitude_training",
+    "population": "competitive runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The improvement in 5,000-m time from live-high/train-low is directly proportional to the increase in VO2max (r = 0.65).",
+    "specific_value": "r = 0.65",
+    "category": "altitude_training",
+    "population": "competitive runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "An optimal live-high/train-low protocol uses a living altitude of approximately 2,500 m and a training altitude of approximately 1,250 m for a minimum of 4 weeks.",
+    "specific_value": "2,500 m living / 1,250 m training / 4 weeks",
+    "category": "altitude_training",
+    "population": "competitive runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The increase in red cell mass volume from altitude acclimatization is correlated with the increase in VO2max (r = 0.37).",
+    "specific_value": "r = 0.37",
+    "category": "altitude_training",
+    "population": "competitive runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

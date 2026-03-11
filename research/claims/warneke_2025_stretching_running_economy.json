@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Pre-running stretching (static, dynamic, or PNF) does not significantly impair running economy acutely, despite theoretical concerns about reduced musculotendinous stiffness.",
+    "specific_value": "p = 0.21-0.65",
+    "category": "foam_rolling_mobility",
+    "population": "healthy runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "No specific type of stretching \u2014 static, dynamic, or proprioceptive neuromuscular facilitation (PNF) \u2014 was found to acutely affect running economy differently from the others.",
+    "specific_value": null,
+    "category": "foam_rolling_mobility",
+    "population": "healthy runners",
+    "confidence": 0.65,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The common recommendation to avoid pre-running stretching to protect running economy is not supported by current pooled evidence from 15 studies and 181 participants.",
+    "specific_value": "15 studies, 181 participants",
+    "category": "foam_rolling_mobility",
+    "population": "healthy runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Energy storage in tendons, which depends on musculotendinous stiffness, is theoretically important for running economy, but stretching-induced stiffness reductions have not been shown to translate into measurable running economy impairments.",
+    "specific_value": null,
+    "category": "foam_rolling_mobility",
+    "population": "healthy runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Evidence on chronic (long-term) stretching effects on running economy is extremely limited, with only 2 studies identified, insufficient for meta-analysis.",
+    "specific_value": "2 chronic studies",
+    "category": "foam_rolling_mobility",
+    "population": "healthy runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Methodological quality of studies on stretching and running economy is generally fair, with a mean PEDro score of 4.88 out of 10, limiting certainty of conclusions.",
+    "specific_value": "PEDro 4.88/10",
+    "category": "foam_rolling_mobility",
+    "population": "healthy runners",
+    "confidence": 0.65,
+    "school_of_thought": "general sports science"
+  }
+]

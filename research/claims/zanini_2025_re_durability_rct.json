@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Adding maximal strength and plyometric training twice weekly for 10 weeks improves running economy durability during prolonged running at marathon intensity in well-trained male runners.",
+    "specific_value": "twice weekly for 10 weeks",
+    "category": "strength_training_runners",
+    "population": "well-trained male runners (VO2max ~58.6 mL/kg/min, 10k ~39 min)",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Supplementary strength training improved running economy at 90 minutes of heavy-intensity running by 2.1% compared to a 0.6% worsening in the running-only control group.",
+    "specific_value": "-2.1% vs +0.6% at 90 min (P=0.04, \u03b7p2=0.13)",
+    "category": "strength_training_runners",
+    "population": "well-trained male runners (VO2max ~58.6 mL/kg/min, 10k ~39 min)",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training increased fatigued high-intensity time to exhaustion by 35% after a 90-minute heavy-intensity run, while the running-only group declined by 8%.",
+    "specific_value": "+35% vs -8% TTE (P=0.004, \u03b7p2=0.28)",
+    "category": "strength_training_runners",
+    "population": "well-trained male runners (VO2max ~58.6 mL/kg/min, 10k ~39 min)",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training benefits running economy more in a fatigued state than in a fresh state, suggesting RE durability is a distinct and trainable quality.",
+    "specific_value": null,
+    "category": "strength_training_runners",
+    "population": "well-trained male runners (VO2max ~58.6 mL/kg/min, 10k ~39 min)",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Maximal strength and plyometric training can improve a runner's ability to sustain high-intensity effort in the final stages of a race, simulated by a time-to-exhaustion test at 95% VO2max after prolonged running.",
+    "specific_value": "TTE at 95% VO2max",
+    "category": "strength_training_runners",
+    "population": "well-trained male runners (VO2max ~58.6 mL/kg/min, 10k ~39 min)",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running at approximately 80% VO2max (heavy-intensity domain, between lactate threshold 1 and 2) for 90 minutes causes progressive worsening of running economy in runners who do not strength train.",
+    "specific_value": "79.7% VO2max for 90 min",
+    "category": "strength_training_runners",
+    "population": "well-trained male runners (VO2max ~58.6 mL/kg/min, 10k ~39 min)",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  }
+]

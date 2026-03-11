@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Exercise benefits bone health at every age and is a critical factor in osteoporosis prevention and treatment.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes across all ages",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Adequate vitamin D and calcium intake are necessary throughout life to optimize bone health in athletes.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes across all ages",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "An imbalance between exercise and nutrition, as seen in the female athlete triad (low energy availability, menstrual dysfunction, low bone mineral density), compromises bone health and can lead to bone stress injuries and early osteoporosis.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Bone stress injuries resulting from the female athlete triad lead to lost time from training and competition, making early recognition and treatment vital.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Weightbearing exercise and strength training are both necessary components for optimizing bone health in athletes.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes across all ages",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Hormonal status plays a vital role in ensuring optimal bone health, and hormonal imbalances are a key risk factor for stress fractures in athletes.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes across all ages",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  }
+]

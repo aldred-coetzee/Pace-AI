@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Ingestion of 30g protein is sufficient to maximize myofibrillar protein synthesis rates during recovery from endurance exercise, with no additional benefit from 45g.",
+    "specific_value": "30g protein",
+    "category": "protein_runners",
+    "population": "young endurance-trained men",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "30g protein post-endurance exercise stimulates a ~46% increase in myofibrillar protein synthesis rates compared to carbohydrate alone.",
+    "specific_value": "~46% increase in MyoPS",
+    "category": "protein_runners",
+    "population": "young endurance-trained men",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Whole-body net protein balance increases dose-dependently with protein intake from 0g to 45g post-endurance exercise, meaning higher doses still benefit whole-body protein turnover even if muscle protein synthesis is maximized at 30g.",
+    "specific_value": "0g to 45g dose-dependent",
+    "category": "protein_runners",
+    "population": "young endurance-trained men",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Approximately 70-74% of ingested protein-derived amino acids appear in the circulation after post-exercise consumption, indicating efficient digestion and absorption.",
+    "specific_value": "70-74% bioavailability",
+    "category": "protein_runners",
+    "population": "young endurance-trained men",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Dietary protein-derived amino acid incorporation into mitochondrial protein increases dose-dependently up to at least 45g protein post-endurance exercise, suggesting higher doses may benefit mitochondrial adaptation.",
+    "specific_value": "dose-dependent up to 45g",
+    "category": "protein_runners",
+    "population": "young endurance-trained men",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Post-endurance exercise protein ingestion does not increase overall mitochondrial protein synthesis rates, though dietary protein-derived amino acids are incorporated into new mitochondrial protein.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "young endurance-trained men",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Co-ingesting protein with 45g carbohydrate post-endurance exercise shifts whole-body net protein balance from negative (~-0.31 \u03bcmol/kg/h with 0g protein) to strongly positive (~13.49 \u03bcmol/kg/h with 45g protein).",
+    "specific_value": "-0.31 to +13.49 \u03bcmol phe\u00b7kg\u207b\u00b9\u00b7h\u207b\u00b9",
+    "category": "protein_runners",
+    "population": "young endurance-trained men",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

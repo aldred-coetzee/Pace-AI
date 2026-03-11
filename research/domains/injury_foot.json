@@ -1,0 +1,398 @@
+{
+  "domain_id": "injury_foot",
+  "domain_name": "Foot — Plantar Fasciitis & Other",
+  "status": "complete",
+  "papers_found": 12,
+  "search_terms_used": [
+    "plantar fasciitis runners treatment meta-analysis pubmed",
+    "plantar heel pain running evidence systematic review pubmed",
+    "plantar fasciopathy loading protocol RCT pubmed",
+    "plantar fasciitis risk factors active populations meta-analysis pubmed",
+    "plantar fasciitis running biomechanics pubmed",
+    "running foot injury epidemiology systematic review incidence pubmed",
+    "Morton neuroma nonsurgical treatment systematic review meta-analysis pubmed",
+    "navicular stress fracture return to sport meta-analysis pubmed",
+    "foot orthoses injury prevention runners meta-analysis pubmed",
+    "posterior tibial tendon dysfunction runners return to running pubmed",
+    "hallux rigidus athlete management review pubmed"
+  ],
+  "search_terms_not_tried": [],
+  "coverage_notes": "Expanded coverage: original 6 papers covered plantar fasciitis exclusively (treatment meta, risk factors meta, high-load RCT, stepped-care guideline, 2 biomechanics studies). Added 6 papers covering other foot conditions: running injury epidemiology SR (Kakouris 2021), Morton's neuroma non-surgical treatment SR+MA (Matthews 2019), navicular stress fracture RTS SR+MA (Attia 2021), foot orthoses injury prevention SR+MA (Bonanno 2017), PTTD return to running review (Espinosa 2015), hallux rigidus in athletes (Murawski 2024). Now covers PF + Morton's neuroma + navicular fractures + PTTD + hallux rigidus + orthoses + general epidemiology.",
+  "papers": [
+    {
+      "id": "guimaraes_2023_pf_treatment_meta",
+      "authors": [
+        "Guimaraes JS",
+        "Arcanjo FL",
+        "Leporace G",
+        "Metsavaht LF",
+        "Conceicao CS",
+        "Moreno MVMG",
+        "Vieira TEM",
+        "Moraes CC",
+        "Gomes Neto M"
+      ],
+      "year": 2023,
+      "title": "Effects of therapeutic interventions on pain due to plantar fasciitis: A systematic review and meta-analysis",
+      "journal": "Clinical Rehabilitation",
+      "volume": "37",
+      "issue": "6",
+      "pages": "727-746",
+      "doi": "10.1177/02692155221143865",
+      "doi_verified": true,
+      "pubmed_id": "36571559",
+      "pmc_id": null,
+      "study_type": "meta_analysis",
+      "population": [
+        "general"
+      ],
+      "sport": [
+        "mixed"
+      ],
+      "n_subjects": 15401,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Largest meta-analysis of PF treatment (236 RCTs, 15401 patients); found ESWT was the only intervention effective at medium and long-term follow-up."
+    },
+    {
+      "id": "hamstra_wright_2021_pf_risk_factors_meta",
+      "authors": [
+        "Hamstra-Wright KL",
+        "Huxel Bliven KC",
+        "Bay RC",
+        "Aydemir B"
+      ],
+      "year": 2021,
+      "title": "Risk Factors for Plantar Fasciitis in Physically Active Individuals: A Systematic Review and Meta-analysis",
+      "journal": "Sports Health",
+      "volume": "13",
+      "issue": "3",
+      "pages": "296-303",
+      "doi": "10.1177/1941738120970976",
+      "doi_verified": true,
+      "pubmed_id": "33530860",
+      "pmc_id": "PMC8083151",
+      "study_type": "meta_analysis",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Meta-analysis of 16 studies identifying three significant risk factors for PF in active populations: increased plantarflexion ROM, elevated BMI, and increased body mass."
+    },
+    {
+      "id": "rathleff_2015_pf_highload_rct",
+      "authors": [
+        "Rathleff MS",
+        "Mølgaard CM",
+        "Fredberg U",
+        "Kaalund S",
+        "Andersen KB",
+        "Jensen TT",
+        "Aaskov S",
+        "Olesen JL"
+      ],
+      "year": 2015,
+      "title": "High-load strength training improves outcome in patients with plantar fasciitis: A randomized controlled trial with 12-month follow-up",
+      "journal": "Scandinavian Journal of Medicine and Science in Sports",
+      "volume": "25",
+      "issue": "3",
+      "pages": "e292-e300",
+      "doi": "10.1111/sms.12313",
+      "doi_verified": true,
+      "pubmed_id": "25145882",
+      "pmc_id": null,
+      "study_type": "rct",
+      "population": [
+        "general"
+      ],
+      "sport": [
+        "general_endurance"
+      ],
+      "n_subjects": 48,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Landmark RCT establishing high-load strength training protocol (unilateral heel raises with towel under toes) for PF; strength group had FFI 29 points lower than stretch group at 3 months."
+    },
+    {
+      "id": "morrissey_2021_plantar_heel_guideline",
+      "authors": [
+        "Morrissey D",
+        "Cotchett M",
+        "Said J'Bari A",
+        "Prior T",
+        "Griffiths IB",
+        "Rathleff MS",
+        "Gulle H",
+        "Vicenzino B",
+        "Barton CJ"
+      ],
+      "year": 2021,
+      "title": "Management of plantar heel pain: a best practice guide informed by a systematic review, expert clinical reasoning and patient values",
+      "journal": "British Journal of Sports Medicine",
+      "volume": "55",
+      "issue": "19",
+      "pages": "1106-1118",
+      "doi": "10.1136/bjsports-2019-101970",
+      "doi_verified": true,
+      "pubmed_id": "33785535",
+      "pmc_id": "PMC8458083",
+      "study_type": "systematic_review",
+      "population": [
+        "general"
+      ],
+      "sport": [
+        "mixed"
+      ],
+      "n_subjects": 4351,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Established stepped-care treatment pathway from 51 RCTs: core treatment (taping, stretching, education), add shockwave at 4 weeks, custom orthoses at 12 weeks. Guides return-to-run decision-making."
+    },
+    {
+      "id": "pohl_2009_pf_biomechanics_female_runners",
+      "authors": [
+        "Pohl MB",
+        "Hamill J",
+        "Davis IS"
+      ],
+      "year": 2009,
+      "title": "Biomechanical and anatomic factors associated with a history of plantar fasciitis in female runners",
+      "journal": "Clinical Journal of Sport Medicine",
+      "volume": "19",
+      "issue": "5",
+      "pages": "372-376",
+      "doi": "10.1097/JSM.0b013e3181b8c270",
+      "doi_verified": true,
+      "pubmed_id": "19741308",
+      "pmc_id": null,
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 50,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Found PF history in female runners associated with greater vertical GRF loading rates and lower medial longitudinal arch height; no difference in rearfoot motion, challenging the overpronation hypothesis."
+    },
+    {
+      "id": "wiegand_2022_pf_running_foot_mechanics",
+      "authors": [
+        "Wiegand K",
+        "Tandy R",
+        "Freedman Silvernail J"
+      ],
+      "year": 2022,
+      "title": "Plantar fasciitis injury status influences foot mechanics during running",
+      "journal": "Clinical Biomechanics",
+      "volume": "97",
+      "issue": null,
+      "pages": "105712",
+      "doi": "10.1016/j.clinbiomech.2022.105712",
+      "doi_verified": true,
+      "pubmed_id": "35779463",
+      "pmc_id": null,
+      "study_type": "cross_sectional",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 30,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Demonstrated active PF alters forefoot and midfoot mechanics during running compared to resolved cases; foot mechanics do not simply return to normal after PF resolution."
+    },
+    {
+      "id": "kakouris_2021_running_injury_epidemiology_sr",
+      "authors": [
+        "Kakouris N",
+        "Yener N",
+        "Fong DTP"
+      ],
+      "year": 2021,
+      "title": "A systematic review of running-related musculoskeletal injuries in runners",
+      "journal": "Journal of Sport and Health Science",
+      "volume": "10",
+      "issue": "5",
+      "pages": "513-522",
+      "doi": "10.1016/j.jshs.2021.04.001",
+      "doi_verified": true,
+      "pubmed_id": "33862272",
+      "pmc_id": "PMC8500811",
+      "study_type": "systematic_review",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Systematic review of running-related musculoskeletal injury incidence and prevalence by anatomical location, reporting ankle-foot injuries at ~15% incidence and plantar fasciitis as a top specific diagnosis."
+    },
+    {
+      "id": "matthews_2019_morton_neuroma_nonsurgical_sr_ma",
+      "authors": [
+        "Matthews BG",
+        "Hurn SE",
+        "Harding MP",
+        "Henry RA",
+        "Ware RS"
+      ],
+      "year": 2019,
+      "title": "The effectiveness of non-surgical interventions for common plantar digital compressive neuropathy (Morton's neuroma): a systematic review and meta-analysis",
+      "journal": "Journal of Foot and Ankle Research",
+      "volume": "12",
+      "issue": null,
+      "pages": "12",
+      "doi": "10.1186/s13047-019-0320-7",
+      "doi_verified": true,
+      "pubmed_id": "30809275",
+      "pmc_id": "PMC6375221",
+      "study_type": "meta_analysis",
+      "population": [
+        "general"
+      ],
+      "sport": [
+        "mixed"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Systematic review and meta-analysis of 25 studies (7 RCTs, 18 case series) evaluating eight non-surgical interventions for Morton's neuroma, finding strongest evidence for corticosteroid injections and manipulation/mobilisation."
+    },
+    {
+      "id": "attia_2021_navicular_stress_fracture_rts_sr_ma",
+      "authors": [
+        "Attia AK",
+        "Mahmoud K",
+        "Bariteau J",
+        "Labib SA",
+        "DiGiovanni CW",
+        "D'Hooghe P"
+      ],
+      "year": 2021,
+      "title": "Return to sport following navicular stress fracture: a systematic review and meta-analysis of three hundred and fifteen fractures",
+      "journal": "International Orthopaedics",
+      "volume": "45",
+      "issue": "10",
+      "pages": "2699-2710",
+      "doi": "10.1007/s00264-021-05147-6",
+      "doi_verified": true,
+      "pubmed_id": "34415421",
+      "pmc_id": "PMC8514373",
+      "study_type": "meta_analysis",
+      "population": [
+        "elite",
+        "recreational"
+      ],
+      "sport": [
+        "running",
+        "mixed"
+      ],
+      "n_subjects": 315,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Systematic review and meta-analysis of 315 navicular stress fractures in athletes comparing operative (98.7% return to sport) versus conservative management outcomes and return-to-sport timelines."
+    },
+    {
+      "id": "bonanno_2017_foot_orthoses_injury_prevention_sr_ma",
+      "authors": [
+        "Bonanno DR",
+        "Landorf KB",
+        "Munteanu SE",
+        "Murley GS",
+        "Menz HB"
+      ],
+      "year": 2017,
+      "title": "Effectiveness of foot orthoses and shock-absorbing insoles for the prevention of injury: a systematic review and meta-analysis",
+      "journal": "British Journal of Sports Medicine",
+      "volume": "51",
+      "issue": "2",
+      "pages": "86-96",
+      "doi": "10.1136/bjsports-2016-096671",
+      "doi_verified": true,
+      "pubmed_id": "27919918",
+      "pmc_id": null,
+      "study_type": "meta_analysis",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running",
+        "military"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Meta-analysis of 18 trials finding foot orthoses effective for preventing overall injuries (RR 0.72) and stress fractures (RR 0.59) but not soft-tissue injuries; shock-absorbing insoles showed no benefit."
+    },
+    {
+      "id": "espinosa_2015_pttd_return_running",
+      "authors": [
+        "Espinosa N",
+        "Maurer MA"
+      ],
+      "year": 2015,
+      "title": "Stage I and II Posterior Tibial Tendon Dysfunction: Return to Running?",
+      "journal": "Clinics in Sports Medicine",
+      "volume": "34",
+      "issue": "4",
+      "pages": "761-768",
+      "doi": "10.1016/j.csm.2015.06.012",
+      "doi_verified": true,
+      "pubmed_id": "26409594",
+      "pmc_id": null,
+      "study_type": "review",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Clinical review examining early-stage posterior tibial tendon dysfunction in runners, addressing diagnosis, conservative management with orthotics and physical therapy, and criteria for return to running versus surgical reconstruction."
+    },
+    {
+      "id": "murawski_2024_hallux_rigidus_elite_athlete",
+      "authors": [
+        "Murawski CD",
+        "Anderson RB"
+      ],
+      "year": 2024,
+      "title": "Managing Hallux Rigidus in the Elite Athlete",
+      "journal": "Foot and Ankle Clinics",
+      "volume": "29",
+      "issue": "3",
+      "pages": "455-469",
+      "doi": "10.1016/j.fcl.2023.12.004",
+      "doi_verified": true,
+      "pubmed_id": "39068021",
+      "pmc_id": null,
+      "study_type": "review",
+      "population": [
+        "elite"
+      ],
+      "sport": [
+        "running",
+        "mixed"
+      ],
+      "n_subjects": 0,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Clinical review of hallux rigidus management in elite athletes covering conservative strategies (NSAIDs, injections, shoe modifications, orthotics) and surgical options including cheilectomy for predictable return to sport."
+    }
+  ]
+}

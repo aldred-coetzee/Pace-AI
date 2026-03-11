@@ -1,0 +1,58 @@
+[
+  {
+    "text": "The foot is the most common anatomical site of trail running injury, followed by the knee, lower leg, thigh, and ankle.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "trail runners (recreational and mixed)",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Skin lacerations/abrasions are the most common trail running injury diagnoses, followed by skin blisters, muscle strains, muscle cramping, and ligament sprains.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "trail runners (recreational and mixed)",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Gastrointestinal tract issues are the most common illness among trail runners, followed by metabolic and cardiovascular system problems.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "trail runners (recreational and mixed)",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Nausea, vomiting related to GIT distress, and dehydration are commonly reported symptoms among trail runners during racing.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "trail runners (recreational and mixed)",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Trail running injury incidence ranges from 1.6 to 4285.0 injuries per 1000 hours of running, with the wide range reflecting differences in injury definitions and race distances.",
+    "specific_value": "1.6-4285.0 injuries per 1000 h",
+    "category": "ultramarathon",
+    "population": "trail runners (recreational and mixed)",
+    "confidence": 0.65,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Trail running illness incidence ranges from 65.0 to 6676.6 illnesses per 1000 hours of running.",
+    "specific_value": "65.0-6676.6 illnesses per 1000 h",
+    "category": "ultramarathon",
+    "population": "trail runners (recreational and mixed)",
+    "confidence": 0.65,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Most trail running injury and illness research focuses on single-day race events, with very limited evidence on training-related injuries and illnesses.",
+    "specific_value": "13 of 16 studies were race-related",
+    "category": "ultramarathon",
+    "population": "trail runners (recreational and mixed)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

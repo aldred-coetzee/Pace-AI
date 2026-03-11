@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Iron deficiency in athletes is caused by three main mechanisms: increased iron demand, elevated iron loss, and blockage of iron absorption due to hepcidin bursts after exercise.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "In healthy male and female athletes over 15 years, serum ferritin values below 15 mcg/l indicate empty iron stores, and values from 15 to 30 mcg/l indicate low iron stores.",
+    "specific_value": "<15 mcg/l empty, 15-30 mcg/l low",
+    "category": "iron_bone_health",
+    "population": "athletes over 15 years",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A serum ferritin cut-off of 30 mcg/l is the appropriate threshold for identifying iron deficiency in athletes over 15 years old.",
+    "specific_value": "30 mcg/l",
+    "category": "iron_bone_health",
+    "population": "athletes over 15 years",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Elite athletes should attain a serum ferritin value of at least 50 mcg/l prior to altitude training, as iron demands are increased at altitude.",
+    "specific_value": "50 mcg/l",
+    "category": "iron_bone_health",
+    "population": "elite athletes doing altitude training",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Baseline blood tests for monitoring iron status in athletes should include haemoglobin, haematocrit, mean cellular volume, mean cellular haemoglobin, and serum ferritin, repeated twice per year.",
+    "specific_value": "twice per year",
+    "category": "iron_bone_health",
+    "population": "athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Athletes with repeatedly low ferritin values benefit from intermittent oral iron supplementation rather than continuous daily supplementation.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes with low ferritin",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Long-term daily oral iron intake or intravenous iron supplementation in athletes with normal or high ferritin values is not beneficial and may be harmful.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes with normal/high ferritin",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "All types of iron deficiency, not just iron deficiency anemia, can impair physical performance in athletes and should be treated.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

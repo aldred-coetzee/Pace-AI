@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Overtraining syndrome (OTS) requires both suppressed performance for more than 4 weeks and accompanying changes in psychological symptoms for diagnosis.",
+    "specific_value": ">4 weeks suppressed performance",
+    "category": "overtraining_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "No published studies have provided objective evidence tracking performance changes from a healthy baseline through to a diagnosed overtrained state with prolonged performance suppression.",
+    "specific_value": "0 studies meeting full criteria",
+    "category": "overtraining_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Vague and inconsistent terminology around overtraining, overreaching, and staleness hampers diagnosis and research into overtraining syndrome.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "No ideal, easily repeatable testing battery currently exists for regularly monitoring athletes for overtraining syndrome onset.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Prospective longitudinal monitoring in real-world training settings is needed to understand how physiological and psychological symptoms of overtraining manifest over time.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Overtraining syndrome diagnosis requires tracking both physiological performance markers and psychological mood state changes, as neither alone is sufficient.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

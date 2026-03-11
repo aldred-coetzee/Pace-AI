@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Race distance (10K, half-marathon, marathon/ultra) is not significantly associated with consumption of most food groups among recreational endurance runners.",
+    "specific_value": "p > 0.05 for most food clusters",
+    "category": "nutrition_general",
+    "population": "recreational endurance runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "10-km runners consume significantly more fruits and vegetables than half-marathon and marathon/ultra-marathon runners.",
+    "specific_value": "p \u2264 0.05",
+    "category": "nutrition_general",
+    "population": "recreational endurance runners",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "10-km runners consume significantly more total protein than half-marathon and marathon/ultra-marathon runners.",
+    "specific_value": "p \u2264 0.05",
+    "category": "nutrition_general",
+    "population": "recreational endurance runners",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Older age predicts higher consumption of fruits and vegetables, and plant protein among recreational endurance runners.",
+    "specific_value": "p \u2264 0.05",
+    "category": "nutrition_general",
+    "population": "recreational endurance runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Older age predicts lower consumption of unprocessed meat, processed meat, and eggs among recreational endurance runners.",
+    "specific_value": "p \u2264 0.05",
+    "category": "nutrition_general",
+    "population": "recreational endurance runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Longer race distance does not appear to drive greater dietary intake diversity or volume in recreational runners, suggesting nutritional guidance should not differ substantially by target race distance alone.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "recreational endurance runners",
+    "confidence": 0.4,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

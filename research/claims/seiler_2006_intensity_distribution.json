@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Elite endurance athletes distribute approximately 75% of training sessions in zone 1 (below VT1), 6-8% in zone 2 (between VT1 and VT2), and 15-20% in zone 3 (above VT2), following a polarized pattern.",
+    "specific_value": "75% zone 1, 6-8% zone 2, 15-20% zone 3",
+    "category": "training_zones_systems",
+    "population": "nationally competitive junior cross-country skiers",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Heart rate-based and session RPE-based methods produce similar training intensity distributions, making session RPE a valid alternative for quantifying training load distribution.",
+    "specific_value": null,
+    "category": "training_zones_systems",
+    "population": "nationally competitive junior cross-country skiers",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Elite endurance athletes train surprisingly little at lactate threshold intensity, with only 6-8% of sessions falling in the zone between VT1 and VT2.",
+    "specific_value": "6-8% of sessions in threshold zone",
+    "category": "training_zones_systems",
+    "population": "elite endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Approximately 71% of training sessions are performed at blood lactate concentrations of 2.0 mM or below, confirming that the majority of endurance training occurs at low intensity.",
+    "specific_value": "71% of sessions \u22642.0 mM blood lactate",
+    "category": "training_zones_systems",
+    "population": "nationally competitive junior cross-country skiers",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "When high-intensity sessions are performed in polarized training, they are done at substantial intensity \u2014 sessions above the lactate accommodation zone averaged 9.5 mM blood lactate.",
+    "specific_value": "mean 9.5 \u00b1 2.8 mM blood lactate for high-intensity sessions",
+    "category": "training_zones_systems",
+    "population": "nationally competitive junior cross-country skiers",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "The polarized training distribution pattern is consistent across observational studies of elite endurance athletes in multiple sports, suggesting it is a robust feature of successful endurance training.",
+    "specific_value": null,
+    "category": "training_zones_systems",
+    "population": "elite endurance athletes",
+    "confidence": 0.6,
+    "school_of_thought": "Seiler polarized"
+  }
+]

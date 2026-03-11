@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Low energy availability (LEA) in athletes reduces hypothalamic pulsatile release of gonadotropin-releasing hormone, impairing anterior pituitary release of gonadotropins (FSH and LH).",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "In female athletes, reduced FSH and LH pulsatility from low energy availability produces hypoestrogenism, causing functional hypothalamic amenorrhea and decreased bone mass.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "In male athletes, low energy availability reduces testosterone levels and negatively affects bone health.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "RED-S is not limited to the classic female athlete triad but encompasses a whole spectrum of health and performance impairments affecting athletes of any gender.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low energy availability alters thyroid hormone signaling pathways, leptin levels, carbohydrate metabolism, the growth hormone/IGF-1 axis, and sympathetic/parasympathetic tone.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "RED-S can result from either low-energy diets (intentional or unintentional) or excessive exercise volume, or a combination of both.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  }
+]

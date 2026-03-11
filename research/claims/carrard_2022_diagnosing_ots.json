@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Overtraining syndrome (OTS) is characterized by a long-term performance decrement resulting from a persisting imbalance between training-related and nontraining-related load and recovery.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "mixed athletes",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "OTS remains a diagnosis of exclusion due to the lack of a gold standard diagnostic test, requiring clinicians to rule out other medical conditions first.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "mixed athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "OTS is multisystemic in nature, affecting hormonal, neurotransmitter, metabolic, psychological, cardiac, neurological, immunological, and musculoskeletal systems simultaneously.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "mixed athletes",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Basal hormone levels, neurotransmitter levels, hormonal responses to stimuli, heart rate variability, psychological questionnaires, and exercise tests are all potentially diagnostic markers for overtraining syndrome.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "mixed athletes",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Combinations of multiple biomarkers (as in the EROS diagnostic scores) may be required to diagnose OTS rather than any single marker alone.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "mixed athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Heart rate variability is among the potentially diagnostic tools for overtraining syndrome, making HRV monitoring a practical screening metric for coaches and athletes.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "mixed athletes",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Current OTS diagnostic scores (EROS-CLINICAL, EROS-SIMPLIFIED, EROS-COMPLETE) have been developed primarily in male athletes and require validation in female athletes and larger samples before broad clinical application.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "male athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

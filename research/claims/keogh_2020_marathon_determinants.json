@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Training history accounts for the greatest variance in marathon finish time among anthropometric, training, and pacing variables combined.",
+    "specific_value": "Beta = 0.76",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Setting a pragmatic (realistic) target finish time based on training and previous race performances is the second most important predictor of marathon performance.",
+    "specific_value": "Beta = -0.36",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Greater in-race pace variance (less even pacing) is significantly associated with slower marathon finish times.",
+    "specific_value": "Beta = 0.26",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Marathon experience (number of previous marathons completed) is a statistically significant but relatively small predictor of marathon finish time.",
+    "specific_value": "Beta = 0.06, p = 0.01",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A combined model of age, BMI, marathon experience, training history, target finish time pragmatism, and in-race pace variance explains approximately 86% of the variance in marathon finish time.",
+    "specific_value": "adj. R\u00b2 = 0.858",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Age and BMI do not make statistically significant independent contributions to marathon finish time prediction when training history, pacing, and goal-setting variables are included in the model.",
+    "specific_value": null,
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

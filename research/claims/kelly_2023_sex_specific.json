@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Sex differences exist in predictors of ultramarathon performance, physiological responses to training/racing/recovery, chronic and acute health issues, and pacing strategies.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "male and female ultramarathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Most ultramarathon training, racing, nutrition, and recovery guidelines are based on research that largely excluded female athletes.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "female ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Sex-specific guidelines for ultramarathon coaching could significantly improve performance and health outcomes for female runners.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "female ultramarathon runners",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Current evidence on sex differences in ultramarathon running is predominantly observational and of low overall quality, with only 3 RCTs identified across 45 studies.",
+    "specific_value": "3 RCTs out of 45 studies",
+    "category": "ultramarathon",
+    "population": "male and female ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Male and female ultramarathon runners exhibit different pacing strategies during races.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "male and female ultramarathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

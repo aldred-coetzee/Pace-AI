@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Footstrike is the major contributor to hemolysis during running, causing a fourfold greater increase in plasma free hemoglobin compared to cycling at equivalent oxygen uptake.",
+    "specific_value": "4x greater increase vs cycling",
+    "category": "iron_bone_health",
+    "population": "trained male triathletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "One hour of running at 75% VO2max causes significant hemolysis as measured by increased plasma free hemoglobin and decreased serum haptoglobin.",
+    "specific_value": "75% VO2max for 1 hour",
+    "category": "iron_bone_health",
+    "population": "trained male triathletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "General circulatory stress from exercise (independent of footstrike) also contributes to hemolysis, but to a much lesser degree than mechanical foot impact.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "trained male triathletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Oxidative stress to red blood cells (measured by methemoglobin) increases equally during running and cycling, indicating it is not footstrike-dependent.",
+    "specific_value": "2x increase in methemoglobin for both modes",
+    "category": "iron_bone_health",
+    "population": "trained male triathletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Runners may be at greater risk for iron depletion than cyclists or swimmers due to repeated footstrike-induced red blood cell destruction, warranting closer monitoring of iron status.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Serum haptoglobin decreases significantly after one hour of running but not after equivalent-intensity cycling, confirming footstrike as the primary mechanical cause of exercise-induced hemolysis.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "trained male triathletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "The overall injury incidence proportion among runners is approximately 40.2% and prevalence proportion is approximately 44.6%.",
+    "specific_value": "40.2% \u00b1 18.8% incidence, 44.6% \u00b1 18.4% prevalence",
+    "category": "injury_foot",
+    "population": "mixed runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Achilles tendinopathy has the highest injury incidence proportion among specific running pathologies at 10.3%.",
+    "specific_value": "10.3% incidence",
+    "category": "injury_foot",
+    "population": "mixed runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The five most common running injuries by incidence are Achilles tendinopathy (10.3%), medial tibial stress syndrome (9.4%), patellofemoral pain syndrome (6.3%), plantar fasciitis (6.1%), and ankle sprains (5.8%).",
+    "specific_value": "10.3%, 9.4%, 6.3%, 6.1%, 5.8%",
+    "category": "injury_foot",
+    "population": "mixed runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Patellofemoral pain syndrome has the highest injury prevalence proportion at 16.7%, followed by medial tibial stress syndrome (9.1%), plantar fasciitis (7.9%), iliotibial band syndrome (7.9%), and Achilles tendinopathy (6.6%).",
+    "specific_value": "16.7%, 9.1%, 7.9%, 7.9%, 6.6%",
+    "category": "injury_foot",
+    "population": "mixed runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The knee, ankle, and lower leg are the anatomic locations with the highest proportion of injury incidence in runners.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "mixed runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Among ultramarathon runners, the ankle (34.5%), knee (28.1%), and lower leg (12.9%) are the three most frequently injured anatomic sites.",
+    "specific_value": "34.5% ankle, 28.1% knee, 12.9% lower leg",
+    "category": "injury_foot",
+    "population": "ultramarathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Injury incidence proportions by anatomic location do not significantly differ between ultramarathon and non-ultramarathon runners.",
+    "specific_value": "p = 0.798",
+    "category": "injury_foot",
+    "population": "ultramarathon and non-ultramarathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  }
+]

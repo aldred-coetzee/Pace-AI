@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Athletes accustomed to high chronic training loads have fewer injuries than athletes training at lower workloads, a phenomenon termed the Training-Injury Prevention Paradox.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite and team sport athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Team sport athletes who performed more than 18 weeks of training before sustaining their initial injury were at reduced risk of sustaining a subsequent injury.",
+    "specific_value": ">18 weeks",
+    "category": "training_load_acwr",
+    "population": "team sport athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Non-contact soft-tissue injuries are primarily caused by excessive and rapid increases in training loads rather than by high training load per se.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite and team sport athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The acute:chronic workload ratio is the best practice predictor of training-related injuries and should be used to guide load prescription.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite and team sport athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Training load should be measured up to twice daily and tracked over periods of weeks and months to accurately capture injury risk.",
+    "specific_value": "up to twice daily",
+    "category": "training_load_acwr",
+    "population": "elite and team sport athletes",
+    "confidence": 0.6,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Under-training may increase injury risk, meaning workload reductions are not always protective against injury.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite and team sport athletes",
+    "confidence": 0.6,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Both internal and external training loads should be captured alongside acute and chronic timeframes to best represent an athlete's training burden and injury risk.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite and team sport athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  }
+]

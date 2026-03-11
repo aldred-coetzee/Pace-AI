@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Running technique retraining to land softer reduced the risk of knee injury by approximately two-thirds compared with control treadmill running.",
+    "specific_value": "RR 0.32 (95% CI 0.16-0.63)",
+    "category": "injury_knee",
+    "population": "novice and recreational runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Footwear selection (various options) does not significantly influence knee injury risk in runners.",
+    "specific_value": "RR range 0.55-1.06",
+    "category": "injury_knee",
+    "population": "novice and recreational runners",
+    "confidence": 0.4,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Multicomponent exercise therapy, graduated running programmes, and injury prevention education programmes do not significantly reduce knee injury risk.",
+    "specific_value": "RR range 0.55-1.06",
+    "category": "injury_knee",
+    "population": "novice and recreational runners",
+    "confidence": 0.4,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Patellofemoral pain in runners can be reduced in the short term through running technique retraining, medial-wedged foot orthoses, multicomponent exercise therapy, or osteopathic manipulation.",
+    "specific_value": "SMD range -4.96 to -0.90",
+    "category": "injury_knee",
+    "population": "runners with patellofemoral pain",
+    "confidence": 0.4,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Running technique retraining strategies that focus on softer landing are effective for both preventing knee injuries and managing existing patellofemoral pain.",
+    "specific_value": null,
+    "category": "injury_knee",
+    "population": "novice and recreational runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  }
+]
