@@ -42,6 +42,7 @@ def _wired(monkeypatch):
     mock_client.get_hrv.return_value = {"hrvSummary": {"weeklyAvg": 45, "lastNight": 48}}
     mock_client.get_training_readiness.return_value = {"score": 65, "level": "MODERATE"}
     mock_client.get_stress.return_value = {"overallStressLevel": 35, "restStressDuration": 600}
+    mock_client.get_resting_hr.return_value = {"restingHeartRate": 52, "calendarDate": "2026-03-10"}
 
     monkeypatch.setattr(srv, "garmin", mock_client)
     return mock_client
@@ -294,6 +295,33 @@ class TestGetStress:
 
 
 @pytest.mark.usefixtures("_wired")
+class TestGetRestingHr:
+    @pytest.mark.asyncio()
+    async def test_get_resting_hr(self):
+        from garmin_mcp.server import get_resting_hr
+
+        result = await get_resting_hr("2026-03-10")
+        assert result["restingHeartRate"] == 52
+
+    @pytest.mark.asyncio()
+    async def test_get_resting_hr_no_data(self, _wired):
+        from garmin_mcp.server import get_resting_hr
+
+        _wired.get_resting_hr.return_value = None
+        result = await get_resting_hr("2026-03-10")
+        assert result["resting_hr"] is None
+        assert "No resting HR" in result["message"]
+
+    @pytest.mark.asyncio()
+    async def test_get_resting_hr_api_error(self, _wired):
+        from garmin_mcp.server import get_resting_hr
+
+        _wired.get_resting_hr.side_effect = GarminAPIError("api_error", "Failed", "Retry")
+        result = await get_resting_hr("2026-03-10")
+        assert result["error"] == "api_error"
+
+
+@pytest.mark.usefixtures("_wired")
 class TestGetWellnessSnapshot:
     @pytest.mark.asyncio()
     async def test_get_wellness_snapshot(self):
@@ -306,6 +334,7 @@ class TestGetWellnessSnapshot:
         assert "body_battery" in day
         assert "sleep" in day
         assert "hrv" in day
+        assert "resting_hr" in day
         assert "training_readiness" in day
         assert "stress" in day
 

@@ -214,3 +214,11 @@ class GarminClient:
             date: Date in YYYY-MM-DD format.
         """
         return self._call("get_stress_data", date)
+
+    def get_resting_hr(self, date: str) -> Any:
+        """Get resting heart rate for a date.
+
+        Args:
+            date: Date in YYYY-MM-DD format.
+        """
+        return self._call("get_rhr_day", date)

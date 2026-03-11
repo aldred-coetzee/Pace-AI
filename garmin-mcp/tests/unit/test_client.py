@@ -236,3 +236,22 @@ class TestGarminClient:
         result = client.get_stress("2026-03-10")
         mock_garmin.get_stress_data.assert_called_once_with("2026-03-10")
         assert result == {"overallStressLevel": 35}
+
+    def test_get_resting_hr_delegates(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_rhr_day.return_value = {"restingHeartRate": 52, "calendarDate": "2026-03-10"}
+        client._garmin = mock_garmin
+
+        result = client.get_resting_hr("2026-03-10")
+        mock_garmin.get_rhr_day.assert_called_once_with("2026-03-10")
+        assert result == {"restingHeartRate": 52, "calendarDate": "2026-03-10"}
+
+    def test_get_resting_hr_returns_none(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_garmin.get_rhr_day.return_value = None
+        client._garmin = mock_garmin
+
+        result = client.get_resting_hr("2026-03-10")
+        assert result is None

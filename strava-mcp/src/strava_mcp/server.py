@@ -502,7 +502,9 @@ def _format_seconds(total_seconds: int) -> str:
 
 def main() -> None:
     """Entry point for the strava-mcp server."""
-    mcp.run(transport="streamable-http")
+    import os
+
+    mcp.run(transport=os.environ.get("MCP_TRANSPORT", "streamable-http"))
 
 
 if __name__ == "__main__":

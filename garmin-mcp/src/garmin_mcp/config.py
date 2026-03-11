@@ -10,12 +10,13 @@ from dotenv import load_dotenv
 
 
 def _find_env_file() -> Path | None:
-    """Walk up from cwd looking for .env."""
-    current = Path.cwd()
-    for directory in [current, *current.parents]:
-        env_path = directory / ".env"
-        if env_path.exists():
-            return env_path
+    """Walk up from cwd or package directory looking for .env."""
+    roots = [Path.cwd(), Path(__file__).resolve().parent]
+    for base in roots:
+        for directory in [base, *base.parents]:
+            env_path = directory / ".env"
+            if env_path.exists():
+                return env_path
     return None
 
 

@@ -5,16 +5,58 @@ Each prompt defines:
 - arguments: What Claude should provide (fetched from strava-mcp)
 - template: The coaching framework that guides Claude's reasoning
 
-The prompts inject the coaching methodology (from resources/methodology.py) as
-reference material. This is a RAG-like pattern: the methodology is the knowledge
+The prompts inject evidence-backed claims (from resources/claim_store.py) as
+reference material. This is a RAG pattern: the claims database is the knowledge
 base, the prompt teaches the model how to apply it, and the model reasons about
-the specific athlete. When research changes, update the methodology — not these
+the specific athlete. When research changes, rebuild the claims DB — not these
 prompts.
 """
 
 from __future__ import annotations
 
-from pace_ai.resources.methodology import METHODOLOGY
+import logging
+
+from pace_ai.resources.claim_store import query_claims
+
+log = logging.getLogger(__name__)
+
+# Category mappings: user-facing names → actual domain IDs in claims DB
+_WEEKLY_PLAN_CATEGORIES = ["training_load_acwr", "periodisation", "polarized_training"]
+_INJURY_RISK_CATEGORIES = ["training_load_acwr", "injury_prevention_general"]
+_RACE_READINESS_CATEGORIES = ["taper_science", "race_prediction", "periodisation"]
+_RUN_ANALYSIS_CATEGORIES = ["training_zones_systems", "polarized_training"]
+
+_DEFAULT_POPULATION = "recreational runners"
+
+
+def _format_evidence(claims: list[dict]) -> str:
+    """Format query_claims results into a markdown section for prompt injection."""
+    if not claims:
+        return "No research evidence available for these categories."
+    lines = []
+    for c in claims:
+        line = f"- [{c['category']}] {c['text']}"
+        if c.get("specific_value"):
+            line += f" (value: {c['specific_value']})"
+        line += f" [confidence={c['confidence']:.1f}, paper={c['paper_id']}]"
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def _get_evidence(
+    categories: list[str],
+    population: str = _DEFAULT_POPULATION,
+    limit: int = 20,
+    *,
+    db_path: str | None = None,
+) -> str:
+    """Query claims and format as evidence text. Returns gracefully on DB errors."""
+    try:
+        claims = query_claims(categories, population, limit, db_path=db_path)
+        return _format_evidence(claims)
+    except Exception:
+        log.debug("Failed to query claims DB", exc_info=True)
+        return "No research evidence available (claims database not found)."
 
 
 def weekly_plan_prompt(
@@ -24,6 +66,8 @@ def weekly_plan_prompt(
     training_zones: dict | None = None,
     training_load: dict | None = None,
     athlete_context: dict | None = None,
+    *,
+    db_path: str | None = None,
 ) -> str:
     """Generate a weekly training plan prompt.
 
@@ -34,6 +78,7 @@ def weekly_plan_prompt(
         training_zones: Optional zone definitions.
         training_load: Optional ACWR analysis from analyze_training_load.
         athlete_context: Optional dict with age, gender, experience level, condition.
+        db_path: Override path to claims DB (for testing).
     """
     goals_text = _format_goals(goals) if goals else "No goals set."
     activities_text = _format_recent_activities(recent_activities)
@@ -41,6 +86,7 @@ def weekly_plan_prompt(
     zones_text = _format_zones(training_zones) if training_zones else "No zone data available."
     load_text = _format_training_load(training_load) if training_load else "No load analysis available."
     context_text = _format_athlete_context(athlete_context) if athlete_context else ""
+    evidence_text = _get_evidence(_WEEKLY_PLAN_CATEGORIES, db_path=db_path)
 
     context_section = (
         f"""
@@ -68,16 +114,17 @@ def weekly_plan_prompt(
 ## Training Load Analysis
 {load_text}
 
-## Coaching Methodology Reference
-{METHODOLOGY}
+## Research Evidence
+The following claims are from peer-reviewed research, ranked by relevance:
+{evidence_text}
 
 ## Instructions
-Apply the methodology above to this specific athlete. In particular:
+Apply the research evidence above to this specific athlete. In particular:
 1. Follow the **progressive overload**, **80/20**, and **recovery** principles.
 2. Align key sessions with the **goal race distance** (specificity).
 3. Apply the **population-specific guidelines** and **ACWR action thresholds** \
 that match this athlete's age, experience, condition, and training load.
-4. If the methodology flags concerns for this athlete's profile, address them \
+4. If the evidence flags concerns for this athlete's profile, address them \
 in the safety notes.
 
 ## Output Format
@@ -101,6 +148,8 @@ def run_analysis_prompt(
     activity: dict,
     streams: dict | None = None,
     goals: list[dict] | None = None,
+    *,
+    db_path: str | None = None,
 ) -> str:
     """Generate a run analysis prompt.
 
@@ -108,10 +157,12 @@ def run_analysis_prompt(
         activity: Full activity detail from strava-mcp.
         streams: Optional time-series data (HR, pace, etc.).
         goals: Optional current goals for context.
+        db_path: Override path to claims DB (for testing).
     """
     activity_text = _format_activity_detail(activity)
     streams_text = _format_streams(streams) if streams else "No stream data available."
     goals_text = _format_goals(goals) if goals else "No goals set."
+    evidence_text = _get_evidence(_RUN_ANALYSIS_CATEGORIES, db_path=db_path)
 
     return f"""You are a running coach analyzing a specific run.
 
@@ -124,8 +175,12 @@ def run_analysis_prompt(
 ## Current Goals
 {goals_text}
 
+## Research Evidence
+The following claims are from peer-reviewed research on training zones and intensity:
+{evidence_text}
+
 ## Analysis Framework
-Evaluate the run on:
+Using the research evidence above, evaluate the run on:
 1. **Pace consistency**: Look at split-to-split variation. A coefficient of variation (CV) under 5% is good.
 2. **Heart rate drift**: Compare first-half vs second-half average HR at similar pace. >5% drift suggests fatigue.
 3. **Effort distribution**: Was the effort appropriate for the session type?
@@ -147,6 +202,8 @@ def race_readiness_prompt(
     training_load: dict | None = None,
     training_zones: dict | None = None,
     race_prediction: dict | None = None,
+    *,
+    db_path: str | None = None,
 ) -> str:
     """Generate a race readiness assessment prompt.
 
@@ -157,6 +214,7 @@ def race_readiness_prompt(
         training_load: Optional ACWR analysis.
         training_zones: Optional zone definitions from VDOT.
         race_prediction: Optional VDOT-based race prediction.
+        db_path: Override path to claims DB (for testing).
     """
     goals_text = _format_goals(goals) if goals else "No goals set."
     activities_text = _format_recent_activities(recent_activities)
@@ -164,6 +222,7 @@ def race_readiness_prompt(
     load_text = _format_training_load(training_load) if training_load else "No load analysis available."
     zones_text = _format_zones(training_zones) if training_zones else "No zone data available."
     prediction_text = _format_race_prediction(race_prediction) if race_prediction else "No race prediction available."
+    evidence_text = _get_evidence(_RACE_READINESS_CATEGORIES, db_path=db_path)
 
     return f"""You are a running coach assessing race readiness.
 
@@ -185,17 +244,18 @@ def race_readiness_prompt(
 ## Race Prediction (VDOT-based)
 {prediction_text}
 
-## Coaching Methodology Reference
-{METHODOLOGY}
+## Research Evidence
+The following claims are from peer-reviewed research on tapering, race prediction, and periodisation:
+{evidence_text}
 
 ## Assessment Framework
-Using the methodology above, evaluate readiness based on:
+Using the research evidence above, evaluate readiness based on:
 1. **Volume adequacy**: Has weekly mileage been sufficient for the goal distance?
 2. **Key workouts**: Has the athlete completed race-specific workouts at or near goal pace?
 3. **Consistency**: How many weeks of consistent training in the last 8 weeks?
 4. **Taper**: Is the current training load appropriate for the time until race day?
 5. **VDOT/Riegel check**: Compare the goal time against the VDOT-based prediction.
-6. **Population factors**: Apply the population-specific guidelines from the methodology.
+6. **Population factors**: Apply the population-specific evidence from the research.
 
 ## Output Format
 Provide:
@@ -210,6 +270,8 @@ def injury_risk_prompt(
     weekly_distances: list[float],
     training_load: dict,
     recent_activities: list[dict] | None = None,
+    *,
+    db_path: str | None = None,
 ) -> str:
     """Generate an injury risk assessment prompt.
 
@@ -217,12 +279,14 @@ def injury_risk_prompt(
         weekly_distances: Weekly mileage for the last 8+ weeks.
         training_load: ACWR analysis from analyze_training_load.
         recent_activities: Optional recent activity details.
+        db_path: Override path to claims DB (for testing).
     """
     distances_text = "\n".join(f"  Week {i + 1}: {d:.1f} km" for i, d in enumerate(weekly_distances))
     load_text = _format_training_load(training_load)
     activities_text = (
         _format_recent_activities(recent_activities) if recent_activities else "No detailed activity data."
     )
+    evidence_text = _get_evidence(_INJURY_RISK_CATEGORIES, db_path=db_path)
 
     return f"""You are a running coach assessing injury risk from training load patterns.
 
@@ -235,17 +299,17 @@ def injury_risk_prompt(
 ## Recent Activities
 {activities_text}
 
-## Coaching Methodology Reference
-{METHODOLOGY}
+## Research Evidence
+The following claims are from peer-reviewed research on training load and injury prevention:
+{evidence_text}
 
 ## Risk Assessment Framework
-Using the methodology above (especially the Injury Prevention Red Flags and ACWR Action
-Thresholds sections), evaluate based on:
+Using the research evidence above (especially ACWR thresholds and injury risk factors), evaluate based on:
 1. **10% rule**: Flag any weeks that exceeded the guideline.
-2. **ACWR**: Apply the action thresholds from the methodology.
+2. **ACWR**: Apply the action thresholds from the evidence.
 3. **Load variability**: Week-to-week consistency of the chronic period.
 4. **Pattern recognition**: Look for back-to-back high weeks, sudden drops, or erratic patterns.
-5. **Population factors**: Apply the population-specific guidelines from the methodology.
+5. **Population factors**: Apply the population-specific evidence from the research.
 
 ## Output Format
 Provide:

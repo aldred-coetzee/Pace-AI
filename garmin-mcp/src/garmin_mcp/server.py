@@ -248,11 +248,27 @@ async def get_stress(date: str) -> dict:
 
 
 @mcp.tool()
+async def get_resting_hr(date: str) -> dict:
+    """Get resting heart rate from Garmin.
+
+    Args:
+        date: Date in YYYY-MM-DD format.
+    """
+    try:
+        data = garmin.get_resting_hr(date)
+        if data is None:
+            return {"date": date, "resting_hr": None, "message": "No resting HR data available for this date."}
+        return data
+    except GarminAPIError as e:
+        return e.to_dict()
+
+
+@mcp.tool()
 async def get_wellness_snapshot(days: int = 7) -> dict:
     """Get a combined wellness summary for today and the past N days.
 
-    Fetches body battery, sleep, HRV, training readiness, and stress for each day
-    and returns a combined summary useful for coaching context.
+    Fetches body battery, sleep, HRV, resting HR, training readiness, and stress
+    for each day and returns a combined summary useful for coaching context.
 
     Args:
         days: Number of past days to include (default 7).
@@ -267,6 +283,7 @@ async def get_wellness_snapshot(days: int = 7) -> dict:
             ("body_battery", garmin.get_body_battery),
             ("sleep", garmin.get_sleep),
             ("hrv", garmin.get_hrv),
+            ("resting_hr", garmin.get_resting_hr),
             ("training_readiness", garmin.get_training_readiness),
             ("stress", garmin.get_stress),
         ]:
