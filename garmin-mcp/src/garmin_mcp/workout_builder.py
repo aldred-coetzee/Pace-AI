@@ -18,6 +18,13 @@ from typing import Any
 # ── Constants ──────────────────────────────────────────────────────────
 
 SPORT_TYPE_RUNNING = {"sportTypeId": 1, "sportTypeKey": "running"}
+SPORT_TYPE_STRENGTH = {"sportTypeId": 5, "sportTypeKey": "strength_training"}
+SPORT_TYPE_CARDIO = {"sportTypeId": 6, "sportTypeKey": "cardio"}
+SPORT_TYPE_YOGA = {"sportTypeId": 7, "sportTypeKey": "yoga"}
+SPORT_TYPE_PILATES = {"sportTypeId": 8, "sportTypeKey": "pilates"}
+SPORT_TYPE_HIIT = {"sportTypeId": 9, "sportTypeKey": "hiit"}
+SPORT_TYPE_MOBILITY = {"sportTypeId": 11, "sportTypeKey": "mobility"}
+SPORT_TYPE_WALKING = {"sportTypeId": 12, "sportTypeKey": "walking"}
 
 # Step types
 STEP_TYPE_WARMUP = {"stepTypeId": 1, "stepTypeKey": "warmup"}
@@ -141,17 +148,24 @@ def _repeat_group(
 # ── Workout Wrapper ───────────────────────────────────────────────────
 
 
-def _wrap_workout(name: str, steps: list[dict[str, Any]], *, description: str | None = None) -> dict[str, Any]:
+def _wrap_workout(
+    name: str,
+    steps: list[dict[str, Any]],
+    *,
+    sport_type: dict[str, Any] | None = None,
+    description: str | None = None,
+) -> dict[str, Any]:
     """Wrap steps into a complete Garmin workout JSON payload."""
+    st = sport_type or SPORT_TYPE_RUNNING
     workout: dict[str, Any] = {
         "workoutId": None,
         "ownerId": None,
         "workoutName": name,
-        "sportType": SPORT_TYPE_RUNNING,
+        "sportType": st,
         "workoutSegments": [
             {
                 "segmentOrder": 1,
-                "sportType": SPORT_TYPE_RUNNING,
+                "sportType": st,
                 "workoutSteps": steps,
             }
         ],
@@ -375,6 +389,224 @@ def custom_workout(name: str, steps_json: list[dict[str, Any]], *, description: 
     return _wrap_workout(name, steps_json, description=description)
 
 
+# ── Non-Running Builders ─────────────────────────────────────────────
+
+
+def _format_exercise_desc(exercise: dict[str, Any]) -> str:
+    """Build a step description string from an exercise dict."""
+    name = exercise["name"]
+    sets = exercise.get("sets", 1)
+    reps = exercise.get("reps")
+    duration_s = exercise.get("duration_s")
+    notes = exercise.get("notes")
+
+    if reps:
+        desc = f"{name} — {sets}x{reps}"
+    elif duration_s:
+        desc = f"{name} — {sets}x{duration_s}s"
+    else:
+        desc = name
+
+    if notes:
+        desc += f" ({notes})"
+    return desc
+
+
+def build_strength_workout(name: str, exercises: list[dict[str, Any]]) -> dict[str, Any]:
+    """Build a strength training workout with lap-button steps.
+
+    Each exercise is expanded into per-set steps with rest steps between exercises.
+
+    Args:
+        name: Workout name.
+        exercises: List of exercise dicts with keys: name (str), sets (int),
+            reps (int|None), duration_s (int|None), rest_s (int), notes (str|None).
+    """
+    steps: list[dict[str, Any]] = []
+    order = 1
+
+    # Warmup
+    steps.append(_lap_button_step(order, STEP_TYPE_WARMUP, description="Warmup — press lap when ready"))
+    order += 1
+
+    for i, ex in enumerate(exercises):
+        desc = _format_exercise_desc(ex)
+        sets = ex.get("sets", 1)
+        rest_s = ex.get("rest_s", 60)
+
+        for s in range(sets):
+            set_desc = f"{desc} (set {s + 1}/{sets})"
+            if ex.get("duration_s"):
+                steps.append(_time_step(order, STEP_TYPE_INTERVAL, ex["duration_s"], description=set_desc))
+            else:
+                steps.append(_lap_button_step(order, STEP_TYPE_INTERVAL, description=set_desc))
+            order += 1
+
+            # Rest between sets (but not after last set of last exercise)
+            if s < sets - 1 or i < len(exercises) - 1:
+                steps.append(_time_step(order, STEP_TYPE_REST, rest_s, description="Rest"))
+                order += 1
+
+    # Cooldown
+    steps.append(_lap_button_step(order, STEP_TYPE_COOLDOWN, description="Cooldown"))
+
+    exercise_names = [ex["name"] for ex in exercises]
+    return _wrap_workout(
+        name,
+        steps,
+        sport_type=SPORT_TYPE_STRENGTH,
+        description=f"Strength — {', '.join(exercise_names)}",
+    )
+
+
+def build_mobility_workout(name: str, exercises: list[dict[str, Any]]) -> dict[str, Any]:
+    """Build a mobility/stretching workout with timed holds.
+
+    Args:
+        name: Workout name.
+        exercises: List of exercise dicts with keys: name (str), sets (int),
+            duration_s (int), rest_s (int), notes (str|None).
+    """
+    steps: list[dict[str, Any]] = []
+    order = 1
+
+    steps.append(_lap_button_step(order, STEP_TYPE_WARMUP, description="Warmup — press lap when ready"))
+    order += 1
+
+    for i, ex in enumerate(exercises):
+        desc = _format_exercise_desc(ex)
+        sets = ex.get("sets", 1)
+        duration_s = ex.get("duration_s", 30)
+        rest_s = ex.get("rest_s", 15)
+
+        for s in range(sets):
+            set_desc = f"{desc} (set {s + 1}/{sets})"
+            steps.append(_time_step(order, STEP_TYPE_INTERVAL, duration_s, description=set_desc))
+            order += 1
+
+            if s < sets - 1 or i < len(exercises) - 1:
+                steps.append(_time_step(order, STEP_TYPE_REST, rest_s, description="Rest"))
+                order += 1
+
+    steps.append(_lap_button_step(order, STEP_TYPE_COOLDOWN, description="Cooldown"))
+
+    return _wrap_workout(
+        name,
+        steps,
+        sport_type=SPORT_TYPE_MOBILITY,
+        description=f"Mobility — {len(exercises)} exercises",
+    )
+
+
+def build_yoga_workout(name: str, duration_minutes: int, style: str | None = None) -> dict[str, Any]:
+    """Build a yoga workout — single timed step.
+
+    Args:
+        name: Workout name.
+        duration_minutes: Total session duration in minutes.
+        style: Optional style label (e.g. "Yin", "Vinyasa", "Restorative").
+    """
+    desc = f"{style} yoga" if style else "Yoga"
+    steps = [
+        _time_step(1, STEP_TYPE_INTERVAL, duration_minutes * 60, description=f"{desc} — {duration_minutes} min"),
+    ]
+    return _wrap_workout(
+        name,
+        steps,
+        sport_type=SPORT_TYPE_YOGA,
+        description=f"{desc} — {duration_minutes} min",
+    )
+
+
+def build_cardio_workout(name: str, duration_minutes: int, intensity: str = "moderate") -> dict[str, Any]:
+    """Build a cardio workout — duration-based with HR zone target.
+
+    Args:
+        name: Workout name.
+        duration_minutes: Session duration in minutes.
+        intensity: One of "easy" (zone 1), "moderate" (zone 2), "hard" (zone 3).
+    """
+    zone_map = {"easy": 1, "moderate": 2, "hard": 3}
+    hr_zone = zone_map.get(intensity)
+    if hr_zone is None:
+        msg = f"Invalid intensity '{intensity}'. Must be one of: easy, moderate, hard"
+        raise ValueError(msg)
+
+    steps = [
+        _time_step(1, STEP_TYPE_WARMUP, 300, description="Warmup"),
+        _time_step(2, STEP_TYPE_INTERVAL, (duration_minutes - 10) * 60, hr_zone=hr_zone, description="Main effort"),
+        _time_step(3, STEP_TYPE_COOLDOWN, 300, description="Cooldown"),
+    ]
+    return _wrap_workout(
+        name,
+        steps,
+        sport_type=SPORT_TYPE_CARDIO,
+        description=f"Cardio — {duration_minutes} min, {intensity} intensity (Zone {hr_zone})",
+    )
+
+
+def build_hiit_workout(
+    name: str,
+    rounds: int,
+    work_s: int,
+    rest_s: int,
+    exercises: list[str],
+) -> dict[str, Any]:
+    """Build a HIIT workout with repeating rounds.
+
+    Args:
+        name: Workout name.
+        rounds: Number of rounds.
+        work_s: Work interval duration in seconds.
+        rest_s: Rest interval duration in seconds.
+        exercises: List of exercise names (cycled through per interval).
+    """
+    steps: list[dict[str, Any]] = []
+
+    # Warmup
+    steps.append(_time_step(1, STEP_TYPE_WARMUP, 300, description="Warmup"))
+
+    # Build inner steps — one work+rest pair per exercise
+    inner_steps: list[dict[str, Any]] = []
+    inner_order = 1
+    for ex_name in exercises:
+        inner_steps.append(_time_step(inner_order, STEP_TYPE_INTERVAL, work_s, description=ex_name))
+        inner_order += 1
+        inner_steps.append(_time_step(inner_order, STEP_TYPE_REST, rest_s, description="Rest"))
+        inner_order += 1
+
+    steps.append(_repeat_group(2, rounds, inner_steps))
+
+    # Cooldown
+    steps.append(_time_step(3, STEP_TYPE_COOLDOWN, 300, description="Cooldown"))
+
+    return _wrap_workout(
+        name,
+        steps,
+        sport_type=SPORT_TYPE_HIIT,
+        description=f"HIIT — {rounds} rounds, {work_s}s work / {rest_s}s rest, {len(exercises)} exercises",
+    )
+
+
+def build_walking_workout(name: str, duration_minutes: int, hr_zone: int = 1) -> dict[str, Any]:
+    """Build a walking workout — simple timed step.
+
+    Args:
+        name: Workout name.
+        duration_minutes: Walk duration in minutes.
+        hr_zone: Garmin HR zone (default: 1).
+    """
+    steps = [
+        _time_step(1, STEP_TYPE_INTERVAL, duration_minutes * 60, hr_zone=hr_zone, description="Walk"),
+    ]
+    return _wrap_workout(
+        name,
+        steps,
+        sport_type=SPORT_TYPE_WALKING,
+        description=f"Walking — {duration_minutes} min",
+    )
+
+
 # ── Workout Type Registry ─────────────────────────────────────────────
 
 WORKOUT_TYPES = {
@@ -433,6 +665,54 @@ WORKOUT_TYPES = {
             "hr_zone": "Garmin HR zone for easy portion (default: 1)",
             "warmup_minutes": "Warmup duration (default: 0)",
             "cooldown_minutes": "Cooldown duration (default: 0)",
+        },
+    },
+    "strength": {
+        "builder": "build_strength_workout",
+        "description": "Strength training with exercises, sets, reps, and rest periods",
+        "parameters": {
+            "exercises": "List of exercise dicts: {name, sets, reps, duration_s, rest_s, notes} (required)",
+        },
+    },
+    "mobility": {
+        "builder": "build_mobility_workout",
+        "description": "Mobility/stretching with timed holds",
+        "parameters": {
+            "exercises": "List of exercise dicts: {name, sets, duration_s, rest_s, notes} (required)",
+        },
+    },
+    "yoga": {
+        "builder": "build_yoga_workout",
+        "description": "Yoga session — single timed block",
+        "parameters": {
+            "duration_minutes": "Session duration in minutes (required)",
+            "style": "Style label e.g. 'Yin', 'Vinyasa', 'Restorative' (optional)",
+        },
+    },
+    "cardio": {
+        "builder": "build_cardio_workout",
+        "description": "General cardio with HR zone target",
+        "parameters": {
+            "duration_minutes": "Session duration in minutes (required)",
+            "intensity": "One of: easy, moderate, hard (default: moderate)",
+        },
+    },
+    "hiit": {
+        "builder": "build_hiit_workout",
+        "description": "HIIT with repeating rounds of timed work/rest intervals",
+        "parameters": {
+            "rounds": "Number of rounds (required)",
+            "work_s": "Work interval duration in seconds (required)",
+            "rest_s": "Rest interval duration in seconds (required)",
+            "exercises": "List of exercise name strings (required)",
+        },
+    },
+    "walking": {
+        "builder": "build_walking_workout",
+        "description": "Simple timed walk",
+        "parameters": {
+            "duration_minutes": "Walk duration in minutes (required)",
+            "hr_zone": "Garmin HR zone (default: 1)",
         },
     },
     "custom": {

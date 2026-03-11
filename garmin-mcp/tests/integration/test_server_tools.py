@@ -101,6 +101,57 @@ class TestCreateWorkout:
         assert result["error"] == "invalid_json"
 
     @pytest.mark.asyncio()
+    async def test_create_strength(self):
+        from garmin_mcp.server import create_workout
+
+        params = '{"exercises": [{"name": "Squats", "sets": 3, "reps": 10, "rest_s": 60}]}'
+        result = await create_workout("strength", "Leg Strength", params)
+        assert result["created"] is True
+        assert result["workout_type"] == "strength"
+
+    @pytest.mark.asyncio()
+    async def test_create_mobility(self):
+        from garmin_mcp.server import create_workout
+
+        params = '{"exercises": [{"name": "Hip stretch", "sets": 2, "duration_s": 30, "rest_s": 10}]}'
+        result = await create_workout("mobility", "AM Mobility", params)
+        assert result["created"] is True
+        assert result["workout_type"] == "mobility"
+
+    @pytest.mark.asyncio()
+    async def test_create_yoga(self):
+        from garmin_mcp.server import create_workout
+
+        result = await create_workout("yoga", "Yin Yoga", '{"duration_minutes": 45, "style": "Yin"}')
+        assert result["created"] is True
+        assert result["workout_type"] == "yoga"
+
+    @pytest.mark.asyncio()
+    async def test_create_cardio(self):
+        from garmin_mcp.server import create_workout
+
+        result = await create_workout("cardio", "Bike", '{"duration_minutes": 30, "intensity": "moderate"}')
+        assert result["created"] is True
+        assert result["workout_type"] == "cardio"
+
+    @pytest.mark.asyncio()
+    async def test_create_hiit(self):
+        from garmin_mcp.server import create_workout
+
+        params = '{"rounds": 4, "work_s": 30, "rest_s": 15, "exercises": ["Burpees", "Squats"]}'
+        result = await create_workout("hiit", "HIIT Circuit", params)
+        assert result["created"] is True
+        assert result["workout_type"] == "hiit"
+
+    @pytest.mark.asyncio()
+    async def test_create_walking(self):
+        from garmin_mcp.server import create_workout
+
+        result = await create_workout("walking", "Evening Walk", '{"duration_minutes": 45}')
+        assert result["created"] is True
+        assert result["workout_type"] == "walking"
+
+    @pytest.mark.asyncio()
     async def test_missing_required_params(self):
         from garmin_mcp.server import create_workout
 

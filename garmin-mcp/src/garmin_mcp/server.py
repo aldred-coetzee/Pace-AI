@@ -12,6 +12,12 @@ from garmin_mcp.client import GarminAPIError, GarminClient
 from garmin_mcp.config import Settings
 from garmin_mcp.workout_builder import (
     WORKOUT_TYPES,
+    build_cardio_workout,
+    build_hiit_workout,
+    build_mobility_workout,
+    build_strength_workout,
+    build_walking_workout,
+    build_yoga_workout,
     custom_workout,
     easy_run,
     interval_repeats,
@@ -57,7 +63,7 @@ async def create_workout(
     Garmin Connect and can be scheduled to a date (syncs to watch).
 
     Args:
-        workout_type: One of: easy_run, run_walk, tempo, intervals, strides, custom.
+        workout_type: easy_run|run_walk|tempo|intervals|strides|strength|mobility|yoga|cardio|hiit|walking|custom.
         name: Workout name (shown on watch).
         params_json: JSON object of type-specific parameters. See garmin://workout-types resource.
     """
@@ -308,22 +314,29 @@ async def workout_types_resource() -> str:
 # ── Helpers ────────────────────────────────────────────────────────────
 
 
+_BUILDERS = {
+    "easy_run": easy_run,
+    "run_walk": run_walk,
+    "tempo": tempo_run,
+    "intervals": interval_repeats,
+    "strides": strides,
+    "strength": build_strength_workout,
+    "mobility": build_mobility_workout,
+    "yoga": build_yoga_workout,
+    "cardio": build_cardio_workout,
+    "hiit": build_hiit_workout,
+    "walking": build_walking_workout,
+    "custom": custom_workout,
+}
+
+
 def _build_workout(workout_type: str, name: str, params: dict[str, Any]) -> dict[str, Any]:
     """Dispatch to the correct workout builder function."""
-    if workout_type == "easy_run":
-        return easy_run(name, **params)
-    if workout_type == "run_walk":
-        return run_walk(name, **params)
-    if workout_type == "tempo":
-        return tempo_run(name, **params)
-    if workout_type == "intervals":
-        return interval_repeats(name, **params)
-    if workout_type == "strides":
-        return strides(name, **params)
-    if workout_type == "custom":
-        return custom_workout(name, **params)
-    msg = f"Unknown workout type: {workout_type}"
-    raise ValueError(msg)
+    builder = _BUILDERS.get(workout_type)
+    if builder is None:
+        msg = f"Unknown workout type: {workout_type}"
+        raise ValueError(msg)
+    return builder(name, **params)
 
 
 # ── Entry Point ────────────────────────────────────────────────────────
