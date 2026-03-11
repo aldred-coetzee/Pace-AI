@@ -3,22 +3,19 @@
 from __future__ import annotations
 
 import subprocess
+from pathlib import Path
 
 from flask import Flask, Response, render_template_string, request, session
 
 app = Flask(__name__)
 app.secret_key = "pace-ai-dev-key"
 
+PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
+
 CLAUDE_CMD = [
     "claude",
     "-p",
     "--dangerously-skip-permissions",
-    "--mcp-server",
-    "http://localhost:8001",
-    "--mcp-server",
-    "http://localhost:8002",
-    "--mcp-server",
-    "http://localhost:8003",
 ]
 
 HTML = """\
@@ -86,6 +83,7 @@ def chat():
             capture_output=True,
             text=True,
             timeout=120,
+            cwd=PROJECT_ROOT,
         )
         reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
     except subprocess.TimeoutExpired:
