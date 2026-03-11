@@ -6,28 +6,47 @@ import json
 import logging
 import subprocess
 import sys
+import uuid
 from pathlib import Path
 
 from flask import Flask, Response, render_template_string, request, session
 
-# Add pace-ai to import path so we can call tool functions directly
+# Add pace-ai src to import path before importing pace_ai modules
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "pace-ai" / "src"))
+_pace_src = str(PROJECT_ROOT / "pace-ai" / "src")
+if _pace_src not in sys.path:
+    sys.path.insert(0, _pace_src)
 
-from pace_ai.database import HistoryDB  # noqa: E402
+# ruff: noqa: E402
+from pace_ai.database import HistoryDB
 from pace_ai.tools.memory import (
     get_athlete_facts,
     get_coaching_context,
     get_recent_coaching_log,
-)  # noqa: E402
-from pace_ai.tools.profile import get_athlete_profile  # noqa: E402
+)
+from pace_ai.tools.profile import get_athlete_profile
 
-log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(message)s")
+log = logging.getLogger("pace-ui")
 
 app = Flask(__name__)
 app.secret_key = "pace-ai-dev-key"
 
 DB_PATH = str(PROJECT_ROOT / "pace_ai.db")
+
+# Server-side session store — cookie only holds a session ID
+_sessions: dict[str, dict] = {}
+
+
+def _get_store() -> dict:
+    """Get or create server-side session store for the current request."""
+    sid = session.get("sid")
+    if sid is None or sid not in _sessions:
+        sid = uuid.uuid4().hex
+        session["sid"] = sid
+        _sessions[sid] = {"messages": [], "athlete_context": None}
+    return _sessions[sid]
+
 
 CLAUDE_CMD = [
     "claude",
@@ -137,17 +156,19 @@ def _build_context() -> str:
 
 def _get_session_context() -> str:
     """Get or build context for the current session."""
-    ctx = session.get("athlete_context")
+    store = _get_store()
+    ctx = store.get("athlete_context")
     if ctx is None:
         ctx = _build_context()
-        session["athlete_context"] = ctx
+        store["athlete_context"] = ctx
     return ctx
 
 
 @app.route("/")
 def index():
-    messages = session.get("messages", [])
-    ctx = session.get("athlete_context")
+    store = _get_store()
+    messages = store.get("messages", [])
+    ctx = store.get("athlete_context")
     if ctx:
         parts = [s.split("\n")[0] for s in ctx.split("## ") if s.strip()]
         context_status = f"Context loaded: {', '.join(parts)}"
@@ -164,13 +185,20 @@ def chat():
     if not user_message:
         return Response(status=302, headers={"Location": "/"})
 
-    messages = session.get("messages", [])
-    messages.append({"role": "user", "content": user_message})
+    store = _get_store()
+    store["messages"].append({"role": "user", "content": user_message})
 
     context = _get_session_context()
     cmd = list(CLAUDE_CMD)
     if context:
         cmd.extend(["--system-prompt", context])
+
+    log.info("--- claude -p call ---")
+    log.info(
+        "cmd: %s", " ".join(cmd[:4]) + (" --system-prompt <...>" if context else "")
+    )
+    log.info("system prompt length: %d chars", len(context))
+    log.info("user message: %r", user_message[:100])
 
     try:
         result = subprocess.run(
@@ -181,20 +209,33 @@ def chat():
             timeout=120,
             cwd=str(PROJECT_ROOT),
         )
+        log.info("return code: %d", result.returncode)
+        log.info("stdout: %d bytes", len(result.stdout))
+        log.info(
+            "stderr: %d bytes | %s",
+            len(result.stderr),
+            result.stderr[:200] if result.stderr else "(empty)",
+        )
         reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
     except subprocess.TimeoutExpired:
+        log.exception("claude -p timed out")
         reply = "(timeout — Claude took too long)"
     except Exception as e:
+        log.exception("claude -p failed")
         reply = f"(error: {e})"
 
-    messages.append({"role": "assistant", "content": reply})
-    session["messages"] = messages
+    log.info("reply length: %d chars", len(reply))
+
+    store["messages"].append({"role": "assistant", "content": reply})
 
     return Response(status=302, headers={"Location": "/"})
 
 
 @app.route("/clear", methods=["POST"])
 def clear():
+    sid = session.get("sid")
+    if sid and sid in _sessions:
+        del _sessions[sid]
     session.clear()
     return Response(status=302, headers={"Location": "/"})
 
