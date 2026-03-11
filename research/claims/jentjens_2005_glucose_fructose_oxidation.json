@@ -1,0 +1,50 @@
+[
+  {
+    "text": "A mixture of glucose and fructose ingested at 2.4 g/min during prolonged cycling achieves peak exogenous carbohydrate oxidation rates of approximately 1.75 g/min, exceeding the ~1.0 g/min limit of glucose alone.",
+    "specific_value": "1.75 g/min peak oxidation",
+    "category": "carbohydrate_fueling",
+    "population": "trained male cyclists (VO2max ~68 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Ingesting glucose plus fructose at equal rates (1.2 g/min each) results in approximately 50% higher exogenous carbohydrate oxidation compared to ingesting glucose alone at the same total rate.",
+    "specific_value": "~50% higher oxidation rate",
+    "category": "carbohydrate_fueling",
+    "population": "trained male cyclists (VO2max ~68 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Glucose-only ingestion at 1.2 g/min yields peak exogenous oxidation rates of approximately 1.06 g/min, confirming an upper limit for single-transporter carbohydrate absorption.",
+    "specific_value": "1.06 g/min peak oxidation with glucose only",
+    "category": "carbohydrate_fueling",
+    "population": "trained male cyclists (VO2max ~68 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Combining glucose and fructose exploits separate intestinal transporters (SGLT1 and GLUT5), allowing total carbohydrate absorption and oxidation to exceed what either sugar achieves alone.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "During sustained exercise at ~60% VO2max lasting 150 minutes, glucose-fructose mixtures maintain elevated exogenous oxidation rates (~1.49 g/min) over the final 90 minutes compared to glucose alone (~0.99 g/min).",
+    "specific_value": "1.49 vs 0.99 g/min over last 90 min",
+    "category": "carbohydrate_fueling",
+    "population": "trained male cyclists (VO2max ~68 ml/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For events lasting 2.5+ hours at moderate intensity, athletes should use glucose-fructose mixtures rather than glucose alone to maximize carbohydrate availability, targeting intake rates up to 2.4 g/min (144 g/hour).",
+    "specific_value": "up to 2.4 g/min (144 g/h)",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

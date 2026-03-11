@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Block periodization (concentrated HIT blocks every fourth week) produces greater VO2max improvements than traditional evenly-distributed HIT training over 12 weeks in trained cyclists",
+    "specific_value": "8.8% vs 3.7%",
+    "category": "periodisation",
+    "population": "well-trained cyclists",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "Block periodization shows a trend toward greater improvement in lactate threshold power output compared to traditional periodization",
+    "specific_value": "22% vs 10% at 2 mmol/L lactate (P=0.054)",
+    "category": "periodisation",
+    "population": "well-trained cyclists",
+    "confidence": 0.6,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "Block periodization produces moderate superior effect sizes across multiple endurance indices (VO2max, lactate threshold power, hemoglobin mass, 40-min time trial power) compared to traditional training distribution",
+    "specific_value": "ES 0.62-1.12",
+    "category": "periodisation",
+    "population": "well-trained cyclists",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "A block periodization structure of 5 HIT sessions in one concentrated week followed by 3 weeks of 1 HIT session per week is more effective than a steady 2 HIT sessions per week, even when total HIT and LIT volumes are equated",
+    "specific_value": "5 HIT/week for 1 week then 1 HIT/week for 3 weeks vs 2 HIT/week steady",
+    "category": "periodisation",
+    "population": "well-trained cyclists",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "Concentrating high-intensity training into focused blocks rather than distributing it evenly can improve hemoglobin mass and 40-min all-out performance in already well-trained endurance athletes",
+    "specific_value": null,
+    "category": "periodisation",
+    "population": "well-trained cyclists",
+    "confidence": 0.6,
+    "school_of_thought": "block periodization"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Carbohydrate supplementation during exercise produces statistically significant performance benefits in 82% of studies across varying exercise durations.",
+    "specific_value": "82% of 61 studies (n=679)",
+    "category": "carbohydrate_fueling",
+    "population": "mixed endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The performance benefit of carbohydrate intake increases with longer total exercise duration, showing a significant correlative relationship.",
+    "specific_value": "p = 0.0036",
+    "category": "carbohydrate_fueling",
+    "population": "mixed endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For short duration exercise (~1 hour), simply rinsing the mouth with carbohydrate solution enhances performance via central nervous system stimulation of pleasure and reward centers, without needing to absorb or oxidize the carbohydrate.",
+    "specific_value": "~1 h exercise duration",
+    "category": "carbohydrate_fueling",
+    "population": "mixed endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For short duration exercise (~1 hour), the type, amount, absorption rate, and oxidation rate of carbohydrate are irrelevant to performance enhancement \u2014 only oral receptor exposure matters.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "mixed endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For prolonged exercise (>2 hours), high rates of carbohydrate delivery exceeding 90 g/h are needed to enhance performance through high rates of carbohydrate oxidation.",
+    "specific_value": ">90 g/h for >2 h exercise",
+    "category": "carbohydrate_fueling",
+    "population": "mixed endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Multiple transportable carbohydrates using glucose:fructose combinations are beneficial for prolonged exercise because they enable higher total carbohydrate absorption via separate intestinal transporters.",
+    "specific_value": "glucose:fructose ratio",
+    "category": "carbohydrate_fueling",
+    "population": "mixed endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Carbohydrate fueling recommendations for prolonged exercise should be individualized according to each athlete's gastrointestinal tolerance rather than applying a universal protocol.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "mixed endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

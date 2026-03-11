@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Corticosteroid injection decreases Morton's neuroma pain more than control, with a weighted mean difference of -5.3 points on a 100-point VAS scale.",
+    "specific_value": "WMD: -5.3 (95%CI: -7.5 to -3.2)",
+    "category": "injury_foot",
+    "population": "general population with Morton's neuroma",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Manipulation and mobilisation techniques reduce Morton's neuroma pain compared to control, with a mean difference of -15.3 points on a 100-point VAS scale.",
+    "specific_value": "MD: -15.3 (95%CI: -29.6 to -1.0)",
+    "category": "injury_foot",
+    "population": "general population with Morton's neuroma",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Corticosteroid injection is significantly more effective than footwear modification and padding alone for Morton's neuroma treatment success.",
+    "specific_value": "OR: 6.0 (95%CI: 1.9 to 19.2)",
+    "category": "injury_foot",
+    "population": "general population with Morton's neuroma",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Extracorporeal shockwave therapy does not show a statistically significant pain reduction compared to control for Morton's neuroma.",
+    "specific_value": "MD: -5.9 (95%CI: -21.9 to 10.1)",
+    "category": "injury_foot",
+    "population": "general population with Morton's neuroma",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Corticosteroid injections and manipulation/mobilisation are the non-surgical interventions with the strongest evidence for Morton's neuroma pain reduction.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "general population with Morton's neuroma",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "No single non-surgical intervention has been established as a gold-standard treatment for Morton's neuroma based on high-quality evidence.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "general population with Morton's neuroma",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Block periodization with concentrated high-intensity intervals (5 HIT sessions in week 1, then 1 HIT/week for 3 weeks) produces superior VO2max gains compared to traditional distribution (2 HIT sessions/week) over 4 weeks, despite equal total training volume and intensity.",
+    "specific_value": "4.6% VO2max improvement (BP) vs no change (TRAD)",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2max ~62-63 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "Block periodization of high-intensity work yields a large effect size for VO2max improvement compared to traditional even distribution of the same work.",
+    "specific_value": "ES = 1.34 for VO2max",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2max ~62-63 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "Block periodization improves peak power output while traditional distribution of the same training volume does not.",
+    "specific_value": "2.1% Wmax improvement, ES = 0.85",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2max ~62-63 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "Block periodization improves lactate threshold power (power at 2 mmol/L lactate) more than traditional distribution of the same training.",
+    "specific_value": "10% improvement, ES = 0.71",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2max ~62-63 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  },
+  {
+    "text": "Concentrating high-intensity sessions into a single block week followed by low-intensity recovery weeks is more effective than spreading the same number of high-intensity sessions evenly across a mesocycle.",
+    "specific_value": "5 HIT sessions in 1 week + 3 weeks LIT vs 2 HIT sessions/week for 4 weeks",
+    "category": "periodisation",
+    "population": "trained cyclists (VO2max ~62-63 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "block periodization"
+  }
+]

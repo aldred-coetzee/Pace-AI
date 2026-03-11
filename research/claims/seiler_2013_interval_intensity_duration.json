@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Accumulating 32 minutes of interval work at ~90% HRmax (4\u00d78 min) produces greater VO2peak gains than 16 minutes at ~95% HRmax (4\u00d74 min) or 64 minutes at ~88% HRmax (4\u00d716 min) over 7 weeks.",
+    "specific_value": "11.4% VO2peak gain for 4\u00d78 min vs 5.5% for 4\u00d74 min and 5.6% for 4\u00d716 min",
+    "category": "interval_training",
+    "population": "trained recreational cyclists (VO2peak ~52 mL/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Interval training intensity and accumulated work duration interact to influence adaptation \u2014 neither maximizing intensity nor maximizing duration alone optimizes gains.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "trained recreational cyclists",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "4\u00d78 minute intervals performed at ~90% HRmax with 2 sessions per week for 7 weeks improved VO2peak by 11.4% and power at 4 mmol/L blood lactate in trained recreational athletes.",
+    "specific_value": "11.4% (95% CI: 8.0\u201314.9%) VO2peak improvement",
+    "category": "interval_training",
+    "population": "trained recreational cyclists (VO2peak ~52 mL/kg/min)",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Two interval sessions per week combined with 2-3 low-intensity sessions is sufficient to produce significant aerobic gains in trained recreational athletes over 7 weeks.",
+    "specific_value": "2 interval + 2-3 low-intensity sessions/week",
+    "category": "interval_training",
+    "population": "trained recreational cyclists",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "4\u00d74 minute intervals at ~95% HRmax produce blood lactate of ~13.2 mmol/L, while 4\u00d78 min at ~90% HRmax produce ~9.6 mmol/L, yet the lower-lactate protocol yields superior adaptations.",
+    "specific_value": "13.2 vs 9.6 mmol/L blood lactate",
+    "category": "interval_training",
+    "population": "trained recreational cyclists",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Low-intensity-only training (~6 h/week with no dedicated interval sessions) produces only 4.2% VO2peak improvement over 7 weeks compared to 11.4% with added 4\u00d78 min interval work.",
+    "specific_value": "4.2% (95% CI: 0.4\u20138.0%) vs 11.4% VO2peak",
+    "category": "interval_training",
+    "population": "trained recreational cyclists",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Longer interval bouts at lower RPE (4\u00d78 min at 90% HRmax) can be more effective than shorter, harder bouts (4\u00d74 min at 95% HRmax) despite the latter feeling more demanding.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "trained recreational cyclists",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Novice runners have a weighted injury incidence of 17.8 injuries per 1000 hours of running.",
+    "specific_value": "17.8 per 1000h (95% CI 16.7-19.1)",
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Recreational runners have a weighted injury incidence of 7.7 injuries per 1000 hours of running.",
+    "specific_value": "7.7 per 1000h (95% CI 6.9-8.7)",
+    "category": "beginner_running",
+    "population": "recreational runners",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Novice runners face approximately 2.3 times greater injury risk per 1000 hours of running compared to recreational runners.",
+    "specific_value": "~2.3x higher (17.8 vs 7.7 per 1000h)",
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Running-related injury incidence ranges from 2.5 to 33.0 per 1000 hours depending on runner type, with novice runners at the highest end.",
+    "specific_value": "2.5-33.0 per 1000h",
+    "category": "beginner_running",
+    "population": "novice runners, recreational runners, ultramarathon runners, track and field athletes",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Long-distance track and field athletes have the lowest reported injury incidence at 2.5 per 1000 hours of running.",
+    "specific_value": "2.5 per 1000h",
+    "category": "beginner_running",
+    "population": "long-distance track and field athletes",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Beginning runners should be coached with particular attention to injury prevention given their substantially elevated injury risk compared to experienced runners.",
+    "specific_value": null,
+    "category": "beginner_running",
+    "population": "novice runners",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Carbohydrate ingestion during prolonged (>2 h) moderate-to-high intensity exercise significantly improves endurance performance",
+    "specific_value": ">2 h duration threshold",
+    "category": "carbohydrate_fueling",
+    "population": "endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For prolonged exercise lasting 2-3 hours, athletes should ingest carbohydrates at a rate of 60 g per hour to allow for maximal exogenous glucose oxidation rates",
+    "specific_value": "60 g/h (~1.0-1.1 g/min)",
+    "category": "carbohydrate_fueling",
+    "population": "endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Well-trained endurance athletes competing longer than 2.5 hours can metabolize up to 90 g/h of carbohydrate when multiple transportable carbohydrates are ingested (e.g. glucose plus fructose)",
+    "specific_value": "90 g/h (~1.5-1.8 g/min) with 2:1 glucose:fructose ratio",
+    "category": "carbohydrate_fueling",
+    "population": "well-trained endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Small amounts of carbohydrate ingestion can enhance performance during shorter (45-60 min), high-intensity (>75% VO2peak) exercise despite adequate endogenous carbohydrate stores, likely via central nervous system mechanisms",
+    "specific_value": "45-60 min at >75% VO2peak",
+    "category": "carbohydrate_fueling",
+    "population": "trained athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For rapid post-exercise glycogen repletion, athletes should consume 1.2 g/kg/h of carbohydrate during the acute recovery phase after exhaustive exercise",
+    "specific_value": "1.2 g/kg/h",
+    "category": "carbohydrate_fueling",
+    "population": "athletes requiring rapid recovery within 24 h",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Co-ingesting protein (0.2-0.4 g/kg/h) with less carbohydrate (0.8 g/kg/h) can achieve similar glycogen repletion rates as high carbohydrate alone, which is useful for athletes with gastrointestinal tolerance issues post-exercise",
+    "specific_value": "0.2-0.4 g/kg/h protein + 0.8 g/kg/h carbohydrate",
+    "category": "carbohydrate_fueling",
+    "population": "athletes with lower GI tolerance post-exercise",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The ergogenic effects of carbohydrate during prolonged exercise are likely related to skeletal muscle glycogen sparing, prevention of liver glycogen depletion and hypoglycemia, and maintaining high carbohydrate oxidation rates",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

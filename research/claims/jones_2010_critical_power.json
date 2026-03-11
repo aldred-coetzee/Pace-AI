@@ -1,0 +1,50 @@
+[
+  {
+    "text": "The time-to-exhaustion during high-intensity exercise increases as a hyperbolic function of decreasing power or velocity, described by t = W'/(P - CP) where CP is critical power and W' is the curvature constant.",
+    "specific_value": "t = W'/(P - CP)",
+    "category": "threshold_tempo",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Critical power (CP) represents the highest sustainable rate of oxidative ATP production (VO2) that can be maintained without continuously depleting the finite energy store W'.",
+    "specific_value": null,
+    "category": "threshold_tempo",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The W' parameter represents a finite energy store composed in part of anaerobic energy sources, expressed in kilojoules, and exhaustion occurs when W' is fully depleted.",
+    "specific_value": null,
+    "category": "threshold_tempo",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Exercise performed above critical power will always result in exhaustion in a predictable time determined by the magnitude of W' and the degree to which power exceeds CP.",
+    "specific_value": null,
+    "category": "threshold_tempo",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The critical power concept and the hyperbolic power-duration relationship are highly conserved across diverse species and different modes of exercise.",
+    "specific_value": null,
+    "category": "threshold_tempo",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Critical power serves as a boundary between sustainable and unsustainable exercise intensity domains, making it a key threshold for prescribing training intensity and predicting exercise tolerance.",
+    "specific_value": null,
+    "category": "threshold_tempo",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

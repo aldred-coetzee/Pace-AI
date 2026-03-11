@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Running economy is a better predictor of distance running performance than VO2max in elite runners who have similar VO2max values.",
+    "specific_value": null,
+    "category": "running_economy",
+    "population": "elite runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "When comparing running economy between or within groups, VO2 should be reported relative to the 0.75 power of body mass rather than simple per-kg scaling, as submaximal VO2 does not increase linearly with body mass.",
+    "specific_value": "BM^0.75",
+    "category": "running_economy",
+    "population": "trained distance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Increased muscle stiffness that enhances storage and release of elastic energy improves running economy in trained runners.",
+    "specific_value": null,
+    "category": "running_economy",
+    "population": "highly trained and elite runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Reducing braking forces and excessive vertical oscillation through improved mechanics leads to better running economy.",
+    "specific_value": null,
+    "category": "running_economy",
+    "population": "highly trained and elite runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training improves running economy by enabling muscles to utilise more elastic energy and reducing energy wasted in braking forces.",
+    "specific_value": null,
+    "category": "running_economy",
+    "population": "trained distance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Altitude training improves running economy by enhancing metabolic aspects of skeletal muscle that facilitate more efficient oxygen use.",
+    "specific_value": null,
+    "category": "running_economy",
+    "population": "trained distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Reliable measurement of running economy changes requires standardisation of footwear, time of test, and nutritional status to limit typical error of measurement.",
+    "specific_value": null,
+    "category": "running_economy",
+    "population": "trained distance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

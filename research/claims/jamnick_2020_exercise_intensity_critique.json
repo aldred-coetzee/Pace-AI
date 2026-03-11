@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Prescribing exercise intensity based on a fixed percentage of maximal anchors (VO2max, peak VO2, HRmax, maximum work rate) has little merit for eliciting distinct or domain-specific homeostatic perturbations.",
+    "specific_value": null,
+    "category": "lactate_threshold",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The first lactate threshold (LT1), gas exchange threshold (GET), and ventilatory threshold (VT) are valid submaximal anchors for delineating the moderate and heavy exercise intensity domains.",
+    "specific_value": null,
+    "category": "lactate_threshold",
+    "population": "general population",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Most commonly used submaximal threshold methods, with the exception of critical power (CP) and critical speed (CS), lack evidence to validly delineate the heavy and severe exercise intensity domains.",
+    "specific_value": null,
+    "category": "lactate_threshold",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Critical power (CP) and critical speed (CS) are the most valid submaximal anchors for delineating the boundary between the heavy and severe exercise intensity domains.",
+    "specific_value": null,
+    "category": "lactate_threshold",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Exercise intensity is best understood through three physiological domains \u2014 moderate, heavy, and severe \u2014 each characterized by distinct oxygen uptake kinetics and blood lactate responses.",
+    "specific_value": null,
+    "category": "lactate_threshold",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Acute physiological responses to exercise at a given intensity are not always predictive of chronic training adaptations, so training studies are needed to validate intensity prescription methods.",
+    "specific_value": null,
+    "category": "lactate_threshold",
+    "population": "general population",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

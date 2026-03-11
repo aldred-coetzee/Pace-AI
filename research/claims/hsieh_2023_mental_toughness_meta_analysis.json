@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Mental toughness has a moderate to high correlation with athletic performance, with an overall effect size of r = 0.36.",
+    "specific_value": "r = 0.36",
+    "category": "mental_performance",
+    "population": "athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The relationship between mental toughness and athletic performance is stronger in adults (r = 0.41) than in adolescents (r = 0.20).",
+    "specific_value": "r = 0.41 adults, r = 0.20 adolescents",
+    "category": "mental_performance",
+    "population": "athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Mental toughness has a stronger association with performance in individual sports (r = 0.73) compared to team sports (r = 0.21).",
+    "specific_value": "r = 0.73 individual, r = 0.21 team",
+    "category": "mental_performance",
+    "population": "athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "For endurance sports specifically, the correlation between mental toughness and performance is r = 0.32.",
+    "specific_value": "r = 0.32",
+    "category": "mental_performance",
+    "population": "endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Mental toughness correlates more strongly with objectively measured performance (r = 0.33) than suggested by some measures, but subjective performance ratings show an even higher correlation (r = 0.62).",
+    "specific_value": "r = 0.33 objective, r = 0.62 subjective",
+    "category": "mental_performance",
+    "population": "athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Combat sports show the highest correlation between mental toughness and performance (r = 0.73), followed by endurance sports (r = 0.32) and ball sports (r = 0.30).",
+    "specific_value": "r = 0.73 combat, r = 0.32 endurance, r = 0.30 ball",
+    "category": "mental_performance",
+    "population": "athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  }
+]

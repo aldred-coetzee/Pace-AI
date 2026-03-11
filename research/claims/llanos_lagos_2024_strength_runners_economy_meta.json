@@ -1,0 +1,66 @@
+[
+  {
+    "text": "High load strength training (\u226580% 1RM) improves running economy in middle- and long-distance runners with a small effect size.",
+    "specific_value": "ES = -0.266, p = 0.039",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Combined strength training methods (two or more methods) produce moderate improvements in running economy at speeds of 10.00 to 14.45 km/h.",
+    "specific_value": "ES = -0.426, p = 0.018",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Plyometric training improves running economy only at speeds \u226412.00 km/h, with a small effect size.",
+    "specific_value": "ES = -0.307, p = 0.028, effective at speeds \u226412.00 km/h",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Submaximal load strength training (40-79% 1RM) does not significantly improve running economy compared to endurance-only controls.",
+    "specific_value": "p > 0.131",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Isometric strength training does not significantly improve running economy compared to endurance-only controls.",
+    "specific_value": "p > 0.131",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "High load strength training is more effective at improving running economy in athletes with higher VO2max values.",
+    "specific_value": "\u03b21 = -0.040, p = 0.020 for VO2max moderation",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners with high VO2max",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "High load strength training produces greater running economy improvements at higher running speeds.",
+    "specific_value": "\u03b21 = -0.117, p = 0.027 for speed moderation",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training programmes of 6 to 24 weeks duration with 1-4 sessions per week are sufficient to improve running economy when using appropriate methods (high load, plyometric, or combined).",
+    "specific_value": "6-24 weeks, 1-4 sessions/week",
+    "category": "5k_track_training",
+    "population": "middle- and long-distance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

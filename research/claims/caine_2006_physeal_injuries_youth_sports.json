@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Both acute and chronic growth plate (physeal) injuries occur in children and youth participating in organised sports.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "children and youth athletes",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Stress-related growth plate injuries are increasing in prevalence among youth athletes, including injuries affecting the lower extremities.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "children and youth athletes",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Most growth plate injuries in youth athletes resolve with appropriate treatment and rest.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "children and youth athletes",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Some physeal injuries in youth athletes can result in growth disturbance and skeletal deformity, making prevention and early detection critical.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "children and youth athletes",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Repetitive loading and overuse are key risk factors for stress-related growth plate injuries in young athletes, warranting careful training load management.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "children and youth athletes",
+    "confidence": 0.5,
+    "school_of_thought": "Gabbett load management"
+  }
+]

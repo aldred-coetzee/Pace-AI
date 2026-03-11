@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Mental fatigue caused by prolonged demanding cognitive activity reduces time to exhaustion during high-intensity exercise by approximately 15%.",
+    "specific_value": "640 vs 754 seconds (~15% reduction)",
+    "category": "mental_performance",
+    "population": "recreational athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Mental fatigue impairs exercise tolerance through higher perception of effort rather than through cardiorespiratory or musculoenergetic mechanisms.",
+    "specific_value": null,
+    "category": "mental_performance",
+    "population": "recreational athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Mentally fatigued individuals rate perception of effort significantly higher during intense exercise despite unchanged physiological responses (heart rate, VO2, lactate, cardiac output).",
+    "specific_value": null,
+    "category": "mental_performance",
+    "population": "recreational athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "As little as 90 minutes of demanding cognitive work before exercise is sufficient to induce mental fatigue that measurably impairs subsequent physical performance.",
+    "specific_value": "90 minutes of cognitive activity",
+    "category": "mental_performance",
+    "population": "recreational athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Mentally fatigued individuals reach their maximal perceived exertion and disengage from exercise earlier, even though RPE increases at the same rate over time as in a non-fatigued state.",
+    "specific_value": null,
+    "category": "mental_performance",
+    "population": "recreational athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Mental fatigue does not reduce intrinsic motivation or self-reported desire to succeed at a physical task, suggesting the performance decrement is perceptual rather than motivational.",
+    "specific_value": null,
+    "category": "mental_performance",
+    "population": "recreational athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Extracorporeal shock wave therapy is the only plantar fasciitis treatment with evidence of medium and long-term pain reduction compared to control.",
+    "specific_value": "MD -0.97 (medium term), MD -2.49 (long term)",
+    "category": "injury_foot",
+    "population": "patients with plantar fasciitis",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Low-dye taping provides the largest short-term pain reduction among plantar fasciitis treatments evaluated in randomized controlled trials.",
+    "specific_value": "MD -3.60 (95% CI: -4.16, -3.03)",
+    "category": "injury_foot",
+    "population": "patients with plantar fasciitis",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Platelet-rich plasma injection is effective for short-term pain relief in plantar fasciitis.",
+    "specific_value": "MD -2.40 (95% CI: -4.16, -0.63)",
+    "category": "injury_foot",
+    "population": "patients with plantar fasciitis",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Stretching is effective for short-term plantar fasciitis pain relief, though with a smaller effect size than other interventions.",
+    "specific_value": "MD -1.14 (95% CI: -2.02, -0.26)",
+    "category": "injury_foot",
+    "population": "patients with plantar fasciitis",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Dry needling is effective for short-term pain reduction in plantar fasciitis.",
+    "specific_value": "MD -2.34 (95% CI: -4.64, -0.04)",
+    "category": "injury_foot",
+    "population": "patients with plantar fasciitis",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Low-level laser therapy is effective for short-term plantar fasciitis pain relief with a narrow confidence interval suggesting consistent results.",
+    "specific_value": "MD -2.09 (95% CI: -2.28, -1.90)",
+    "category": "injury_foot",
+    "population": "patients with plantar fasciitis",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Most therapeutic interventions for plantar fasciitis only demonstrate short-term pain relief, with effects not sustained in medium or long-term follow-up.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "patients with plantar fasciitis",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  }
+]

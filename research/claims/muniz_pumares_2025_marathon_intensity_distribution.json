@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Average training volume across marathon runners of all levels is approximately 45 km per week in the 16 weeks before a marathon, with high variability.",
+    "specific_value": "45.1 \u00b1 26.4 km/week",
+    "category": "marathon_training",
+    "population": "mixed-level marathon runners (n=119,452)",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The fastest marathon runners (2:00-2:30 finish) accumulate more than three times the training volume of slower runners.",
+    "specific_value": ">3x volume difference",
+    "category": "marathon_training",
+    "population": "fast marathon runners (120-150 min finish time)",
+    "confidence": 0.85,
+    "school_of_thought": "Lydiard"
+  },
+  {
+    "text": "Faster marathon runners achieve higher training volumes primarily by increasing easy (Z1) running, while time spent in Z2 and Z3 remains relatively stable across performance levels.",
+    "specific_value": null,
+    "category": "marathon_training",
+    "population": "mixed-level marathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "The proportion of training completed in Z1 shows a strong negative correlation with marathon finish time (faster runners do proportionally more Z1), with R\u00b2 \u2265 0.90.",
+    "specific_value": "R\u00b2 \u2265 0.90, p < 0.01",
+    "category": "marathon_training",
+    "population": "mixed-level marathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Higher proportions of training in Z2 and Z3 are associated with slower marathon times, with R\u00b2 \u2265 0.85.",
+    "specific_value": "R\u00b2 \u2265 0.85, p < 0.01",
+    "category": "marathon_training",
+    "population": "mixed-level marathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "A pyramidal training intensity distribution (most volume in Z1, less in Z2, least in Z3) is the most common approach among marathon runners, adopted by over 80% of the fastest runners.",
+    "specific_value": ">80% prevalence in fastest runners",
+    "category": "marathon_training",
+    "population": "fast marathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "The boundary between Z1 and Z2 for marathon training intensity distribution can be estimated at 82.3% of critical speed.",
+    "specific_value": "82.3% of critical speed",
+    "category": "marathon_training",
+    "population": "mixed-level marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

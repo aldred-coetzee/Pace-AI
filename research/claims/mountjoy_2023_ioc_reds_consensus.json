@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Low energy availability (inadequate energy intake relative to exercise energy expenditure) causes a syndrome of deleterious health and performance outcomes in both female and male athletes, termed Relative Energy Deficiency in Sport (REDs).",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Low carbohydrate availability, not just total energy deficiency, plays a growing role in the development of REDs signs and symptoms.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "There is a bidirectional interplay between mental health and REDs, where low energy availability can impair mental health and mental health issues can contribute to low energy availability.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Male athletes are also susceptible to the negative health and performance effects of low energy availability, not only female athletes as previously emphasized.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "The impact of low energy availability depends on whether exposure is problematic or adaptable, moderated by individual factors such as duration, magnitude, and individual physiology.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Clinical diagnosis of REDs should use severity and risk stratification (via the REDs Clinical Assessment Tool) to guide training and competition recommendations, ranging from full clearance to restricted participation.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Body composition assessments in athletes should follow safe and effective guidelines to help prevent triggering or worsening REDs.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes",
+    "confidence": 0.75,
+    "school_of_thought": "IOC consensus"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Approximately 56% of athletes have vitamin D inadequacy (serum 25(OH)D below 32 ng/mL).",
+    "specific_value": "56% (95% CI 44-67%); threshold <32 ng/mL",
+    "category": "supplements",
+    "population": "athletes (mixed sports, mean age 22.5 years)",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The risk of vitamin D inadequacy increases significantly during winter and spring seasons compared to summer and fall.",
+    "specific_value": "RR 1.85 (95% CI 1.27-2.70)",
+    "category": "supplements",
+    "population": "athletes (mixed sports)",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Indoor sport athletes have a significantly higher risk of vitamin D inadequacy compared to outdoor sport athletes.",
+    "specific_value": "RR 1.19 (95% CI 1.09-1.30)",
+    "category": "supplements",
+    "population": "athletes (mixed sports)",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Athletes training at latitudes above 40\u00b0N have a significantly higher risk of vitamin D inadequacy.",
+    "specific_value": "RR 1.85 (95% CI 1.35-2.53) after excluding Middle East outlier",
+    "category": "supplements",
+    "population": "athletes (mixed sports, excluding Middle East)",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The prevalence of injuries among vitamin D inadequate athletes is notable, with muscle and soft-tissue injuries at 37.5% and bone-related injuries at 19%.",
+    "specific_value": "injuries 43% (95% CI 20-68%); bone 19% (95% CI 7-36%); muscle/soft-tissue 37.5% (95% CI 11.5-68.5%)",
+    "category": "supplements",
+    "population": "athletes with vitamin D inadequacy",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Regular monitoring of serum 25(OH)D levels and vitamin D supplementation is recommended for athletes, especially those training indoors, at high latitudes, or during winter/spring.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "athletes (mixed sports)",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

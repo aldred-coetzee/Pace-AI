@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Reticulocyte count increases by approximately 16% after marathon or ultramarathon races compared to pre-race levels, though values remain within normal limits, indicating a transient hemolytic response.",
+    "specific_value": "16% increase",
+    "category": "iron_bone_health",
+    "population": "marathon and ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Haptoglobin levels decrease by approximately 21% after marathon or ultramarathon races, suggesting intravascular hemolysis from repetitive foot-strike impact.",
+    "specific_value": "21% reduction",
+    "category": "iron_bone_health",
+    "population": "marathon and ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Hemoglobin, hematocrit, and red blood cell count remain within accepted normal limits after marathon and ultramarathon races, indicating that foot-strike hemolysis does not acutely cause clinically significant anemia.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "marathon and ultramarathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Foot-strike hemolysis in long-distance runners is transient rather than progressive, as evidenced by maintained hemoglobin levels despite biomarker changes indicating red blood cell destruction.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "marathon and ultramarathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The relationship between foot-strike hemolysis and runner demographics, running experience, or race course characteristics remains unclear, making individualized iron monitoring important for high-volume runners.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "marathon and ultramarathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

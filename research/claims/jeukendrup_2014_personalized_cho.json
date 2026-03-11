@@ -1,0 +1,58 @@
+[
+  {
+    "text": "During exercise lasting approximately 1 hour, a carbohydrate mouth rinse or small amounts of carbohydrate ingestion can improve performance.",
+    "specific_value": "~1 h duration",
+    "category": "carbohydrate_fueling",
+    "population": "endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A single carbohydrate source can be oxidized at rates up to approximately 60 g/h, which is the recommended intake for prolonged exercise lasting 2-3 hours.",
+    "specific_value": "60 g/h for 2-3 h exercise",
+    "category": "carbohydrate_fueling",
+    "population": "endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "For ultra-endurance events, carbohydrate intake should be approximately 90 g/h using multiple transportable carbohydrates to achieve high oxidation rates.",
+    "specific_value": "90 g/h",
+    "category": "carbohydrate_fueling",
+    "population": "ultra-endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "High carbohydrate ingestion rates (>60 g/h) require multiple transportable carbohydrates (e.g., glucose + fructose) to prevent gastrointestinal accumulation and allow high oxidation rates.",
+    "specific_value": ">60 g/h threshold",
+    "category": "carbohydrate_fueling",
+    "population": "endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Carbohydrate intake recommendations during exercise are independent of body weight and training status.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "general",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The form of carbohydrate during exercise (liquid, semisolid, or solid) does not meaningfully affect recommendations, though intake should be adjusted downward when absolute exercise intensity is low.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Carbohydrate fueling guidelines should be personalized based on exercise duration and intensity rather than applying a single generic recommendation.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "general",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

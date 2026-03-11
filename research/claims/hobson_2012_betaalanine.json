@@ -1,0 +1,58 @@
+[
+  {
+    "text": "\u03b2-alanine supplementation improves exercise outcomes with a median effect size of 0.374 compared to 0.108 for placebo.",
+    "specific_value": "effect size 0.374 vs 0.108",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine supplementation improves exercise capacity but not exercise performance in controlled trials.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine supplementation significantly improves exercise lasting 60-240 seconds, consistent with its role in H+ buffering during high-intensity efforts.",
+    "specific_value": "60-240 s duration",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine supplementation also improves exercise lasting longer than 240 seconds, though with a smaller effect than the 60-240 second range.",
+    "specific_value": ">240 s duration, P=0.046",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine supplementation provides no benefit for exercise lasting less than 60 seconds.",
+    "specific_value": "<60 s duration, P=0.312",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The median improvement from \u03b2-alanine supplementation is 2.85% in exercise outcomes when a median total dose of 179 g is consumed over the supplementation period.",
+    "specific_value": "2.85% improvement, 179 g total dose",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine acts as a substrate for carnosine synthesis, which is a major contributor to intracellular H+ buffering during high-intensity exercise.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

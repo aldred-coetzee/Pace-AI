@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Exercise training robustly increases VO2max at all intensities, including both low intensity and high intensity protocols.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "healthy adults",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "High intensity training produces small to moderate beneficial effects on VO2max compared to low intensity training.",
+    "specific_value": "small/moderate effect size",
+    "category": "vo2max_development",
+    "population": "healthy adults",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The apparent VO2max advantage of high intensity over low intensity training is moderated by training variables beyond intensity itself, including training impulse, interval length, training volume, and program duration.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "healthy adults",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Participant baseline characteristics such as age and fitness level moderate the relative effectiveness of high intensity versus low intensity training on VO2max improvement.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "healthy adults",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "When confounding training variables are accounted for, differences between low intensity and high intensity protocols on VO2max are either small, trivial, or inconclusive.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "healthy adults",
+    "confidence": 0.75,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Evidence from 179 primary studies across 11 systematic reviews confirms that training intensity alone is not the primary determinant of VO2max improvement; total training stimulus matters.",
+    "specific_value": "179 primary studies, 11 systematic reviews",
+    "category": "vo2max_development",
+    "population": "healthy adults",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  }
+]

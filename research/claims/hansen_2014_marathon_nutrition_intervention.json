@@ -1,0 +1,42 @@
+[
+  {
+    "text": "A scientifically based in-race nutritional strategy improves marathon finish time by approximately 4.7% (about 11 minutes) compared to a freely chosen strategy in recreational runners.",
+    "specific_value": "4.7% (~10:55 min faster)",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A target in-race intake of approximately 0.750 L water, 60 g maltodextrin and glucose, 0.06 g sodium, and 0.09 g caffeine per hour is an effective marathon fueling strategy.",
+    "specific_value": "~750 mL water + 60 g carbs + 0.06 g sodium + 0.09 g caffeine per hour",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A structured in-race carbohydrate intake rate of 60 g per hour from maltodextrin and glucose supports improved marathon performance.",
+    "specific_value": "60 g/hr carbohydrate",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Following a scientifically based in-race nutrition plan does not increase gastrointestinal symptoms compared to a freely chosen intake strategy during a marathon.",
+    "specific_value": null,
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine intake of approximately 0.09 g per hour during a marathon, as part of a combined nutrition strategy, contributes to improved performance without increasing gastrointestinal distress.",
+    "specific_value": "0.09 g caffeine per hour",
+    "category": "marathon_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

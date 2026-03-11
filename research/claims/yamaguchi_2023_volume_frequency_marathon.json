@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Monthly training volume is the most important factor in predicting marathon time among recreational runners, more so than training frequency or distance per workout.",
+    "specific_value": null,
+    "category": "marathon_training",
+    "population": "male recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The influence of monthly training volume on marathon time is only significant when the running distance per workout exceeds a certain threshold (longest run \u226521 km or average run distance \u226510 km).",
+    "specific_value": "LRD \u226521 km, ARD \u226510 km",
+    "category": "marathon_training",
+    "population": "male recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "For runners whose longest run is under 20 km or average run distance is under 10 km, increasing monthly training volume does not significantly predict faster marathon times.",
+    "specific_value": "LRD 1-20 km, ARD <10 km",
+    "category": "marathon_training",
+    "population": "male recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Training frequency alone does not significantly predict marathon time when monthly training volume is held constant.",
+    "specific_value": null,
+    "category": "marathon_training",
+    "population": "male recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "For runners training only twice per week or less, average running distance per workout does not significantly correlate with marathon time.",
+    "specific_value": "\u22642 sessions/week",
+    "category": "marathon_training",
+    "population": "male recreational marathon runners",
+    "confidence": 0.65,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Within training frequency subgroups of three or more sessions per week, monthly training volume, longest run distance, and average run distance all significantly correlate with marathon time.",
+    "specific_value": "\u22653 sessions/week",
+    "category": "marathon_training",
+    "population": "male recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

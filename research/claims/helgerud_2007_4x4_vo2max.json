@@ -1,0 +1,50 @@
+[
+  {
+    "text": "High-intensity aerobic interval training at 90-95% HRmax significantly improves VO2max more than long slow distance training at 70% HRmax or lactate threshold training at 85% HRmax, even when total work is matched.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "moderately trained young men",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "4x4-minute intervals at 90-95% HRmax with 3-minute active recovery at 70% HRmax performed 3 days per week for 8 weeks increases VO2max by approximately 7.2%.",
+    "specific_value": "7.2% VO2max increase",
+    "category": "interval_training",
+    "population": "moderately trained young men",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "15/15 interval running (15s at 90-95% HRmax, 15s active rest at 70% HRmax) performed 3 days per week for 8 weeks increases VO2max by approximately 5.5%.",
+    "specific_value": "5.5% VO2max increase",
+    "category": "interval_training",
+    "population": "moderately trained young men",
+    "confidence": 0.85,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Long slow distance training at 70% HRmax and lactate threshold training at 85% HRmax do not significantly improve VO2max over 8 weeks in moderately trained individuals when performed 3 days per week.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "moderately trained young men",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "High-intensity interval training at 90-95% HRmax increases cardiac stroke volume by approximately 10%, and changes in VO2max closely correspond with changes in stroke volume.",
+    "specific_value": "~10% stroke volume increase",
+    "category": "interval_training",
+    "population": "moderately trained young men",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The 4x4-minute interval protocol produces a larger VO2max improvement (7.2%) than the 15/15 short-interval protocol (5.5%), though both are performed at the same intensity of 90-95% HRmax.",
+    "specific_value": "7.2% vs 5.5%",
+    "category": "interval_training",
+    "population": "moderately trained young men",
+    "confidence": 0.75,
+    "school_of_thought": "Seiler polarized"
+  }
+]

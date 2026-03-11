@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Posterior tibial tendon dysfunction (PTTD) treatment in athletes should be guided by understanding the specific deformity components to maximize nonoperative intervention.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "recreational athletes",
+    "confidence": 0.3,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Orthotics and physical therapy are the primary nonoperative interventions for Stage I and II posterior tibial tendon dysfunction in runners.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "recreational athletes",
+    "confidence": 0.3,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Not all athletes with posterior tibial tendon dysfunction improve with nonoperative treatment (orthotics and physical therapy), and some require surgical intervention.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "recreational athletes",
+    "confidence": 0.3,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Return to full athletic activity after posterior tibial tendon dysfunction is not universally possible, even after surgical reconstruction.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "recreational athletes",
+    "confidence": 0.3,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Surgical reconstruction for Stage I and II posterior tibial tendon dysfunction can be successful in minimizing symptoms and enabling an active lifestyle, though not necessarily full return to running.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "recreational athletes",
+    "confidence": 0.3,
+    "school_of_thought": "injury prevention"
+  }
+]

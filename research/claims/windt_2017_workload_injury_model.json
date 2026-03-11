@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Training and competition workloads contribute to injury through three distinct pathways: exposure to external risk factors, fatigue (negative physiological effects), and fitness (positive physiological adaptations).",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "general athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Exposure to injury risk is determined solely by total training load, while positive and negative physiological adaptations are controlled by both total workloads and changes in load such as the acute:chronic workload ratio.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "general athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Internal injury risk factors should be differentiated into modifiable factors (e.g., neuromuscular control, fitness) and non-modifiable factors (e.g., age), as workloads can alter modifiable risk factors over time.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "general athletes",
+    "confidence": 0.6,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Training participation itself dynamically alters injury risk through adaptation \u2014 the same athlete can have different injury risk profiles at different points in their training cycle depending on accumulated fitness and fatigue.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "general athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The training load-injury paradox is explained by the dual effect of workloads: higher chronic training loads increase exposure risk but simultaneously build fitness that protects against injury, meaning undertraining can be as dangerous as overtraining.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "general athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "The acute:chronic workload ratio captures load changes over time and helps explain why rapid spikes in training load increase injury risk even when absolute load is not exceptionally high.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "general athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  }
+]

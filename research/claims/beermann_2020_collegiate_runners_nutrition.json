@@ -1,0 +1,58 @@
+[
+  {
+    "text": "73% of collegiate distance runners consumed less than recommended levels of carbohydrates for endurance athletes.",
+    "specific_value": "73%",
+    "category": "nutrition_general",
+    "population": "collegiate distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "95% of collegiate distance runners did not meet the RDA for vitamin D.",
+    "specific_value": "95%",
+    "category": "nutrition_general",
+    "population": "collegiate distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "50% of female collegiate distance runners did not meet the recommended daily allowance for calcium, compared to 24% of men.",
+    "specific_value": "50% women, 24% men",
+    "category": "nutrition_general",
+    "population": "collegiate distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Male collegiate distance runners consumed an average of 2,741 kcal/day and females 1,928 kcal/day, which was below the energy expended in training.",
+    "specific_value": "2,741 kcal/day (men), 1,928 kcal/day (women)",
+    "category": "nutrition_general",
+    "population": "collegiate distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "All male and 75% of female collegiate distance runners met or exceeded recommended daily protein intake.",
+    "specific_value": "100% men, 75% women",
+    "category": "nutrition_general",
+    "population": "collegiate distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Inadequate calcium and vitamin D intake in distance runners may not be favorable for bone health.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "collegiate distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A substantial proportion of collegiate distance runners (8 of 21 men and 10 of 20 women) did not meet recommended potassium intake.",
+    "specific_value": "38% men, 50% women",
+    "category": "nutrition_general",
+    "population": "collegiate distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

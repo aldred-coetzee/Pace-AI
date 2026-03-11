@@ -1,0 +1,58 @@
+[
+  {
+    "text": "The greatest improvements in VO2max occur at exercise intensities of 90-100% of VO2max, regardless of duration, frequency, programme length, or initial fitness level.",
+    "specific_value": "90-100% VO2max",
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "When exercise duration exceeds 35 minutes, lower-intensity training produces similar VO2max improvements as higher-intensity training of shorter duration.",
+    "specific_value": ">35 minutes",
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.7,
+    "school_of_thought": "Lydiard"
+  },
+  {
+    "text": "Exercise frequency as low as 2 times per week can improve VO2max in less fit individuals.",
+    "specific_value": "2x/week",
+    "category": "vo2max_development",
+    "population": "less fit individuals",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "When aerobic power exceeds 50 ml/kg/min, a minimum exercise frequency of 3 times per week is required to improve VO2max.",
+    "specific_value": ">50 ml/kg/min requires \u22653x/week",
+    "category": "vo2max_development",
+    "population": "trained individuals (VO2max >50 ml/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "As initial fitness level increases, the magnitude of VO2max improvement decreases regardless of training intensity, frequency, or duration.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Maximal gains in aerobic power are elicited with training at 90-100% VO2max, 4 times per week, for 35-45 minutes per session.",
+    "specific_value": "90-100% VO2max, 4x/week, 35-45 min",
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Lower training intensities still produce effective VO2max improvements and reduce injury risk in non-athletic populations.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "non-athletic individuals",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Tarsal navicular bone stress injuries have the longest return-to-sport time among lower extremity sites, averaging 127 days.",
+    "specific_value": "127 days (95% CI 102-151)",
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Femoral neck bone stress injuries have the second longest return-to-sport time, averaging 107 days.",
+    "specific_value": "107 days (95% CI 79-135)",
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Posteromedial tibial shaft bone stress injuries have the shortest return-to-sport time, averaging 44 days.",
+    "specific_value": "44 days (95% CI 27-61)",
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Fibula bone stress injuries have a relatively short return-to-sport time, averaging 56 days.",
+    "specific_value": "56 days (95% CI 13-100)",
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "More than 90% of athletes with bone stress injuries successfully return to sport regardless of injury location.",
+    "specific_value": ">90%",
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Bone stress injuries of the femoral neck, anterior tibial shaft, tarsal navicular, and fifth metatarsal carry the highest rates of treatment complications.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Bone stress injuries of the fibula, pubic bone, and posteromedial tibial shaft carry the lowest rates of treatment complications.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The anatomical site of a bone stress injury is prognostic for return-to-sport timelines and complication risk, supporting site-specific risk stratification in clinical management.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "athletes",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  }
+]

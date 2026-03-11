@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Male elite marathoners wearing advanced carbon-plate racing shoes (Nike Vaporfly/Alphafly) ran 2.0% or 2.8 minutes faster than those wearing other shoes in World Marathon Majors.",
+    "specific_value": "2.0% or 2.8 min faster (138.5 vs 141.3 min)",
+    "category": "shoe_technology",
+    "population": "elite male marathoners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Female elite marathoners wearing advanced carbon-plate racing shoes ran 2.6% or 4.3 minutes faster than those wearing other shoes in World Marathon Majors.",
+    "specific_value": "2.6% or 4.3 min faster (159.1 vs 163.4 min)",
+    "category": "shoe_technology",
+    "population": "elite female marathoners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The performance-enhancing effect of advanced racing shoes is greater in female elite marathoners than in males.",
+    "specific_value": "2.6% females vs 2.0% males",
+    "category": "shoe_technology",
+    "population": "elite marathoners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "In within-runner comparisons, male elite marathoners improved by 0.8% or 1.2 minutes when switching to advanced carbon-plate racing shoes from their previous shoe.",
+    "specific_value": "0.8% or 1.2 min improvement (n=138)",
+    "category": "shoe_technology",
+    "population": "elite male marathoners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "In within-runner comparisons, female elite marathoners improved by 1.6% or 3.7 minutes when switching to advanced carbon-plate racing shoes from their previous shoe.",
+    "specific_value": "1.6% or 3.7 min improvement (n=101, P=0.002)",
+    "category": "shoe_technology",
+    "population": "elite female marathoners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Advanced racing shoe technology (carbon plate, foam stack) reduces the energetic cost of running, contributing to faster marathon finishing times at the elite level.",
+    "specific_value": null,
+    "category": "shoe_technology",
+    "population": "elite marathoners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  }
+]

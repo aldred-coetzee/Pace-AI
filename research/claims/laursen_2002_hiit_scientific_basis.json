@@ -1,0 +1,50 @@
+[
+  {
+    "text": "In already highly trained endurance athletes, increasing submaximal training volume does not further enhance endurance performance or physiological variables such as VO2peak and oxidative enzyme activity.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "highly trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "For already trained endurance athletes, improvements in endurance performance can be achieved through high-intensity interval training (HIT) rather than additional submaximal volume.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "highly trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "High-intensity interval training in highly trained athletes produces significant improvements in endurance performance without changes in oxidative or glycolytic muscle enzyme activity, suggesting buffering capacity rather than metabolic enzymes drives the improvement.",
+    "specific_value": "p < 0.05",
+    "category": "interval_training",
+    "population": "highly trained endurance athletes",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "An increase in skeletal muscle buffering capacity may be a key mechanism by which high-intensity interval training improves endurance performance in highly trained athletes.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "highly trained endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Using the velocity at VO2max (vVO2max) as interval intensity and 50-75% of time to exhaustion at vVO2max (Tmax) as interval duration is effective for improving performance in long-distance runners.",
+    "specific_value": "50-75% of Tmax at vVO2max",
+    "category": "interval_training",
+    "population": "trained long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Repeated supramaximal sprinting may be equally effective as traditional high-intensity interval training for improving endurance performance in cyclists.",
+    "specific_value": null,
+    "category": "interval_training",
+    "population": "trained cyclists",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  }
+]

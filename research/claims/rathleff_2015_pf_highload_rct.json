@@ -1,0 +1,42 @@
+[
+  {
+    "text": "High-load strength training (unilateral heel raises with a towel under the toes) performed every second day produces superior short-term outcomes compared to plantar fascia-specific stretching for plantar fasciitis at 3 months.",
+    "specific_value": "29-point lower FFI at 3 months (95% CI: 6-52, P=0.016)",
+    "category": "injury_foot",
+    "population": "patients with ultrasonography-verified plantar fasciitis",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The superiority of high-load strength training over stretching for plantar fasciitis does not persist beyond 3 months, with no significant differences at 6 or 12 months.",
+    "specific_value": "P > 0.34 at 1, 6, and 12 months",
+    "category": "injury_foot",
+    "population": "patients with ultrasonography-verified plantar fasciitis",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Both high-load strength training and plantar-specific stretching combined with shoe inserts lead to substantial improvement in plantar fasciitis by 12 months, with low residual foot function index scores.",
+    "specific_value": "FFI 22 points (strength) vs 16 points (stretch) at 12 months",
+    "category": "injury_foot",
+    "population": "patients with ultrasonography-verified plantar fasciitis",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The high-load strength training protocol for plantar fasciitis consists of unilateral heel raises with a towel inserted under the toes to dorsiflex the metatarsophalangeal joints, performed every second day with progressive loading.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "patients with ultrasonography-verified plantar fasciitis",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "High-load strength training for plantar fasciitis may accelerate early pain reduction and functional improvement compared to stretching alone, making it preferable when faster recovery is desired.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "patients with ultrasonography-verified plantar fasciitis",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  }
+]

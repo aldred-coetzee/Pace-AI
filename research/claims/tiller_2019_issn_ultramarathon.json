@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Ultra-marathon runners should consume a moderate-to-high carbohydrate diet of approximately 60% of energy intake (5-8 g/kg/day) to mitigate chronic training-induced glycogen depletion.",
+    "specific_value": "60% energy intake, 5-8 g/kg/day",
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Limiting carbohydrate intake before selected low-intensity sessions may enhance mitochondrial function and fat oxidative capacity, but may compromise performance during high-intensity efforts.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein intakes of approximately 1.6 g/kg/day are necessary to maintain lean mass and support recovery, with up to 2.5 g/kg/day warranted during demanding training periods with greater calorie requirements.",
+    "specific_value": "1.6-2.5 g/kg/day",
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "During ultra-marathon racing, runners should aim to consume 150-400 kcal/h (carbohydrate 30-50 g/h, protein 5-10 g/h) from a variety of calorie-dense foods to attenuate caloric deficits.",
+    "specific_value": "150-400 kcal/h, CHO 30-50 g/h, protein 5-10 g/h",
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Fluid intake of 450-750 mL/h (approximately 150-250 mL every 20 minutes) is recommended during ultra-marathon racing, with sodium concentrations greater than 575 mg/L to minimize hyponatraemia risk.",
+    "specific_value": "450-750 mL/h, >575 mg/L sodium",
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Progressive gut-training and/or low-FODMAP diets can alleviate symptoms of gastrointestinal distress during ultra-marathon racing.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Evidence does not support ketogenic diets and/or ketone esters for improving ultra-marathon performance.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Strategic use of caffeine can sustain performance in the latter stages of ultra-marathon racing, particularly when sleep deprivation may compromise athlete safety.",
+    "specific_value": null,
+    "category": "ultramarathon",
+    "population": "ultra-marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

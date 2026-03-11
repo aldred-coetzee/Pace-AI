@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Periodized carbohydrate restriction does not enhance endurance performance compared to training with normal high carbohydrate availability.",
+    "specific_value": "SMD = 0.17 [-0.15, 0.49], P = 0.29",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes (VO2max \u226555 ml/kg/min females, \u226560 ml/kg/min males)",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Training or recovering with low muscle glycogen stimulates mitochondrial biogenesis and favorable metabolic adaptations, but these cellular benefits do not translate to measurable performance gains.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Chronic carbohydrate restriction compromises training quality, particularly reducing intensity during peak intervals.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Endurance athletes should maintain carbohydrate-rich diets for optimal performance during competitions and intense training sessions.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "If using train-low strategies, they should be applied only to selected low-intensity sessions rather than as chronic carbohydrate restriction across all training.",
+    "specific_value": "\u22653 sessions per week of restriction studied",
+    "category": "carbohydrate_fueling",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

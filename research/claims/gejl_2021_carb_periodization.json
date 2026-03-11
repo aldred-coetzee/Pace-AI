@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Periodized carbohydrate restriction does not enhance endurance performance compared to training with normal high carbohydrate availability in endurance-trained athletes.",
+    "specific_value": "SMD = 0.17 [-0.15, 0.49], P = 0.29",
+    "category": "nutrition_general",
+    "population": "trained endurance athletes (VO2max \u226555 ml/kg/min females, \u226560 ml/kg/min males)",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Training or recovery with low muscle glycogen stimulates mitochondrial biogenesis and favorable metabolic adaptations in trained athletes, but these cellular benefits do not translate to measurable performance gains.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "trained endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Chronic carbohydrate restriction compromises training quality, particularly reducing intensities achievable during peak intervals.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "trained endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Endurance athletes should maintain carbohydrate-rich diets to support optimal performance during competitions and intense training sessions.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "trained endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "If periodized carbohydrate restriction is used, it should be applied selectively to specific low-intensity sessions rather than as chronic restriction, to avoid compromising high-intensity training quality.",
+    "specific_value": "\u22653 sessions per week of restricted CHO used in studies",
+    "category": "nutrition_general",
+    "population": "trained endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

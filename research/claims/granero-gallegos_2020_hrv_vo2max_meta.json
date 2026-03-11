@@ -1,0 +1,50 @@
+[
+  {
+    "text": "HRV-guided training produces a small but significant improvement in VO2max compared to traditional predefined training in endurance athletes, with an effect size of 0.402.",
+    "specific_value": "ES = 0.402",
+    "category": "hrv_monitoring",
+    "population": "trained endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The difference in VO2max improvement between HRV-guided and control training groups, while both improved significantly, favored HRV-guided training with an effect size of 0.187.",
+    "specific_value": "ES = 0.187 (HRV vs control difference)",
+    "category": "hrv_monitoring",
+    "population": "trained endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Amateur-level endurance athletes benefit more from HRV-guided training for VO2max improvement than higher-level athletes.",
+    "specific_value": null,
+    "category": "hrv_monitoring",
+    "population": "amateur endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Female endurance athletes show greater VO2max improvements from HRV-guided training compared to male athletes.",
+    "specific_value": null,
+    "category": "hrv_monitoring",
+    "population": "female endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The effectiveness of HRV-guided training on VO2max is moderated by athlete level and sex, with less trained and female athletes showing the greatest benefits.",
+    "specific_value": null,
+    "category": "hrv_monitoring",
+    "population": "trained endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Both HRV-guided and traditional predefined training programs significantly improve VO2max in endurance athletes, but HRV-guided approaches yield a statistically greater improvement.",
+    "specific_value": "p < 0.0001 for both groups; p < 0.0001 for between-group difference",
+    "category": "hrv_monitoring",
+    "population": "trained endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  }
+]

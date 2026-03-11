@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Marathon performance is primarily regulated by the rate of aerobic metabolism (marathon VO2) of limited carbohydrate energy stores (muscle glycogen and blood glucose).",
+    "specific_value": null,
+    "category": "long_run_physiology",
+    "population": "elite and recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The velocity that can be maintained without developing hyperthermia is a key limiting factor in marathon performance.",
+    "specific_value": null,
+    "category": "long_run_physiology",
+    "population": "elite and recreational runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The theoretical physiological limit for the marathon is approximately 1:58:00, achievable by maintaining current half-marathon world record pace for the full distance.",
+    "specific_value": "~1:58:00",
+    "category": "long_run_physiology",
+    "population": "elite athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running economy and the ability to recruit running musculature in a pattern that minimises fatigue by spreading work over many motor units may represent the ultimate limits to marathon performance.",
+    "specific_value": null,
+    "category": "long_run_physiology",
+    "population": "elite and recreational runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Carbohydrate availability (muscle glycogen and blood glucose) is a rate-limiting substrate for sustained aerobic metabolism during marathon running.",
+    "specific_value": null,
+    "category": "long_run_physiology",
+    "population": "elite and recreational runners",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Increased plantarflexion range of motion is a risk factor for plantar fasciitis in physically active individuals, with those affected showing approximately 7 degrees greater plantarflexion ROM.",
+    "specific_value": "MD = 7.04\u00b0 (95% CI, 5.88-8.19)",
+    "category": "injury_foot",
+    "population": "physically active individuals",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Higher body mass index is a risk factor for plantar fasciitis, with affected individuals having approximately 2.1 kg/m\u00b2 higher BMI than unaffected individuals.",
+    "specific_value": "MD = 2.13 kg/m\u00b2 (95% CI, 1.40-2.86, I\u00b2 = 0.00%)",
+    "category": "injury_foot",
+    "population": "physically active individuals",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Greater body mass is a risk factor for plantar fasciitis, with affected individuals weighing approximately 4.5 kg more than unaffected individuals.",
+    "specific_value": "MD = 4.52 kg (95% CI, 0.55-8.49)",
+    "category": "injury_foot",
+    "population": "physically active individuals",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Plantar fasciitis prevention and treatment should target modifiable risk factors including excessive plantarflexion range of motion and elevated body mass, which increase load on plantar surface structures.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "physically active individuals",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Body mass index shows the most homogeneous association with plantar fasciitis risk across studies, with no between-study heterogeneity.",
+    "specific_value": "I\u00b2 = 0.00%",
+    "category": "injury_foot",
+    "population": "physically active individuals",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  }
+]

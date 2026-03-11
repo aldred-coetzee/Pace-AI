@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Chronological age is one of the strongest risk factors for future calf muscle strain injury.",
+    "specific_value": null,
+    "category": "injury_lower_leg",
+    "population": "team sport and triathlon athletes",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Previous history of calf strain is one of the strongest risk factors for future calf muscle injury.",
+    "specific_value": null,
+    "category": "injury_lower_leg",
+    "population": "team sport and triathlon athletes",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Previous lower limb injuries (hamstring, quadriceps, adductor, knee) show limited evidence for an association with future calf strain injury.",
+    "specific_value": null,
+    "category": "injury_lower_leg",
+    "population": "team sport and triathlon athletes",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Height, weight, gender, and side dominance lack evidence of association with calf strain injury risk.",
+    "specific_value": null,
+    "category": "injury_lower_leg",
+    "population": "team sport and triathlon athletes",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Older athletes should incorporate targeted calf injury prevention strategies such as progressive calf strengthening and adequate warm-up given their elevated risk.",
+    "specific_value": null,
+    "category": "injury_lower_leg",
+    "population": "older athletes",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Athletes with a history of calf strain should undertake specific rehabilitation and prevention programs to reduce recurrence risk.",
+    "specific_value": null,
+    "category": "injury_lower_leg",
+    "population": "athletes with previous calf strain",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  }
+]

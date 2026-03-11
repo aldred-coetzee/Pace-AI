@@ -1,0 +1,50 @@
+[
+  {
+    "text": "The overall injury incidence proportion among runners is approximately 40.2%, with a prevalence proportion of approximately 44.6%.",
+    "specific_value": "40.2% incidence, 44.6% prevalence",
+    "category": "injury_prevention_general",
+    "population": "runners (general)",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The knee, ankle, and lower leg are the anatomic locations with the highest proportion of running injury incidence.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "runners (general)",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Achilles tendinopathy is the most common running injury by incidence proportion at 10.3%, followed by medial tibial stress syndrome (9.4%), patellofemoral pain syndrome (6.3%), plantar fasciitis (6.1%), and ankle sprains (5.8%).",
+    "specific_value": "Achilles tendinopathy 10.3%, MTSS 9.4%, PFPS 6.3%, plantar fasciitis 6.1%, ankle sprains 5.8%",
+    "category": "injury_prevention_general",
+    "population": "runners (general)",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Patellofemoral pain syndrome is the most prevalent running injury at 16.7%, followed by medial tibial stress syndrome (9.1%), plantar fasciitis (7.9%), iliotibial band syndrome (7.9%), and Achilles tendinopathy (6.6%).",
+    "specific_value": "PFPS 16.7%, MTSS 9.1%, plantar fasciitis 7.9%, ITBS 7.9%, Achilles tendinopathy 6.6%",
+    "category": "injury_prevention_general",
+    "population": "runners (general)",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Among ultramarathon runners, the ankle (34.5%), knee (28.1%), and lower leg (12.9%) are the three most frequently injured anatomic sites.",
+    "specific_value": "ankle 34.5%, knee 28.1%, lower leg 12.9%",
+    "category": "injury_prevention_general",
+    "population": "ultramarathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Injury incidence proportions by anatomic location do not significantly differ between ultramarathon and non-ultramarathon runners.",
+    "specific_value": "p = 0.798",
+    "category": "injury_prevention_general",
+    "population": "runners (general and ultramarathon)",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Peak Achilles tendon loads during rehabilitation exercises vary more than 12-fold, ranging from 0.5 bodyweights (seated heel raise) to 7.3 bodyweights (forward single-leg hop).",
+    "specific_value": "0.5-7.3 bodyweights",
+    "category": "tendon_health",
+    "population": "healthy young adults",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Seated heel raises produce the lowest Achilles tendon load at approximately 0.5 bodyweights, making them an appropriate starting exercise in tendon rehabilitation progressions.",
+    "specific_value": "0.5 bodyweights",
+    "category": "tendon_health",
+    "population": "healthy young adults",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Forward single-leg hops produce the highest Achilles tendon load at approximately 7.3 bodyweights, representing an advanced end-stage rehabilitation exercise.",
+    "specific_value": "7.3 bodyweights",
+    "category": "tendon_health",
+    "population": "healthy young adults",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Achilles tendon loading can be incrementally progressed using either isolated ankle movements or multijoint movements, providing two parallel progression pathways for rehabilitation.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "healthy young adults",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Asymmetric stepping movements such as lunges, step ups, and step downs allow side-specific Achilles tendon loading prescription, useful for unilateral tendon rehabilitation.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "healthy young adults",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Achilles tendon rehabilitation exercise progression should account for three loading parameters: magnitude, duration, and rate of tendon loading.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "healthy young adults",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  }
+]

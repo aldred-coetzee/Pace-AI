@@ -1,0 +1,50 @@
+[
+  {
+    "text": "A negative training-stress balance (acute workload exceeding chronic workload) is associated with increased injury risk in the following week, with relative risk of 2.2 for internal workload and 2.1 for external workload.",
+    "specific_value": "RR 2.1-2.2",
+    "category": "training_load_acwr",
+    "population": "elite cricket fast bowlers",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Athletes whose acute internal workload exceeds 200% of their chronic workload have a 4.5 times greater injury risk compared to those maintaining a 50-99% training-stress balance.",
+    "specific_value": "RR 4.5 at >200% acute:chronic ratio",
+    "category": "training_load_acwr",
+    "population": "elite cricket fast bowlers",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Athletes whose acute external workload exceeds 200% of their chronic workload have a 3.3 times greater injury risk compared to those maintaining a 50-99% training-stress balance.",
+    "specific_value": "RR 3.3 at >200% acute:chronic ratio",
+    "category": "training_load_acwr",
+    "population": "elite cricket fast bowlers",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Chronic workload should be calculated as a 4-week rolling average, and acute workload as the most recent 1-week total, to assess training-stress balance and injury risk.",
+    "specific_value": "1-week acute / 4-week chronic rolling average",
+    "category": "training_load_acwr",
+    "population": "elite cricket fast bowlers",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Both internal workload (session RPE \u00d7 duration) and external workload measures show similar associations with injury risk when acute workload spikes relative to chronic workload.",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite cricket fast bowlers",
+    "confidence": 0.75,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Maintaining an acute-to-chronic workload ratio between 50% and 99% is associated with the lowest injury risk and can serve as a safe training zone.",
+    "specific_value": "50-99% acute:chronic ratio",
+    "category": "training_load_acwr",
+    "population": "elite cricket fast bowlers",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  }
+]

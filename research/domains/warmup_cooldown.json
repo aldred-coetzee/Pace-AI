@@ -1,0 +1,436 @@
+{
+  "domain_id": "warmup_cooldown",
+  "domain_name": "Warm-Up & Cool-Down",
+  "status": "complete",
+  "papers_found": 13,
+  "search_terms_used": [
+    "warm up running performance systematic review meta-analysis",
+    "dynamic warm up endurance running evidence",
+    "cool down running evidence systematic review",
+    "stretching before running evidence injury prevention systematic review",
+    "pre run routine performance warm up duration optimal running",
+    "post-activation potentiation endurance sports review pubmed",
+    "PAPE postactivation performance enhancement endurance meta-analysis pubmed",
+    "static stretching muscular performance meta-analysis pubmed",
+    "warm-up strategies mechanisms applications review pubmed",
+    "blood lactate clearance active recovery running pubmed",
+    "high-intensity warm-up 5000m running performance RCT pubmed",
+    "weighted vest strides warm-up running economy pubmed"
+  ],
+  "search_terms_not_tried": [],
+  "coverage_notes": "Expanded coverage: original 6 papers covered warm-up meta-analysis (Fradkin 2010), cool-down review (Van Hooren 2018), dynamic stretching mechanisms (Opplert 2018), stretching vs strength for injury prevention (Lauersen 2014), dynamic warm-up review (Sople 2025), dynamic stretching RE RCT (Panasci 2025). Added 7 papers: PAP in endurance review (Boullosa 2018), PAPE endurance meta-analysis (Vasconcelos 2024), static stretching performance impairment meta (Simic 2013), warm-up mechanisms/applications review (McGowan 2015), lactate clearance active recovery running (Menzies 2010), high-intensity warm-up 5000m RCT (Alves 2023), weighted vest strides warm-up RCT (Barnes 2015). Now covers PAP/PAPE, static vs dynamic stretching, warm-up duration/intensity for endurance, cool-down evidence, and running-specific protocols.",
+  "papers": [
+    {
+      "id": "fradkin_2010_warmup_performance_meta",
+      "authors": [
+        "Fradkin Andrea J",
+        "Zazryn Tsharni R",
+        "Smoliga James M"
+      ],
+      "year": 2010,
+      "title": "Effects of warming-up on physical performance: a systematic review with meta-analysis",
+      "journal": "Journal of Strength and Conditioning Research",
+      "volume": "24",
+      "issue": "1",
+      "pages": "140-148",
+      "doi": "10.1519/JSC.0b013e3181c643a0",
+      "doi_verified": true,
+      "pubmed_id": "19996770",
+      "pmc_id": null,
+      "study_type": "meta_analysis",
+      "population": [
+        "athletes",
+        "general_population"
+      ],
+      "sport": [
+        "mixed_sports",
+        "running"
+      ],
+      "n_subjects": null,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Landmark systematic review and meta-analysis of 32 high-quality studies covering 1966-2008. Found that warm-up improved performance in 79% of criteria examined. Provides the strongest broad evidence that warming up before exercise is beneficial across multiple performance domains. Essential reference for justifying warm-up recommendations to runners."
+    },
+    {
+      "id": "vanhooren_2018_cooldown_review",
+      "authors": [
+        "Van Hooren Bas",
+        "Peake Jonathan M"
+      ],
+      "year": 2018,
+      "title": "Do We Need a Cool-Down After Exercise? A Narrative Review of the Psychophysiological Effects and the Effects on Performance, Injuries and the Long-Term Adaptive Response",
+      "journal": "Sports Medicine",
+      "volume": "48",
+      "issue": "7",
+      "pages": "1575-1595",
+      "doi": "10.1007/s40279-018-0916-2",
+      "doi_verified": true,
+      "pubmed_id": "29663142",
+      "pmc_id": "PMC5999142",
+      "study_type": "narrative_review",
+      "population": [
+        "athletes",
+        "general_population"
+      ],
+      "sport": [
+        "mixed_sports",
+        "running"
+      ],
+      "n_subjects": null,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "The definitive review challenging conventional cool-down wisdom. Concluded that active cool-downs are largely ineffective for enhancing same-day or next-day performance, do not prevent injuries, do not reduce muscle soreness, and do not attenuate long-term adaptation. Active cool-downs do accelerate blood lactate clearance but not muscle lactate. Critical paper for a running coach AI to avoid over-prescribing unnecessary cool-down routines."
+    },
+    {
+      "id": "opplert_2018_dynamic_stretching_review",
+      "authors": [
+        "Opplert Jules",
+        "Babault Nicolas"
+      ],
+      "year": 2018,
+      "title": "Acute Effects of Dynamic Stretching on Muscle Flexibility and Performance: An Analysis of the Current Literature",
+      "journal": "Sports Medicine",
+      "volume": "48",
+      "issue": "2",
+      "pages": "299-325",
+      "doi": "10.1007/s40279-017-0797-9",
+      "doi_verified": true,
+      "pubmed_id": "29063454",
+      "pmc_id": null,
+      "study_type": "systematic_review",
+      "population": [
+        "athletes",
+        "recreational_athletes"
+      ],
+      "sport": [
+        "mixed_sports"
+      ],
+      "n_subjects": null,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Comprehensive systematic review of dynamic stretching effects on flexibility and performance. Found substantial evidence that dynamic stretching improves ROM and subsequent performance (force, power, sprint, jump). Explains mechanisms: ROM gains from reduced muscle-tendon unit stiffness, performance gains from temperature and potentiation-related mechanisms. Provides the physiological rationale for recommending dynamic over static stretching in pre-run warm-ups."
+    },
+    {
+      "id": "lauersen_2014_exercise_injury_prevention_meta",
+      "authors": [
+        "Lauersen Jeppe Bo",
+        "Bertelsen Ditte Marie",
+        "Andersen Lars Bo"
+      ],
+      "year": 2014,
+      "title": "The effectiveness of exercise interventions to prevent sports injuries: a systematic review and meta-analysis of randomised controlled trials",
+      "journal": "British Journal of Sports Medicine",
+      "volume": "48",
+      "issue": "11",
+      "pages": "871-877",
+      "doi": "10.1136/bjsports-2013-092538",
+      "doi_verified": true,
+      "pubmed_id": "24100287",
+      "pmc_id": null,
+      "study_type": "meta_analysis",
+      "population": [
+        "athletes",
+        "recreational_athletes",
+        "military"
+      ],
+      "sport": [
+        "mixed_sports",
+        "running"
+      ],
+      "n_subjects": 26610,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Major meta-analysis of 25 RCTs (n=26,610, 3,464 injuries) comparing exercise interventions for injury prevention. Found stretching had no beneficial effect on injury risk (RR 0.963), while strength training reduced injuries to less than one-third (RR 0.315) and proprioception training roughly halved them (RR 0.550). Highly influential paper that shifted clinical recommendations away from pre-exercise stretching toward strength training for injury prevention."
+    },
+    {
+      "id": "sople_2025_dynamic_warmups_review",
+      "authors": [
+        "Sople Derek",
+        "Wilcox Reg B III"
+      ],
+      "year": 2025,
+      "title": "Dynamic Warm-ups Play Pivotal Role in Athletic Performance and Injury Prevention",
+      "journal": "Arthroscopy, Sports Medicine, and Rehabilitation",
+      "volume": "7",
+      "issue": "2",
+      "pages": "101023",
+      "doi": "10.1016/j.asmr.2024.101023",
+      "doi_verified": true,
+      "pubmed_id": "40297071",
+      "pmc_id": "PMC12034053",
+      "study_type": "narrative_review",
+      "population": [
+        "athletes",
+        "recreational_athletes"
+      ],
+      "sport": [
+        "mixed_sports",
+        "running"
+      ],
+      "n_subjects": null,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Recent clinical review synthesizing evidence on dynamic warm-ups for performance and injury prevention. Recommends 7-10 minute dynamic warm-up including agility, plyometrics, power, core, and balance activities. Highlights that static stretching temporarily reduces muscle strength by up to 5.4% while dynamic warm-ups prime muscles without that cost. Directly applicable for designing pre-run warm-up protocols in a coaching AI."
+    },
+    {
+      "id": "panasci_2025_dynamic_stretching_running_economy",
+      "authors": [
+        "Panasci Marco",
+        "Ferrando Vittoria",
+        "Bisio Ambra",
+        "Filipas Luca",
+        "Di Gennaro Simone",
+        "Puce Luca",
+        "Ruggeri Piero",
+        "Faelli Emanuela"
+      ],
+      "year": 2025,
+      "title": "Moderate-Duration Dynamic Stretching During Warm-up Improves Running Economy and Running Performance in Recreational Distance Runners",
+      "journal": "International Journal of Sports Physiology and Performance",
+      "volume": "20",
+      "issue": "1",
+      "pages": "99-108",
+      "doi": "10.1123/ijspp.2023-0468",
+      "doi_verified": true,
+      "pubmed_id": "39608347",
+      "pmc_id": null,
+      "study_type": "rct",
+      "population": [
+        "recreational_runners"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 15,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Running-specific RCT comparing moderate-duration dynamic stretching vs static stretching vs no stretching during warm-up in recreational distance runners. Dynamic stretching significantly improved running economy and enhanced total running distance and time to exhaustion, while 60 seconds of static stretching did not produce significant improvements. Directly supports prescribing dynamic stretching in pre-run warm-ups for distance runners."
+    },
+    {
+      "id": "boullosa_2018_pap_endurance_review",
+      "authors": [
+        "Boullosa D",
+        "Del Rosso S",
+        "Behm DG",
+        "Foster C"
+      ],
+      "year": 2018,
+      "title": "Post-activation potentiation (PAP) in endurance sports: A review",
+      "journal": "European Journal of Sport Science",
+      "volume": "18",
+      "issue": "5",
+      "pages": "595-610",
+      "doi": "10.1080/17461391.2018.1438519",
+      "doi_verified": true,
+      "pubmed_id": "29490594",
+      "pmc_id": null,
+      "study_type": "review",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running",
+        "cycling",
+        "rowing"
+      ],
+      "n_subjects": null,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Reviewed 22 studies examining post-activation potentiation (PAP) in endurance athletes, discussing physiological mechanisms, optimal conditioning activity parameters, and the potential for PAP to enhance endurance performance when incorporated into warm-up routines."
+    },
+    {
+      "id": "vasconcelos_2024_pape_endurance_meta",
+      "authors": [
+        "Vasconcelos GC",
+        "Brietzke C",
+        "Cesario JCS",
+        "Douetts CDB",
+        "Canestri R",
+        "Vinicius I",
+        "Franco-Alvarenga PE",
+        "Pires FO"
+      ],
+      "year": 2024,
+      "title": "No Evidence of Postactivation Performance Enhancement on Endurance Exercises: A Comprehensive Systematic Review and Meta-analysis",
+      "journal": "Medicine & Science in Sports & Exercise",
+      "volume": "56",
+      "issue": "2",
+      "pages": "315-327",
+      "doi": "10.1249/MSS.0000000000003308",
+      "doi_verified": true,
+      "pubmed_id": "37796168",
+      "pmc_id": null,
+      "study_type": "meta_analysis",
+      "population": [
+        "mixed"
+      ],
+      "sport": [
+        "running",
+        "cycling",
+        "rowing"
+      ],
+      "n_subjects": 432,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Systematic review and meta-analysis of 35 studies (432 participants, 57 comparisons) examining whether post-activation performance enhancement (PAPE) protocols improve endurance exercise performance, finding very low certainty of evidence for any benefit."
+    },
+    {
+      "id": "simic_2013_static_stretching_performance_meta",
+      "authors": [
+        "Simic L",
+        "Sarabon N",
+        "Markovic G"
+      ],
+      "year": 2013,
+      "title": "Does pre-exercise static stretching inhibit maximal muscular performance? A meta-analytical review",
+      "journal": "Scandinavian Journal of Medicine & Science in Sports",
+      "volume": "23",
+      "issue": "2",
+      "pages": "131-148",
+      "doi": "10.1111/j.1600-0838.2012.01444.x",
+      "doi_verified": true,
+      "pubmed_id": "22316148",
+      "pmc_id": null,
+      "study_type": "meta_analysis",
+      "population": [
+        "general"
+      ],
+      "sport": [
+        "mixed"
+      ],
+      "n_subjects": null,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Meta-analysis of 104 studies quantifying the acute negative effects of pre-exercise static stretching on strength (-5.4%), power (-1.9%), and explosive performance (-2.0%), concluding that static stretching as the sole warm-up activity should generally be avoided."
+    },
+    {
+      "id": "mcgowan_2015_warmup_strategies_review",
+      "authors": [
+        "McGowan CJ",
+        "Pyne DB",
+        "Thompson KG",
+        "Rattray B"
+      ],
+      "year": 2015,
+      "title": "Warm-Up Strategies for Sport and Exercise: Mechanisms and Applications",
+      "journal": "Sports Medicine",
+      "volume": "45",
+      "issue": "11",
+      "pages": "1523-1546",
+      "doi": "10.1007/s40279-015-0376-x",
+      "doi_verified": true,
+      "pubmed_id": "26400696",
+      "pmc_id": null,
+      "study_type": "review",
+      "population": [
+        "elite",
+        "recreational"
+      ],
+      "sport": [
+        "running",
+        "mixed"
+      ],
+      "n_subjects": null,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Comprehensive review synthesizing the temperature-related, metabolic, neural, and psychological mechanisms of warm-up, and discussing how to structure warm-up duration, intensity, and recovery intervals for different sport contexts including endurance events."
+    },
+    {
+      "id": "menzies_2010_lactate_clearance_active_recovery",
+      "authors": [
+        "Menzies P",
+        "Menzies C",
+        "McIntyre L",
+        "Paterson P",
+        "Wilson J",
+        "Kemi OJ"
+      ],
+      "year": 2010,
+      "title": "Blood lactate clearance during active recovery after an intense running bout depends on the intensity of the active recovery",
+      "journal": "Journal of Sports Sciences",
+      "volume": "28",
+      "issue": "9",
+      "pages": "975-982",
+      "doi": "10.1080/02640414.2010.481721",
+      "doi_verified": true,
+      "pubmed_id": "20544484",
+      "pmc_id": null,
+      "study_type": "rct",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 10,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Running-specific study examining blood lactate clearance rates at different active recovery intensities (0-100% of lactate threshold) after an intense running bout, finding that recovery at 80-100% of lactate threshold produced the fastest clearance rates."
+    },
+    {
+      "id": "alves_2023_highintensity_warmup_5000m",
+      "authors": [
+        "Alves MDDJ",
+        "Knechtle B",
+        "Silva DDS",
+        "Fernandes MSDS",
+        "Gomes JH",
+        "Thuany M",
+        "Aidar FJ",
+        "Weiss K",
+        "De Souza RF"
+      ],
+      "year": 2023,
+      "title": "Effects of High-Intensity Warm-Up on 5000-Meter Performance Time in Trained Long-Distance Runners",
+      "journal": "Journal of Sports Science & Medicine",
+      "volume": "22",
+      "issue": "2",
+      "pages": "254-262",
+      "doi": "10.52082/jssm.2023.254",
+      "doi_verified": true,
+      "pubmed_id": "37293424",
+      "pmc_id": "PMC10245000",
+      "study_type": "rct",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 13,
+      "abstract_available": true,
+      "open_access": true,
+      "notes": "Randomized crossover study comparing high-intensity versus low-intensity warm-up protocols on 5000m time-trial performance in trained distance runners, finding that the high-intensity warm-up improved performance by approximately 6.4 seconds (0.5%)."
+    },
+    {
+      "id": "barnes_2015_weighted_vest_strides_warmup",
+      "authors": [
+        "Barnes KR",
+        "Hopkins WG",
+        "McGuigan MR",
+        "Kilding AE"
+      ],
+      "year": 2015,
+      "title": "Warm-up with a weighted vest improves running performance via leg stiffness and running economy",
+      "journal": "Journal of Science and Medicine in Sport",
+      "volume": "18",
+      "issue": "1",
+      "pages": "103-108",
+      "doi": "10.1016/j.jsams.2013.12.005",
+      "doi_verified": true,
+      "pubmed_id": "24462560",
+      "pmc_id": null,
+      "study_type": "rct",
+      "population": [
+        "recreational"
+      ],
+      "sport": [
+        "running"
+      ],
+      "n_subjects": 11,
+      "abstract_available": true,
+      "open_access": false,
+      "notes": "Crossover study examining the effect of performing warm-up strides with a 20% body-mass weighted vest on subsequent distance-running performance in well-trained runners, finding a very large enhancement of peak running speed (2.9%) via improved leg stiffness and running economy."
+    }
+  ]
+}

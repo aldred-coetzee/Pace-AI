@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Overtraining syndrome is primarily related to sustained high training load, often coupled with other life stressors.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "experienced athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Monotonous training (low day-to-day variability in training load) increases the likelihood of developing overtraining syndrome.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "experienced athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Training monotony can be quantified as the daily mean training load divided by its standard deviation, where higher values indicate less day-to-day variation.",
+    "specific_value": "daily mean / standard deviation",
+    "category": "overtraining_recovery",
+    "population": "experienced athletes",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Training strain, calculated as training load multiplied by training monotony, is a strong predictor of illness incidence in athletes.",
+    "specific_value": "strain = load \u00d7 monotony",
+    "category": "overtraining_recovery",
+    "population": "experienced athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Session RPE multiplied by session duration provides a practical method for quantifying internal training load without heart rate monitors.",
+    "specific_value": "session RPE \u00d7 duration",
+    "category": "overtraining_recovery",
+    "population": "experienced athletes",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "A high percentage of illnesses in athletes can be accounted for when individually identifiable training strain thresholds are exceeded.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "experienced athletes",
+    "confidence": 0.6,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Training thresholds associated with illness are individually variable, requiring personalized monitoring rather than universal cutoffs.",
+    "specific_value": null,
+    "category": "overtraining_recovery",
+    "population": "experienced athletes",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

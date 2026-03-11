@@ -1,0 +1,50 @@
+[
+  {
+    "text": "The incidence proportion of running-related injury over 12 months in competitive adolescent distance runners is 68%.",
+    "specific_value": "68% (95% CI: 60-77)",
+    "category": "youth_running",
+    "population": "competitive adolescent distance runners (13-18 years)",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The incidence rate of running-related injury in competitive adolescent distance runners is 6.3 per 1,000 participation hours.",
+    "specific_value": "6.3/1,000 hours (95% CI: 5.3-7.4)",
+    "category": "youth_running",
+    "population": "competitive adolescent distance runners (13-18 years)",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "The most commonly injured body areas in adolescent distance runners are the knee, foot/toes, and lower leg, primarily caused by overuse.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "competitive adolescent distance runners (13-18 years)",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Training frequency (sessions per week) significantly increases with chronological age in adolescent distance runners.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "competitive adolescent distance runners (13-18 years)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A large proportion (58%) of competitive adolescent distance runners self-report a high level of sport specialisation.",
+    "specific_value": "58%",
+    "category": "youth_running",
+    "population": "competitive adolescent distance runners (13-18 years)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Overuse is the primary mechanism of running-related injury in competitive adolescent distance runners rather than acute trauma.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "competitive adolescent distance runners (13-18 years)",
+    "confidence": 0.6,
+    "school_of_thought": "injury prevention"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "High intensity interval training increases VO2max by an average of 0.51 L/min in healthy sedentary to recreationally active adults over 6-13 weeks of training.",
+    "specific_value": "0.51 L/min (95% CI: 0.43-0.60)",
+    "category": "5k_track_training",
+    "population": "healthy sedentary/recreationally active adults <45 years",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Longer high-intensity intervals produce larger VO2max gains of approximately 0.8-0.9 L/min, with evidence of a marked response in all subjects.",
+    "specific_value": "0.8-0.9 L/min",
+    "category": "5k_track_training",
+    "population": "healthy sedentary/recreationally active adults <45 years",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Interval training produces substantially larger VO2max improvements (up to ~1.0 L/min) compared to the modest changes typically seen with continuous endurance training alone.",
+    "specific_value": "up to ~1.0 L/min",
+    "category": "5k_track_training",
+    "population": "healthy sedentary/recreationally active adults <45 years",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Effective high-intensity interval training protocols require at least 3 sessions per week, at least 10 minutes of high-intensity work per session, and a minimum 1:1 work-to-rest ratio.",
+    "specific_value": "\u22653 days/week, \u226510 min high-intensity, \u22651:1 work:rest",
+    "category": "5k_track_training",
+    "population": "healthy sedentary/recreationally active adults <45 years",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Combined interval and continuous training programs can produce VO2max gains comparable to or exceeding interval-only programs, suggesting both modalities complement each other.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "healthy sedentary/recreationally active adults <45 years",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "The perception that VO2max has limited trainability may be an artifact of relying on moderate-intensity continuous training; interval training demonstrates that VO2max is more trainable than previously assumed.",
+    "specific_value": null,
+    "category": "5k_track_training",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  }
+]

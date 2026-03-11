@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Sedentary men experience a VO2max decline of approximately 12% per decade with aging.",
+    "specific_value": "12% per decade",
+    "category": "masters_running",
+    "population": "sedentary men aged ~60",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Master endurance athletes who maintain regular vigorous training experience a VO2max decline of approximately 5.5% per decade, roughly half the rate of sedentary individuals.",
+    "specific_value": "5.5% per decade",
+    "category": "masters_running",
+    "population": "trained master endurance athletes aged ~60",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Master athletes who continue vigorous endurance training maintain higher absolute VO2max values (~52 ml/kg/min) compared to sedentary age-matched peers (~31 ml/kg/min) into their late 60s.",
+    "specific_value": "51.8 vs 30.6 ml/kg/min",
+    "category": "masters_running",
+    "population": "master endurance athletes vs sedentary men aged ~60-70",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Continued endurance exercise training may attenuate the age-related decline in maximal heart rate, with master athletes showing no significant decline over 8 years while sedentary peers lost ~8 beats/min.",
+    "specific_value": "0 vs 8 beats/min decline over ~8 years",
+    "category": "masters_running",
+    "population": "master endurance athletes vs sedentary men aged ~60",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Maximal oxygen pulse (VO2/heart beat) declines with aging in both trained and sedentary individuals, indicating reduced stroke volume or arteriovenous O2 difference regardless of training status.",
+    "specific_value": "0.32\u21920.30 (athletes) and 0.20\u21920.18 ml/kg/beat (sedentary)",
+    "category": "masters_running",
+    "population": "master endurance athletes and sedentary men aged ~60-70",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

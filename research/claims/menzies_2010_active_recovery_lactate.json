@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Active recovery clears accumulated blood lactate faster than passive recovery after high-intensity running.",
+    "specific_value": null,
+    "category": "easy_recovery_running",
+    "population": "recreational male runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Blood lactate clearance during active recovery is intensity-dependent, with higher intensities (60-100% of lactate threshold) clearing lactate more rapidly than lower intensities (0-40% of lactate threshold).",
+    "specific_value": "60-100% vs 0-40% of lactate threshold",
+    "category": "easy_recovery_running",
+    "population": "recreational male runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Maximum blood lactate clearance occurs at active recovery intensities close to the lactate threshold (80-100% of lactate threshold).",
+    "specific_value": "80-100% of lactate threshold",
+    "category": "easy_recovery_running",
+    "population": "recreational male runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Active recovery at 80-100% of lactate threshold produces shorter time constants for 67% lactate clearance and higher peak clearance rates compared to 40% of lactate threshold or passive recovery.",
+    "specific_value": "80-100% vs 40% of lactate threshold",
+    "category": "easy_recovery_running",
+    "population": "recreational male runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running at 90% of VO2max for 5-minute bouts increases blood lactate concentration from approximately 1.0 to 3.9 mmol/L.",
+    "specific_value": "1.0 to 3.9 mmol/L",
+    "category": "easy_recovery_running",
+    "population": "recreational male runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Self-regulated higher-intensity recovery produces enhanced lactate clearance compared to self-regulated lower-intensity recovery, confirming the intensity dependence of lactate clearance.",
+    "specific_value": null,
+    "category": "easy_recovery_running",
+    "population": "recreational male runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

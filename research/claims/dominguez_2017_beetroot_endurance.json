@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Beetroot juice supplementation increases nitric oxide levels, which improves blood flow, gas exchange, mitochondrial biogenesis and efficiency, and muscle contraction strength.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Beetroot juice supplementation can improve cardiorespiratory endurance by increasing efficiency, improving performance at various distances, and increasing time to exhaustion at submaximal intensities.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Beetroot juice supplementation may improve cardiorespiratory performance at anaerobic threshold intensities and increase maximum oxygen uptake (VO2max).",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Beetroot juice supplementation may mitigate the negative effects of hypoxia (altitude) on cardiorespiratory endurance, though evidence is contradictory.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational athletes",
+    "confidence": 0.4,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine may undermine the ergogenic effects of beetroot juice supplementation when the two are combined.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The combination of beetroot juice with other supplements has no clearly established positive or negative effect on cardiorespiratory endurance.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

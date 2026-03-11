@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Psychological and lifestyle subjective health complaints are significantly associated with increased new injury risk within a 7-day lag period in endurance athletes.",
+    "specific_value": "HR=1.32, 95% CI 1.01-1.72, p<0.04",
+    "category": "sleep_recovery",
+    "population": "endurance sport athletes (running, triathlon, swimming, cycling, rowing)",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Sleeping less than 7 hours per day is associated with a 51% increased risk of new injury after a 14-day lag period in endurance athletes.",
+    "specific_value": "HR=1.51, 95% CI 1.13-2.02, p<0.01",
+    "category": "sleep_recovery",
+    "population": "endurance sport athletes (running, triathlon, swimming, cycling, rowing)",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Sleeping more than 7 hours per day is associated with a 37% decreased risk of new injury after a 14-day lag period in endurance athletes.",
+    "specific_value": "HR=0.63, 95% CI 0.45-0.87, p<0.01",
+    "category": "sleep_recovery",
+    "population": "endurance sport athletes (running, triathlon, swimming, cycling, rowing)",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "There is a meaningful lag period (7-14 days) between reduced sleep quantity and its subsequent impact on injury risk, meaning the effects of sleep deprivation on injury are not immediate but cumulative.",
+    "specific_value": "14-day lag period",
+    "category": "sleep_recovery",
+    "population": "endurance sport athletes (running, triathlon, swimming, cycling, rowing)",
+    "confidence": 0.75,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Subjective health complaints and sleep quantity are not significantly associated with training load factors, suggesting they represent independent risk pathways for injury beyond training load alone.",
+    "specific_value": "RR=0.08, 95% CI 0.04-0.21, p=0.20",
+    "category": "sleep_recovery",
+    "population": "endurance sport athletes (running, triathlon, swimming, cycling, rowing)",
+    "confidence": 0.7,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Cardiorespiratory subjective health complaints showed a trend toward association with new injury risk but did not reach statistical significance.",
+    "specific_value": "HR=1.15, 95% CI 0.99-1.36, p=0.07",
+    "category": "sleep_recovery",
+    "population": "endurance sport athletes (running, triathlon, swimming, cycling, rowing)",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  }
+]

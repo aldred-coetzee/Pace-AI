@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Iron treatment has a large effect on improving serum ferritin in iron-deficient non-anaemic endurance athletes.",
+    "specific_value": "Hedges' g=1.088, 95% CI 0.914-1.263",
+    "category": "iron_bone_health",
+    "population": "iron-deficient non-anaemic endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron treatment has a large effect on improving serum iron in iron-deficient non-anaemic endurance athletes.",
+    "specific_value": "Hedges' g=1.004, 95% CI 0.828-1.181",
+    "category": "iron_bone_health",
+    "population": "iron-deficient non-anaemic endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron treatment has a moderate effect on improving VO2max in iron-deficient non-anaemic endurance athletes, even without clinical anaemia.",
+    "specific_value": "Hedges' g=0.610, 95% CI 0.399-0.821",
+    "category": "iron_bone_health",
+    "population": "iron-deficient non-anaemic endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron treatment has a moderate effect on improving haemoglobin concentration in iron-deficient non-anaemic endurance athletes.",
+    "specific_value": "Hedges' g=0.695, 95% CI 0.533-0.836",
+    "category": "iron_bone_health",
+    "population": "iron-deficient non-anaemic endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron treatment duration beyond 80 days shows diminishing returns on serum ferritin improvement, suggesting shorter treatment courses may be more effective per unit time.",
+    "specific_value": ">80 days reduced effect on serum ferritin",
+    "category": "iron_bone_health",
+    "population": "iron-deficient non-anaemic endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron deficiency without anaemia is sufficient to impair aerobic capacity in endurance athletes, and correcting it improves VO2max.",
+    "specific_value": null,
+    "category": "iron_bone_health",
+    "population": "iron-deficient non-anaemic endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "text": "High-intensity interval training produces a large improvement in VO2max of approximately 5.5 mL/kg/min compared to no-exercise controls.",
+    "specific_value": "5.5 mL/kg/min (\u00b11.2)",
+    "category": "interval_training",
+    "population": "healthy adults aged 18-45 years",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Continuous endurance training produces a large improvement in VO2max of approximately 4.9 mL/kg/min compared to no-exercise controls.",
+    "specific_value": "4.9 mL/kg/min (\u00b11.4)",
+    "category": "interval_training",
+    "population": "healthy adults aged 18-45 years",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "HIT elicits a possibly small but meaningful additional VO2max improvement of 1.2 mL/kg/min compared to continuous endurance training.",
+    "specific_value": "1.2 mL/kg/min (\u00b10.9)",
+    "category": "interval_training",
+    "population": "healthy adults aged 18-45 years",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Individuals with lower baseline fitness show a greater VO2max response to HIT, with a moderate additional increase of 3.2 mL/kg/min compared to fitter individuals.",
+    "specific_value": "3.2 mL/kg/min (\u00b11.9)",
+    "category": "interval_training",
+    "population": "healthy adults with lower baseline fitness",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Longer HIT intervention durations produce a moderate additional VO2max improvement of 3.0 mL/kg/min compared to shorter interventions.",
+    "specific_value": "3.0 mL/kg/min (\u00b11.9)",
+    "category": "interval_training",
+    "population": "healthy adults aged 18-45 years",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Longer HIT repetition durations produce greater VO2max gains when compared head-to-head with endurance training, with a small additional improvement of 2.2 mL/kg/min.",
+    "specific_value": "2.2 mL/kg/min (\u00b12.1)",
+    "category": "interval_training",
+    "population": "healthy adults aged 18-45 years",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Older adults within the 18-45 age range show a greater relative VO2max benefit from HIT over endurance training, with a small additional improvement of 1.8 mL/kg/min.",
+    "specific_value": "1.8 mL/kg/min (\u00b11.7)",
+    "category": "interval_training",
+    "population": "healthy adults aged 18-45 years (older end)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "A greater work-to-rest ratio in HIT protocols produces a small additional VO2max benefit of 1.6 mL/kg/min when HIT is compared with endurance training.",
+    "specific_value": "1.6 mL/kg/min (\u00b11.5)",
+    "category": "interval_training",
+    "population": "healthy adults aged 18-45 years",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Previous history of stress fracture is the strongest risk factor for future lower extremity stress fracture in runners, with nearly 5-fold increased odds.",
+    "specific_value": "OR 4.99 (95% CI 2.91-8.56)",
+    "category": "injury_stress_fracture",
+    "population": "runners",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Female sex is a significant risk factor for lower extremity stress fracture in runners, with approximately 2.3-fold increased odds compared to males.",
+    "specific_value": "OR 2.31 (95% CI 1.24-4.29)",
+    "category": "injury_stress_fracture",
+    "population": "runners",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Stress fractures account for 15-20% of all musculoskeletal injuries among runners.",
+    "specific_value": "15-20%",
+    "category": "injury_stress_fracture",
+    "population": "runners",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Up to 95% of stress fractures occur in the lower extremities.",
+    "specific_value": "up to 95%",
+    "category": "injury_stress_fracture",
+    "population": "mixed",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Runners with a previous stress fracture should be monitored with heightened vigilance for recurrence, as prior history is the single strongest predictor of future stress fracture.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "runners",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Altitude training significantly increases hemoglobin levels compared to low-altitude training.",
+    "specific_value": "SMD = 0.7, 95% CI: 0.27-1.13, p = 0.03",
+    "category": "altitude_training",
+    "population": "endurance athletes aged 18-35",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Altitude training increases hemoglobin mass compared to low-altitude training, though the effect is moderate.",
+    "specific_value": "SMD = 0.49, 95% CI: 0.1-0.89",
+    "category": "altitude_training",
+    "population": "endurance athletes aged 18-35",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Altitude training has no significant effect on maximal oxygen uptake (VO2max) compared to low-altitude training.",
+    "specific_value": "SMD = -0.13, 95% CI: -1.21-0.96, p = 0.68",
+    "category": "altitude_training",
+    "population": "endurance athletes aged 18-35",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Altitude training improves time-trial performance compared to low-altitude training.",
+    "specific_value": "SMD = -28.73, 95% CI: -58.69-1.23, p = 0.002",
+    "category": "altitude_training",
+    "population": "endurance athletes aged 18-35",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The 'live high, train high' (LHTH) approach is more effective than other altitude training modalities for enhancing aerobic capacity.",
+    "specific_value": null,
+    "category": "altitude_training",
+    "population": "endurance athletes aged 18-35",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Altitude training interventions lasting longer than three weeks are more effective than shorter interventions for improving aerobic capacity.",
+    "specific_value": ">3 weeks",
+    "category": "altitude_training",
+    "population": "endurance athletes aged 18-35",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Altitude training improves aerobic capacity primarily through hematological adaptations rather than through increases in VO2max.",
+    "specific_value": null,
+    "category": "altitude_training",
+    "population": "endurance athletes aged 18-35",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

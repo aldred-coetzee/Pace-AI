@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Strength training programs produce a large beneficial effect on running economy in highly trained middle- and long-distance runners.",
+    "specific_value": "SMD = -1.42 [-2.23 to -0.60]",
+    "category": "strength_training_runners",
+    "population": "competitive middle- and long-distance runners with VO2max >60 ml/kg/min",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Strength training performed 2-3 times per week for 8-12 weeks is sufficient to improve running economy in highly trained runners.",
+    "specific_value": "2-3 sessions/week for 8-12 weeks",
+    "category": "strength_training_runners",
+    "population": "competitive middle- and long-distance runners with VO2max >60 ml/kg/min",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Low to moderate resistance training intensities (40-70% of one repetition maximum) are effective for improving running economy in highly trained runners.",
+    "specific_value": "40-70% 1RM",
+    "category": "strength_training_runners",
+    "population": "competitive middle- and long-distance runners with VO2max >60 ml/kg/min",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "An effective strength training protocol for runners includes 2-4 resistance lower-body exercises plus up to 200 jumps and 5-10 short sprints per session.",
+    "specific_value": "2-4 exercises + up to 200 jumps + 5-10 sprints",
+    "category": "strength_training_runners",
+    "population": "competitive middle- and long-distance runners with VO2max >60 ml/kg/min",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Combining resistance exercises with plyometric exercises is an appropriate strategy to improve running economy in highly trained runners.",
+    "specific_value": null,
+    "category": "strength_training_runners",
+    "population": "competitive middle- and long-distance runners with VO2max >60 ml/kg/min",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  }
+]

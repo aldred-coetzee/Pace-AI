@@ -1,0 +1,50 @@
+[
+  {
+    "text": "A structured return-to-running program after ACL reconstruction (10 running sessions over 14 days with progression algorithm) is feasible, with 33 of 34 participants completing the program.",
+    "specific_value": "97% completion rate",
+    "category": "return_to_running",
+    "population": "post-ACLR patients (hamstring graft)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Approximately half of participants experienced temporary exacerbation of symptoms during a structured return-to-running program after ACLR, but only one had to discontinue.",
+    "specific_value": "16 of 34 (47%) temporary exacerbation",
+    "category": "return_to_running",
+    "population": "post-ACLR patients (hamstring graft)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The IKDC subjective knee score is a significant predictor of successful return to running after ACLR, with an AUC of 80.4%.",
+    "specific_value": "AUC 80.4%",
+    "category": "return_to_running",
+    "population": "post-ACLR patients (hamstring graft)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "An IKDC score above 64/100 should be used as a criterion before reintroducing running after ACLR, as it provides a 3-fold greater chance of short-term success.",
+    "specific_value": "IKDC > 64/100, 3x greater chance of success",
+    "category": "return_to_running",
+    "population": "post-ACLR patients (hamstring graft)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The IKDC cut-off of 63.7/100 differentiated successful and unsuccessful return-to-running responders with 77.8% sensitivity and 75.0% specificity after ACLR.",
+    "specific_value": "sensitivity 77.8%, specificity 75.0%",
+    "category": "return_to_running",
+    "population": "post-ACLR patients (hamstring graft)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Quadriceps and hamstring strength, step-down endurance, and modified Star Excursion Balance Test were not significant predictors of short-term return-to-running success after ACLR.",
+    "specific_value": null,
+    "category": "return_to_running",
+    "population": "post-ACLR patients (hamstring graft)",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

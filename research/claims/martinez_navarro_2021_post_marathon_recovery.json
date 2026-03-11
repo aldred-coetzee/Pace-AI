@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Returning to running at 48 hours post-marathon does not negatively impact muscle damage recovery (measured by CK and LDH) up to eight days post-race compared to complete rest.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Active recovery via running at moderate intensity (95-105% of first ventilatory threshold HR) for 40 minutes at 48, 96, and 144 hours post-marathon enhances neuromuscular performance (squat jump) at 96 hours compared to passive rest.",
+    "specific_value": "108.29% vs 100.58% of baseline SJ, d = 0.80",
+    "category": "cross_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Elliptical training as active recovery post-marathon does not provide a significant neuromuscular recovery advantage over passive rest, unlike running-based active recovery.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Post-marathon active recovery sessions should be performed at moderate intensity around the first ventilatory threshold for approximately 40 minutes to aid neuromuscular recovery.",
+    "specific_value": "40 min at 95-105% VT1 HR",
+    "category": "cross_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Muscle damage markers (CK and LDH) follow the same time course of recovery regardless of whether active or passive recovery is used post-marathon.",
+    "specific_value": null,
+    "category": "cross_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Neuromuscular recovery (squat jump performance) post-marathon can be accelerated by resuming running 48 hours after the race, with a large effect size compared to rest.",
+    "specific_value": "d = 0.80 at 96 h post-race",
+    "category": "cross_training",
+    "population": "recreational marathon runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

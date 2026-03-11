@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Both eccentric training and heavy slow resistance training produce significant improvements in Achilles tendinopathy symptoms and function after 12 weeks, with improvements maintained at 52 weeks.",
+    "specific_value": "12 weeks treatment, maintained at 52 weeks",
+    "category": "tendon_health",
+    "population": "patients with chronic midportion Achilles tendinopathy",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Heavy slow resistance training and eccentric training are equally effective for treating midportion Achilles tendinopathy, with no significant differences in clinical or structural outcomes.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "patients with chronic midportion Achilles tendinopathy",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Training compliance is significantly higher with heavy slow resistance training (92%) compared to eccentric training (78%) for Achilles tendinopathy rehabilitation.",
+    "specific_value": "92% HSR vs 78% ECC compliance (P < .005)",
+    "category": "tendon_health",
+    "population": "patients with chronic midportion Achilles tendinopathy",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Patient satisfaction tends to be higher with heavy slow resistance training (100%) than eccentric training (80%) at 12 weeks, though the difference is not statistically significant.",
+    "specific_value": "100% HSR vs 80% ECC satisfaction at 12 weeks (P = .052)",
+    "category": "tendon_health",
+    "population": "patients with chronic midportion Achilles tendinopathy",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Loading-based treatment for Achilles tendinopathy produces significant reductions in tendon thickness and neovascularization alongside clinical improvement.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "patients with chronic midportion Achilles tendinopathy",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Achilles tendinopathy symptoms present for longer than 3 months (chronic) respond well to structured loading programs of 12 weeks duration.",
+    "specific_value": ">3 months symptom duration, 12-week program",
+    "category": "tendon_health",
+    "population": "patients with chronic midportion Achilles tendinopathy",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Foot orthoses reduce the risk of overall musculoskeletal injury by approximately 28%.",
+    "specific_value": "RR 0.72, 95% CI 0.55-0.94",
+    "category": "injury_foot",
+    "population": "mixed (military and athletic populations)",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Foot orthoses reduce the risk of stress fractures by approximately 41%.",
+    "specific_value": "RR 0.59, 95% CI 0.45-0.76",
+    "category": "injury_foot",
+    "population": "mixed (military and athletic populations)",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Foot orthoses are not effective for preventing soft-tissue injuries.",
+    "specific_value": "RR 0.79, 95% CI 0.55-1.14",
+    "category": "injury_foot",
+    "population": "mixed (military and athletic populations)",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Shock-absorbing insoles are not effective for preventing overall musculoskeletal injuries.",
+    "specific_value": "RR 0.92, 95% CI 0.73-1.16",
+    "category": "injury_foot",
+    "population": "mixed (military and athletic populations)",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Shock-absorbing insoles are not effective for preventing stress fractures.",
+    "specific_value": "RR 1.15, 95% CI 0.57-2.32",
+    "category": "injury_foot",
+    "population": "mixed (military and athletic populations)",
+    "confidence": 0.7,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Shock-absorbing insoles are not effective for preventing soft-tissue injuries.",
+    "specific_value": "RR 0.92, 95% CI 0.74-1.15",
+    "category": "injury_foot",
+    "population": "mixed (military and athletic populations)",
+    "confidence": 0.8,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Foot orthoses provide greater injury prevention benefit than shock-absorbing insoles, particularly for stress fracture reduction.",
+    "specific_value": null,
+    "category": "injury_foot",
+    "population": "mixed (military and athletic populations)",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  }
+]

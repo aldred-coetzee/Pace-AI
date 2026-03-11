@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Caffeine supplementation acutely enhances muscular endurance, movement velocity, muscular strength, sprinting, jumping, throwing performance, and a wide range of aerobic and anaerobic sport-specific actions, with small to moderate benefits.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Aerobic endurance is the form of exercise with the most consistent moderate-to-large benefits from caffeine use, although the magnitude differs between individuals.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine consistently improves exercise performance when consumed in doses of 3-6 mg/kg body mass, with minimal effective doses possibly as low as 2 mg/kg body mass.",
+    "specific_value": "3-6 mg/kg (effective), possibly 2 mg/kg (minimal)",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Very high caffeine doses (e.g. 9 mg/kg body mass) are associated with a high incidence of side effects and do not provide additional ergogenic benefit over moderate doses.",
+    "specific_value": "9 mg/kg",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The most commonly used timing for caffeine supplementation is 60 minutes pre-exercise, though caffeinated chewing gums may require a shorter waiting time than capsules.",
+    "specific_value": "60 min pre-exercise",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine improves physical performance in both trained and untrained individuals.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "trained and untrained individuals",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine is ergogenic for endurance exercise in the heat (3-6 mg/kg) and at altitude (4-6 mg/kg).",
+    "specific_value": "3-6 mg/kg (heat), 4-6 mg/kg (altitude)",
+    "category": "supplements",
+    "population": "endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Inter-individual differences in caffeine response, including adverse effects on sleep and anxiety, may be attributed to genetic variation in caffeine metabolism and habitual caffeine intake.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

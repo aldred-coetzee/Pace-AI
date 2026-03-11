@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Acute caffeine ingestion in moderate doses (3-6 mg/kg) produces a small but significant ergogenic effect on endurance time-trial performance.",
+    "specific_value": "3-6 mg/kg",
+    "category": "supplements",
+    "population": "mixed endurance athletes",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine ingestion improves mean power output during endurance time-trials by approximately 3% compared to placebo.",
+    "specific_value": "3.03 \u00b1 3.07%, effect size = 0.23",
+    "category": "supplements",
+    "population": "mixed endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine ingestion improves endurance time-trial completion time by approximately 2.2% compared to placebo.",
+    "specific_value": "2.22 \u00b1 2.59%, effect size = 0.41",
+    "category": "supplements",
+    "population": "mixed endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Individual responses to caffeine vary, with some athletes experiencing slower performance or lower power output after caffeine ingestion.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "mixed endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Caffeine's ergogenic effect on endurance performance is small in magnitude (effect sizes 0.23-0.41) but can be meaningful in competitive settings where athletes are separated by small margins.",
+    "specific_value": "effect size 0.23-0.41",
+    "category": "supplements",
+    "population": "mixed endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

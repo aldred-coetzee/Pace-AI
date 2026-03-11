@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Chronic mechanical loading produces significant increases in tendon stiffness with a moderate-to-large effect size.",
+    "specific_value": "SMD 0.70 (CI: 0.51\u20130.88)",
+    "category": "tendon_health",
+    "population": "healthy adults aged 18-50",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Chronic mechanical loading increases tendon Young's modulus (material stiffness) with a moderate-to-large effect size.",
+    "specific_value": "SMD 0.69 (CI: 0.36\u20131.03)",
+    "category": "tendon_health",
+    "population": "healthy adults aged 18-50",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Chronic mechanical loading produces only small increases in tendon cross-sectional area, suggesting morphological adaptation is limited compared to material property changes.",
+    "specific_value": "SMD 0.24 (CI: 0.07\u20130.42)",
+    "category": "tendon_health",
+    "population": "healthy adults aged 18-50",
+    "confidence": 0.95,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Loading magnitude (intensity) is the key driver of tendon stiffness adaptation, significantly more important than the type of muscle contraction used.",
+    "specific_value": "subgroup I\u00b2 = 0% for loading intensity",
+    "category": "tendon_health",
+    "population": "healthy adults aged 18-50",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Muscle contraction type (concentric, eccentric, isometric) does not significantly affect the magnitude of tendon stiffness adaptation.",
+    "specific_value": null,
+    "category": "tendon_health",
+    "population": "healthy adults aged 18-50",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Tendon adaptation to loading is driven more by changes in material properties (Young's modulus) than by morphological changes (cross-sectional area).",
+    "specific_value": "Young's modulus SMD 0.69 vs CSA SMD 0.24",
+    "category": "tendon_health",
+    "population": "healthy adults aged 18-50",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Exercise interventions of 12 weeks or longer tend to produce greater tendon stiffness adaptations than shorter interventions, with a minimum of 8 weeks needed for measurable change.",
+    "specific_value": "\u226512 weeks higher SMD (not statistically significant); minimum \u22658 weeks",
+    "category": "tendon_health",
+    "population": "healthy adults aged 18-50",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  }
+]

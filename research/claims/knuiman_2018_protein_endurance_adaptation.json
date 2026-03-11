@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Endurance exercise stimulates oxidation of amino acids, which may depress rates of skeletal muscle protein synthesis and negatively affect training adaptation.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Amino acid contribution to total energy expenditure during endurance exercise is relatively low compared to carbohydrates and fat.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A low supply of amino acids relative to carbohydrates may negatively affect synthesis of capillaries, mitochondrial protein turnover, and oxygen transport proteins including hemoglobin and myoglobin.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The role of dietary protein in endurance training adaptations has been historically underappreciated due to the paradigm that endurance training has insignificant effects on skeletal muscle growth.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Evidence for the role of protein on endurance training adaptations and performance remains scarce and is mainly derived from acute exercise studies rather than chronic training interventions.",
+    "specific_value": null,
+    "category": "protein_runners",
+    "population": "general population",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

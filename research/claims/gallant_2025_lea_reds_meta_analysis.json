@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Approximately 44.7% of athletes have low energy availability, with 44.2% of female athletes and 49.4% of male athletes affected.",
+    "specific_value": "44.7% overall, 44.2% female, 49.4% male",
+    "category": "red_s",
+    "population": "male and female athletes across sports",
+    "confidence": 0.9,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Approximately 63.0% of athletes are at risk of Relative Energy Deficiency in Sport (REDs) based on screening tools.",
+    "specific_value": "63.0%",
+    "category": "red_s",
+    "population": "male and female athletes across sports",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Athletes with low energy availability have decreased run performance, endurance performance, training response, coordination, concentration, judgment, explosive power, and agility compared to athletes with normal energy availability.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes across sports",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Athletes with low energy availability have an increased likelihood of absence from training due to illness.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes across sports",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Athletes with low energy availability have impaired bone health and a higher risk of bone stress injuries.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes across sports",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Athletes in endurance, aesthetic, or weight-class sports are particularly at risk for low energy availability and REDs.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "endurance, aesthetic, and weight-class sport athletes",
+    "confidence": 0.85,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Early identification and correction of low energy availability can prevent the development of REDs symptoms, reduce bone stress injury risk, and help athletes optimize training adaptations.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "male and female athletes across sports",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Screening tools such as the Low Energy Availability in Females Questionnaire (LEAF-Q) should be employed by coaches to identify athletes at risk for low energy availability.",
+    "specific_value": null,
+    "category": "red_s",
+    "population": "female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  }
+]

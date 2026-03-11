@@ -1,0 +1,843 @@
+{
+  "version": "1.0",
+  "phase": 1,
+  "phase_description": "Data collection only. Verify papers exist. Capture metadata. No claim extraction.",
+  "target_papers_total": 484,
+  "papers_found": 534,
+  "papers_deduplicated": 481,
+  "domains_complete": 54,
+  "domains_total": 54,
+  "phase_status": "complete",
+  "last_updated": "2026-03-07",
+  "domains": [
+    {
+      "id": "training_load_acwr",
+      "name": "Training Load & ACWR",
+      "target_papers": 12,
+      "status": "complete",
+      "papers_found": 12,
+      "search_terms": [
+        "acute chronic workload ratio running",
+        "ACWR injury risk distance runners",
+        "training load monitoring endurance",
+        "workload injury prevention running"
+      ],
+      "notes": "Already have Gabbett, Hulin, Windt, Impellizzeri — need more running-specific ACWR papers"
+    },
+    {
+      "id": "polarized_training",
+      "name": "Polarized vs Threshold Training",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "polarized training endurance runners",
+        "80 20 training distribution running",
+        "threshold training vs polarized",
+        "Seiler training intensity distribution",
+        "pyramidal polarized training comparison"
+      ],
+      "notes": "Have Seiler 2010, Stöggl & Sperlich 2014 — need comparison studies, recreational evidence"
+    },
+    {
+      "id": "interval_training",
+      "name": "Interval Training Science",
+      "target_papers": 12,
+      "status": "complete",
+      "papers_found": 12,
+      "search_terms": [
+        "interval training VO2max running",
+        "high intensity interval training distance runners",
+        "work rest ratio interval running",
+        "repeated sprint training endurance",
+        "interval training adaptations running"
+      ],
+      "notes": "Almost nothing currently. Need work:rest ratios, volume prescriptions, frequency, adaptations"
+    },
+    {
+      "id": "long_run_physiology",
+      "name": "Long Run Physiology",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "long run training adaptations marathon",
+        "long slow distance running physiology",
+        "optimal long run distance marathon training",
+        "long run pace aerobic adaptation",
+        "glycogen depletion long run"
+      ],
+      "notes": "Why the long run works, optimal distance and pace, glycogen, fat adaptation"
+    },
+    {
+      "id": "threshold_tempo",
+      "name": "Threshold & Tempo Training",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "lactate threshold training running",
+        "tempo running training adaptations",
+        "threshold pace training performance",
+        "cruise intervals lactate threshold",
+        "MLSS training endurance"
+      ],
+      "notes": "Mechanisms, optimal session formats, frequency, how threshold improves"
+    },
+    {
+      "id": "easy_recovery_running",
+      "name": "Easy & Recovery Running",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "easy running aerobic base adaptations",
+        "recovery run physiology",
+        "low intensity training endurance adaptations",
+        "zone 1 training mitochondrial",
+        "active recovery running"
+      ],
+      "notes": "Why easy runs work, mitochondrial density, fat oxidation, active recovery vs rest"
+    },
+    {
+      "id": "vo2max_development",
+      "name": "VO2max Development & Limits",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "VO2max training adaptations running",
+        "maximal oxygen uptake determinants",
+        "VO2max improvement training",
+        "cardiac output VO2max limiter",
+        "VO2max trainability genetics"
+      ],
+      "notes": "Have Bassett & Howley 2000, Joyner & Coyle 2008 — need trainability, ceiling effects, adaptation timeline"
+    },
+    {
+      "id": "running_economy",
+      "name": "Running Economy",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "running economy determinants",
+        "running economy training",
+        "oxygen cost running efficiency",
+        "running economy elite vs recreational",
+        "running economy improvement interventions"
+      ],
+      "notes": "Have Saunders 2004 — need more on trainability, biomechanical determinants, strength training effects"
+    },
+    {
+      "id": "lactate_threshold",
+      "name": "Lactate Threshold — Science",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "lactate threshold endurance performance",
+        "maximal lactate steady state MLSS",
+        "lactate threshold field test validity",
+        "blood lactate running performance prediction",
+        "ventilatory threshold lactate threshold"
+      ],
+      "notes": "Have Faude 2009 — need MLSS validation, field test accuracy, LT1 vs LT2 distinction"
+    },
+    {
+      "id": "marathon_training",
+      "name": "Marathon-Specific Training",
+      "target_papers": 12,
+      "status": "complete",
+      "papers_found": 12,
+      "search_terms": [
+        "marathon training physiology",
+        "marathon preparation evidence based",
+        "marathon pace training long run",
+        "marathon performance predictors",
+        "carbohydrate loading marathon",
+        "marathon training volume optimal"
+      ],
+      "notes": "What specifically prepares you for a marathon — physiology, volume benchmarks, key sessions"
+    },
+    {
+      "id": "half_marathon_training",
+      "name": "Half Marathon & 10K Training",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 14,
+      "search_terms": [
+        "half marathon training physiology",
+        "10K training performance",
+        "middle distance running training",
+        "half marathon performance predictors",
+        "10K race performance VO2max"
+      ],
+      "notes": "Race-specific demands, training emphasis differences from marathon"
+    },
+    {
+      "id": "5k_track_training",
+      "name": "5K & Track Training",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "5K training physiology",
+        "3000m 5000m performance",
+        "track running training middle distance",
+        "5K race performance predictors",
+        "speed endurance running training"
+      ],
+      "notes": "VO2max emphasis, speed work, 5K-specific preparation"
+    },
+    {
+      "id": "taper_science",
+      "name": "Taper Science",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "taper running performance meta-analysis",
+        "pre-race taper training reduction",
+        "tapering endurance athletes",
+        "deload before race performance",
+        "taper duration optimal running"
+      ],
+      "notes": "Have Bosquet 2007, Smyth 2021 — need more on taper by distance, recreational vs elite differences"
+    },
+    {
+      "id": "periodisation",
+      "name": "Periodisation Models",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "periodization endurance training",
+        "block periodization running",
+        "traditional periodization vs block",
+        "Issurin block periodization",
+        "annual training plan endurance athletes",
+        "macrocycle mesocycle microcycle running"
+      ],
+      "notes": "Have Issurin 2010 — need empirical comparisons, running-specific periodisation evidence"
+    },
+    {
+      "id": "strength_training_runners",
+      "name": "Strength Training for Runners",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "strength training distance runners performance",
+        "resistance training running economy",
+        "plyometric training runners",
+        "concurrent training running strength",
+        "heavy resistance training endurance runners"
+      ],
+      "notes": "Have Blagrove 2018 — need plyometrics specifically, concurrent training interference, frequency/volume"
+    },
+    {
+      "id": "cross_training",
+      "name": "Cross-Training & Transfer",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "cross training running injury",
+        "cycling transfer running fitness",
+        "aqua jogging running fitness",
+        "elliptical running training alternative",
+        "cross training cardiovascular transfer"
+      ],
+      "notes": "What actually transfers to running fitness — cycling, swimming, elliptical, aqua jogging"
+    },
+    {
+      "id": "injury_prevention_general",
+      "name": "Running Injury Prevention — General",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "running injury prevention systematic review",
+        "running injury risk factors",
+        "running injury incidence epidemiology",
+        "injury prevention training load",
+        "running related injury prevention"
+      ],
+      "notes": "Have van Gent 2007 — need more recent epidemiology, prevention intervention evidence"
+    },
+    {
+      "id": "injury_knee",
+      "name": "Knee Injuries — PFPS & ITB",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "patellofemoral pain syndrome runners",
+        "iliotibial band syndrome running",
+        "runner's knee treatment evidence",
+        "PFPS running treatment",
+        "ITB syndrome prevention running"
+      ],
+      "notes": "Two most common running injuries — causes, prevention, return to run"
+    },
+    {
+      "id": "injury_lower_leg",
+      "name": "Lower Leg — Achilles, Shin Splints, Calf",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "Achilles tendinopathy runners treatment",
+        "medial tibial stress syndrome runners",
+        "shin splints running evidence",
+        "calf strain running",
+        "Achilles tendon loading rehabilitation"
+      ],
+      "notes": "Achilles tendinopathy loading protocols, MTSS causes and prevention"
+    },
+    {
+      "id": "injury_stress_fracture",
+      "name": "Bone Stress Injuries & Stress Fractures",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "stress fracture runners risk factors",
+        "bone stress injury running",
+        "tibial stress fracture running",
+        "metatarsal stress fracture running",
+        "bone loading running adaptation"
+      ],
+      "notes": "Risk factors, bone loading adaptation, return to run timelines"
+    },
+    {
+      "id": "injury_foot",
+      "name": "Foot — Plantar Fasciitis & Other",
+      "target_papers": 6,
+      "status": "complete",
+      "papers_found": 12,
+      "search_terms": [
+        "plantar fasciitis runners treatment",
+        "plantar heel pain running evidence",
+        "foot pain running biomechanics",
+        "plantar fasciopathy loading protocol"
+      ],
+      "notes": "Plantar fasciitis — loading-based treatment, prevention, return to run"
+    },
+    {
+      "id": "return_to_running",
+      "name": "Return to Running After Injury",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "return to running protocol injury",
+        "return to sport running criteria",
+        "run walk program injury rehabilitation",
+        "graded return to running",
+        "return to running guidelines evidence"
+      ],
+      "notes": "Evidence-based RTR frameworks, criteria-based progression, walk-run protocols"
+    },
+    {
+      "id": "biomechanics_form",
+      "name": "Biomechanics & Running Form",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "running biomechanics performance",
+        "running cadence injury economy",
+        "foot strike pattern running",
+        "vertical oscillation running efficiency",
+        "running gait analysis performance",
+        "overstriding running injury"
+      ],
+      "notes": "Cadence, footstrike, vertical oscillation, braking forces — what actually matters"
+    },
+    {
+      "id": "heart_rate_training",
+      "name": "Heart Rate Training & Zones",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "heart rate training zones endurance validity",
+        "Karvonen heart rate reserve training",
+        "lactate threshold heart rate running",
+        "maximum heart rate field test validity formula",
+        "heart rate based training prescription endurance"
+      ],
+      "notes": "HRmax formulas (Tanaka 2001, Nes 2013 HUNT, Shookster 2020 validation, Nikolaidis 2018 marathon runners), Karvonen HRR-VO2R equivalence (Swain 1997), HR deflection validity (Vachon 1999), HRV thresholds review (Kaufmann 2023), polarized HR zone training RCT (Stöggl 2014)"
+    },
+    {
+      "id": "hrv_monitoring",
+      "name": "HRV Monitoring",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "HRV training monitoring athletes",
+        "heart rate variability endurance training",
+        "rMSSD training load monitoring",
+        "HRV guided training",
+        "HRV overtraining detection"
+      ],
+      "notes": "Have Plews 2013, 2014 — need HRV-guided training RCTs, consumer device validity"
+    },
+    {
+      "id": "overtraining_recovery",
+      "name": "Overtraining & Recovery",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "overtraining syndrome distance runners",
+        "non-functional overreaching runners",
+        "overtraining biomarkers running",
+        "training monotony strain Foster",
+        "recovery monitoring athletes"
+      ],
+      "notes": "Have Meeusen 2013 — need biomarkers, detection methods, recovery protocols"
+    },
+    {
+      "id": "detraining",
+      "name": "Detraining & Fitness Retention",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "detraining endurance athletes",
+        "fitness retention reduced training",
+        "detraining VO2max timeline",
+        "maintaining fitness reduced volume",
+        "detraining reversal training"
+      ],
+      "notes": "Have Mujika & Padilla trilogy — need fitness retention strategies, minimum dose"
+    },
+    {
+      "id": "sleep_recovery",
+      "name": "Sleep & Recovery",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "sleep athletic performance",
+        "sleep deprivation endurance performance",
+        "sleep extension athletes",
+        "sleep quality injury risk",
+        "napping athletic performance",
+        "recovery modalities running"
+      ],
+      "notes": "Have Halson 2014, Milewski 2014 — need more on sleep quality, napping, recovery protocols"
+    },
+    {
+      "id": "nutrition_general",
+      "name": "Nutrition — General Endurance",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "nutrition endurance running performance",
+        "carbohydrate protein fat endurance athletes",
+        "energy availability endurance runners",
+        "dietary intake distance runners",
+        "sports nutrition endurance"
+      ],
+      "notes": "Have Thomas 2016 ACSM position — need more specifics, daily fueling for runners"
+    },
+    {
+      "id": "carbohydrate_fueling",
+      "name": "Carbohydrate Fueling & Loading",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "carbohydrate fueling during running",
+        "carbohydrate loading marathon",
+        "race day nutrition running",
+        "glucose fructose oxidation running",
+        "gut training carbohydrate endurance",
+        "carbohydrate periodization training"
+      ],
+      "notes": "Fueling during races, carbo loading protocols, gut training for high intake"
+    },
+    {
+      "id": "protein_runners",
+      "name": "Protein for Endurance Runners",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "protein requirements endurance runners",
+        "protein muscle repair running",
+        "leucine endurance athletes",
+        "protein timing post exercise endurance",
+        "plant protein endurance performance"
+      ],
+      "notes": "Optimal intake, timing, sources, repair vs adaptation"
+    },
+    {
+      "id": "hydration",
+      "name": "Hydration & Sodium",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "hydration running performance",
+        "dehydration endurance performance",
+        "hyponatremia marathon runners",
+        "sweat rate sodium running",
+        "drinking to thirst endurance",
+        "electrolyte endurance running"
+      ],
+      "notes": "Dehydration thresholds, sodium, hyponatremia risk, drink to thirst vs scheduled"
+    },
+    {
+      "id": "supplements",
+      "name": "Supplements — Evidence Base",
+      "target_papers": 12,
+      "status": "complete",
+      "papers_found": 14,
+      "search_terms": [
+        "caffeine endurance running performance",
+        "beetroot nitrate running economy",
+        "iron deficiency running performance",
+        "vitamin D endurance athletes",
+        "beta alanine endurance",
+        "sodium bicarbonate running",
+        "creatine endurance athletes"
+      ],
+      "notes": "Only supplements with credible evidence — caffeine, nitrates, iron, vitamin D, beta-alanine"
+    },
+    {
+      "id": "female_physiology",
+      "name": "Female-Specific Physiology",
+      "target_papers": 12,
+      "status": "complete",
+      "papers_found": 12,
+      "search_terms": [
+        "menstrual cycle running performance",
+        "female athlete physiology training",
+        "follicular luteal phase exercise",
+        "pregnancy running guidelines",
+        "postpartum return to running",
+        "female runner iron deficiency",
+        "sex differences endurance running"
+      ],
+      "notes": "Menstrual cycle effects on training and performance, pregnancy, postpartum RTR"
+    },
+    {
+      "id": "red_s",
+      "name": "RED-S (Relative Energy Deficiency in Sport)",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "relative energy deficiency sport RED-S",
+        "female athlete triad running",
+        "low energy availability runners",
+        "RED-S male athletes",
+        "energy availability endurance performance"
+      ],
+      "notes": "Have Mountjoy IOC consensus trilogy — need prevalence data, screening tools, intervention evidence"
+    },
+    {
+      "id": "masters_running",
+      "name": "Masters & Senior Runners (40+)",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 13,
+      "search_terms": [
+        "masters runners physiology training",
+        "age related decline running performance",
+        "VO2max aging endurance athletes",
+        "masters running injury risk",
+        "older runners training adaptations",
+        "age 40 50 60 running performance"
+      ],
+      "notes": "Have Rogers 1990, Zampieri 2022 — need training modifications, injury risk, performance decline rates"
+    },
+    {
+      "id": "youth_running",
+      "name": "Youth & Adolescent Running",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "youth running training physiology",
+        "adolescent distance runner training",
+        "youth athlete development running",
+        "long term athlete development LTAD",
+        "growth plate injury young runners",
+        "early specialisation running risk"
+      ],
+      "notes": "Have some — need growth plate risks, early specialisation evidence, LTAD critique"
+    },
+    {
+      "id": "beginner_running",
+      "name": "Beginner Running & Couch to 5K",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "beginner running program evidence",
+        "couch to 5K evidence",
+        "run walk program beginners",
+        "novice runner training adaptations",
+        "beginner runner injury risk"
+      ],
+      "notes": "Walk-run programs, adaptation timelines, injury risk in beginners, optimal progression"
+    },
+    {
+      "id": "altitude_training",
+      "name": "Altitude Training",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "altitude training endurance performance",
+        "live high train low running",
+        "hypoxic training endurance",
+        "altitude acclimatization running",
+        "altitude tent erythropoiesis running"
+      ],
+      "notes": "Have Levine & Stray-Gundersen 1997 — need optimal duration, elevation, LHTL vs LHTH"
+    },
+    {
+      "id": "heat_cold_environment",
+      "name": "Heat, Cold & Environmental Performance",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "heat stress running performance",
+        "hot weather marathon performance",
+        "heat acclimatization endurance running",
+        "cold weather running performance",
+        "WBGT running performance",
+        "heat training adaptation endurance"
+      ],
+      "notes": "Have Ely 2007 — need heat acclimatisation protocols, cold effects, wind/rain adjustments"
+    },
+    {
+      "id": "mental_performance",
+      "name": "Mental Performance & Race Psychology",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "mental skills running performance",
+        "psychological factors endurance running",
+        "pacing strategy self regulation running",
+        "race psychology endurance",
+        "mental toughness endurance athletes",
+        "self talk endurance performance",
+        "attentional focus running performance"
+      ],
+      "notes": "Pacing psychology, self-talk, attentional focus, pre-race anxiety, mental toughness"
+    },
+    {
+      "id": "pacing_strategy",
+      "name": "Pacing Strategy",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "pacing strategy running performance",
+        "even pacing negative split marathon",
+        "positive split running performance",
+        "pacing self regulation endurance",
+        "GPS pacing running race"
+      ],
+      "notes": "Optimal pacing strategies by distance, even vs negative split evidence, GPS effects"
+    },
+    {
+      "id": "recovery_modalities",
+      "name": "Recovery Modalities",
+      "target_papers": 10,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "cold water immersion recovery running",
+        "ice bath athletic recovery evidence",
+        "compression garments running recovery",
+        "massage running recovery evidence",
+        "foam rolling recovery evidence",
+        "active recovery vs passive",
+        "recovery modalities comparison athletes"
+      ],
+      "notes": "What actually works — ice baths, compression, massage, foam rolling, active recovery"
+    },
+    {
+      "id": "warmup_cooldown",
+      "name": "Warm-Up & Cool-Down",
+      "target_papers": 6,
+      "status": "complete",
+      "papers_found": 13,
+      "search_terms": [
+        "warm up running performance",
+        "dynamic warm up endurance",
+        "cool down running evidence",
+        "stretching before running evidence",
+        "pre run routine performance"
+      ],
+      "notes": "Dynamic vs static stretching, warm-up duration, cool-down necessity"
+    },
+    {
+      "id": "race_prediction",
+      "name": "Race Prediction Models",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "race time prediction running model",
+        "VDOT Daniels race prediction",
+        "Riegel race prediction formula",
+        "Cameron race prediction model",
+        "marathon time prediction training",
+        "running performance prediction algorithm"
+      ],
+      "notes": "Validity of Riegel, VDOT, Cameron — comparison studies, accuracy by distance"
+    },
+    {
+      "id": "training_zones_systems",
+      "name": "Training Zone Systems — Comparison & Validity",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 12,
+      "search_terms": [
+        "training zone systems comparison",
+        "5 zone vs 3 zone training",
+        "heart rate zone validity endurance",
+        "lactate zone training prescription",
+        "training intensity zone distribution running"
+      ],
+      "notes": "How do Daniels 5-zone, Friel 7-zone, Seiler 3-zone compare — which is most valid"
+    },
+    {
+      "id": "genetics_individual_response",
+      "name": "Genetics & Individual Response to Training",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "genetic factors running performance",
+        "trainability genetics endurance",
+        "individual response training variability",
+        "non-responders endurance training",
+        "ACTN3 running performance",
+        "VO2max trainability genetics"
+      ],
+      "notes": "Why people respond differently, genetic limits, personalised training implications"
+    },
+    {
+      "id": "foam_rolling_mobility",
+      "name": "Foam Rolling, Stretching & Mobility",
+      "target_papers": 6,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "foam rolling running performance recovery",
+        "stretching running injury prevention",
+        "flexibility running economy",
+        "myofascial release running",
+        "mobility running performance"
+      ],
+      "notes": "Evidence base for foam rolling, static/dynamic stretching, mobility work for runners"
+    },
+    {
+      "id": "shoe_technology",
+      "name": "Running Shoes & Technology",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "carbon plate running shoe performance",
+        "super shoe running economy",
+        "running shoe cushioning injury",
+        "minimalist shoe running economy",
+        "running shoe drop biomechanics",
+        "Nike Vaporfly running economy"
+      ],
+      "notes": "Carbon plate shoe performance gains, cushioning injury prevention, minimalist shoes"
+    },
+    {
+      "id": "concurrent_training",
+      "name": "Concurrent Training & Interference",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 10,
+      "search_terms": [
+        "concurrent training endurance strength",
+        "interference effect concurrent training",
+        "strength endurance concurrent training running",
+        "order of training concurrent",
+        "concurrent training optimal schedule"
+      ],
+      "notes": "Does strength training interfere with endurance adaptation? Optimal sequencing"
+    },
+    {
+      "id": "body_composition",
+      "name": "Body Composition & Running Performance",
+      "target_papers": 6,
+      "status": "complete",
+      "papers_found": 8,
+      "search_terms": [
+        "body composition running performance",
+        "weight running economy",
+        "body fat percentage running",
+        "lean body mass running",
+        "weight loss running performance"
+      ],
+      "notes": "Relationship between weight and performance, healthy weight for runners"
+    },
+    {
+      "id": "ultramarathon",
+      "name": "Ultra Running & Extreme Endurance",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 11,
+      "search_terms": [
+        "ultramarathon training physiology",
+        "ultra running nutrition",
+        "100km 100 mile running physiology",
+        "trail ultramarathon performance",
+        "ultra endurance training adaptations"
+      ],
+      "notes": "Distinct demands from road marathon — terrain, duration, fueling, pacing"
+    },
+    {
+      "id": "tendon_health",
+      "name": "Tendon Health & Loading",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 13,
+      "search_terms": [
+        "tendon loading adaptation running",
+        "tendinopathy progressive loading",
+        "Alfredson protocol Achilles",
+        "heavy slow resistance tendinopathy",
+        "collagen synthesis tendon running"
+      ],
+      "notes": "Tendon adaptation to load, progressive loading for tendinopathy, collagen synthesis"
+    },
+    {
+      "id": "iron_bone_health",
+      "name": "Iron, Bone Health & Micronutrients",
+      "target_papers": 8,
+      "status": "complete",
+      "papers_found": 12,
+      "search_terms": [
+        "iron deficiency running performance",
+        "ferritin runners endurance",
+        "vitamin D bone health runners",
+        "calcium bone density running",
+        "haematological adaptations endurance training",
+        "footstrike haemolysis runners"
+      ],
+      "notes": "Iron deficiency prevalence and impact, vitamin D, bone density, haemolysis"
+    }
+  ]
+}

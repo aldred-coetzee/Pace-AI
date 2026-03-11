@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Fructose-glucose composite carbohydrate beverages (0.5-1.0:1 ratio) enhance endurance performance by 1-9% in mean power compared to glucose-only formulations during 2.5-3.0 hour exercise.",
+    "specific_value": "1-9% power improvement",
+    "category": "carbohydrate_fueling",
+    "population": "trained male endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "A 0.8:1 fructose-to-glucose ratio ingested at 1.5-1.8 g/min provides the highest exogenous carbohydrate energy delivery and endurance power compared to lower or higher fructose-glucose ratios.",
+    "specific_value": "0.8:1 fructose:glucose at 1.5-1.8 g/min",
+    "category": "carbohydrate_fueling",
+    "population": "trained male endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Fructose-glucose composites at higher ingestion rates (\u22651.7 g/min) produce larger performance improvements (4-9%) than at moderate rates of 1.4-1.6 g/min (1-3%).",
+    "specific_value": "4-9% at \u22651.7 g/min vs 1-3% at 1.4-1.6 g/min",
+    "category": "carbohydrate_fueling",
+    "population": "trained male endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Fructose-glucose composite beverages reduce gastrointestinal distress compared to isocaloric glucose-only beverages at equivalent carbohydrate ingestion rates.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained male endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Solutions containing a 0.7-1.0:1 fructose-to-glucose ratio are absorbed fastest among carbohydrate composite formulations.",
+    "specific_value": "0.7-1.0:1 fructose:glucose ratio",
+    "category": "carbohydrate_fueling",
+    "population": "trained male endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Performance benefits of fructose-glucose composites are associated with increased exogenous carbohydrate oxidation rate and improved unilateral fluid absorption compared to single-saccharide formulations.",
+    "specific_value": null,
+    "category": "carbohydrate_fueling",
+    "population": "trained male endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The minimum carbohydrate ingestion rate for meaningful performance benefits from fructose-glucose composites is approximately 1.3 g/min, with effects established up to 2.4 g/min.",
+    "specific_value": "1.3-2.4 g/min",
+    "category": "carbohydrate_fueling",
+    "population": "trained male endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

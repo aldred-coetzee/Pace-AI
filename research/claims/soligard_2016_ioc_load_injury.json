@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Poor load management is a major risk factor for injury in athletes",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Rapid changes in training and competition load increase injury risk",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite athletes",
+    "confidence": 0.8,
+    "school_of_thought": "Gabbett load management"
+  },
+  {
+    "text": "Competition calendar congestion is a load factor that affects athlete health and injury risk",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Psychological load and travel should be considered as components of total athlete load alongside training and competition volume",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite athletes",
+    "confidence": 0.7,
+    "school_of_thought": "IOC consensus"
+  },
+  {
+    "text": "Effective load management requires integrated monitoring of training load, competition load, psychological load, athlete well-being, and injury status",
+    "specific_value": null,
+    "category": "training_load_acwr",
+    "population": "elite athletes",
+    "confidence": 0.8,
+    "school_of_thought": "IOC consensus"
+  }
+]

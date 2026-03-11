@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Sleep extension (increasing nighttime sleep duration) is the most effective sleep intervention for improving physical and cognitive performance in athletes.",
+    "specific_value": null,
+    "category": "sleep_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Napping is one of the most effective and well-supported strategies to improve both sleep and subsequent athletic performance.",
+    "specific_value": null,
+    "category": "sleep_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Sleep hygiene education alone does not appear to improve sleep or subsequent performance and recovery in athletes.",
+    "specific_value": null,
+    "category": "sleep_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Removing electronic devices at night does not by itself improve sleep or subsequent athletic performance.",
+    "specific_value": null,
+    "category": "sleep_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cold water immersion does not improve sleep or subsequent performance and recovery in athletes.",
+    "specific_value": null,
+    "category": "sleep_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Mindfulness interventions show promising but not yet confirmed effects on improving sleep and performance in athletes.",
+    "specific_value": null,
+    "category": "sleep_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Light manipulation interventions show promising but not yet confirmed effects on improving sleep and performance in athletes.",
+    "specific_value": null,
+    "category": "sleep_recovery",
+    "population": "elite and recreational athletes",
+    "confidence": 0.4,
+    "school_of_thought": "general sports science"
+  }
+]

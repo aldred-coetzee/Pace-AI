@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Cold-water immersion improves recovery of muscular power 24 hours after high-intensity exercise compared with passive recovery.",
+    "specific_value": "SMD 0.22 [95% CI 0.004-0.43]",
+    "category": "recovery_modalities",
+    "population": "physically active",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cold-water immersion improves recovery of muscular power 24 hours after eccentric exercise compared with passive recovery.",
+    "specific_value": "SMD 0.34 [95% CI 0.06-0.62]",
+    "category": "recovery_modalities",
+    "population": "physically active",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cold-water immersion reduces muscle soreness 24 hours after high-intensity exercise compared with passive recovery.",
+    "specific_value": "SMD -0.89 [95% CI -1.48 to -0.29]",
+    "category": "recovery_modalities",
+    "population": "physically active",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cold-water immersion improves perceived feelings of recovery 24 hours after high-intensity exercise compared with passive recovery.",
+    "specific_value": "SMD 0.66 [95% CI 0.29-1.03]",
+    "category": "recovery_modalities",
+    "population": "physically active",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cold-water immersion reduces serum creatine kinase levels 24 hours after high-intensity exercise, indicating reduced muscle damage.",
+    "specific_value": "SMD -0.85 [95% CI -1.61 to -0.08]",
+    "category": "recovery_modalities",
+    "population": "physically active",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cold-water immersion does not significantly improve recovery of strength performance following either eccentric or high-intensity exercise.",
+    "specific_value": null,
+    "category": "recovery_modalities",
+    "population": "physically active",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Shorter cold-water immersion durations and lower water temperatures produce larger beneficial effects on serum creatine kinase reduction and endurance performance recovery after high-intensity exercise.",
+    "specific_value": null,
+    "category": "recovery_modalities",
+    "population": "physically active",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

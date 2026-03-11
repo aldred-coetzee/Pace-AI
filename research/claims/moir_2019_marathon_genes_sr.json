@@ -1,0 +1,50 @@
+[
+  {
+    "text": "A total of 16 single nucleotide polymorphisms (SNPs) across 14 genes have been associated with marathon running performance in elite athletes.",
+    "specific_value": "16 SNPs in 14 genes",
+    "category": "genetics_individual_response",
+    "population": "elite marathon runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Predicting future marathon success based on genomic data alone is premature due to the lack of replicated genotype-phenotype association studies.",
+    "specific_value": null,
+    "category": "genetics_individual_response",
+    "population": "elite marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Endurance-related traits relevant to marathon performance have a heritable genetic basis, though the specific genetic architecture involves multiple genes with small individual effects.",
+    "specific_value": null,
+    "category": "genetics_individual_response",
+    "population": "elite marathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Across 14 eligible studies, 160 different polymorphisms in 27 genes were examined in relation to marathon running performance, indicating high genetic complexity of the endurance phenotype.",
+    "specific_value": "160 polymorphisms in 27 genes",
+    "category": "genetics_individual_response",
+    "population": "elite marathon runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Publication bias and lack of replication across studies limit the reliability of current gene-marathon performance associations, so coaches should not use genetic testing to select or exclude athletes.",
+    "specific_value": null,
+    "category": "genetics_individual_response",
+    "population": "elite marathon runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Epigenetic factors (gene expression changes from training, environment, and lifestyle) may be as important as the underlying genetic sequence in determining marathon performance.",
+    "specific_value": null,
+    "category": "genetics_individual_response",
+    "population": "elite athletes",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

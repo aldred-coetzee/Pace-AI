@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Up to 60% of female athletes experience iron deficiency.",
+    "specific_value": "up to 60%",
+    "category": "female_physiology",
+    "population": "female athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron deficiency negatively affects endurance performance by 3%-4% in high-level female athletes.",
+    "specific_value": "3%-4% decrement",
+    "category": "female_physiology",
+    "population": "high-level female athletes (VO2max > 45 mL/kg/min or trained > 5 h/week)",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron-deficient female athletes can improve endurance performance by 2%-20% with oral supplementation of 100 mg/day elemental iron for up to 56 days, or bi-daily parenteral administration over 8-10 days.",
+    "specific_value": "2%-20% improvement, 100 mg/day oral for \u226456 days or bi-daily parenteral for 8-10 days",
+    "category": "female_physiology",
+    "population": "high-level iron-deficient female athletes (serum ferritin < 40 \u00b5g/L)",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron-deficient non-anemic female athletes with low serum ferritin stores may have reduced maximal aerobic capacity, which can improve by 6%-15% with 16-100 mg/day elemental iron supplementation over 36-126 days.",
+    "specific_value": "6%-15% VO2max improvement, 16-100 mg/day for 36-126 days",
+    "category": "female_physiology",
+    "population": "iron-deficient non-anemic female athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Iron deficiency in female athletes is defined as serum ferritin below 40 \u00b5g/L for performance-relevant thresholds.",
+    "specific_value": "serum ferritin < 40 \u00b5g/L",
+    "category": "female_physiology",
+    "population": "female athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Isokinetic strength and anaerobic power may be impeded by up to 23% in iron-deficient female athletes, though the effect of iron supplementation on anaerobic power is highly variable (-5% to +9%).",
+    "specific_value": "-23% to +4% deficit; -5% to +9% response to supplementation",
+    "category": "female_physiology",
+    "population": "high-level iron-deficient female athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The severity of iron deficiency correlates with the magnitude of performance decrements across endurance, strength, and anaerobic power in female athletes.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "high-level female athletes",
+    "confidence": 0.6,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

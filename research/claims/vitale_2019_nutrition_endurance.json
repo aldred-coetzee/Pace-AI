@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Carbohydrate and hydration recommendations for endurance athletes have remained relatively stable and consistent over recent years.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein and fat intake have been traditionally underemphasized in endurance athlete nutrition guidance despite their importance.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Nitrates, antioxidants, caffeine, and probiotics are among the few supplements with evidence of benefit for endurance performance.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Training in a low carbohydrate state ('train low') is a strategy that may enhance endurance adaptations, though recommendations remain nuanced.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "endurance athletes",
+    "confidence": 0.5,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The post-exercise nutritional recovery window remains an important period for optimizing adaptation and recovery in endurance athletes.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Most commercially available supplements lack sufficient evidence to support their use for endurance performance enhancement.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

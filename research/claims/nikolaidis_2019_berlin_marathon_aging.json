@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Age of peak marathon performance is 32 years in women and 34 years in men when using 1-year age groups.",
+    "specific_value": "32 years (women), 34 years (men)",
+    "category": "masters_running",
+    "population": "marathon runners (387,222 Berlin Marathon finishers)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Age of peak marathon performance falls in the 30-34 age group for women and 35-39 age group for men when using 5-year age groups.",
+    "specific_value": "30-34 years (women), 35-39 years (men)",
+    "category": "masters_running",
+    "population": "marathon runners (387,222 Berlin Marathon finishers)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Women's marathon performance at age 60-64 corresponds to approximately 90% of their peak running speed, while men reach that threshold at age 55-59.",
+    "specific_value": "~90% of peak speed at 60-64 (women) and 55-59 (men)",
+    "category": "masters_running",
+    "population": "marathon runners (387,222 Berlin Marathon finishers)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Male marathon runners are faster than female runners by approximately 1.10 km/h on average (10.74 vs 9.64 km/h), representing a medium effect size.",
+    "specific_value": "+1.10 km/h (\u03b7\u00b2 = 0.065, medium effect size)",
+    "category": "masters_running",
+    "population": "marathon runners (387,222 Berlin Marathon finishers)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The age-related decline in marathon endurance differs by sex, with women reaching peak performance earlier but potentially maintaining performance longer into older age groups.",
+    "specific_value": null,
+    "category": "masters_running",
+    "population": "marathon runners (387,222 Berlin Marathon finishers)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Male marathon participants are on average 2.1 years older than female participants (43.1 vs 41.0 years).",
+    "specific_value": "+2.1 years (men older, \u03b7\u00b2 = 0.008)",
+    "category": "masters_running",
+    "population": "marathon runners (387,222 Berlin Marathon finishers)",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

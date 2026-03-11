@@ -1,0 +1,58 @@
+[
+  {
+    "text": "\u03b2-alanine supplementation has a small but significant ergogenic effect on exercise capacity and performance overall.",
+    "specific_value": "effect size 0.18 (95% CI 0.08-0.28)",
+    "category": "supplements",
+    "population": "mixed healthy populations",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine supplementation is most effective for exercise lasting 0.5 to 10 minutes, with exercise duration significantly moderating the ergogenic effect.",
+    "specific_value": "0.5-10 min duration, p=0.004",
+    "category": "supplements",
+    "population": "mixed healthy populations",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine has a greater effect on exercise capacity (time to exhaustion) than on exercise performance (time trials or competition) within the 0.5-10 minute exercise window.",
+    "specific_value": "capacity ES 0.50 vs performance ES 0.11",
+    "category": "supplements",
+    "population": "mixed healthy populations",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Co-supplementation of \u03b2-alanine with sodium bicarbonate produces a larger ergogenic effect than \u03b2-alanine alone.",
+    "specific_value": "combined ES 0.43 (95% CI 0.22-0.64)",
+    "category": "supplements",
+    "population": "mixed healthy populations",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Training status does not significantly moderate the ergogenic effect of \u03b2-alanine supplementation, meaning both trained and untrained individuals may benefit similarly.",
+    "specific_value": "p=0.559",
+    "category": "supplements",
+    "population": "mixed healthy populations",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The total amount of \u03b2-alanine ingested does not significantly moderate the ergogenic effect, suggesting a threshold rather than dose-response relationship.",
+    "specific_value": "p=0.438",
+    "category": "supplements",
+    "population": "mixed healthy populations",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "\u03b2-alanine supplementation requires chronic ingestion to be effective, as skeletal muscle carnosine has a long washout period after supplementation ceases.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "mixed healthy populations",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

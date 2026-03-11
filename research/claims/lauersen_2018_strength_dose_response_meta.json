@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Strength training reduces the risk of acute and overuse sports injuries by approximately 66% (relative risk 0.338).",
+    "specific_value": "RR 0.338 (95% CI 0.238-0.480)",
+    "category": "injury_prevention_general",
+    "population": "athletes aged 12-40",
+    "confidence": 0.95,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "A 10% increase in strength training volume reduces the risk of sports injury by more than four percentage points, demonstrating a dose-dependent relationship.",
+    "specific_value": "10% volume increase \u2192 >4 percentage point risk reduction",
+    "category": "injury_prevention_general",
+    "population": "athletes aged 12-40",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increasing both strength training volume and intensity are independently associated with sports injury risk reduction.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "athletes aged 12-40",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Strength training for injury prevention is safe, with high compliance rates observed across multiple randomised controlled trials.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "athletes aged 12-40",
+    "confidence": 0.85,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Strength training is effective for preventing both acute and overuse injuries across diverse populations and intervention types.",
+    "specific_value": null,
+    "category": "injury_prevention_general",
+    "population": "athletes aged 12-40",
+    "confidence": 0.9,
+    "school_of_thought": "injury prevention"
+  }
+]

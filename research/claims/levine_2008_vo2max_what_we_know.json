@@ -1,0 +1,50 @@
+[
+  {
+    "text": "VO2max is fundamentally bounded by the Fick equation: stroke volume (end-diastolic volume minus end-systolic volume) multiplied by heart rate multiplied by arterio-venous oxygen difference.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "VO2max is critically dependent on convective oxygen transport to working skeletal muscle, confirming that central cardiovascular limits are the primary constraint.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Elite endurance athletes achieve high VO2max primarily through high cardiac output enabled by a large, compliant cardiac chamber that relaxes quickly and fills to a large end-diastolic volume.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "elite endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The large left ventricular filling and ejection capacity in elite athletes allows preservation of blood pressure during extraordinary rates of muscle blood flow, supporting high sustained oxidative metabolism.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "elite endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cardiac phenotype plasticity underlying VO2max adaptations is influenced by genetic factors, training duration, training type, training intensity, and the age at which training is initiated.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Peripheral muscle fatigue during maximal exercise results from energetic supply/demand mismatch at the skeletal muscle level, with afferent signalling pathways communicating these conditions to the brain for central integration of cardiovascular and neuromotor control.",
+    "specific_value": null,
+    "category": "vo2max_development",
+    "population": "general population",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

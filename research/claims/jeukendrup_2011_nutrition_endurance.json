@@ -1,0 +1,58 @@
+[
+  {
+    "text": "For endurance exercise lasting 30 minutes or more, the most likely contributors to fatigue are dehydration and carbohydrate depletion.",
+    "specific_value": "\u226530 min",
+    "category": "nutrition_general",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Gastrointestinal problems, hyperthermia, and hyponatraemia can reduce performance and become health-threatening in events lasting more than 4 hours.",
+    "specific_value": ">4 h",
+    "category": "nutrition_general",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "High muscle glycogen concentrations at the start of endurance exercise are beneficial, but do not necessarily require the traditional supercompensation (carb-loading) protocol to achieve.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Carbohydrate delivery to working muscles should be individualized based on both absolute exercise intensity and event duration.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Endurance athletes should limit body mass losses through sweating to 2-3% of body mass to minimize the performance impact of dehydration.",
+    "specific_value": "2-3% body mass",
+    "category": "nutrition_general",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Gastrointestinal problems during endurance events may be triggered by highly concentrated carbohydrate solutions, hyperosmotic drinks, and intake of fibre, fat, and protein.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "elite and recreational endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Hyponatraemia risk is elevated among slower competitors with very high intakes of water or other low-sodium drinks during endurance events.",
+    "specific_value": null,
+    "category": "nutrition_general",
+    "population": "slower recreational endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

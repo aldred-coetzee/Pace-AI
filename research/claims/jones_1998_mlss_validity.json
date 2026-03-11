@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Running velocity at VO2max is the strongest predictor of 8-km race performance among trained male runners.",
+    "specific_value": "r = 0.93",
+    "category": "threshold_tempo",
+    "population": "trained male runners (VO2max 53-67 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Velocity at maximal lactate steady state (V-MLSS) strongly predicts 8-km race performance and is not significantly different from actual race pace.",
+    "specific_value": "r = 0.92; V-MLSS 15.7 vs race pace 16.0 km/h",
+    "category": "threshold_tempo",
+    "population": "trained male runners (VO2max 53-67 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Velocity at lactate threshold (V-Tlac) provides the best estimate of maximal lactate steady state velocity among submaximal lactate measures.",
+    "specific_value": "r = 0.94, SEE = 0.33 km/h",
+    "category": "threshold_tempo",
+    "population": "trained male runners (VO2max 53-67 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Velocity at lactate threshold is not significantly different from velocity at maximal lactate steady state, making it a practical proxy for MLSS determination.",
+    "specific_value": "V-Tlac 15.1 vs V-MLSS 15.7 km/h (not significant)",
+    "category": "threshold_tempo",
+    "population": "trained male runners (VO2max 53-67 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The lactate minimum test underestimates maximal lactate steady state velocity and provides a poorer estimate of V-MLSS compared to lactate threshold.",
+    "specific_value": "r = 0.61, SEE = 0.75 km/h; Lac-min 14.9 vs V-MLSS 15.7 km/h (P < 0.05)",
+    "category": "threshold_tempo",
+    "population": "trained male runners (VO2max 53-67 mL/kg/min)",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "8-km race pace in trained runners approximates maximal lactate steady state velocity, suggesting MLSS intensity is sustainable for roughly 25-30 minutes of racing.",
+    "specific_value": "race pace 16.0 km/h vs V-MLSS 15.7 km/h",
+    "category": "threshold_tempo",
+    "population": "trained male runners (VO2max 53-67 mL/kg/min)",
+    "confidence": 0.6,
+    "school_of_thought": "Daniels"
+  }
+]

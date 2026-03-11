@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Among elite runners with similar VO2max, running economy explains approximately 65% of the variation in 10 km race performance.",
+    "specific_value": "65.4% of variance",
+    "category": "running_economy",
+    "population": "highly trained male distance runners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "VO2max has a negligible correlation with 10 km race performance among elite runners of comparable ability (r = -0.12, not significant).",
+    "specific_value": "r = -0.12, p = 0.35",
+    "category": "running_economy",
+    "population": "highly trained male distance runners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running economy (steady-state VO2 at submaximal paces) is strongly correlated with 10 km performance in elite runners, with correlations of r = 0.79-0.83 across multiple paces.",
+    "specific_value": "r = 0.79-0.83, p < 0.01",
+    "category": "running_economy",
+    "population": "highly trained male distance runners",
+    "confidence": 0.75,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Once VO2max reaches elite levels (~72 ml/kg/min), further improvements in race performance depend more on running economy than on increasing VO2max.",
+    "specific_value": "~71.7 ml/kg/min average VO2max",
+    "category": "running_economy",
+    "population": "highly trained male distance runners",
+    "confidence": 0.7,
+    "school_of_thought": "Daniels"
+  },
+  {
+    "text": "Elite male 10 km runners averaging 32.1 min race times consume approximately 44.7-55.9 ml/kg/min at submaximal paces of 241-295 m/min, representing 62-78% of their VO2max.",
+    "specific_value": "44.7-55.9 ml/kg/min at 241-295 m/min",
+    "category": "running_economy",
+    "population": "highly trained male distance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  }
+]

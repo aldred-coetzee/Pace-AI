@@ -1,0 +1,50 @@
+[
+  {
+    "text": "The ACE II genotype is associated with increased likelihood of elite physical performance compared to D allele carriers (DD+ID)",
+    "specific_value": "OR 1.23, 95% CI 1.05-1.45",
+    "category": "genetics_individual_response",
+    "population": "elite athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The ACE II genotype is specifically associated with endurance athletic performance",
+    "specific_value": "OR 1.35, 95% CI 1.17-1.55",
+    "category": "genetics_individual_response",
+    "population": "elite endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The ACTN3 RR genotype is not significantly associated with general athletic performance compared to X allele carriers",
+    "specific_value": "OR 1.03, 95% CI 0.92-1.15",
+    "category": "genetics_individual_response",
+    "population": "elite athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The ACTN3 RR genotype (R allele) is associated with power event performance",
+    "specific_value": "OR 1.21, 95% CI 1.03-1.42",
+    "category": "genetics_individual_response",
+    "population": "elite power athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Genetic polymorphisms in ACE and ACTN3 show sport-discipline-specific associations, with ACE I allele favoring endurance and ACTN3 R allele favoring power events",
+    "specific_value": null,
+    "category": "genetics_individual_response",
+    "population": "elite athletes",
+    "confidence": 0.85,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "The effect sizes of individual genetic variants on athletic performance are modest (ORs in the 1.2-1.35 range), indicating polygenic and multifactorial influences on sport performance",
+    "specific_value": "OR 1.21-1.35",
+    "category": "genetics_individual_response",
+    "population": "elite athletes",
+    "confidence": 0.9,
+    "school_of_thought": "general sports science"
+  }
+]

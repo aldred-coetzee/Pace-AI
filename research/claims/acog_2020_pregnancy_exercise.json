@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Women who habitually engaged in vigorous-intensity aerobic activity before pregnancy can safely continue these activities during pregnancy and the postpartum period.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "physically active pregnant women",
+    "confidence": 0.7,
+    "school_of_thought": "ACOG consensus"
+  },
+  {
+    "text": "Exercise during pregnancy is associated with decreased incidence of gestational diabetes mellitus.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "pregnant women",
+    "confidence": 0.7,
+    "school_of_thought": "ACOG consensus"
+  },
+  {
+    "text": "Exercise during pregnancy is associated with decreased rates of cesarean birth and operative vaginal delivery.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "pregnant women",
+    "confidence": 0.7,
+    "school_of_thought": "ACOG consensus"
+  },
+  {
+    "text": "Exercise during pregnancy is associated with reduced postpartum recovery time.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "pregnant women",
+    "confidence": 0.7,
+    "school_of_thought": "ACOG consensus"
+  },
+  {
+    "text": "Physical activity can be an essential factor in the prevention of depressive disorders in the postpartum period.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "postpartum women",
+    "confidence": 0.7,
+    "school_of_thought": "ACOG consensus"
+  },
+  {
+    "text": "Some modification to exercise routines may be necessary during pregnancy due to normal anatomic and physiologic changes and fetal requirements.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "pregnant women",
+    "confidence": 0.8,
+    "school_of_thought": "ACOG consensus"
+  },
+  {
+    "text": "In the absence of obstetric or medical complications, physical activity in pregnancy is safe and desirable, and pregnant women should be encouraged to continue or initiate safe physical activities.",
+    "specific_value": null,
+    "category": "female_physiology",
+    "population": "pregnant women without complications",
+    "confidence": 0.8,
+    "school_of_thought": "ACOG consensus"
+  }
+]

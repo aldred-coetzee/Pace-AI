@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Dietary nitrate supplementation produces a small but statistically significant improvement in exercise performance compared to placebo.",
+    "specific_value": "d = 0.174, 95% CI 0.120-0.229, P < 0.001",
+    "category": "supplements",
+    "population": "young healthy adults",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Nitrate supplementation does not produce a significant ergogenic effect in well-trained endurance athletes with VO2max at or above 65 mL/kg/min.",
+    "specific_value": "d = 0.021, P = 0.745, VO2max \u226565 mL/kg/min",
+    "category": "supplements",
+    "population": "well-trained endurance athletes",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Nitrate supplementation does not produce a statistically significant ergogenic effect in women, though the evidence base is limited.",
+    "specific_value": "d = 0.116, P = 0.347, n = 6 studies",
+    "category": "supplements",
+    "population": "young healthy women",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The ergogenic effect of nitrate supplementation is not modulated by the fraction of inspired oxygen, meaning it works similarly in hypoxic and normoxic conditions.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "young healthy adults",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Nitrate supplementation is most effective as an ergogenic aid in recreationally active men rather than highly trained endurance athletes who have already optimized other training parameters.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "recreationally active men",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The overall effect size of nitrate supplementation on exercise performance is objectively small, suggesting it should not be prioritized over fundamental training and nutrition strategies.",
+    "specific_value": "d = 0.174",
+    "category": "supplements",
+    "population": "general population",
+    "confidence": 0.95,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

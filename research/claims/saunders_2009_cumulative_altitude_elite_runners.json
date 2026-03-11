@@ -1,0 +1,42 @@
+[
+  {
+    "text": "A combination of simulated live high-train low (LHTL) altitude exposure and natural moderate altitude training camps improves competitive race performance in elite middle-distance runners by approximately 1.9%.",
+    "specific_value": "1.9% improvement (90% CI: 1.3-2.5%)",
+    "category": "altitude_training",
+    "population": "elite middle-distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "An effective LHTL protocol involves approximately 44 nights of simulated altitude exposure at ~2850 m before transitioning to natural altitude training camps.",
+    "specific_value": "44 nights at ~2850 m simulated altitude",
+    "category": "altitude_training",
+    "population": "elite middle-distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Natural moderate altitude training camps of 7-10 days at 1700-2200 m can serve as an effective follow-up to extended simulated LHTL exposure before competition.",
+    "specific_value": "7-10 days at 1700-2200 m",
+    "category": "altitude_training",
+    "population": "elite middle-distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Cumulative altitude exposure combining simulated and natural altitude modalities can be used sequentially to stimulate performance-enhancing physiological adaptations.",
+    "specific_value": null,
+    "category": "altitude_training",
+    "population": "elite middle-distance runners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Multiple short natural altitude training camps (4 camps of 7-10 days) following an extended LHTL block provide additional adaptive stimulus beyond simulated altitude alone.",
+    "specific_value": "4 camps of 7-10 days",
+    "category": "altitude_training",
+    "population": "elite middle-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "general sports science"
+  }
+]

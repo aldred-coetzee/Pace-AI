@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Protein supplementation during chronic endurance training increases aerobic capacity (VO2peak) by approximately 0.89 mL/kg/min compared to endurance training alone.",
+    "specific_value": "0.89 mL/kg/min (95% CI: 0.07-1.70)",
+    "category": "nutrition_general",
+    "population": "healthy and clinical populations",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein supplementation during endurance training stimulates greater lean mass gain of approximately 0.32 kg compared to no supplementation.",
+    "specific_value": "0.32 kg (95% CI: 0.07-0.58)",
+    "category": "nutrition_general",
+    "population": "healthy and clinical populations",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein supplementation during endurance training improves time trial performance by approximately 29 seconds compared to control.",
+    "specific_value": "-29.1 s (95% CI: -55.3 to -3.0)",
+    "category": "nutrition_general",
+    "population": "healthy and clinical populations",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein supplementation provides an additional 26.4% gain in VO2peak beyond the improvements attributed to endurance training alone.",
+    "specific_value": "26.4% additional gain (0.97 mL/kg/min, 95% CI: -0.03 to 1.97)",
+    "category": "nutrition_general",
+    "population": "healthy and clinical populations",
+    "confidence": 0.7,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Protein supplementation combined with endurance training produces a small-to-moderate positive effect on combined aerobic capacity measures (VO2peak and peak workload power) with a standardized mean difference of 0.36.",
+    "specific_value": "SMD = 0.36 (95% CI: 0.05-0.67)",
+    "category": "nutrition_general",
+    "population": "healthy and clinical populations",
+    "confidence": 0.9,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Endurance training alone produces substantial improvements in VO2peak of approximately 3.67 mL/kg/min, with protein supplementation adding a further ~1 mL/kg/min on top of that.",
+    "specific_value": "3.67 mL/kg/min from training + 0.97 mL/kg/min from protein",
+    "category": "nutrition_general",
+    "population": "healthy and clinical populations",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]

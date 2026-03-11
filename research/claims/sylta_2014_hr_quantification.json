@@ -1,0 +1,50 @@
+[
+  {
+    "text": "When using time-in-zone heart rate analysis, approximately 96% of total training time in elite endurance athletes is spent in zone 1 (low intensity), with only ~3% in zone 2 and ~1% in zone 3.",
+    "specific_value": "96.1% zone 1, 2.9% zone 2, 1.1% zone 3 (TIZ method)",
+    "category": "training_zones_systems",
+    "population": "elite cross-country skiers",
+    "confidence": 0.75,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "When using session-goal classification, the training intensity distribution shifts to approximately 87% low-intensity sessions, 11% zone 2 sessions, and 2.4% zone 3 sessions, appearing less polarized than time-in-zone analysis.",
+    "specific_value": "86.6% zone 1, 11.1% zone 2, 2.4% zone 3 (SG method)",
+    "category": "training_zones_systems",
+    "population": "elite cross-country skiers",
+    "confidence": 0.75,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Different heart-rate-based training quantification methods (time-in-zone vs session-goal) produce significantly different training intensity distributions from the same training data, making cross-study comparisons unreliable without conversion factors.",
+    "specific_value": null,
+    "category": "training_zones_systems",
+    "population": "elite endurance athletes",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "To convert from time-in-zone to session-goal training distribution, multiply low-intensity proportion by ~0.9 and high-intensity proportion by ~3.0; reverse conversions use factors of ~1.1 and ~0.33 respectively.",
+    "specific_value": "0.9/1.1 for zone 1, 3.0/0.33 for zones 2-3",
+    "category": "training_zones_systems",
+    "population": "elite endurance athletes",
+    "confidence": 0.7,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Session-goal classification inflates the apparent proportion of high-intensity training by approximately 3-fold compared to time-in-zone analysis, because sessions containing any high-intensity work are classified entirely as high-intensity.",
+    "specific_value": "3.0x inflation factor for high-intensity zones",
+    "category": "training_zones_systems",
+    "population": "elite endurance athletes",
+    "confidence": 0.75,
+    "school_of_thought": "Seiler polarized"
+  },
+  {
+    "text": "Elite endurance athletes with VO2max of ~76 mL/kg/min follow a highly polarized training distribution where the vast majority of training volume is performed at low intensity regardless of quantification method.",
+    "specific_value": "VO2max 76 \u00b1 7 mL/kg/min, 86-96% low intensity depending on method",
+    "category": "training_zones_systems",
+    "population": "elite cross-country skiers",
+    "confidence": 0.8,
+    "school_of_thought": "Seiler polarized"
+  }
+]

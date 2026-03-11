@@ -1,0 +1,50 @@
+[
+  {
+    "text": "The optimal WBGT range for peak endurance running performance is 7.5\u00b0C\u201315\u00b0C, corresponding to approximately 10\u00b0C\u201317.5\u00b0C air temperature.",
+    "specific_value": "7.5-15\u00b0C WBGT (10-17.5\u00b0C air temperature)",
+    "category": "heat_cold_environment",
+    "population": "elite and competitive endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "For every degree of WBGT outside the optimal 7.5\u00b0C\u201315\u00b0C range, endurance running performance declines by 0.3%\u20130.4%.",
+    "specific_value": "0.3-0.4% per \u00b0C WBGT",
+    "category": "heat_cold_environment",
+    "population": "elite and competitive endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Air temperature is the single most important weather parameter affecting endurance running performance, with an importance score of 40% in machine learning models.",
+    "specific_value": "40% importance score",
+    "category": "heat_cold_environment",
+    "population": "elite and competitive endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "WBGT has greater predictive power for endurance running performance (R\u00b2 = 0.11\u20130.47) than air temperature alone (R\u00b2 = 0.04\u20130.34), because it integrates temperature, humidity, wind, and solar load.",
+    "specific_value": "WBGT R\u00b2=0.11-0.47 vs air temp R\u00b2=0.04-0.34",
+    "category": "heat_cold_environment",
+    "population": "elite and competitive endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "More than one-quarter (26%) of endurance running events take place in moderate, high, or extreme heat conditions, and this proportion rises to approximately half when marathons are excluded.",
+    "specific_value": "26% overall, ~50% excluding marathons",
+    "category": "heat_cold_environment",
+    "population": "elite and competitive endurance runners",
+    "confidence": 0.8,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "All four weather parameters\u2014temperature, humidity, wind speed, and solar load\u2014should be evaluated together when planning race strategy and heat mitigation for endurance events.",
+    "specific_value": null,
+    "category": "heat_cold_environment",
+    "population": "elite and competitive endurance runners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  }
+]

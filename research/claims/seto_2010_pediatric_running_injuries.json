@@ -1,0 +1,34 @@
+[
+  {
+    "text": "Young athletes with open growth plates are vulnerable to unique overuse injuries involving the apophyses, articular cartilage, and growth plate that differ from adult injury patterns.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "youth and adolescent runners",
+    "confidence": 0.3,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increased participation in athletic activities and running among children has led to a significant increase in overuse injuries.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "youth and adolescent runners",
+    "confidence": 0.3,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Year-round sports participation and competition increases the risk of overtraining and overuse injury in young athletes.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "youth and adolescent runners",
+    "confidence": 0.3,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Current guidelines for overuse injury prevention in young athletes are primarily based on consensus and expert opinion rather than strong evidence-based research.",
+    "specific_value": null,
+    "category": "youth_running",
+    "population": "youth and adolescent runners",
+    "confidence": 0.2,
+    "school_of_thought": "injury prevention"
+  }
+]

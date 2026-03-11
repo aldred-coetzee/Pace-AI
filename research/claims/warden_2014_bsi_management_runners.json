@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Bone stress injury occurs along a continuum from stress reaction to stress fracture to complete bone fracture, resulting from the inability of bone to withstand repetitive loading.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Most bone stress injuries heal following a period of modified loading and a progressive return to running activities.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Bone stress injuries have a high recurrence rate, signaling a need to address underlying causative factors rather than only treating the acute injury.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Increasing stride rate (cadence) can reduce impact-related forces on bone and lower the risk of bone stress injuries.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Calf strengthening is recommended for preventing tibial bone stress injuries, while foot intrinsic strengthening targets metatarsal bone stress injuries.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Instructing runners to run 'softer' (reducing ground reaction forces) is a modifiable factor for reducing bone stress injury risk.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  },
+  {
+    "text": "Malalignments and abnormal movement patterns should be assessed and corrected as part of bone stress injury prevention in runners.",
+    "specific_value": null,
+    "category": "injury_stress_fracture",
+    "population": "long-distance runners",
+    "confidence": 0.5,
+    "school_of_thought": "injury prevention"
+  }
+]

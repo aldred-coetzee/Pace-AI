@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Running speed during training sessions is the strongest predictor of marathon race time in recreational male marathoners, explaining 40% of variance alone.",
+    "specific_value": "r\u00b2 = 0.40",
+    "category": "body_composition",
+    "population": "recreational male marathoners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Percent body fat is the second strongest predictor of marathon race time after training speed, with a standardized coefficient of \u03b2 = 0.27.",
+    "specific_value": "\u03b2 = 0.27, P < 0.0001",
+    "category": "body_composition",
+    "population": "recreational male marathoners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Marathon race time in recreational male runners can be estimated as: race time (minutes) = 326.3 + 2.394 \u00d7 (percent body fat, %) - 12.06 \u00d7 (training speed, km/h), explaining 44% of variance.",
+    "specific_value": "r\u00b2 = 0.44",
+    "category": "body_composition",
+    "population": "recreational male marathoners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Training speed is more predictive of marathon performance than anthropometric characteristics, accounting for 40% vs 4% additional variance from body composition.",
+    "specific_value": "40% vs 44% total",
+    "category": "body_composition",
+    "population": "recreational male marathoners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Running speed during training sessions is correlated with pre-race percent body fat, suggesting leaner runners tend to train faster.",
+    "specific_value": "r = 0.33, P = 0.0002",
+    "category": "body_composition",
+    "population": "recreational male marathoners",
+    "confidence": 0.7,
+    "school_of_thought": "general sports science"
+  },
+  {
+    "text": "Recreational male marathoners who train at speeds close to approximately 11 km/h (~8:45 min/mile) tend to achieve faster marathon race times.",
+    "specific_value": "~11 km/h",
+    "category": "body_composition",
+    "population": "recreational male marathoners",
+    "confidence": 0.6,
+    "school_of_thought": "general sports science"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Sodium bicarbonate supplementation acutely enhances peak anaerobic power, anaerobic capacity, and performance in endurance events lasting approximately 45 seconds to 8 minutes.",
+    "specific_value": "~45s to 8min duration events",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Sodium bicarbonate supplementation improves muscle endurance and high-intensity intermittent running performance.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.75,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The ergogenic effect of sodium bicarbonate on endurance events (45s\u20138min), muscle endurance, and high-intensity intermittent running produces pooled effect sizes of 0.36 to 0.40 (small to moderate).",
+    "specific_value": "effect size 0.36\u20130.40",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Sodium bicarbonate does not significantly improve general mean power, muscle strength, or repeated-sprint ability compared to placebo.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.85,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "The ergogenic effects of sodium bicarbonate range from trivial (pooled effect size 0.09) to large (pooled effect size 1.26) depending on the outcome measure.",
+    "specific_value": "effect size range 0.09\u20131.26",
+    "category": "supplements",
+    "population": "mixed athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  },
+  {
+    "text": "Evidence for sodium bicarbonate's ergogenic effects is limited primarily to male athletes, and more research is needed among women to confirm generalizability.",
+    "specific_value": null,
+    "category": "supplements",
+    "population": "predominantly male athletes",
+    "confidence": 0.8,
+    "school_of_thought": "sports nutrition consensus"
+  }
+]
