@@ -1,8 +1,8 @@
 # Pace-AI
 
-AI running coach powered by MCP — connects Claude to your Strava data for personalized training analysis, race predictions, evidence-based coaching, and structured workout delivery to your Garmin watch.
+AI running coach powered by MCP — connects Claude to your Strava data, Notion diary, and Withings scale for personalized training analysis, race predictions, evidence-based coaching, and structured workout delivery to your Garmin watch.
 
-Four MCP servers in one monorepo. Claude orchestrates between them: pulls training data from Strava, body composition from Withings, reasons using sports-science coaching methodology, and pushes structured workouts to Garmin Connect.
+Five MCP servers in one monorepo. Claude orchestrates between them: pulls training data from Strava, diary entries from Notion, body composition from Withings, reasons using sports-science coaching methodology, and pushes structured workouts to Garmin Connect.
 
 <p align="center">
   <img src="docs/architecture.svg" alt="Pace-AI Architecture" width="720">
@@ -21,7 +21,7 @@ Go to [strava.com/settings/api](https://www.strava.com/settings/api) and create 
 ```bash
 git clone https://github.com/aldred-coetzee/Pace-AI.git
 cd Pace-AI
-pip install -e ./strava-mcp -e ./pace-ai -e ./garmin-mcp -e ./withings-mcp
+pip install -e ./strava-mcp -e ./pace-ai -e ./garmin-mcp -e ./withings-mcp -e ./notion-mcp
 ```
 
 ### 3. Configure
@@ -35,6 +35,9 @@ cp garmin-mcp/.env.example garmin-mcp/.env
 
 cp withings-mcp/.env.example withings-mcp/.env
 # Edit withings-mcp/.env — add your WITHINGS_CLIENT_ID and WITHINGS_CLIENT_SECRET
+
+cp notion-mcp/.env.example notion-mcp/.env
+# Edit notion-mcp/.env — add your NOTION_TOKEN and NOTION_DIARY_DATABASE_ID
 ```
 
 pace-ai needs no configuration (all settings have defaults).
@@ -70,6 +73,11 @@ garmin-mcp-login
       "command": "withings-mcp",
       "type": "streamableHttp",
       "url": "http://127.0.0.1:8004/mcp"
+    },
+    "notion-mcp": {
+      "command": "notion-mcp",
+      "type": "streamableHttp",
+      "url": "http://127.0.0.1:8005/mcp"
     }
   }
 }
@@ -95,6 +103,10 @@ garmin-mcp-login
     "withings-mcp": {
       "type": "streamableHttp",
       "url": "http://127.0.0.1:8004/mcp"
+    },
+    "notion-mcp": {
+      "type": "streamableHttp",
+      "url": "http://127.0.0.1:8005/mcp"
     }
   }
 }
@@ -102,13 +114,14 @@ garmin-mcp-login
 
 ### 5. Start a Conversation
 
-Start all three servers, then ask Claude:
+Start all servers, then ask Claude:
 
 ```bash
 strava-mcp &
 pace-ai &
 garmin-mcp &
 withings-mcp &
+notion-mcp &
 ```
 
 > "Authenticate with Strava, then analyze my last 4 weeks of running and give me a weekly plan."
@@ -164,7 +177,7 @@ Claude will pull your activities, compute ACWR and training zones, generate a pe
 
 Workout types support HR zone targeting (Garmin zones 1–5), warmup/cooldown, and repeat groups.
 
-### withings-mcp — Body Composition (4 tools, 1 resource)
+### withings-mcp — Body Composition (5 tools, 1 resource)
 
 | Tool | Description |
 |------|-------------|
@@ -173,6 +186,14 @@ Workout types support HR zone targeting (Garmin zones 1–5), warmup/cooldown, a
 | `get_latest_weight` | Most recent weight measurement |
 | `get_blood_pressure` | Systolic, diastolic, heart rate readings |
 | `get_body_composition_trend` | Weekly averages for weight and body fat over time |
+
+### notion-mcp — Running Diary (1 tool, 1 resource)
+
+| Tool | Description |
+|------|-------------|
+| `get_diary_entries` | Sync and return diary entries (stress, niggles, notes) from the last N days |
+
+Reads a Notion database used as a running diary. Entries are cached to SQLite for fast access.
 
 ## Configuration
 
@@ -196,25 +217,31 @@ Workout types support HR zone targeting (Garmin zones 1–5), warmup/cooldown, a
 | `WITHINGS_CLIENT_SECRET` | *(required)* | From Withings developer portal |
 | `WITHINGS_MCP_PORT` | `8004` | withings-mcp HTTP port |
 | `WITHINGS_MCP_DB` | `withings_mcp.db` | SQLite path (tokens) |
+| `NOTION_TOKEN` | *(required)* | Notion internal integration secret |
+| `NOTION_DIARY_DATABASE_ID` | *(required)* | Notion database ID for the running diary |
+| `NOTION_MCP_HOST` | `127.0.0.1` | notion-mcp bind address |
+| `NOTION_MCP_PORT` | `8005` | notion-mcp HTTP port |
+| `NOTION_MCP_DB` | `notion_mcp.db` | SQLite path (diary cache) |
 
 ## Development
 
 ```bash
 # Install in dev mode
-pip install -e ./strava-mcp[dev] -e ./pace-ai[dev] -e ./garmin-mcp[dev] -e ./withings-mcp[dev]
+pip install -e ./strava-mcp[dev] -e ./pace-ai[dev] -e ./garmin-mcp[dev] -e ./withings-mcp[dev] -e ./notion-mcp[dev]
 
 # Run tests
 cd strava-mcp && python -m pytest tests/ && cd ..
 cd pace-ai && python -m pytest tests/ && cd ..
 cd garmin-mcp && python -m pytest tests/ && cd ..
 cd withings-mcp && python -m pytest tests/ && cd ..
+cd notion-mcp && python -m pytest tests/ && cd ..
 
 # Lint
-ruff check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/
-ruff format --check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/
+ruff check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/ notion-mcp/
+ruff format --check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/ notion-mcp/
 ```
 
-See [strava-mcp/README.md](strava-mcp/README.md), [pace-ai/README.md](pace-ai/README.md), [garmin-mcp/README.md](garmin-mcp/README.md), and [withings-mcp/README.md](withings-mcp/README.md) for server-specific details.
+See [strava-mcp/README.md](strava-mcp/README.md), [pace-ai/README.md](pace-ai/README.md), [garmin-mcp/README.md](garmin-mcp/README.md), [withings-mcp/README.md](withings-mcp/README.md), and [notion-mcp/README.md](notion-mcp/README.md) for server-specific details.
 
 ## License
 
