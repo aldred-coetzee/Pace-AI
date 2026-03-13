@@ -115,6 +115,7 @@ class HistoryDB:
                     average_cadence REAL,
                     average_speed_ms REAL,
                     description TEXT,
+                    private_note TEXT,
                     garmin_workout_id TEXT,
                     perceived_effort INTEGER,
                     raw JSON
@@ -258,6 +259,15 @@ class HistoryDB:
                     source TEXT
                 );
             """)
+            # Migrations for existing databases
+            self._migrate_add_column(conn, "activities", "private_note", "TEXT")
+
+    @staticmethod
+    def _migrate_add_column(conn: sqlite3.Connection, table: str, column: str, col_type: str) -> None:
+        """Add a column if it doesn't already exist (idempotent migration)."""
+        existing = {row[1] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
+        if column not in existing:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
 
     # ── Activities ─────────────────────────────────────────────────────
 
@@ -270,16 +280,18 @@ class HistoryDB:
                     """INSERT INTO activities
                        (strava_id, date, sport_type, name, distance_m, moving_time_s,
                         elapsed_time_s, elevation_gain_m, average_hr, max_hr,
-                        average_cadence, average_speed_ms, description, garmin_workout_id,
-                        perceived_effort, raw)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        average_cadence, average_speed_ms, description, private_note,
+                        garmin_workout_id, perceived_effort, raw)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                        ON CONFLICT(strava_id) DO UPDATE SET
                         date=excluded.date, sport_type=excluded.sport_type, name=excluded.name,
                         distance_m=excluded.distance_m, moving_time_s=excluded.moving_time_s,
                         elapsed_time_s=excluded.elapsed_time_s, elevation_gain_m=excluded.elevation_gain_m,
                         average_hr=excluded.average_hr, max_hr=excluded.max_hr,
                         average_cadence=excluded.average_cadence, average_speed_ms=excluded.average_speed_ms,
-                        description=excluded.description, garmin_workout_id=excluded.garmin_workout_id,
+                        description=excluded.description,
+                        private_note=COALESCE(excluded.private_note, activities.private_note),
+                        garmin_workout_id=excluded.garmin_workout_id,
                         perceived_effort=excluded.perceived_effort, raw=excluded.raw
                     """,
                     (
@@ -296,6 +308,7 @@ class HistoryDB:
                         a.get("average_cadence"),
                         a.get("average_speed_ms"),
                         a.get("description"),
+                        a.get("private_note"),
                         a.get("garmin_workout_id"),
                         a.get("perceived_effort"),
                         json.dumps(a.get("raw")) if a.get("raw") else None,

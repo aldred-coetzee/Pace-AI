@@ -173,6 +173,29 @@ class StravaClient:
                 )
 
             if resp.status_code == 401:
+                # Access token rejected — try a forced refresh before giving up
+                tokens = self._token_store.load()
+                if tokens and tokens.get("refresh_token") and attempt < max_retries:
+                    logger.warning(
+                        "Got 401 (attempt %d/%d). Forcing token refresh.",
+                        attempt + 1,
+                        max_retries + 1,
+                    )
+                    try:
+                        refreshed = await refresh_access_token(
+                            self._settings.client_id,
+                            self._settings.client_secret,
+                            tokens["refresh_token"],
+                        )
+                        self._token_store.save(
+                            access_token=refreshed["access_token"],
+                            refresh_token=refreshed["refresh_token"],
+                            expires_at=refreshed["expires_at"],
+                            athlete_id=tokens.get("athlete_id"),
+                        )
+                        continue  # Retry the request with the new token
+                    except Exception:
+                        logger.warning("Token refresh also failed — clearing tokens.")
                 self._token_store.clear()
                 raise StravaAPIError(
                     code="auth_expired",

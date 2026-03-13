@@ -51,6 +51,12 @@ class Settings:
             msg = "STRAVA_CLIENT_ID and STRAVA_CLIENT_SECRET must be set"
             raise ValueError(msg)
 
+        raw_db = os.environ.get("STRAVA_MCP_DB", "strava_mcp.db")
+        # Resolve relative db_path against the .env directory so it's stable
+        # regardless of which process/cwd imports this module.
+        if not os.path.isabs(raw_db) and env_file is not None:
+            raw_db = str(env_file.parent / raw_db)
+
         return cls(
             client_id=client_id,
             client_secret=client_secret,
@@ -58,5 +64,5 @@ class Settings:
             refresh_token=os.environ.get("STRAVA_REFRESH_TOKEN"),
             host=os.environ.get("STRAVA_MCP_HOST", "127.0.0.1"),
             port=_parse_port(os.environ.get("STRAVA_MCP_PORT", "8001")),
-            db_path=os.environ.get("STRAVA_MCP_DB", "strava_mcp.db"),
+            db_path=raw_db,
         )

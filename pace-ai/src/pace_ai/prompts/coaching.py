@@ -345,10 +345,14 @@ def _format_recent_activities(activities: list[dict]) -> str:
         dist = a.get("distance_km", a.get("distance", 0) / 1000 if a.get("distance") else 0)
         pace = a.get("pace_min_per_km", "N/A")
         hr = a.get("average_heartrate", "N/A")
-        lines.append(
+        line = (
             f"- {a.get('start_date', 'unknown date')}: {a.get('name', 'Untitled')}"
             f" -- {dist:.1f} km, pace {pace}/km, HR {hr}"
         )
+        note = a.get("private_note")
+        if note:
+            line += f" [note: {note}]"
+        lines.append(line)
     return "\n".join(lines)
 
 
@@ -364,6 +368,9 @@ def _format_activity_detail(activity: dict) -> str:
         f"Max HR: {activity.get('max_heartrate', 'N/A')} bpm",
         f"Average cadence: {activity.get('average_cadence', 'N/A')} spm",
     ]
+    note = activity.get("private_note")
+    if note:
+        lines.append(f"Athlete note: {note}")
 
     splits = activity.get("splits_metric", [])
     if splits:
