@@ -21,7 +21,8 @@ class TestSettings:
         s = Settings.from_env()
         assert s.port == 8005
         assert s.host == "127.0.0.1"
-        assert s.db_path == "notion_mcp.db"
+        # db_path is resolved to absolute path relative to .env location
+        assert s.db_path.endswith("notion_mcp.db")
 
     def test_from_env_custom_port(self, monkeypatch):
         monkeypatch.setenv("NOTION_MCP_PORT", "9999")
