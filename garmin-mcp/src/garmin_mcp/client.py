@@ -178,6 +178,25 @@ class GarminClient:
                 action="Check the year and month values.",
             ) from e
 
+    def unschedule_workout(self, schedule_id: int) -> Any:
+        """Remove a scheduled workout from the calendar.
+
+        Args:
+            schedule_id: The calendar schedule entry ID (not the workout ID).
+        """
+        client = self._ensure_client()
+        try:
+            url = f"/workout-service/schedule/{schedule_id}"
+            resp = client.garth.delete("connectapi", url, api=True)
+            resp.raise_for_status()
+            return {"unscheduled": True, "schedule_id": schedule_id}
+        except Exception as e:
+            raise GarminAPIError(
+                code="unschedule_failed",
+                message=f"Failed to unschedule entry {schedule_id}: {e}",
+                action="Check the schedule ID from list_calendar and try again.",
+            ) from e
+
     # ── Wellness Data ─────────────────────────────────────────────────
 
     def get_body_battery(self, date: str) -> Any:

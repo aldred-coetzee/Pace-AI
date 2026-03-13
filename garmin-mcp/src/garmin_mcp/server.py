@@ -225,6 +225,85 @@ async def list_calendar(start_date: str, end_date: str) -> dict:
     return {"start_date": start_date, "end_date": end_date, "count": len(events), "events": events}
 
 
+@mcp.tool()
+async def unschedule_workout(schedule_id: int) -> dict:
+    """Remove a scheduled workout from the Garmin calendar.
+
+    Use list_calendar to find the schedule ID (the 'id' field in events).
+    This removes the calendar entry but keeps the workout in the library.
+
+    Args:
+        schedule_id: The calendar entry ID from list_calendar (not the workout ID).
+    """
+    try:
+        return garmin.unschedule_workout(schedule_id)
+    except GarminAPIError as e:
+        return e.to_dict()
+
+
+@mcp.tool()
+async def create_and_schedule(
+    workout_type: str,
+    name: str,
+    date: str,
+    params_json: str = "{}",
+) -> dict:
+    """Create a workout and immediately schedule it to a calendar date.
+
+    Combines create_workout + schedule_workout in one step so workouts
+    always appear on the Garmin calendar.
+
+    Args:
+        workout_type: easy_run|run_walk|tempo|intervals|strides|strength|mobility|yoga|cardio|hiit|walking|custom.
+        name: Workout name (shown on watch).
+        date: Date in YYYY-MM-DD format.
+        params_json: JSON object of type-specific parameters. See garmin://workout-types resource.
+    """
+    if workout_type not in WORKOUT_TYPES:
+        return {
+            "error": "invalid_workout_type",
+            "message": f"Unknown workout type: {workout_type}",
+            "valid_types": list(WORKOUT_TYPES.keys()),
+        }
+
+    try:
+        params = json.loads(params_json)
+    except json.JSONDecodeError as e:
+        return {"error": "invalid_json", "message": f"Failed to parse params_json: {e}"}
+
+    try:
+        workout_json = _build_workout(workout_type, name, params)
+    except (TypeError, ValueError) as e:
+        return {"error": "invalid_params", "message": str(e)}
+
+    try:
+        result = garmin.create_workout(workout_json)
+        workout_id = result.get("workoutId") if isinstance(result, dict) else None
+    except GarminAPIError as e:
+        return e.to_dict()
+
+    if not workout_id:
+        return {"error": "create_failed", "message": "Workout created but no ID returned.", "raw": result}
+
+    try:
+        garmin.schedule_workout(workout_id, date)
+    except GarminAPIError as e:
+        return {
+            "error": "schedule_failed",
+            "message": f"Workout created (ID {workout_id}) but scheduling failed: {e}",
+            "workout_id": workout_id,
+        }
+
+    return {
+        "created": True,
+        "scheduled": True,
+        "workout_id": workout_id,
+        "workout_name": name,
+        "workout_type": workout_type,
+        "date": date,
+    }
+
+
 # ── Wellness Tools ────────────────────────────────────────────────────
 
 

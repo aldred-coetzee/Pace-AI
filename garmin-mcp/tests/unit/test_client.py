@@ -165,6 +165,19 @@ class TestGarminClient:
         assert result["scheduled"] is True
         assert result["date"] == "2026-02-20"
 
+    def test_unschedule_workout_uses_garth(self, client_settings):
+        client = GarminClient(client_settings)
+        mock_garmin = MagicMock()
+        mock_resp = MagicMock()
+        mock_resp.raise_for_status.return_value = None
+        mock_garmin.garth.delete.return_value = mock_resp
+        client._garmin = mock_garmin
+
+        result = client.unschedule_workout(999)
+        mock_garmin.garth.delete.assert_called_once_with("connectapi", "/workout-service/schedule/999", api=True)
+        assert result["unscheduled"] is True
+        assert result["schedule_id"] == 999
+
     def test_get_calendar_uses_garth(self, client_settings):
         client = GarminClient(client_settings)
         mock_garmin = MagicMock()
