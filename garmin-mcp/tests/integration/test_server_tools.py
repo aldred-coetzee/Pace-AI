@@ -36,6 +36,7 @@ def _wired(monkeypatch):
     mock_client.create_workout.return_value = {"workoutId": 200, "workoutName": "New Workout"}
     mock_client.delete_workout.return_value = {"deleted": True, "workout_id": 100}
     mock_client.schedule_workout.return_value = {"scheduled": True, "workout_id": 100, "date": "2026-02-20"}
+    mock_client.unschedule_workout.return_value = {"unscheduled": True, "schedule_id": 999}
     mock_client.get_calendar.return_value = {"calendarItems": [{"id": 100, "title": "Easy Run", "date": "2026-02-16", "itemType": "workout", "sportTypeKey": "running"}]}
     mock_client.get_body_battery.return_value = [{"charged": 75, "drained": 30}]
     mock_client.get_sleep.return_value = {"sleepScore": 82, "sleepDuration": 28800}
@@ -244,6 +245,37 @@ class TestListCalendar:
         assert result["count"] == 1
         assert result["events"][0]["date"] == "2026-02-16"
         assert result["events"][0]["title"] == "Easy Run"
+
+
+@pytest.mark.usefixtures("_wired")
+class TestUnscheduleWorkout:
+    @pytest.mark.asyncio()
+    async def test_unschedule_workout(self):
+        from garmin_mcp.server import unschedule_workout
+
+        result = await unschedule_workout(999)
+        assert result["unscheduled"] is True
+        assert result["schedule_id"] == 999
+
+
+@pytest.mark.usefixtures("_wired")
+class TestCreateAndSchedule:
+    @pytest.mark.asyncio()
+    async def test_create_and_schedule(self):
+        from garmin_mcp.server import create_and_schedule
+
+        result = await create_and_schedule("easy_run", "Test Run", "2026-03-20", '{"duration_minutes": 30}')
+        assert result["created"] is True
+        assert result["scheduled"] is True
+        assert result["workout_id"] == 200
+        assert result["date"] == "2026-03-20"
+
+    @pytest.mark.asyncio()
+    async def test_create_and_schedule_invalid_type(self):
+        from garmin_mcp.server import create_and_schedule
+
+        result = await create_and_schedule("nope", "Bad", "2026-03-20")
+        assert result["error"] == "invalid_workout_type"
 
 
 @pytest.mark.usefixtures("_wired")
