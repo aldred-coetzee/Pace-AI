@@ -306,10 +306,38 @@ def _extract_weekly_plan(text: str) -> dict | None:
     return None
 
 
+SCHEDULING_INSTRUCTION = """\
+## Workout Scheduling
+
+When you prescribe a weekly training plan, output it as a JSON block so the app \
+can schedule it to Garmin. Use this exact schema inside a ```json code fence:
+
+```json
+{
+  "week_starting": "YYYY-MM-DD",
+  "sessions": [
+    {
+      "date": "YYYY-MM-DD",
+      "workout_type": "easy_run|run_walk|tempo|intervals|strides|strength|mobility|yoga|cardio|hiit|walking|rest",
+      "name": "Short name shown on watch",
+      "duration_minutes": 30,
+      "description": "Brief description of the session"
+    }
+  ]
+}
+```
+
+Include every day of the week (rest days use workout_type "rest"). \
+The user will review and confirm before anything is scheduled. \
+Do NOT call Garmin tools directly — the app handles scheduling after confirmation. \
+You may include coaching commentary before or after the JSON block.
+"""
+
+
 def _build_context() -> str:
     """Assemble athlete context from pace-ai database."""
     db = HistoryDB(DB_PATH)
-    sections: list[str] = []
+    sections: list[str] = [SCHEDULING_INSTRUCTION]
 
     try:
         profile = get_athlete_profile(db)
