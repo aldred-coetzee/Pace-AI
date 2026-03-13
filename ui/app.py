@@ -230,6 +230,7 @@ a { color: #4a9eff; }
 <form method="POST" action="/cancel-plan">
 <button type="submit" class="cancel-btn">Cancel</button>
 </form>
+<a href="/" style="padding: 8px 12px; color: #888;">Back to chat</a>
 </div>
 </body>
 </html>
