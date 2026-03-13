@@ -169,17 +169,42 @@ async def schedule_workout(workout_id: int, date: str) -> dict:
 
 
 @mcp.tool()
-async def list_calendar(year: int, month: int) -> dict:
-    """List scheduled items on the Garmin Connect calendar for a month.
+async def list_calendar(start_date: str, end_date: str) -> dict:
+    """List scheduled items on the Garmin Connect calendar for a date range.
+
+    Fetches daily events for each day in the range. Max 31 days.
 
     Args:
-        year: Calendar year (e.g. 2026).
-        month: Calendar month (1-12).
+        start_date: Start date in YYYY-MM-DD format.
+        end_date: End date in YYYY-MM-DD format (inclusive).
     """
     try:
-        return garmin.get_calendar(year, month)
-    except GarminAPIError as e:
-        return e.to_dict()
+        start = date.fromisoformat(start_date)
+        end = date.fromisoformat(end_date)
+    except ValueError:
+        return {"error": "invalid_date", "message": "Dates must be YYYY-MM-DD format."}
+
+    if (end - start).days > 31:
+        return {"error": "range_too_large", "message": "Max 31 days per request."}
+    if end < start:
+        return {"error": "invalid_range", "message": "end_date must be >= start_date."}
+
+    events: list[dict[str, Any]] = []
+    current = start
+    while current <= end:
+        d = current.isoformat()
+        try:
+            day_events = garmin.get_events_for_date(d)
+            if isinstance(day_events, list):
+                for ev in day_events:
+                    events.append({"date": d, **ev})
+            elif day_events:
+                events.append({"date": d, "raw": day_events})
+        except GarminAPIError:
+            pass  # Skip days with no data
+        current += timedelta(days=1)
+
+    return {"start_date": start_date, "end_date": end_date, "count": len(events), "events": events}
 
 
 # ── Wellness Tools ────────────────────────────────────────────────────
