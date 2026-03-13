@@ -82,6 +82,7 @@ def sync_strava(db: HistoryDB, activities: list[dict[str, Any]]) -> dict[str, An
                 "average_cadence": a.get("average_cadence"),
                 "average_speed_ms": a.get("average_speed"),
                 "description": a.get("description"),
+                "private_note": a.get("private_note"),
                 "perceived_effort": a.get("perceived_exertion"),
                 "raw": a,
             }
@@ -314,6 +315,39 @@ def _to_timestamp(d: str) -> int:
     return int(datetime.strptime(d[:10], "%Y-%m-%d").timestamp())
 
 
+async def _enrich_private_notes(db: HistoryDB, strava_client: Any, days: int = 28) -> int:
+    """Fetch detail for recent activities missing private_note and backfill them.
+
+    Only fetches detail for activities where private_note is NULL, to minimise
+    API calls. Returns count of activities enriched.
+    """
+    with db._connect() as conn:
+        rows = conn.execute(
+            """SELECT strava_id FROM activities
+               WHERE private_note IS NULL AND date >= date('now', ?)
+               ORDER BY date DESC""",
+            (f"-{days} days",),
+        ).fetchall()
+
+    enriched = 0
+    for row in rows:
+        strava_id = row["strava_id"]
+        try:
+            detail = await strava_client.get_activity(int(strava_id))
+        except Exception:
+            log.warning("Failed to fetch detail for activity %s", strava_id)
+            continue
+        note = detail.get("private_note")
+        if note:
+            with db._connect() as conn:
+                conn.execute(
+                    "UPDATE activities SET private_note = ? WHERE strava_id = ?",
+                    (note, strava_id),
+                )
+            enriched += 1
+    return enriched
+
+
 async def sync_all(db: HistoryDB) -> dict[str, Any]:
     """Incremental sync from all 5 external sources.
 
@@ -340,6 +374,11 @@ async def sync_all(db: HistoryDB) -> dict[str, Any]:
         after_ts = _to_timestamp(last) if last else None
         activities = await strava_client.get_all_activities(after=after_ts)
         results["strava"] = sync_strava(db, activities)
+
+        # Enrich recent activities with private_note (only available from detail endpoint)
+        enriched = await _enrich_private_notes(db, strava_client, days=28)
+        if enriched:
+            results["strava"]["private_notes_enriched"] = enriched
     except Exception as exc:
         log.exception("sync_all: strava failed")
         errors["strava"] = str(exc)

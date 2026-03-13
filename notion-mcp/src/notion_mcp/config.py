@@ -42,10 +42,14 @@ class Settings:
         if env_file:
             load_dotenv(env_file)
 
+        raw_db = os.environ.get("NOTION_MCP_DB", "notion_mcp.db")
+        if not os.path.isabs(raw_db) and env_file is not None:
+            raw_db = str(env_file.parent / raw_db)
+
         return cls(
             notion_token=os.environ.get("NOTION_TOKEN", ""),
             diary_database_id=os.environ.get("NOTION_DIARY_DATABASE_ID", ""),
             host=os.environ.get("NOTION_MCP_HOST", "127.0.0.1"),
             port=_parse_port(os.environ.get("NOTION_MCP_PORT", "8005")),
-            db_path=os.environ.get("NOTION_MCP_DB", "notion_mcp.db"),
+            db_path=raw_db,
         )
