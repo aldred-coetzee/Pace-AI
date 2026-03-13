@@ -65,13 +65,22 @@ HTML = """\
 <head>
 <meta charset="utf-8">
 <title>Pace-AI Chat</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
 h1 { font-size: 1.2em; color: #aaa; }
 .messages { margin-bottom: 20px; }
-.msg { padding: 8px 12px; margin: 6px 0; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
-.user { background: #2a3a4a; border-left: 3px solid #4a9eff; }
+.msg { padding: 8px 12px; margin: 6px 0; border-radius: 4px; word-wrap: break-word; }
+.user { background: #2a3a4a; border-left: 3px solid #4a9eff; white-space: pre-wrap; }
 .assistant { background: #2a2a2a; border-left: 3px solid #6c6; }
+.assistant table { border-collapse: collapse; margin: 8px 0; }
+.assistant th, .assistant td { border: 1px solid #444; padding: 4px 8px; text-align: left; }
+.assistant th { background: #333; }
+.assistant blockquote { border-left: 3px solid #555; margin: 8px 0; padding: 4px 12px; color: #aaa; }
+.assistant code { background: #333; padding: 1px 4px; border-radius: 3px; }
+.assistant pre { background: #333; padding: 8px; border-radius: 4px; overflow-x: auto; }
+.assistant h2, .assistant h3 { margin: 12px 0 6px; }
+.assistant hr { border: none; border-top: 1px solid #444; margin: 12px 0; }
 .ctx-banner { background: #1e2e1e; border: 1px solid #3a5a3a; padding: 6px 12px; border-radius: 4px; margin-bottom: 12px; font-size: 0.85em; color: #8a8; }
 form { display: flex; gap: 8px; }
 textarea { flex: 1; padding: 8px; font-family: monospace; font-size: 14px; background: #222; color: #e0e0e0; border: 1px solid #444; border-radius: 4px; resize: vertical; min-height: 60px; }
@@ -103,7 +112,11 @@ button:hover { background: #3a8eef; }
 {% endif %}
 <div class="messages">
 {% for msg in messages %}
-<div class="msg {{ msg.role }}"><strong>{{ msg.role }}:</strong> {{ msg.content }}</div>
+{% if msg.role == 'user' %}
+<div class="msg user"><strong>you:</strong> {{ msg.content }}</div>
+{% else %}
+<div class="msg assistant"><strong>coach:</strong> <div class="md-content">{{ msg.content }}</div></div>
+{% endif %}
 {% endfor %}
 </div>
 <div class="spinner" id="spinner">Thinking...</div>
@@ -112,6 +125,9 @@ button:hover { background: #3a8eef; }
 <button type="submit">Send</button>
 </form>
 <script>
+document.querySelectorAll('.md-content').forEach(function(el) {
+    el.innerHTML = marked.parse(el.textContent);
+});
 document.getElementById('chat-form').addEventListener('submit', function() {
     document.getElementById('spinner').style.display = 'block';
     document.querySelector('button[type=submit]').disabled = true;
