@@ -172,7 +172,7 @@ async def schedule_workout(workout_id: int, date: str) -> dict:
 async def list_calendar(start_date: str, end_date: str) -> dict:
     """List scheduled items on the Garmin Connect calendar for a date range.
 
-    Fetches daily events for each day in the range. Max 31 days.
+    Returns workouts, activities, and other events scheduled in the range.
 
     Args:
         start_date: Start date in YYYY-MM-DD format.
@@ -184,25 +184,43 @@ async def list_calendar(start_date: str, end_date: str) -> dict:
     except ValueError:
         return {"error": "invalid_date", "message": "Dates must be YYYY-MM-DD format."}
 
-    if (end - start).days > 31:
-        return {"error": "range_too_large", "message": "Max 31 days per request."}
     if end < start:
         return {"error": "invalid_range", "message": "end_date must be >= start_date."}
 
-    events: list[dict[str, Any]] = []
+    # Fetch calendar months that cover the date range (month is 0-indexed)
+    all_items: list[dict[str, Any]] = []
+    seen_months: set[tuple[int, int]] = set()
     current = start
     while current <= end:
-        d = current.isoformat()
-        try:
-            day_events = garmin.get_events_for_date(d)
-            if isinstance(day_events, list):
-                for ev in day_events:
-                    events.append({"date": d, **ev})
-            elif day_events:
-                events.append({"date": d, "raw": day_events})
-        except GarminAPIError:
-            pass  # Skip days with no data
+        key = (current.year, current.month - 1)  # API uses 0-indexed months
+        if key not in seen_months:
+            seen_months.add(key)
+            try:
+                data = garmin.get_calendar(current.year, current.month - 1)
+                items = data.get("calendarItems", []) if isinstance(data, dict) else []
+                all_items.extend(items)
+            except GarminAPIError:
+                pass
         current += timedelta(days=1)
+
+    # Filter to items within the requested date range
+    filtered = [
+        item for item in all_items
+        if item.get("date") and start_date <= item["date"] <= end_date
+    ]
+
+    events = [
+        {
+            "id": item.get("id"),
+            "title": item.get("title"),
+            "date": item.get("date"),
+            "item_type": item.get("itemType"),
+            "sport_type": item.get("sportTypeKey"),
+            "duration": item.get("duration"),
+            "distance": item.get("distance"),
+        }
+        for item in filtered
+    ]
 
     return {"start_date": start_date, "end_date": end_date, "count": len(events), "events": events}
 
