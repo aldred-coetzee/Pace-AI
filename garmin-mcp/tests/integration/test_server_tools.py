@@ -36,7 +36,7 @@ def _wired(monkeypatch):
     mock_client.create_workout.return_value = {"workoutId": 200, "workoutName": "New Workout"}
     mock_client.delete_workout.return_value = {"deleted": True, "workout_id": 100}
     mock_client.schedule_workout.return_value = {"scheduled": True, "workout_id": 100, "date": "2026-02-20"}
-    mock_client.get_calendar.return_value = [{"date": "2026-02-16", "workoutId": 100}]
+    mock_client.get_events_for_date.return_value = [{"date": "2026-02-16", "workoutId": 100}]
     mock_client.get_body_battery.return_value = [{"charged": 75, "drained": 30}]
     mock_client.get_sleep.return_value = {"sleepScore": 82, "sleepDuration": 28800}
     mock_client.get_hrv.return_value = {"hrvSummary": {"weeklyAvg": 45, "lastNight": 48}}
@@ -240,9 +240,9 @@ class TestListCalendar:
     async def test_list_calendar(self):
         from garmin_mcp.server import list_calendar
 
-        result = await list_calendar(2026, 2)
-        assert isinstance(result, list)
-        assert result[0]["date"] == "2026-02-16"
+        result = await list_calendar("2026-02-16", "2026-02-16")
+        assert result["count"] == 1
+        assert result["events"][0]["date"] == "2026-02-16"
 
 
 @pytest.mark.usefixtures("_wired")

@@ -165,18 +165,15 @@ class TestGarminClient:
         assert result["scheduled"] is True
         assert result["date"] == "2026-02-20"
 
-    def test_get_calendar_uses_garth(self, client_settings):
+    def test_get_events_for_date_delegates(self, client_settings):
         client = GarminClient(client_settings)
         mock_garmin = MagicMock()
-        mock_resp = MagicMock()
-        mock_resp.json.return_value = [{"date": "2026-02-16"}]
-        mock_resp.raise_for_status.return_value = None
-        mock_garmin.garth.get.return_value = mock_resp
+        mock_garmin.get_all_day_events.return_value = [{"date": "2026-02-16", "workoutId": 100}]
         client._garmin = mock_garmin
 
-        result = client.get_calendar(2026, 2)
-        mock_garmin.garth.get.assert_called_once_with("connectapi", "/workout-service/schedule/2026/2", api=True)
-        assert result == [{"date": "2026-02-16"}]
+        result = client.get_events_for_date("2026-02-16")
+        mock_garmin.get_all_day_events.assert_called_once_with("2026-02-16")
+        assert result == [{"date": "2026-02-16", "workoutId": 100}]
 
     def test_get_body_battery_delegates(self, client_settings):
         client = GarminClient(client_settings)
