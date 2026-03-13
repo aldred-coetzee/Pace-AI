@@ -155,16 +155,28 @@ class GarminClient:
                 action="Check the workout ID and date format (YYYY-MM-DD).",
             ) from e
 
-    def get_events_for_date(self, cdate: str) -> Any:
-        """Get calendar events for a single date.
+    def get_calendar(self, year: int, month: int) -> Any:
+        """Get calendar items for a month (0-indexed: January = 0).
+
+        Uses /calendar-service/year/{year}/month/{month} which returns
+        all scheduled workouts, activities, and events for the month.
 
         Args:
-            cdate: Date in YYYY-MM-DD format.
-
-        Returns:
-            List of calendar events (activities, scheduled workouts, etc.)
+            year: Calendar year.
+            month: Calendar month, 0-indexed (0=Jan, 11=Dec).
         """
-        return self._call("get_all_day_events", cdate)
+        client = self._ensure_client()
+        try:
+            url = f"/calendar-service/year/{year}/month/{month}"
+            resp = client.garth.get("connectapi", url, api=True)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            raise GarminAPIError(
+                code="calendar_error",
+                message=f"Failed to get calendar for {year}-{month + 1:02d}: {e}",
+                action="Check the year and month values.",
+            ) from e
 
     # ── Wellness Data ─────────────────────────────────────────────────
 
