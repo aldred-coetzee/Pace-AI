@@ -595,6 +595,15 @@ async def sync_all(db: HistoryDB) -> dict[str, Any]:
         errors["notion"] = str(exc)
         db.log_sync("notion", 0, "error", error=str(exc))
 
+    # ── Regenerate athlete profile from fresh data ─────────────────
+    try:
+        from pace_ai.tools.profile import generate_athlete_profile
+
+        generate_athlete_profile(db)
+        log.info("sync_all: athlete profile regenerated")
+    except Exception:
+        log.exception("sync_all: profile regeneration failed")
+
     summary: dict[str, Any] = {"results": results}
     if errors:
         summary["errors"] = errors
