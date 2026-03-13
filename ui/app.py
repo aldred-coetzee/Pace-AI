@@ -460,8 +460,13 @@ def chat():
             len(plan.get("sessions", [])),
         )
         store["pending_plan"] = plan
-        # Store the full reply so user can see the coaching commentary too
-        store["messages"].append({"role": "assistant", "content": reply})
+        # Strip the JSON block from the displayed message so user only sees commentary
+        display_reply = re.sub(
+            r"```json\s*\n\{.*?\}\s*\n```", "", reply, flags=re.DOTALL
+        ).strip()
+        if not display_reply:
+            display_reply = "Here's your weekly plan — review and confirm below."
+        store["messages"].append({"role": "assistant", "content": display_reply})
         return Response(status=302, headers={"Location": "/review-plan"})
 
     store["messages"].append({"role": "assistant", "content": reply})
