@@ -31,6 +31,11 @@ from pace_ai.tools.memory import (
 from pace_ai.tools.profile import get_athlete_profile
 from pace_ai.tools.sync import sync_all as _sync_all
 
+# Add garmin-mcp src to import path for direct workout scheduling
+_garmin_src = str(PROJECT_ROOT / "garmin-mcp" / "src")
+if _garmin_src not in sys.path:
+    sys.path.insert(0, _garmin_src)
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(message)s")
 log = logging.getLogger("pace-ui")
 
@@ -179,6 +184,128 @@ a { color: #4a9eff; }
 """
 
 
+CONFIRM_PLAN_HTML = """\
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pace-AI — Confirm Weekly Plan</title>
+<style>
+body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
+h1 { font-size: 1.2em; color: #aaa; }
+h2 { font-size: 1em; color: #8a8; margin-top: 20px; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #444; padding: 6px 10px; text-align: left; }
+th { background: #333; }
+tr.rest { color: #666; }
+.btn-row { display: flex; gap: 8px; margin-top: 16px; }
+button { padding: 8px 20px; border: none; border-radius: 4px; cursor: pointer; font-family: monospace; }
+.confirm-btn { background: #4a9eff; color: #fff; }
+.confirm-btn:hover { background: #3a8eef; }
+.cancel-btn { background: #555; color: #e0e0e0; }
+.cancel-btn:hover { background: #666; }
+a { color: #4a9eff; }
+</style>
+</head>
+<body>
+<h1>Confirm Weekly Plan</h1>
+<h2>Week starting {{ plan.week_starting }}</h2>
+<table>
+<tr><th>Date</th><th>Session</th><th>Type</th><th>Duration</th><th>Description</th></tr>
+{% for s in plan.sessions %}
+<tr class="{{ 'rest' if s.workout_type == 'rest' else '' }}">
+<td>{{ s.date }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.workout_type }}</td>
+<td>{{ s.duration_minutes }}min</td>
+<td>{{ s.description or '' }}</td>
+</tr>
+{% endfor %}
+</table>
+<p>{{ plan.sessions | selectattr('workout_type', 'ne', 'rest') | list | length }} sessions will be created and scheduled in Garmin Connect. Rest days are skipped.</p>
+<div class="btn-row">
+<form method="POST" action="/confirm-plan">
+<button type="submit" class="confirm-btn">Confirm &amp; Schedule</button>
+</form>
+<form method="POST" action="/cancel-plan">
+<button type="submit" class="cancel-btn">Cancel</button>
+</form>
+</div>
+</body>
+</html>
+"""
+
+
+PLAN_RESULT_HTML = """\
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pace-AI — Plan Scheduled</title>
+<style>
+body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
+h1 { font-size: 1.2em; color: #aaa; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #444; padding: 6px 10px; text-align: left; }
+th { background: #333; }
+.ok { color: #6c6; }
+.fail { color: #c66; }
+.skip { color: #888; }
+a { color: #4a9eff; }
+</style>
+</head>
+<body>
+<h1>Plan Scheduled</h1>
+<table>
+<tr><th>Date</th><th>Session</th><th>Status</th></tr>
+{% for r in results %}
+<tr>
+<td>{{ r.date }}</td>
+<td>{{ r.name }}</td>
+<td class="{{ r.css }}">{{ r.status }}</td>
+</tr>
+{% endfor %}
+</table>
+<p>{{ ok_count }} scheduled, {{ fail_count }} failed, {{ skip_count }} skipped.</p>
+<p><a href="/">Back to chat</a></p>
+</body>
+</html>
+"""
+
+
+def _extract_weekly_plan(text: str) -> dict | None:
+    """Try to extract a weekly plan JSON block from Claude's response.
+
+    Looks for a JSON object with 'week_starting' and 'sessions' keys,
+    either bare or inside markdown code fences.
+    """
+    # Try to find JSON in code fences first
+    fence_match = re.search(r"```(?:json)?\s*\n(\{.*?\})\s*\n```", text, re.DOTALL)
+    if fence_match:
+        candidate = fence_match.group(1)
+        try:
+            data = json.loads(candidate)
+            if "week_starting" in data and "sessions" in data:
+                return data
+        except json.JSONDecodeError:
+            pass
+
+    # Try to find bare JSON with week_starting
+    for match in re.finditer(
+        r"\{[^{}]*\"week_starting\"[^{}]*\"sessions\"[^{}]*\[.*?\]\s*\}",
+        text,
+        re.DOTALL,
+    ):
+        try:
+            data = json.loads(match.group(0))
+            if "week_starting" in data and "sessions" in data:
+                return data
+        except json.JSONDecodeError:
+            continue
+
+    return None
+
+
 def _build_context() -> str:
     """Assemble athlete context from pace-ai database."""
     db = HistoryDB(DB_PATH)
@@ -295,6 +422,19 @@ def chat():
         reply = f"(error: {e})"
 
     log.info("reply length: %d chars", len(reply))
+
+    # Check if the response contains a weekly plan for confirmation
+    plan = _extract_weekly_plan(reply)
+    if plan:
+        log.info(
+            "Detected weekly plan: %s, %d sessions",
+            plan.get("week_starting"),
+            len(plan.get("sessions", [])),
+        )
+        store["pending_plan"] = plan
+        # Store the full reply so user can see the coaching commentary too
+        store["messages"].append({"role": "assistant", "content": reply})
+        return Response(status=302, headers={"Location": "/review-plan"})
 
     store["messages"].append({"role": "assistant", "content": reply})
 
@@ -475,6 +615,130 @@ def sync():
     # Invalidate cached context so next message picks up fresh data
     store["athlete_context"] = None
 
+    return Response(status=302, headers={"Location": "/"})
+
+
+@app.route("/review-plan")
+def review_plan():
+    store = _get_store()
+    plan = store.get("pending_plan")
+    if not plan:
+        return Response(status=302, headers={"Location": "/"})
+    return render_template_string(CONFIRM_PLAN_HTML, plan=plan)
+
+
+@app.route("/confirm-plan", methods=["POST"])
+def confirm_plan():
+    store = _get_store()
+    plan = store.pop("pending_plan", None)
+    if not plan:
+        return Response(status=302, headers={"Location": "/"})
+
+    from garmin_mcp.client import GarminClient
+    from garmin_mcp.config import Settings as GarminSettings
+    from garmin_mcp.workout_builder import WORKOUT_TYPES
+
+    garmin_settings = GarminSettings.from_env()
+    garmin_client = GarminClient(garmin_settings)
+
+    # Import builders locally
+    from garmin_mcp.server import _build_workout
+
+    results = []
+    ok_count = 0
+    fail_count = 0
+    skip_count = 0
+
+    for s in plan.get("sessions", []):
+        workout_type = s.get("workout_type", "")
+        name = s.get("name", "Workout")
+        date = s.get("date", "")
+
+        if workout_type == "rest":
+            results.append(
+                {
+                    "date": date,
+                    "name": name,
+                    "status": "skipped (rest day)",
+                    "css": "skip",
+                }
+            )
+            skip_count += 1
+            continue
+
+        if workout_type not in WORKOUT_TYPES:
+            results.append(
+                {
+                    "date": date,
+                    "name": name,
+                    "status": f"skipped (unknown type: {workout_type})",
+                    "css": "skip",
+                }
+            )
+            skip_count += 1
+            continue
+
+        # Build params from the session data
+        params = {}
+        if s.get("duration_minutes"):
+            params["duration_minutes"] = s["duration_minutes"]
+
+        try:
+            workout_json = _build_workout(workout_type, name, params)
+            result = garmin_client.create_workout(workout_json)
+            workout_id = result.get("workoutId") if isinstance(result, dict) else None
+            if not workout_id:
+                results.append(
+                    {
+                        "date": date,
+                        "name": name,
+                        "status": "created but no ID returned",
+                        "css": "fail",
+                    }
+                )
+                fail_count += 1
+                continue
+            garmin_client.schedule_workout(workout_id, date)
+            results.append(
+                {
+                    "date": date,
+                    "name": name,
+                    "status": f"scheduled (ID {workout_id})",
+                    "css": "ok",
+                }
+            )
+            ok_count += 1
+        except Exception as e:
+            log.exception("Failed to create/schedule workout: %s", name)
+            results.append(
+                {"date": date, "name": name, "status": f"error: {e}", "css": "fail"}
+            )
+            fail_count += 1
+
+    # Add summary to chat
+    summary_parts = [f"Plan scheduled: {ok_count} ok"]
+    if fail_count:
+        summary_parts.append(f"{fail_count} failed")
+    if skip_count:
+        summary_parts.append(f"{skip_count} skipped")
+    store["messages"].append({"role": "assistant", "content": ", ".join(summary_parts)})
+
+    return render_template_string(
+        PLAN_RESULT_HTML,
+        results=results,
+        ok_count=ok_count,
+        fail_count=fail_count,
+        skip_count=skip_count,
+    )
+
+
+@app.route("/cancel-plan", methods=["POST"])
+def cancel_plan():
+    store = _get_store()
+    store.pop("pending_plan", None)
+    store["messages"].append(
+        {"role": "assistant", "content": "Plan cancelled — not scheduled."}
+    )
     return Response(status=302, headers={"Location": "/"})
 
 

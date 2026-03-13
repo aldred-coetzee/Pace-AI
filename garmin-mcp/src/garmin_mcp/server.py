@@ -204,10 +204,7 @@ async def list_calendar(start_date: str, end_date: str) -> dict:
         current += timedelta(days=1)
 
     # Filter to items within the requested date range
-    filtered = [
-        item for item in all_items
-        if item.get("date") and start_date <= item["date"] <= end_date
-    ]
+    filtered = [item for item in all_items if item.get("date") and start_date <= item["date"] <= end_date]
 
     events = [
         {
