@@ -237,43 +237,6 @@ a { color: #4a9eff; }
 """
 
 
-PLAN_RESULT_HTML = """\
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Pace-AI — Plan Scheduled</title>
-<style>
-body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
-h1 { font-size: 1.2em; color: #aaa; }
-table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-th, td { border: 1px solid #444; padding: 6px 10px; text-align: left; }
-th { background: #333; }
-.ok { color: #6c6; }
-.fail { color: #c66; }
-.skip { color: #888; }
-a { color: #4a9eff; }
-</style>
-</head>
-<body>
-<h1>Plan Scheduled</h1>
-<table>
-<tr><th>Date</th><th>Session</th><th>Status</th></tr>
-{% for r in results %}
-<tr>
-<td>{{ r.date }}</td>
-<td>{{ r.name }}</td>
-<td class="{{ r.css }}">{{ r.status }}</td>
-</tr>
-{% endfor %}
-</table>
-<p>{{ ok_count }} scheduled, {{ fail_count }} failed, {{ skip_count }} skipped.</p>
-<p><a href="/">Back to chat</a></p>
-</body>
-</html>
-"""
-
-
 def _extract_weekly_plan(text: str) -> dict | None:
     """Try to extract a weekly plan JSON block from Claude's response.
 
@@ -749,21 +712,18 @@ def confirm_plan():
             )
             fail_count += 1
 
-    # Add summary to chat
-    summary_parts = [f"Plan scheduled: {ok_count} ok"]
-    if fail_count:
-        summary_parts.append(f"{fail_count} failed")
-    if skip_count:
-        summary_parts.append(f"{skip_count} skipped")
-    store["messages"].append({"role": "assistant", "content": ", ".join(summary_parts)})
-
-    return render_template_string(
-        PLAN_RESULT_HTML,
-        results=results,
-        ok_count=ok_count,
-        fail_count=fail_count,
-        skip_count=skip_count,
+    # Build a readable summary for the chat
+    lines = []
+    for r in results:
+        icon = {"ok": "+", "fail": "x", "skip": "-"}.get(r["css"], "?")
+        lines.append(f"[{icon}] {r['date']} {r['name']}: {r['status']}")
+    summary = (
+        f"**Plan scheduled** ({ok_count} ok, {fail_count} failed, {skip_count} skipped)\n"
+        + "\n".join(lines)
     )
+    store["messages"].append({"role": "assistant", "content": summary})
+
+    return Response(status=302, headers={"Location": "/"})
 
 
 @app.route("/cancel-plan", methods=["POST"])
