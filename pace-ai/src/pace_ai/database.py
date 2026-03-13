@@ -208,6 +208,8 @@ class HistoryDB:
                     weight_kg_trend TEXT,
                     resting_hr_baseline REAL,
                     hrv_baseline REAL,
+                    systolic_bp REAL,
+                    diastolic_bp REAL,
                     date_of_birth TEXT,
                     gender TEXT,
                     experience_level TEXT,
@@ -261,6 +263,8 @@ class HistoryDB:
             """)
             # Migrations for existing databases
             self._migrate_add_column(conn, "activities", "private_note", "TEXT")
+            self._migrate_add_column(conn, "athlete_profile", "systolic_bp", "REAL")
+            self._migrate_add_column(conn, "athlete_profile", "diastolic_bp", "REAL")
 
     @staticmethod
     def _migrate_add_column(conn: sqlite3.Connection, table: str, column: str, col_type: str) -> None:

@@ -36,6 +36,8 @@ _AUTO_FIELDS = {
     "weight_kg_trend",
     "resting_hr_baseline",
     "hrv_baseline",
+    "systolic_bp",
+    "diastolic_bp",
 }
 
 
@@ -228,6 +230,17 @@ def generate_athlete_profile(db: HistoryDB) -> dict[str, Any]:
         fields["hrv_baseline"] = round(statistics.median(r["hrv_value"] for r in hrv_rows), 1)
     else:
         fields["hrv_baseline"] = None
+
+    # ── Blood pressure (most recent reading) ───────────────────────────
+    with db._connect() as conn:
+        latest_bp = conn.execute(
+            """SELECT systolic_bp, diastolic_bp FROM body_measurements
+               WHERE systolic_bp IS NOT NULL AND diastolic_bp IS NOT NULL
+               ORDER BY date DESC LIMIT 1
+            """,
+        ).fetchone()
+    fields["systolic_bp"] = latest_bp["systolic_bp"] if latest_bp else None
+    fields["diastolic_bp"] = latest_bp["diastolic_bp"] if latest_bp else None
 
     return db.upsert_athlete_profile(fields)
 
