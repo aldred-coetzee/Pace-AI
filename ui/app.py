@@ -350,8 +350,10 @@ def _strip_plan_json(text: str) -> str:
 def _description_to_steps(description: str, duration_minutes: int | None) -> list[dict]:
     """Parse a workout description into Garmin custom workout steps.
 
-    Extracts exercise lines (e.g. '3x15 eccentric heel drops') and creates
-    a lap-button step per exercise. Falls back to a single timed step
+    Extracts exercises in various formats:
+    - "3x15 heel drops" or "heel drops 3x15"
+    - "calves 60s/side" or "foam roll calves 60 sec"
+    Creates a lap-button step per exercise. Falls back to a single timed step
     if no exercises are found.
 
     Returns raw Garmin ExecutableStepDTO dicts.
@@ -361,11 +363,36 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
     _CONDITION_TIME = {"conditionTypeId": 2, "conditionTypeKey": "time"}
     _TARGET_NONE = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
 
-    # Match lines like "3x15 eccentric heel drops" or "3x12 goblet squats (dumbbell)"
-    exercise_pattern = re.compile(r"(\d+)\s*x\s*(\d+)\s+(.+?)(?:\.|,|$)", re.IGNORECASE)
-    exercises = exercise_pattern.findall(description)
+    labels: list[str] = []
 
-    if not exercises:
+    # Pattern 1: "3x15 exercise name" (sets before name)
+    for m in re.finditer(
+        r"(\d+)\s*x\s*(\d+)\s+([a-zA-Z][\w\s\-()]+?)(?:\.|,|$)", description
+    ):
+        sets, reps, name = m.group(1), m.group(2), m.group(3).strip().rstrip(")")
+        labels.append(f"{sets}x{reps} {name}")
+
+    # Pattern 2: "exercise name (qualifier) 3x15" (sets after name)
+    for m in re.finditer(
+        r"([a-zA-Z][\w\s\-]+(?:\([^)]*\))?)\s+(\d+)\s*x\s*(\d+)(?:\s|,|\.|$)",
+        description,
+    ):
+        name, sets, reps = m.group(1).strip(), m.group(2), m.group(3)
+        label = f"{sets}x{reps} {name}"
+        if label not in labels:
+            labels.append(label)
+
+    # Pattern 3: "calves 60s/side" or "foam roll quads 60 sec" (timed items)
+    for m in re.finditer(
+        r"([a-zA-Z][\w\s\-]+?)\s+(\d+)\s*s(?:ec)?(?:/side)?(?:\.|,|$)", description
+    ):
+        name, secs = m.group(1).strip(), m.group(2)
+        label = f"{name} ({secs}s)"
+        # Skip if already captured by sets/reps patterns
+        if not any(name.lower() in existing.lower() for existing in labels):
+            labels.append(label)
+
+    if not labels:
         step_seconds = (duration_minutes or 30) * 60
         return [
             {
@@ -381,9 +408,7 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
         ]
 
     steps: list[dict] = []
-    for i, (sets, reps, name) in enumerate(exercises, 1):
-        name = name.strip().rstrip(")")
-        label = f"{sets}x{reps} {name}"
+    for i, label in enumerate(labels, 1):
         if len(label) > 50:
             label = label[:47] + "..."
         steps.append(
