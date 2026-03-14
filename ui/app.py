@@ -935,12 +935,15 @@ def _get_relevant_claims(
 
     categories: set[str] = set()
 
-    # Always include these for any runner
+    # Always include these for any runner — core training pillars
     categories.add("foam_rolling_mobility")
     categories.add("recovery_modalities")
     categories.add("easy_recovery_running")
     categories.add("strength_training_runners")
     categories.add("warmup_cooldown")
+    categories.add("concurrent_training")
+    categories.add("overtraining_recovery")
+    categories.add("sleep_recovery")
 
     # Derive from injury history
     injury_text = ""
