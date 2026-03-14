@@ -281,7 +281,9 @@ def injury_risk_prompt(
         recent_activities: Optional recent activity details.
         db_path: Override path to claims DB (for testing).
     """
-    distances_text = "\n".join(f"  Week {i + 1}: {d:.1f} km" for i, d in enumerate(weekly_distances))
+    distances_text = "\n".join(
+        f"  Week {i + 1}: {d / 1.60934:.1f} mi ({d:.1f} km)" for i, d in enumerate(weekly_distances)
+    )
     load_text = _format_training_load(training_load)
     activities_text = (
         _format_recent_activities(recent_activities) if recent_activities else "No detailed activity data."
@@ -322,6 +324,21 @@ Provide:
 # ── Formatting helpers ───────────────────────────────────────────────
 
 
+def _km_pace_to_mile_pace(pace_km: str | None) -> str:
+    """Convert a 'M:SS' per-km pace string to per-mile."""
+    if not pace_km or pace_km == "N/A":
+        return "N/A"
+    try:
+        parts = pace_km.split(":")
+        total_s = int(parts[0]) * 60 + int(parts[1])
+        mile_s = total_s * 1.60934
+        m = int(mile_s // 60)
+        s = int(mile_s % 60)
+        return f"{m}:{s:02d}"
+    except (ValueError, IndexError):
+        return pace_km
+
+
 def _format_goals(goals: list[dict]) -> str:
     if not goals:
         return "No goals set."
@@ -342,12 +359,13 @@ def _format_recent_activities(activities: list[dict]) -> str:
         return "No recent activities."
     lines = []
     for a in activities:
-        dist = a.get("distance_km", a.get("distance", 0) / 1000 if a.get("distance") else 0)
-        pace = a.get("pace_min_per_km", "N/A")
+        dist_km = a.get("distance_km", a.get("distance", 0) / 1000 if a.get("distance") else 0)
+        dist_mi = dist_km / 1.60934
+        pace_mi = a.get("pace_min_per_mile", _km_pace_to_mile_pace(a.get("pace_min_per_km")))
         hr = a.get("average_heartrate", "N/A")
         line = (
             f"- {a.get('start_date', 'unknown date')}: {a.get('name', 'Untitled')}"
-            f" -- {dist:.1f} km, pace {pace}/km, HR {hr}"
+            f" -- {dist_mi:.1f} mi, pace {pace_mi}/mi, HR {hr}"
         )
         note = a.get("private_note")
         if note:
@@ -357,10 +375,12 @@ def _format_recent_activities(activities: list[dict]) -> str:
 
 
 def _format_activity_detail(activity: dict) -> str:
+    dist_m = activity.get("distance", 0)
+    dist_mi = dist_m / 1609.34
     lines = [
         f"**{activity.get('name', 'Untitled')}** — {activity.get('type', 'Run')}",
         f"Date: {activity.get('start_date', 'unknown')}",
-        f"Distance: {activity.get('distance', 0) / 1000:.2f} km",
+        f"Distance: {dist_mi:.2f} mi ({dist_m / 1000:.2f} km)",
         f"Moving time: {activity.get('moving_time', 0) // 60}:{activity.get('moving_time', 0) % 60:02d}",
         f"Elapsed time: {activity.get('elapsed_time', 0) // 60}:{activity.get('elapsed_time', 0) % 60:02d}",
         f"Elevation gain: {activity.get('total_elevation_gain', 0)} m",
@@ -457,7 +477,20 @@ def _format_zones(zones: dict) -> str:
         return "No zone data."
     lines = []
     for name, data in zones["zones"].items():
-        pace = data.get("pace_range_per_km", "N/A")
+        pace_km = data.get("pace_range_per_km", "N/A")
+        # Convert pace range to miles — input may be "5:24 - 6:05/km"
+        if pace_km and pace_km != "N/A":
+            clean = pace_km.replace("/km", "").strip()
+            if " - " in clean:
+                parts = clean.split(" - ")
+                pace_mi = " - ".join(_km_pace_to_mile_pace(p.strip()) for p in parts)
+            elif "-" in clean:
+                parts = clean.split("-")
+                pace_mi = "-".join(_km_pace_to_mile_pace(p.strip()) for p in parts)
+            else:
+                pace_mi = _km_pace_to_mile_pace(clean)
+        else:
+            pace_mi = "N/A"
         hr = data.get("hr_range_bpm", "N/A")
-        lines.append(f"- **{name}**: pace {pace}/km, HR {hr}")
+        lines.append(f"- **{name}**: pace {pace_mi}/mi, HR {hr}")
     return "\n".join(lines)

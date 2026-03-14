@@ -73,7 +73,9 @@ class TestWeeklyPlanPrompt:
         prompt = weekly_plan_prompt(
             goals=[], recent_activities=[], athlete_stats={}, training_zones=zones, db_path=_NO_DB
         )
-        assert "5:24" in prompt
+        # 5:24/km ≈ 8:41/mi, 6:05/km ≈ 9:47/mi (converted to miles)
+        assert "8:41" in prompt
+        assert "/mi" in prompt
 
     def test_graceful_without_db(self):
         """Prompt should still render when claims DB is missing."""
@@ -163,8 +165,9 @@ class TestInjuryRiskPrompt:
         distances = [30.0, 35.0, 32.0, 40.0]
         load = {"acwr": 1.17}
         prompt = injury_risk_prompt(weekly_distances=distances, training_load=load, db_path=_NO_DB)
-        assert "Week 1: 30.0" in prompt
-        assert "Week 4: 40.0" in prompt
+        # Distances shown in miles with km in parentheses
+        assert "Week 1: 18.6 mi (30.0 km)" in prompt
+        assert "Week 4: 24.9 mi (40.0 km)" in prompt
 
     def test_output_format(self):
         prompt = injury_risk_prompt(weekly_distances=[30, 30, 30, 30], training_load={}, db_path=_NO_DB)

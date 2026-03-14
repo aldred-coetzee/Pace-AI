@@ -80,11 +80,13 @@ async def get_recent_activities(days: int = 30) -> list[dict]:
             "start_date": a["start_date"],
             "distance_m": a["distance"],
             "distance_km": round(a["distance"] / 1000, 2),
+            "distance_miles": round(a["distance"] / 1609.34, 2),
             "moving_time_s": a["moving_time"],
             "elapsed_time_s": a["elapsed_time"],
             "total_elevation_gain_m": a.get("total_elevation_gain", 0),
             "average_speed_mps": a.get("average_speed", 0),
             "pace_min_per_km": _speed_to_pace(a.get("average_speed", 0)),
+            "pace_min_per_mile": _speed_to_pace_mile(a.get("average_speed", 0)),
             "average_heartrate": a.get("average_heartrate"),
             "max_heartrate": a.get("max_heartrate"),
             "suffer_score": a.get("suffer_score"),
@@ -256,11 +258,14 @@ async def get_weekly_summary(weeks: int = 8) -> list[dict]:
                 "week": week_key,
                 "run_count": len(bucket),
                 "total_distance_km": round(total_distance / 1000, 2),
+                "total_distance_miles": round(total_distance / 1609.34, 2),
                 "total_time_s": total_time,
                 "total_time_formatted": _format_seconds(total_time),
                 "total_elevation_m": round(total_elevation, 1),
                 "longest_run_km": round(longest_run / 1000, 2),
+                "longest_run_miles": round(longest_run / 1609.34, 2),
                 "average_pace_per_km": _speed_to_pace(avg_speed),
+                "average_pace_per_mile": _speed_to_pace_mile(avg_speed),
             }
         )
 
@@ -360,9 +365,11 @@ async def search_activities(
                 "type": a.get("type", ""),
                 "start_date": a.get("start_date", ""),
                 "distance_km": round(dist_km, 2),
+                "distance_miles": round(dist_km / 1.60934, 2),
                 "moving_time_s": a.get("moving_time", 0),
                 "moving_time_formatted": _format_seconds(a.get("moving_time", 0)),
                 "pace_min_per_km": _speed_to_pace(a.get("average_speed", 0)),
+                "pace_min_per_mile": _speed_to_pace_mile(a.get("average_speed", 0)),
                 "average_heartrate": a.get("average_heartrate"),
                 "total_elevation_gain_m": a.get("total_elevation_gain", 0),
             }
@@ -486,6 +493,16 @@ def _speed_to_pace(speed_mps: float) -> str | None:
     if speed_mps <= 0:
         return None
     pace_seconds = 1000 / speed_mps
+    minutes = int(pace_seconds // 60)
+    seconds = int(pace_seconds % 60)
+    return f"{minutes}:{seconds:02d}"
+
+
+def _speed_to_pace_mile(speed_mps: float) -> str | None:
+    """Convert m/s to min:sec/mile pace string."""
+    if speed_mps <= 0:
+        return None
+    pace_seconds = 1609.34 / speed_mps
     minutes = int(pace_seconds // 60)
     seconds = int(pace_seconds % 60)
     return f"{minutes}:{seconds:02d}"
