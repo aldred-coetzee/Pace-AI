@@ -28,6 +28,7 @@ from pace_ai.tools.memory import (
     get_recent_coaching_log,
     update_coaching_context,
 )
+from pace_ai.tools.history import get_recent_activities, get_weekly_distances
 from pace_ai.tools.profile import get_athlete_profile
 from pace_ai.tools.sync import sync_all as _sync_all
 
@@ -871,119 +872,150 @@ def _get_relevant_claims(
     return "## Research Evidence\n" + "\n".join(lines)
 
 
-def _build_context() -> str:
-    """Assemble athlete context from pace-ai database."""
-    db = HistoryDB(DB_PATH)
-    sections: list[str] = [COACHING_INSTRUCTION, SCHEDULING_INSTRUCTION]
+def _format_plan_table(plan: dict) -> str:
+    """Build a markdown table of a weekly plan for display in chat."""
+    table = f"\n\n**Proposed plan — week of {plan.get('week_starting', '?')}:**\n\n"
+    table += (
+        "| Date | Session | Type | Duration |\n|------|---------|------|----------|\n"
+    )
+    for s in plan.get("sessions", []):
+        table += (
+            f"| {s.get('date', '')} | {s.get('name', '')} "
+            f"| {s.get('workout_type', '')} | {s.get('duration_minutes', '')}min |\n"
+        )
+    table += "\nSuggest changes, or click **Schedule** when ready."
+    return table
 
+
+def _build_profile_summary(db: HistoryDB) -> str:
+    """Build a one-line athlete profile summary for lightweight context."""
     try:
         profile = get_athlete_profile(db)
-        if profile:
-            # Convert km-based fields to miles for display
-            pace_km = profile.get("typical_easy_pace_min_per_km")
-            if pace_km:
-                pace_mi = pace_km * 1.60934
-                mins = int(pace_mi)
-                secs = int((pace_mi - mins) * 60)
-                profile["typical_easy_pace_per_mile"] = f"{mins}:{secs:02d}"
-            weekly_km = profile.get("current_weekly_km")
-            if weekly_km:
-                profile["current_weekly_miles"] = round(weekly_km / 1.60934, 1)
-            typical_km = profile.get("typical_weekly_km")
-            if typical_km:
-                profile["typical_weekly_miles"] = round(typical_km / 1.60934, 1)
-            long_km = profile.get("typical_long_run_km")
-            if long_km:
-                profile["typical_long_run_miles"] = round(long_km / 1.60934, 1)
-            max_km = profile.get("max_weekly_km_ever")
-            if max_km:
-                profile["max_weekly_miles_ever"] = round(max_km / 1.60934, 1)
-            sections.append(
-                f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}"
-            )
+        if not profile:
+            return "Athlete profile not available."
+        parts = []
+        if profile.get("name"):
+            parts.append(profile["name"])
+        weekly_km = profile.get("current_weekly_km")
+        if weekly_km:
+            parts.append(f"{round(weekly_km / 1.60934, 1)} mi/week")
+        pace_km = profile.get("typical_easy_pace_min_per_km")
+        if pace_km:
+            pace_mi = pace_km * 1.60934
+            mins = int(pace_mi)
+            secs = int((pace_mi - mins) * 60)
+            parts.append(f"easy pace {mins}:{secs:02d}/mi")
+        if profile.get("injury_history"):
+            parts.append(f"injuries: {profile['injury_history'][:80]}")
+        return " | ".join(parts) if parts else "Athlete profile loaded."
     except Exception:
-        log.exception("Failed to load athlete profile")
+        log.exception("Failed to build profile summary")
+        return "Athlete profile not available."
 
-    # ── Withings body composition ─────────────────────────────────────
+
+def _convert_profile_miles(profile: dict) -> dict:
+    """Add mile-based fields to a profile dict (mutates in place, returns it)."""
+    pace_km = profile.get("typical_easy_pace_min_per_km")
+    if pace_km:
+        pace_mi = pace_km * 1.60934
+        mins = int(pace_mi)
+        secs = int((pace_mi - mins) * 60)
+        profile["typical_easy_pace_per_mile"] = f"{mins}:{secs:02d}"
+    weekly_km = profile.get("current_weekly_km")
+    if weekly_km:
+        profile["current_weekly_miles"] = round(weekly_km / 1.60934, 1)
+    typical_km = profile.get("typical_weekly_km")
+    if typical_km:
+        profile["typical_weekly_miles"] = round(typical_km / 1.60934, 1)
+    long_km = profile.get("typical_long_run_km")
+    if long_km:
+        profile["typical_long_run_miles"] = round(long_km / 1.60934, 1)
+    max_km = profile.get("max_weekly_km_ever")
+    if max_km:
+        profile["max_weekly_miles_ever"] = round(max_km / 1.60934, 1)
+    return profile
+
+
+def _build_body_composition(db: HistoryDB) -> str | None:
+    """Build body composition section from Withings data."""
     try:
         measurements = db.get_body_measurements(days=28)
-        if measurements:
-            latest = measurements[0]
-            lines = ["Latest:"]
-            if latest.get("weight_kg"):
-                lines.append(f"- Weight: {latest['weight_kg']:.1f} kg")
-            if latest.get("body_fat_pct"):
-                lines.append(f"- Body fat: {latest['body_fat_pct']:.1f}%")
-            if latest.get("systolic_bp") and latest.get("diastolic_bp"):
-                lines.append(
-                    f"- BP: {int(latest['systolic_bp'])}/{int(latest['diastolic_bp'])}"
-                )
-            lines.append(f"- Date: {latest.get('date', '?')}")
-
-            # 4-week trend: compare first half vs second half
-            if len(measurements) >= 4:
-                mid = len(measurements) // 2
-                recent_w = [
-                    m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")
-                ]
-                older_w = [
-                    m["weight_kg"] for m in measurements[mid:] if m.get("weight_kg")
-                ]
-                if recent_w and older_w:
-                    diff = sum(recent_w) / len(recent_w) - sum(older_w) / len(older_w)
-                    direction = (
-                        "up" if diff > 0.3 else "down" if diff < -0.3 else "stable"
-                    )
-                    lines.append(f"- 4-week weight trend: {direction} ({diff:+.1f} kg)")
-
-            sections.append("## Body Composition\n" + "\n".join(lines))
+        if not measurements:
+            return None
+        latest = measurements[0]
+        lines = ["Latest:"]
+        if latest.get("weight_kg"):
+            lines.append(f"- Weight: {latest['weight_kg']:.1f} kg")
+        if latest.get("body_fat_pct"):
+            lines.append(f"- Body fat: {latest['body_fat_pct']:.1f}%")
+        if latest.get("systolic_bp") and latest.get("diastolic_bp"):
+            lines.append(
+                f"- BP: {int(latest['systolic_bp'])}/{int(latest['diastolic_bp'])}"
+            )
+        lines.append(f"- Date: {latest.get('date', '?')}")
+        if len(measurements) >= 4:
+            mid = len(measurements) // 2
+            recent_w = [
+                m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")
+            ]
+            older_w = [m["weight_kg"] for m in measurements[mid:] if m.get("weight_kg")]
+            if recent_w and older_w:
+                diff = sum(recent_w) / len(recent_w) - sum(older_w) / len(older_w)
+                direction = "up" if diff > 0.3 else "down" if diff < -0.3 else "stable"
+                lines.append(f"- 4-week weight trend: {direction} ({diff:+.1f} kg)")
+        return "## Body Composition\n" + "\n".join(lines)
     except Exception:
         log.exception("Failed to load body measurements")
+        return None
 
-    # ── Notion diary entries ──────────────────────────────────────────
+
+def _build_diary_section(db: HistoryDB, days: int = 7) -> str | None:
+    """Build diary entries section."""
     try:
-        diary = db.get_diary_entries(days=7)
-        if diary:
-            lines = []
-            for entry in diary:
-                parts = [entry.get("date", "?")]
-                if entry.get("stress_1_5"):
-                    parts.append(f"stress:{entry['stress_1_5']}/5")
-                if entry.get("niggles"):
-                    parts.append(f"niggles: {entry['niggles']}")
-                if entry.get("notes"):
-                    parts.append(entry["notes"])
-                lines.append("- " + " | ".join(parts))
-            sections.append("## Diary (last 7 days)\n" + "\n".join(lines))
+        diary = db.get_diary_entries(days=days)
+        if not diary:
+            return None
+        lines = []
+        for entry in diary:
+            parts = [entry.get("date", "?")]
+            if entry.get("stress_1_5"):
+                parts.append(f"stress:{entry['stress_1_5']}/5")
+            if entry.get("niggles"):
+                parts.append(f"niggles: {entry['niggles']}")
+            if entry.get("notes"):
+                parts.append(entry["notes"])
+            lines.append("- " + " | ".join(parts))
+        return "## Diary (last 7 days)\n" + "\n".join(lines)
     except Exception:
         log.exception("Failed to load diary entries")
+        return None
 
-    facts: list[dict] = []
+
+def _build_facts_section(db: HistoryDB) -> tuple[list[dict], str | None]:
+    """Build athlete facts section. Returns (facts_list, formatted_section)."""
     try:
         facts = get_athlete_facts(db)
         if facts:
             lines = [f"- [{f['category']}] {f['fact']}" for f in facts]
-            sections.append("## Athlete Facts\n" + "\n".join(lines))
+            return facts, "## Athlete Facts\n" + "\n".join(lines)
+        return [], None
     except Exception:
         log.exception("Failed to load athlete facts")
+        return [], None
 
-    # ── Evidence-based claims ────────────────────────────────────────
-    try:
-        claims_text = _get_relevant_claims(db, profile, facts if facts else [])
-        if claims_text:
-            sections.append(claims_text)
-    except Exception:
-        log.exception("Failed to load research claims")
 
+def _build_coaching_sections(db: HistoryDB) -> tuple[str | None, str | None]:
+    """Build coaching context and recent log sections. Returns (context_section, log_section)."""
+    ctx_section = None
+    log_section = None
     try:
         ctx = get_coaching_context(db)
         if ctx:
-            sections.append(f"## Coaching Context\n{ctx['content']}")
+            ctx_section = f"## Coaching Context\n{ctx['content']}"
     except Exception:
         log.exception("Failed to load coaching context")
-
     try:
-        logs = get_recent_coaching_log(db, limit=5)
+        logs = get_recent_coaching_log(db, limit=3)
         if logs:
             log_lines = []
             for entry in logs:
@@ -991,11 +1023,265 @@ def _build_context() -> str:
                 if entry.get("follow_up"):
                     line += f" | Follow-up: {entry['follow_up']}"
                 log_lines.append(line)
-            sections.append("## Recent Coaching Sessions\n" + "\n".join(log_lines))
+            log_section = "## Recent Coaching Sessions\n" + "\n".join(log_lines)
     except Exception:
         log.exception("Failed to load coaching log")
+    return ctx_section, log_section
 
-    # Critical reminder at the END of the prompt (recency bias ensures compliance)
+
+STATUS_SYSTEM_PROMPT = """\
+You are a running coach reviewing an athlete's current status.
+All paces in minutes per mile. Distances in miles.
+Produce a concise status report: training load trends, recent run quality, \
+recovery indicators, body composition, injury/niggle status, overall readiness.
+Be specific with numbers. Keep under 500 words. Markdown format."""
+
+PLAN_SYSTEM_PROMPT = """\
+You are a running coach creating a training plan.
+All paces in minutes per mile. Saturday is ALWAYS the long run day.
+Coaching must cite the research evidence provided.
+Every mobility/recovery session MUST include foam rolling.
+Output plan as JSON (schema provided). Do NOT include exercises array.
+The description field MUST contain full exercise details for strength/mobility sessions.
+Include coaching rationale before the JSON."""
+
+CHAT_SYSTEM_PROMPT = """\
+You are a running coach in a conversation with your athlete.
+All paces in minutes per mile. Distances in miles.
+{plan_instruction}\
+Keep responses concise and practical."""
+
+PLAN_JSON_SCHEMA = """\
+## Plan JSON Schema
+
+Output the plan as a JSON block inside ```json code fences:
+
+```json
+{
+  "week_starting": "YYYY-MM-DD",
+  "sessions": [
+    {
+      "date": "YYYY-MM-DD",
+      "workout_type": "easy_run|run_walk|tempo|intervals|strides|strength|mobility|yoga|cardio|hiit|walking|rest",
+      "name": "Short name shown on watch",
+      "duration_minutes": 30,
+      "description": "Full exercise details for strength/mobility — sets, reps, duration"
+    }
+  ]
+}
+```
+
+Do NOT include an exercises array — exercises are added automatically at scheduling time.
+week_starting is the date of the FIRST session in the plan.
+Include an entry for every day in the requested range (rest days use workout_type "rest").
+Saturday is ALWAYS the long run day. Never schedule strength or rest on Saturday."""
+
+
+def _build_status_context() -> str:
+    """Build context for the STATUS agent — full data, no scheduling/exercises schema."""
+    db = HistoryDB(DB_PATH)
+    sections: list[str] = [STATUS_SYSTEM_PROMPT]
+
+    try:
+        profile = get_athlete_profile(db)
+        if profile:
+            _convert_profile_miles(profile)
+            sections.append(
+                f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}"
+            )
+    except Exception:
+        log.exception("Failed to load athlete profile")
+
+    try:
+        activities = get_recent_activities(db, days=28)
+        if activities:
+            lines = []
+            for a in activities:
+                parts = [a.get("start_date", "?")[:10]]
+                if a.get("name"):
+                    parts.append(a["name"])
+                if a.get("distance_miles"):
+                    parts.append(f"{a['distance_miles']} mi")
+                if a.get("pace_min_per_mile"):
+                    parts.append(f"{a['pace_min_per_mile']}/mi")
+                if a.get("average_heartrate"):
+                    parts.append(f"HR {int(a['average_heartrate'])}")
+                if a.get("elapsed_time_s"):
+                    mins = a["elapsed_time_s"] // 60
+                    parts.append(f"{mins}min")
+                lines.append("- " + " | ".join(parts))
+            sections.append(
+                f"## Recent Activities (28 days, {len(activities)} total)\n"
+                + "\n".join(lines)
+            )
+    except Exception:
+        log.exception("Failed to load recent activities")
+
+    try:
+        weekly = get_weekly_distances(db, weeks=12)
+        if weekly:
+            lines = []
+            for w in weekly:
+                mi = w.get("distance_miles") or 0
+                lines.append(
+                    f"- {w.get('week_start', '?')}: {mi} mi ({w.get('activity_count', 0)} runs)"
+                )
+            sections.append("## Weekly Distances (12 weeks)\n" + "\n".join(lines))
+    except Exception:
+        log.exception("Failed to load weekly distances")
+
+    try:
+        wellness = db.get_wellness(days=14)
+        if wellness:
+            lines = []
+            for w in wellness:
+                parts = [w.get("date", "?")]
+                if w.get("resting_hr"):
+                    parts.append(f"RHR {w['resting_hr']}")
+                if w.get("hrv"):
+                    parts.append(f"HRV {w['hrv']}")
+                if w.get("body_battery_high"):
+                    parts.append(
+                        f"BB {w.get('body_battery_low', '?')}-{w['body_battery_high']}"
+                    )
+                if w.get("stress_avg"):
+                    parts.append(f"stress {w['stress_avg']}")
+                if w.get("sleep_score"):
+                    parts.append(f"sleep {w['sleep_score']}")
+                lines.append("- " + " | ".join(parts))
+            sections.append("## Wellness (14 days)\n" + "\n".join(lines))
+    except Exception:
+        log.exception("Failed to load wellness data")
+
+    body_comp = _build_body_composition(db)
+    if body_comp:
+        sections.append(body_comp)
+
+    diary = _build_diary_section(db, days=7)
+    if diary:
+        sections.append(diary)
+
+    facts, facts_section = _build_facts_section(db)
+    if facts_section:
+        sections.append(facts_section)
+
+    ctx_section, log_section = _build_coaching_sections(db)
+    if ctx_section:
+        sections.append(ctx_section)
+    if log_section:
+        sections.append(log_section)
+
+    return "\n\n".join(sections)
+
+
+def _build_plan_context(status_snapshot: str, date_range: str) -> str:
+    """Build context for the PLAN agent — status + research + schema."""
+    db = HistoryDB(DB_PATH)
+    sections: list[str] = [PLAN_SYSTEM_PROMPT]
+
+    sections.append(f"## Current Status\n{status_snapshot}")
+
+    facts, facts_section = _build_facts_section(db)
+    if facts_section:
+        sections.append(facts_section)
+
+    ctx_section, _ = _build_coaching_sections(db)
+    if ctx_section:
+        sections.append(ctx_section)
+
+    try:
+        profile = get_athlete_profile(db)
+        claims_text = _get_relevant_claims(db, profile, facts)
+        if claims_text:
+            sections.append(claims_text)
+    except Exception:
+        log.exception("Failed to load research claims")
+
+    sections.append(PLAN_JSON_SCHEMA)
+
+    sections.append(f"## Date Range\nCreate a plan for: {date_range}")
+
+    return "\n\n".join(sections)
+
+
+def _build_chat_context(status_snapshot: str | None, pending_plan: dict | None) -> str:
+    """Build context for the CHAT agent — lightweight, conversational."""
+    db = HistoryDB(DB_PATH)
+
+    plan_instruction = ""
+    if pending_plan:
+        plan_instruction = (
+            "If the athlete requests plan changes, output the full revised "
+            "plan JSON in the same format.\n"
+        )
+
+    system_prompt = CHAT_SYSTEM_PROMPT.format(plan_instruction=plan_instruction)
+    sections: list[str] = [system_prompt]
+
+    summary = _build_profile_summary(db)
+    sections.append(f"## Athlete\n{summary}")
+
+    facts, facts_section = _build_facts_section(db)
+    if facts_section:
+        sections.append(facts_section)
+
+    ctx_section, _ = _build_coaching_sections(db)
+    if ctx_section:
+        sections.append(ctx_section)
+
+    if status_snapshot:
+        sections.append(f"## Latest Status Assessment\n{status_snapshot}")
+
+    if pending_plan:
+        sections.append(
+            f"## Current Pending Plan\n{json.dumps(pending_plan, indent=2)}"
+        )
+        sections.append(PLAN_JSON_SCHEMA)
+
+    return "\n\n".join(sections)
+
+
+def _build_context() -> str:
+    """Assemble athlete context from pace-ai database (legacy monolithic prompt)."""
+    db = HistoryDB(DB_PATH)
+    sections: list[str] = [COACHING_INSTRUCTION, SCHEDULING_INSTRUCTION]
+
+    profile = None
+    try:
+        profile = get_athlete_profile(db)
+        if profile:
+            _convert_profile_miles(profile)
+            sections.append(
+                f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}"
+            )
+    except Exception:
+        log.exception("Failed to load athlete profile")
+
+    body_comp = _build_body_composition(db)
+    if body_comp:
+        sections.append(body_comp)
+
+    diary = _build_diary_section(db, days=7)
+    if diary:
+        sections.append(diary)
+
+    facts, facts_section = _build_facts_section(db)
+    if facts_section:
+        sections.append(facts_section)
+
+    try:
+        claims_text = _get_relevant_claims(db, profile, facts if facts else [])
+        if claims_text:
+            sections.append(claims_text)
+    except Exception:
+        log.exception("Failed to load research claims")
+
+    ctx_section, log_section = _build_coaching_sections(db)
+    if ctx_section:
+        sections.append(ctx_section)
+    if log_section:
+        sections.append(log_section)
+
     sections.append(
         "## CRITICAL REMINDERS\n"
         "1. Saturday = LONG RUN day. Never put strength or rest on Saturday.\n"
@@ -1138,20 +1424,9 @@ def chat():
         )
         # Also strip bare JSON blocks containing week_starting (match balanced braces)
         display_reply = _strip_plan_json(display_reply).strip()
-        # Build a markdown table of the plan
-        plan_table = (
-            f"\n\n**Proposed plan — week of {plan.get('week_starting', '?')}:**\n\n"
-        )
-        plan_table += "| Date | Session | Type | Duration |\n|------|---------|------|----------|\n"
-        for s in plan.get("sessions", []):
-            plan_table += (
-                f"| {s.get('date', '')} | {s.get('name', '')} "
-                f"| {s.get('workout_type', '')} | {s.get('duration_minutes', '')}min |\n"
-            )
-        plan_table += "\nSuggest changes, or click **Schedule** when ready."
         if not display_reply:
             display_reply = "Here's your weekly plan."
-        display_reply += plan_table
+        display_reply += _format_plan_table(plan)
         store["messages"].append({"role": "assistant", "content": display_reply})
     else:
         store["messages"].append({"role": "assistant", "content": reply})
@@ -1458,7 +1733,18 @@ def confirm_plan():
             exercises = s.get("exercises")
             _STRUCTURED_TYPES = {"strength", "mobility", "yoga"}
             if workout_type in _STRUCTURED_TYPES:
-                from garmin_mcp.workout_builder import custom_workout
+                from garmin_mcp.workout_builder import (
+                    SPORT_TYPE_MOBILITY,
+                    SPORT_TYPE_STRENGTH,
+                    SPORT_TYPE_YOGA,
+                    custom_workout,
+                )
+
+                _SPORT_TYPE_MAP = {
+                    "strength": SPORT_TYPE_STRENGTH,
+                    "mobility": SPORT_TYPE_MOBILITY,
+                    "yoga": SPORT_TYPE_YOGA,
+                }
 
                 if exercises and isinstance(exercises, list):
                     # Structured exercises from JSON — reliable
@@ -1467,7 +1753,10 @@ def confirm_plan():
                     # Fallback: parse from description text
                     steps = _description_to_steps(description, duration)
                 workout_json = custom_workout(
-                    name, steps_json=steps, description=description
+                    name,
+                    steps_json=steps,
+                    description=description,
+                    sport_type=_SPORT_TYPE_MAP.get(workout_type),
                 )
             else:
                 workout_json = _build_workout(workout_type, name, params)
