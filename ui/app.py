@@ -69,6 +69,7 @@ HTML = """\
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 <title>Pace-AI Chat</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
@@ -148,6 +149,7 @@ END_SESSION_HTML = """\
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 <title>Pace-AI — Session Logged</title>
 <style>
 body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
@@ -189,6 +191,7 @@ CONFIRM_PLAN_HTML = """\
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 <title>Pace-AI — Confirm Weekly Plan</title>
 <style>
 body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }

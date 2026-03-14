@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a9eff"/>
+      <stop offset="100%" stop-color="#00cc88"/>
+    </linearGradient>
+    <filter id="neon">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Dark background -->
+  <rect width="256" height="256" rx="32" fill="#1a1a2e"/>
+
+  <!-- Circuit/data stream lines -->
+  <g stroke="#4a9eff" stroke-width="1" opacity="0.2" fill="none">
+    <line x1="20" y1="40" x2="80" y2="40"/>
+    <line x1="80" y1="40" x2="80" y2="80"/>
+    <circle cx="80" cy="80" r="3" fill="#4a9eff"/>
+    <line x1="176" y1="30" x2="236" y2="30"/>
+    <line x1="176" y1="30" x2="176" y2="60"/>
+    <circle cx="176" cy="60" r="3" fill="#4a9eff"/>
+    <line x1="30" y1="200" x2="60" y2="200"/>
+    <line x1="60" y1="200" x2="60" y2="230"/>
+    <circle cx="60" cy="230" r="3" fill="#4a9eff"/>
+    <line x1="190" y1="210" x2="230" y2="210"/>
+    <line x1="230" y1="210" x2="230" y2="240"/>
+    <circle cx="230" cy="240" r="3" fill="#4a9eff"/>
+    <line x1="20" y1="120" x2="50" y2="120"/>
+    <line x1="206" y1="140" x2="240" y2="140"/>
+  </g>
+
+  <!-- Data stream dots (vertical) -->
+  <g fill="#00cc88" opacity="0.15">
+    <circle cx="40" cy="60" r="2"/>
+    <circle cx="40" cy="80" r="2"/>
+    <circle cx="40" cy="100" r="2"/>
+    <circle cx="40" cy="120" r="2"/>
+    <circle cx="216" cy="80" r="2"/>
+    <circle cx="216" cy="100" r="2"/>
+    <circle cx="216" cy="120" r="2"/>
+    <circle cx="216" cy="140" r="2"/>
+    <circle cx="216" cy="160" r="2"/>
+  </g>
+
+  <!-- Running figure - stylised -->
+  <g filter="url(#neon)" transform="translate(128,128)">
+    <!-- Head -->
+    <circle cx="8" cy="-58" r="14" fill="none" stroke="url(#glow)" stroke-width="4"/>
+
+    <!-- Body/torso -->
+    <line x1="8" y1="-44" x2="-2" y2="0" stroke="url(#glow)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Front arm (reaching forward) -->
+    <polyline points="4,-30 28,-18 42,-28" fill="none" stroke="url(#glow)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Back arm -->
+    <polyline points="4,-30 -22,-20 -30,-34" fill="none" stroke="url(#glow)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Front leg (extended forward) -->
+    <polyline points="-2,0 30,20 52,12" fill="none" stroke="url(#glow)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Back leg (pushing off) -->
+    <polyline points="-2,0 -30,30 -48,50" fill="none" stroke="url(#glow)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Speed/data lines behind runner -->
+  <g stroke="#4a9eff" stroke-width="2" opacity="0.4" stroke-linecap="round">
+    <line x1="50" y1="100" x2="80" y2="100"/>
+    <line x1="40" y1="120" x2="75" y2="120"/>
+    <line x1="55" y1="140" x2="85" y2="140"/>
+  </g>
+
+  <!-- Pulse/heartbeat line -->
+  <polyline points="20,180 50,180 60,165 70,195 80,170 90,185 100,180 130,180"
+            fill="none" stroke="#00cc88" stroke-width="2" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
