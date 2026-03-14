@@ -568,14 +568,15 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
     _CONDITION_TIME = {"conditionTypeId": 2, "conditionTypeKey": "time"}
     _TARGET_NONE = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
 
-    labels: list[str] = []
+    # Each item is (label, duration_s or None)
+    items: list[tuple[str, int | None]] = []
 
     # Pattern 1: "3x15 exercise name" (sets before name)
     for m in re.finditer(
         r"(\d+)\s*x\s*(\d+)\s+([a-zA-Z][\w\s\-()]+?)(?:\.|,|$)", description
     ):
         sets, reps, name = m.group(1), m.group(2), m.group(3).strip().rstrip(")")
-        labels.append(f"{sets}x{reps} {name}")
+        items.append((f"{sets}x{reps} {name}", None))
 
     # Pattern 2: "exercise name (qualifier) 3x15" (sets after name)
     for m in re.finditer(
@@ -584,20 +585,19 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
     ):
         name, sets, reps = m.group(1).strip(), m.group(2), m.group(3)
         label = f"{sets}x{reps} {name}"
-        if label not in labels:
-            labels.append(label)
+        if not any(label == it[0] for it in items):
+            items.append((label, None))
 
     # Pattern 3: timed items — "calves 60s/side", "foam roll quads 60 sec each"
     for m in re.finditer(
         r"([a-zA-Z][\w\s\-]+?)\s+(\d+)\s*s(?:ec)?(?:\s+each|/side)?(?:\.|,|$)",
         description,
     ):
-        name, secs = m.group(1).strip(), m.group(2)
+        name, secs = m.group(1).strip(), int(m.group(2))
         # Split compound items like "Foam roll calves and quads" into separate steps
         if " and " in name:
             prefix = ""
             parts = name.split(" and ")
-            # Check if the first part has a prefix like "Foam roll"
             words = parts[0].split()
             if len(words) > 1 and not words[-1][0].isupper():
                 prefix = " ".join(words[:-1]) + " "
@@ -605,15 +605,15 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
             for part in parts:
                 part_label = f"{prefix}{part.strip()} ({secs}s)"
                 if not any(
-                    part.strip().lower() in existing.lower() for existing in labels
+                    part.strip().lower() in existing[0].lower() for existing in items
                 ):
-                    labels.append(part_label)
+                    items.append((part_label, secs))
         else:
             label = f"{name} ({secs}s)"
-            if not any(name.lower() in existing.lower() for existing in labels):
-                labels.append(label)
+            if not any(name.lower() in existing[0].lower() for existing in items):
+                items.append((label, secs))
 
-    if not labels:
+    if not items:
         step_seconds = (duration_minutes or 30) * 60
         return [
             {
@@ -629,20 +629,23 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
         ]
 
     steps: list[dict] = []
-    for i, label in enumerate(labels, 1):
+    for i, (label, dur_s) in enumerate(items, 1):
         if len(label) > 50:
             label = label[:47] + "..."
-        steps.append(
-            {
-                "type": "ExecutableStepDTO",
-                "stepId": None,
-                "stepOrder": i,
-                "stepType": _STEP_INTERVAL,
-                "endCondition": _CONDITION_LAP,
-                "targetType": _TARGET_NONE,
-                "description": label,
-            }
-        )
+        step: dict = {
+            "type": "ExecutableStepDTO",
+            "stepId": None,
+            "stepOrder": i,
+            "stepType": _STEP_INTERVAL,
+            "targetType": _TARGET_NONE,
+            "description": label,
+        }
+        if dur_s:
+            step["endCondition"] = _CONDITION_TIME
+            step["endConditionValue"] = float(dur_s)
+        else:
+            step["endCondition"] = _CONDITION_LAP
+        steps.append(step)
 
     return steps
 
