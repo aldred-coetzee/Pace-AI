@@ -817,7 +817,10 @@ def clear():
 
 
 if __name__ == "__main__":
+    import os
     import webbrowser
 
-    webbrowser.open("http://localhost:5050")
+    # Only open browser in the reloader parent, not the child process
+    if os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+        webbrowser.open("http://localhost:5050")
     app.run(debug=True, port=5050)
