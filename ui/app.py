@@ -284,6 +284,60 @@ def _extract_weekly_plan(text: str) -> dict | None:
     return None
 
 
+def _description_to_steps(description: str, duration_minutes: int | None) -> list[dict]:
+    """Parse a workout description into Garmin custom workout steps.
+
+    Extracts exercise lines (e.g. '3x15 eccentric heel drops') and creates
+    a lap-button step per exercise. Falls back to a single timed step
+    if no exercises are found.
+
+    Returns raw Garmin ExecutableStepDTO dicts.
+    """
+    _STEP_INTERVAL = {"stepTypeId": 3, "stepTypeKey": "interval"}
+    _CONDITION_LAP = {"conditionTypeId": 1, "conditionTypeKey": "lap.button"}
+    _CONDITION_TIME = {"conditionTypeId": 2, "conditionTypeKey": "time"}
+    _TARGET_NONE = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
+
+    # Match lines like "3x15 eccentric heel drops" or "3x12 goblet squats (dumbbell)"
+    exercise_pattern = re.compile(r"(\d+)\s*x\s*(\d+)\s+(.+?)(?:\.|,|$)", re.IGNORECASE)
+    exercises = exercise_pattern.findall(description)
+
+    if not exercises:
+        step_seconds = (duration_minutes or 30) * 60
+        return [
+            {
+                "type": "ExecutableStepDTO",
+                "stepId": None,
+                "stepOrder": 1,
+                "stepType": _STEP_INTERVAL,
+                "endCondition": _CONDITION_TIME,
+                "endConditionValue": float(step_seconds),
+                "targetType": _TARGET_NONE,
+                "description": description[:50] if description else "Workout",
+            }
+        ]
+
+    steps: list[dict] = []
+    for i, (sets, reps, name) in enumerate(exercises, 1):
+        name = name.strip().rstrip(")")
+        label = f"{sets}x{reps} {name}"
+        if len(label) > 50:
+            label = label[:47] + "..."
+        steps.append(
+            {
+                "type": "ExecutableStepDTO",
+                "stepId": None,
+                "stepOrder": i,
+                "stepType": _STEP_INTERVAL,
+                "endCondition": _CONDITION_LAP,
+                "targetType": _TARGET_NONE,
+                "description": label,
+            }
+        )
+
+    return steps
+
+
 COACHING_INSTRUCTION = """\
 ## Units
 All paces must be in **minutes per mile** (not per km). \
@@ -809,19 +863,22 @@ def confirm_plan():
             params["duration_minutes"] = duration
 
         try:
+            description = s.get("description", "")
             # For types that need structured data (strength/mobility) but only got
-            # a duration from the plan, fall back to a simple timed custom workout
+            # a description from the plan, parse it into lap-button steps
             _STRUCTURED_TYPES = {"strength", "mobility"}
             if workout_type in _STRUCTURED_TYPES and "exercises" not in params:
                 from garmin_mcp.workout_builder import custom_workout
 
-                step_seconds = (duration or 30) * 60
+                steps = _description_to_steps(description, duration)
                 workout_json = custom_workout(
-                    name,
-                    steps_json=[{"type": "time", "duration_seconds": step_seconds}],
+                    name, steps_json=steps, description=description
                 )
             else:
                 workout_json = _build_workout(workout_type, name, params)
+                # Inject the plan description so it shows in Garmin Connect
+                if description:
+                    workout_json["description"] = description
             result = garmin_client.create_workout(workout_json)
             workout_id = result.get("workoutId") if isinstance(result, dict) else None
             if not workout_id:
