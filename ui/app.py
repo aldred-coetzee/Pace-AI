@@ -312,6 +312,60 @@ def _build_context() -> str:
     except Exception:
         log.exception("Failed to load athlete profile")
 
+    # ── Withings body composition ─────────────────────────────────────
+    try:
+        measurements = db.get_body_measurements(days=28)
+        if measurements:
+            latest = measurements[0]
+            lines = ["Latest:"]
+            if latest.get("weight_kg"):
+                lines.append(f"- Weight: {latest['weight_kg']:.1f} kg")
+            if latest.get("body_fat_pct"):
+                lines.append(f"- Body fat: {latest['body_fat_pct']:.1f}%")
+            if latest.get("systolic_bp") and latest.get("diastolic_bp"):
+                lines.append(
+                    f"- BP: {int(latest['systolic_bp'])}/{int(latest['diastolic_bp'])}"
+                )
+            lines.append(f"- Date: {latest.get('date', '?')}")
+
+            # 4-week trend: compare first half vs second half
+            if len(measurements) >= 4:
+                mid = len(measurements) // 2
+                recent_w = [
+                    m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")
+                ]
+                older_w = [
+                    m["weight_kg"] for m in measurements[mid:] if m.get("weight_kg")
+                ]
+                if recent_w and older_w:
+                    diff = sum(recent_w) / len(recent_w) - sum(older_w) / len(older_w)
+                    direction = (
+                        "up" if diff > 0.3 else "down" if diff < -0.3 else "stable"
+                    )
+                    lines.append(f"- 4-week weight trend: {direction} ({diff:+.1f} kg)")
+
+            sections.append("## Body Composition\n" + "\n".join(lines))
+    except Exception:
+        log.exception("Failed to load body measurements")
+
+    # ── Notion diary entries ──────────────────────────────────────────
+    try:
+        diary = db.get_diary_entries(days=7)
+        if diary:
+            lines = []
+            for entry in diary:
+                parts = [entry.get("date", "?")]
+                if entry.get("stress_1_5"):
+                    parts.append(f"stress:{entry['stress_1_5']}/5")
+                if entry.get("niggles"):
+                    parts.append(f"niggles: {entry['niggles']}")
+                if entry.get("notes"):
+                    parts.append(entry["notes"])
+                lines.append("- " + " | ".join(parts))
+            sections.append("## Diary (last 7 days)\n" + "\n".join(lines))
+    except Exception:
+        log.exception("Failed to load diary entries")
+
     try:
         facts = get_athlete_facts(db)
         if facts:
