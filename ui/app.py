@@ -49,7 +49,7 @@ _SESSION_DB = str(PROJECT_ROOT / "ui_sessions.db")
 
 
 def _init_session_db() -> None:
-    """Create the sessions table if it doesn't exist."""
+    """Create the sessions and conversations tables if they don't exist."""
     import sqlite3
 
     conn = sqlite3.connect(_SESSION_DB)
@@ -58,6 +58,15 @@ def _init_session_db() -> None:
             sid TEXT PRIMARY KEY,
             data TEXT NOT NULL,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )"""
+    )
+    conn.execute(
+        """CREATE TABLE IF NOT EXISTS conversations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            messages TEXT NOT NULL,
+            summary TEXT,
+            plan TEXT
         )"""
     )
     conn.commit()
@@ -194,6 +203,7 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 <form method="POST" action="/clear" style="display:inline;" class="ctrl-form">
 <button type="submit" class="clear-btn ctrl-btn">Clear</button>
 </form>
+<a href="/history" style="font-size:0.85em; padding:4px 12px; color:#888;">History</a>
 </div>
 {% if sync_status %}
 <div class="ctx-banner">{{ sync_status }}</div>
@@ -350,6 +360,68 @@ a { color: #4a9eff; }
 </form>
 <a href="/" style="padding: 8px 12px; color: #888;">Back to chat</a>
 </div>
+</body>
+</html>
+"""
+
+
+HISTORY_HTML = """\
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+<title>Pace-AI — Session History</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
+h1 { font-size: 1.2em; color: #aaa; }
+a { color: #4a9eff; }
+.session { background: #222; border: 1px solid #333; border-radius: 4px; margin: 12px 0; }
+.session-header { padding: 10px 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.session-header:hover { background: #2a2a2a; }
+.session-date { color: #4a9eff; }
+.session-summary { color: #aaa; font-size: 0.9em; margin-left: 12px; }
+.session-body { display: none; padding: 0 14px 14px; border-top: 1px solid #333; }
+.session-body.open { display: block; }
+.msg { padding: 6px 10px; margin: 4px 0; border-radius: 4px; word-wrap: break-word; font-size: 0.9em; }
+.user { background: #2a3a4a; border-left: 3px solid #4a9eff; white-space: pre-wrap; }
+.assistant { background: #2a2a2a; border-left: 3px solid #6c6; }
+.no-history { color: #666; padding: 20px; text-align: center; }
+</style>
+</head>
+<body>
+<h1>Session History</h1>
+<p><a href="/">Back to chat</a></p>
+{% if sessions %}
+{% for s in sessions %}
+<div class="session">
+<div class="session-header" onclick="this.nextElementSibling.classList.toggle('open')">
+<span>
+<span class="session-date">{{ s.date }}</span>
+<span class="session-summary">{{ s.summary or '(no summary)' }}</span>
+</span>
+<span style="color:#666;">{{ s.message_count }} messages</span>
+</div>
+<div class="session-body">
+{% for msg in s.messages %}
+{% if msg.role == 'user' %}
+<div class="msg user"><strong>you:</strong> {{ msg.content }}</div>
+{% else %}
+<div class="msg assistant"><strong>coach:</strong> <div class="md-content">{{ msg.content }}</div></div>
+{% endif %}
+{% endfor %}
+</div>
+</div>
+{% endfor %}
+{% else %}
+<div class="no-history">No sessions yet. Complete a coaching session and click End Session to save it here.</div>
+{% endif %}
+<script>
+document.querySelectorAll('.md-content').forEach(function(el) {
+    el.innerHTML = marked.parse(el.textContent);
+});
+</script>
 </body>
 </html>
 """
@@ -1077,6 +1149,26 @@ def end_session():
             updated_context=None,
         )
 
+    # Save full conversation to history
+    try:
+        import sqlite3 as _sq
+
+        confirmed_plan = store.get("confirmed_plan")
+        conn = _sq.connect(_SESSION_DB)
+        conn.execute(
+            "INSERT INTO conversations (messages, summary, plan) VALUES (?, ?, ?)",
+            (
+                json.dumps(messages, default=str),
+                summary,
+                json.dumps(confirmed_plan, default=str) if confirmed_plan else None,
+            ),
+        )
+        conn.commit()
+        conn.close()
+        log.info("Conversation saved to history")
+    except Exception:
+        log.exception("Failed to save conversation to history")
+
     # Clear the session after successful logging
     sid = session.get("sid")
     if sid:
@@ -1266,6 +1358,35 @@ def cancel_plan():
         {"role": "assistant", "content": "Plan cancelled — not scheduled."}
     )
     return Response(status=302, headers={"Location": "/"})
+
+
+@app.route("/history")
+def history():
+    import sqlite3 as _sq
+
+    conn = _sq.connect(_SESSION_DB)
+    conn.row_factory = _sq.Row
+    rows = conn.execute(
+        "SELECT created_at, messages, summary, plan FROM conversations ORDER BY created_at DESC LIMIT 50"
+    ).fetchall()
+    conn.close()
+
+    sessions = []
+    for row in rows:
+        try:
+            messages = json.loads(row["messages"])
+        except (json.JSONDecodeError, TypeError):
+            messages = []
+        sessions.append(
+            {
+                "date": (row["created_at"] or "")[:16].replace("T", " "),
+                "summary": row["summary"],
+                "messages": messages,
+                "message_count": len(messages),
+            }
+        )
+
+    return render_template_string(HISTORY_HTML, sessions=sessions)
 
 
 @app.route("/clear", methods=["POST"])
