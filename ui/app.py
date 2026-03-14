@@ -519,9 +519,20 @@ def end_session():
     convo_lines = [f"{m['role']}: {m['content']}" for m in messages]
     conversation_text = "\n\n".join(convo_lines)
 
+    # Include confirmed plan if one was scheduled this session
+    confirmed_plan = store.get("confirmed_plan")
+    plan_section = ""
+    if confirmed_plan:
+        plan_section = (
+            f"\nCONFIRMED SCHEDULED PLAN (use this as ground truth for what was "
+            f"actually scheduled — not the conversation):\n"
+            f"{json.dumps(confirmed_plan, indent=2)}\n\n"
+        )
+
     prompt = (
         "Here is a coaching conversation and the current coaching context.\n\n"
         f"EXISTING COACHING CONTEXT:\n{existing_content}\n\n"
+        f"{plan_section}"
         f"CONVERSATION:\n{conversation_text}\n\n"
         "Produce a JSON object with exactly these fields:\n"
         "- session_summary: 2-3 sentence summary of what was discussed and decided\n"
@@ -765,6 +776,9 @@ def confirm_plan():
                 {"date": date, "name": name, "status": f"error: {e}", "css": "fail"}
             )
             fail_count += 1
+
+    # Store confirmed plan for end-session summarisation
+    store["confirmed_plan"] = plan
 
     # Build a readable summary for the chat
     lines = []
