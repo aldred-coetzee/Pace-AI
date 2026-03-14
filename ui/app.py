@@ -495,6 +495,63 @@ def _strip_plan_json(text: str) -> str:
     return result
 
 
+def _exercises_to_steps(exercises: list[dict]) -> list[dict]:
+    """Convert structured exercises array into Garmin workout steps.
+
+    Each exercise dict has 'name' and either 'sets'+'reps' or 'duration_s'.
+    """
+    _STEP_INTERVAL = {"stepTypeId": 3, "stepTypeKey": "interval"}
+    _CONDITION_LAP = {"conditionTypeId": 1, "conditionTypeKey": "lap.button"}
+    _CONDITION_TIME = {"conditionTypeId": 2, "conditionTypeKey": "time"}
+    _TARGET_NONE = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
+
+    steps: list[dict] = []
+    for i, ex in enumerate(exercises, 1):
+        name = ex.get("name", "Exercise")
+        sets = ex.get("sets")
+        reps = ex.get("reps")
+        duration_s = ex.get("duration_s")
+
+        if sets and reps:
+            label = f"{sets}x{reps} {name}"
+        elif duration_s:
+            label = f"{name} ({duration_s}s)"
+        else:
+            label = name
+
+        if len(label) > 50:
+            label = label[:47] + "..."
+
+        # Use timed step if duration_s given, lap-button otherwise
+        if duration_s:
+            steps.append(
+                {
+                    "type": "ExecutableStepDTO",
+                    "stepId": None,
+                    "stepOrder": i,
+                    "stepType": _STEP_INTERVAL,
+                    "endCondition": _CONDITION_TIME,
+                    "endConditionValue": float(duration_s),
+                    "targetType": _TARGET_NONE,
+                    "description": label,
+                }
+            )
+        else:
+            steps.append(
+                {
+                    "type": "ExecutableStepDTO",
+                    "stepId": None,
+                    "stepOrder": i,
+                    "stepType": _STEP_INTERVAL,
+                    "endCondition": _CONDITION_LAP,
+                    "targetType": _TARGET_NONE,
+                    "description": label,
+                }
+            )
+
+    return steps
+
+
 def _description_to_steps(description: str, duration_minutes: int | None) -> list[dict]:
     """Parse a workout description into Garmin custom workout steps.
 
@@ -620,11 +677,21 @@ can schedule it to Garmin. Use this exact schema inside a ```json code fence:
       "workout_type": "easy_run|run_walk|tempo|intervals|strides|strength|mobility|yoga|cardio|hiit|walking|rest",
       "name": "Short name shown on watch",
       "duration_minutes": 30,
-      "description": "Brief description of the session"
+      "description": "Brief description of the session",
+      "exercises": [
+        {"name": "Exercise name", "sets": 3, "reps": 12},
+        {"name": "Foam roll calves", "duration_s": 60}
+      ]
     }
   ]
 }
 ```
+
+The exercises array is REQUIRED for strength, mobility, and yoga sessions. \
+Each exercise must have "name" and either "sets"+"reps" or "duration_s". \
+This drives the workout steps on the watch — every exercise becomes a step. \
+Include foam rolling exercises in the array, not just in the description. \
+For easy_run and rest sessions, omit the exercises array.
 
 week_starting is the date of the FIRST session in the plan. \
 Include an entry for every day in the requested range (rest days use workout_type "rest"). \
@@ -1304,13 +1371,17 @@ def confirm_plan():
 
         try:
             description = s.get("description", "")
-            # For types that need structured data (strength/mobility) but only got
-            # a description from the plan, parse it into lap-button steps
-            _STRUCTURED_TYPES = {"strength", "mobility"}
-            if workout_type in _STRUCTURED_TYPES and "exercises" not in params:
+            exercises = s.get("exercises")
+            _STRUCTURED_TYPES = {"strength", "mobility", "yoga"}
+            if workout_type in _STRUCTURED_TYPES:
                 from garmin_mcp.workout_builder import custom_workout
 
-                steps = _description_to_steps(description, duration)
+                if exercises and isinstance(exercises, list):
+                    # Structured exercises from JSON — reliable
+                    steps = _exercises_to_steps(exercises)
+                else:
+                    # Fallback: parse from description text
+                    steps = _description_to_steps(description, duration)
                 workout_json = custom_workout(
                     name, steps_json=steps, description=description
                 )
