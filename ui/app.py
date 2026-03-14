@@ -650,6 +650,52 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
     return steps
 
 
+def _enrich_plan_with_exercises(plan: dict) -> dict | None:
+    """Send a focused claude -p call to generate exercises for strength/mobility sessions.
+
+    Returns the enriched plan with exercises arrays, or None on failure.
+    """
+    prompt = (
+        "Convert this training plan to JSON with exercises arrays for every "
+        "strength, mobility, and yoga session.\n\n"
+        "Input plan:\n" + json.dumps(plan, indent=2) + "\n\n"
+        "Rules:\n"
+        "- Add an exercises array to every strength/mobility/yoga session\n"
+        '- Each exercise: {"name": "...", "sets": N, "reps": N} or '
+        '{"name": "...", "duration_s": N}\n'
+        "- Include foam rolling exercises with duration_s (e.g. 60 or 120)\n"
+        "- Include Achilles-specific exercises (heel drops, calf raises) if relevant\n"
+        "- Keep all other fields exactly as they are\n"
+        "- Output ONLY the JSON, no commentary\n"
+    )
+    try:
+        result = subprocess.run(
+            CLAUDE_CMD,
+            input=prompt,
+            capture_output=True,
+            text=True,
+            timeout=120,
+            cwd=str(PROJECT_ROOT),
+        )
+        enriched = _extract_weekly_plan(result.stdout.strip())
+        if enriched and enriched.get("sessions"):
+            # Verify exercises were actually added
+            has_exercises = any(
+                s.get("exercises")
+                for s in enriched.get("sessions", [])
+                if s.get("workout_type") in ("strength", "mobility", "yoga")
+            )
+            if has_exercises:
+                log.info("Exercise enrichment succeeded")
+                return enriched
+            log.warning("Exercise enrichment returned no exercises")
+        else:
+            log.warning("Exercise enrichment failed to parse plan")
+    except Exception:
+        log.exception("Exercise enrichment call failed")
+    return None
+
+
 COACHING_INSTRUCTION = """\
 ## Units
 All paces must be in **minutes per mile** (not per km). \
@@ -1080,58 +1126,6 @@ def chat():
     # Check if the response contains a weekly plan for confirmation
     plan = _extract_weekly_plan(reply)
     if plan:
-        # Validate: strength/mobility sessions must have exercises array
-        needs_exercises = [
-            s
-            for s in plan.get("sessions", [])
-            if s.get("workout_type") in ("strength", "mobility", "yoga")
-            and not s.get("exercises")
-        ]
-        if needs_exercises:
-            log.info(
-                "Plan missing exercises array for %d sessions — requesting correction",
-                len(needs_exercises),
-            )
-            correction = (
-                "Here is the plan you just created:\n\n"
-                + json.dumps(plan, indent=2)
-                + "\n\nThe exercises array is MISSING from these sessions: "
-                + ", ".join(f"{s['date']} {s['name']}" for s in needs_exercises)
-                + ".\n\nAdd an exercises array to each strength/mobility session. "
-                'Each exercise: {"name": "...", "sets": N, "reps": N} or '
-                '{"name": "...", "duration_s": N}. Include foam rolling.\n'
-                "Output ONLY the corrected complete JSON, no commentary."
-            )
-            try:
-                retry_cmd = list(CLAUDE_CMD)
-                if context:
-                    retry_cmd.extend(["--system-prompt", context])
-                retry_result = subprocess.run(
-                    retry_cmd,
-                    input=correction,
-                    capture_output=True,
-                    text=True,
-                    timeout=120,
-                    cwd=str(PROJECT_ROOT),
-                )
-                retry_plan = _extract_weekly_plan(retry_result.stdout.strip())
-                if retry_plan and retry_plan.get("sessions"):
-                    # Check if the retry actually has exercises
-                    retry_has = any(
-                        s.get("exercises")
-                        for s in retry_plan.get("sessions", [])
-                        if s.get("workout_type") in ("strength", "mobility", "yoga")
-                    )
-                    if retry_has:
-                        log.info("Correction succeeded — exercises array populated")
-                        plan = retry_plan
-                    else:
-                        log.warning(
-                            "Correction still missing exercises — using original"
-                        )
-            except Exception:
-                log.exception("Correction request failed — using original plan")
-
         log.info(
             "Detected weekly plan: %s, %d sessions",
             plan.get("week_starting"),
@@ -1390,6 +1384,22 @@ def confirm_plan():
     plan = store.pop("pending_plan", None)
     if not plan:
         return Response(status=302, headers={"Location": "/"})
+
+    # Ensure strength/mobility sessions have exercises arrays
+    needs_exercises = [
+        s
+        for s in plan.get("sessions", [])
+        if s.get("workout_type") in ("strength", "mobility", "yoga")
+        and not s.get("exercises")
+    ]
+    if needs_exercises:
+        log.info(
+            "Generating exercises for %d sessions via focused prompt",
+            len(needs_exercises),
+        )
+        enriched = _enrich_plan_with_exercises(plan)
+        if enriched:
+            plan = enriched
 
     from garmin_mcp.client import GarminClient
     from garmin_mcp.config import Settings as GarminSettings
