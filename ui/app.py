@@ -159,7 +159,7 @@ HTML = """\
 <title>Pace-AI Chat</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
-body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
+body { font-family: monospace; max-width: 1100px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
 h1 { font-size: 1.2em; color: #aaa; }
 .messages { margin-bottom: 20px; }
 .msg { padding: 8px 12px; margin: 6px 0; border-radius: 4px; word-wrap: break-word; }
@@ -195,7 +195,8 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .spinner { display: none; color: #888; margin: 10px 0; }
 .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 4px; }
 .plan-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
-.plan-row input { padding: 4px 8px; font-family: monospace; font-size: 0.85em; background: #222; color: #e0e0e0; border: 1px solid #444; border-radius: 4px; width: 220px; }
+.plan-row input[type="date"] { padding: 4px 8px; font-family: monospace; font-size: 0.85em; background: #222; color: #e0e0e0; border: 1px solid #444; border-radius: 4px; color-scheme: dark; }
+.plan-row label { font-size: 0.8em; color: #888; }
 </style>
 </head>
 <body>
@@ -217,7 +218,8 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 </div>
 <div class="plan-row">
 <form method="POST" action="/plan" style="display:inline; margin:0;" class="ctrl-form" id="plan-form">
-<input type="text" name="date_range" placeholder="{{ default_date_range }}" value="">
+<label>From</label> <input type="date" name="date_from" value="{{ default_date_from }}">
+<label>To</label> <input type="date" name="date_to" value="{{ default_date_to }}">
 <button type="submit" class="plan-btn ctrl-btn">Plan</button>
 </form>
 {% if status_cached %}
@@ -303,7 +305,7 @@ END_SESSION_HTML = """\
 <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 <title>Pace-AI — Session Logged</title>
 <style>
-body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
+body { font-family: monospace; max-width: 1100px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
 h1 { font-size: 1.2em; color: #aaa; }
 h2 { font-size: 1em; color: #8a8; margin-top: 20px; }
 .section { background: #2a2a2a; padding: 10px 14px; border-radius: 4px; margin: 8px 0; white-space: pre-wrap; word-wrap: break-word; }
@@ -345,7 +347,7 @@ CONFIRM_PLAN_HTML = """\
 <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 <title>Pace-AI — Confirm Weekly Plan</title>
 <style>
-body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
+body { font-family: monospace; max-width: 1100px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
 h1 { font-size: 1.2em; color: #aaa; }
 h2 { font-size: 1em; color: #8a8; margin-top: 20px; }
 table { border-collapse: collapse; width: 100%; margin: 12px 0; }
@@ -400,7 +402,7 @@ HISTORY_HTML = """\
 <title>Pace-AI — Session History</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
-body { font-family: monospace; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
+body { font-family: monospace; max-width: 1100px; margin: 40px auto; padding: 0 20px; background: #1a1a1a; color: #e0e0e0; }
 h1 { font-size: 1.2em; color: #aaa; }
 a { color: #4a9eff; }
 .session { background: #222; border: 1px solid #333; border-radius: 4px; margin: 12px 0; }
@@ -1199,8 +1201,8 @@ def _build_chat_context(status_snapshot: str | None, pending_plan: dict | None) 
     return "\n\n".join(sections)
 
 
-def _default_date_range() -> str:
-    """Return next Mon-Sun date range string."""
+def _default_date_range() -> tuple[str, str]:
+    """Return (next_monday, next_sunday) as ISO strings."""
     from datetime import date, timedelta
 
     today = date.today()
@@ -1209,7 +1211,7 @@ def _default_date_range() -> str:
         days_ahead = 7
     monday = today + timedelta(days=days_ahead)
     sunday = monday + timedelta(days=6)
-    return f"{monday.isoformat()} to {sunday.isoformat()}"
+    return monday.isoformat(), sunday.isoformat()
 
 
 @app.route("/")
@@ -1267,7 +1269,8 @@ def index():
         sync_status=sync_status,
         status_cached=status_cached,
         status_age=status_age,
-        default_date_range=_default_date_range(),
+        default_date_from=_default_date_range()[0],
+        default_date_to=_default_date_range()[1],
     )
 
 
@@ -1405,9 +1408,11 @@ def plan():
 
     store = _get_store()
 
-    date_range = request.form.get("date_range", "").strip()
-    if not date_range:
-        date_range = _default_date_range()
+    date_from = request.form.get("date_from", "").strip()
+    date_to = request.form.get("date_to", "").strip()
+    if not date_from or not date_to:
+        date_from, date_to = _default_date_range()
+    date_range = f"{date_from} to {date_to}"
 
     # Auto-generate status if not cached
     if not store.get("status_snapshot"):
