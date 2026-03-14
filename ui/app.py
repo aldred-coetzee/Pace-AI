@@ -147,7 +147,7 @@ button:hover { background: #3a8eef; }
 {% endif %}
 <div class="spinner" id="spinner">Thinking...</div>
 <div class="msg assistant" id="stream-msg" style="display:none;"><strong>coach:</strong> <div class="md-content" id="stream-content"></div></div>
-<form id="chat-form">
+<form id="chat-form" method="POST" action="/chat">
 <textarea name="message" placeholder="Type a message..." autofocus id="msg-input"></textarea>
 <button type="submit">Send</button>
 </form>
