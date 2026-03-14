@@ -126,7 +126,7 @@ def _get_store() -> dict:
     if sid is None or sid not in _sessions:
         sid = uuid.uuid4().hex
         session["sid"] = sid
-        _sessions[sid] = {"messages": [], "athlete_context": None}
+        _sessions[sid] = {"messages": []}
     return _sessions[sid]
 
 
@@ -722,73 +722,6 @@ def _enrich_plan_with_exercises(plan: dict) -> dict | None:
     return None
 
 
-COACHING_INSTRUCTION = """\
-## Units
-All paces must be in **minutes per mile** (not per km). \
-Data fields like typical_easy_pace_min_per_km are stored in min/km — convert before displaying. \
-Distances in miles unless the athlete specifies otherwise.
-
-## Athlete Scheduling Preferences
-Saturday is ALWAYS a running day (the long run). Never schedule strength \
-or rest on Saturday. Structure the week around Saturday as the long run anchor.
-
-## Evidence-Based Coaching (MANDATORY)
-Your coaching MUST be grounded in the research evidence provided in the \
-"Research Evidence" section below. When prescribing plans, exercises, or \
-recovery protocols, cite the specific claims that support your recommendations. \
-If evidence contradicts common practice, follow the evidence. \
-Every mobility/recovery session MUST include foam rolling — the research \
-shows large effect sizes for ROM and recovery.
-"""
-
-SCHEDULING_INSTRUCTION = """\
-## Workout Scheduling
-
-When you prescribe a weekly training plan, output it as a JSON block so the app \
-can schedule it to Garmin. Use this exact schema inside a ```json code fence:
-
-```json
-{
-  "week_starting": "YYYY-MM-DD",
-  "sessions": [
-    {
-      "date": "YYYY-MM-DD",
-      "workout_type": "easy_run|run_walk|tempo|intervals|strides|strength|mobility|yoga|cardio|hiit|walking|rest",
-      "name": "Short name shown on watch",
-      "duration_minutes": 30,
-      "description": "Brief description of the session",
-      "exercises": [
-        {"name": "Exercise name", "sets": 3, "reps": 12},
-        {"name": "Foam roll calves", "duration_s": 60}
-      ]
-    }
-  ]
-}
-```
-
-The exercises array is REQUIRED for strength, mobility, and yoga sessions. \
-Each exercise must have "name" and either "sets"+"reps" or "duration_s". \
-This drives the workout steps on the watch — every exercise becomes a step. \
-Include foam rolling exercises in the array, not just in the description. \
-For easy_run and rest sessions, omit the exercises array.
-
-The description field MUST contain the full exercise details — sets, reps, duration, \
-and specific exercise names. Do NOT put a summary in description and detail in commentary. \
-The description is what appears on the athlete's watch and in Garmin Connect.
-
-week_starting is the date of the FIRST session in the plan. \
-Include an entry for every day in the requested range (rest days use workout_type "rest"). \
-The plan can span any number of days — it is NOT limited to 7. If the athlete asks for \
-a schedule covering 9 or 14 days, include all of them. \
-The sessions array MUST match the plan described in your coaching commentary exactly. \
-Every session you describe in text MUST appear in the JSON with the correct date. \
-The user will review the plan in chat and may ask for changes — output a revised \
-JSON block each time. Nothing is scheduled until the user explicitly clicks Schedule. \
-Do NOT call Garmin tools directly — the app handles scheduling after confirmation. \
-You may include coaching commentary before or after the JSON block.
-"""
-
-
 def _get_relevant_claims(
     db: HistoryDB, profile: dict | None, facts: list[dict]
 ) -> str | None:
@@ -1266,70 +1199,6 @@ def _build_chat_context(status_snapshot: str | None, pending_plan: dict | None) 
     return "\n\n".join(sections)
 
 
-def _build_context() -> str:
-    """Assemble athlete context from pace-ai database (legacy monolithic prompt)."""
-    db = HistoryDB(DB_PATH)
-    sections: list[str] = [COACHING_INSTRUCTION, SCHEDULING_INSTRUCTION]
-
-    profile = None
-    try:
-        profile = get_athlete_profile(db)
-        if profile:
-            _convert_profile_miles(profile)
-            sections.append(
-                f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}"
-            )
-    except Exception:
-        log.exception("Failed to load athlete profile")
-
-    body_comp = _build_body_composition(db)
-    if body_comp:
-        sections.append(body_comp)
-
-    diary = _build_diary_section(db, days=7)
-    if diary:
-        sections.append(diary)
-
-    facts, facts_section = _build_facts_section(db)
-    if facts_section:
-        sections.append(facts_section)
-
-    try:
-        claims_text = _get_relevant_claims(db, profile, facts if facts else [])
-        if claims_text:
-            sections.append(claims_text)
-    except Exception:
-        log.exception("Failed to load research claims")
-
-    ctx_section, log_section = _build_coaching_sections(db)
-    if ctx_section:
-        sections.append(ctx_section)
-    if log_section:
-        sections.append(log_section)
-
-    sections.append(
-        "## CRITICAL REMINDERS\n"
-        "1. Saturday = LONG RUN day. Never put strength or rest on Saturday.\n"
-        "2. Strength/mobility sessions in the plan JSON MUST include an exercises array. "
-        'Example: {"exercises": [{"name": "Heel drops", "sets": 3, "reps": 15}, '
-        '{"name": "Foam roll calves", "duration_s": 60}]}. '
-        "This drives the watch workout steps. Without it, the athlete has no guidance on their watch.\n"
-        "3. All paces in minutes per mile."
-    )
-
-    return "\n\n".join(sections) if sections else ""
-
-
-def _get_session_context() -> str:
-    """Get or build context for the current session."""
-    store = _get_store()
-    ctx = store.get("athlete_context")
-    if ctx is None:
-        ctx = _build_context()
-        store["athlete_context"] = ctx
-    return ctx
-
-
 def _default_date_range() -> str:
     """Return next Mon-Sun date range string."""
     from datetime import date, timedelta
@@ -1411,17 +1280,20 @@ def chat():
     store = _get_store()
     store["messages"].append({"role": "user", "content": user_message})
 
-    context = _get_session_context()
-    cmd = list(CLAUDE_CMD)
-    if context:
-        cmd.extend(["--system-prompt", context])
+    # Build CHAT agent context (lightweight, conversational)
+    status_snapshot = store.get("status_snapshot")
+    pending_plan = store.get("pending_plan")
+    context = _build_chat_context(status_snapshot, pending_plan)
 
-    # Build full conversation transcript so Claude has session context
+    cmd = list(CLAUDE_CMD)
+    cmd.extend(["--system-prompt", context])
+
+    # Build conversation from last 10 messages for context
     history = store.get("messages", [])
-    if len(history) > 1:
-        # Include prior messages as conversation context, latest message last
+    recent = history[-10:]
+    if len(recent) > 1:
         convo_lines = []
-        for msg in history:
+        for msg in recent:
             role = "Athlete" if msg["role"] == "user" else "Coach"
             convo_lines.append(f"{role}: {msg['content']}")
         prompt_text = (
@@ -1432,9 +1304,9 @@ def chat():
     else:
         prompt_text = user_message
 
-    log.info("--- claude -p call ---")
+    log.info("--- chat claude -p call ---")
     log.info("system prompt length: %d chars", len(context))
-    log.info("conversation messages: %d", len(history))
+    log.info("conversation messages: %d (recent: %d)", len(history), len(recent))
     log.info("user message: %r", user_message[:100])
 
     try:
@@ -1463,27 +1335,29 @@ def chat():
 
     log.info("reply length: %d chars", len(reply))
 
-    # Check if the response contains a weekly plan for confirmation
-    plan = _extract_weekly_plan(reply)
-    if plan:
+    # Check if the response contains a revised weekly plan
+    extracted_plan = _extract_weekly_plan(reply)
+    if extracted_plan:
         log.info(
-            "Detected weekly plan: %s, %d sessions",
-            plan.get("week_starting"),
-            len(plan.get("sessions", [])),
+            "Detected revised plan: %s, %d sessions",
+            extracted_plan.get("week_starting"),
+            len(extracted_plan.get("sessions", [])),
         )
-        store["pending_plan"] = plan
-        # Strip the JSON block (fenced or bare) and replace with a readable table
+        store["pending_plan"] = extracted_plan
         display_reply = re.sub(
             r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL
         )
-        # Also strip bare JSON blocks containing week_starting (match balanced braces)
         display_reply = _strip_plan_json(display_reply).strip()
         if not display_reply:
-            display_reply = "Here's your weekly plan."
-        display_reply += _format_plan_table(plan)
-        store["messages"].append({"role": "assistant", "content": display_reply})
+            display_reply = "Here's the revised plan."
+        display_reply += _format_plan_table(extracted_plan)
+        store["messages"].append(
+            {"role": "assistant", "content": display_reply, "agent": "chat"}
+        )
     else:
-        store["messages"].append({"role": "assistant", "content": reply})
+        store["messages"].append(
+            {"role": "assistant", "content": reply, "agent": "chat"}
+        )
 
     return Response(status=302, headers={"Location": "/"})
 
@@ -1822,8 +1696,7 @@ def sync():
     store = _get_store()
     store["messages"].append({"role": "assistant", "content": summary})
 
-    # Invalidate cached context so next calls pick up fresh data
-    store["athlete_context"] = None
+    # Invalidate cached status so next calls pick up fresh data
     store.pop("status_snapshot", None)
     store.pop("status_generated_at", None)
 
