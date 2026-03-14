@@ -273,6 +273,13 @@ def _extract_weekly_plan(text: str) -> dict | None:
     return None
 
 
+COACHING_INSTRUCTION = """\
+## Units
+All paces must be in **minutes per mile** (not per km). \
+Data fields like typical_easy_pace_min_per_km are stored in min/km — convert before displaying. \
+Distances in miles unless the athlete specifies otherwise.
+"""
+
 SCHEDULING_INSTRUCTION = """\
 ## Workout Scheduling
 
@@ -304,7 +311,7 @@ You may include coaching commentary before or after the JSON block.
 def _build_context() -> str:
     """Assemble athlete context from pace-ai database."""
     db = HistoryDB(DB_PATH)
-    sections: list[str] = [SCHEDULING_INSTRUCTION]
+    sections: list[str] = [COACHING_INSTRUCTION, SCHEDULING_INSTRUCTION]
 
     try:
         profile = get_athlete_profile(db)
@@ -743,13 +750,28 @@ def confirm_plan():
             skip_count += 1
             continue
 
-        # Build params from the session data
+        # Build params from the session data — only pass what each builder accepts
         params = {}
-        if s.get("duration_minutes"):
-            params["duration_minutes"] = s["duration_minutes"]
+        duration = s.get("duration_minutes")
+        # Types that accept duration_minutes directly
+        _DURATION_TYPES = {"easy_run", "run_walk", "tempo", "yoga", "cardio", "walking"}
+        if duration and workout_type in _DURATION_TYPES:
+            params["duration_minutes"] = duration
 
         try:
-            workout_json = _build_workout(workout_type, name, params)
+            # For types that need structured data (strength/mobility) but only got
+            # a duration from the plan, fall back to a simple timed custom workout
+            _STRUCTURED_TYPES = {"strength", "mobility"}
+            if workout_type in _STRUCTURED_TYPES and "exercises" not in params:
+                from garmin_mcp.workout_builder import custom_workout
+
+                step_seconds = (duration or 30) * 60
+                workout_json = custom_workout(
+                    name,
+                    steps_json=[{"type": "time", "duration_seconds": step_seconds}],
+                )
+            else:
+                workout_json = _build_workout(workout_type, name, params)
             result = garmin_client.create_workout(workout_json)
             workout_id = result.get("workoutId") if isinstance(result, dict) else None
             if not workout_id:
