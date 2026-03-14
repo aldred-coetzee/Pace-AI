@@ -599,17 +599,31 @@ def chat():
     if context:
         cmd.extend(["--system-prompt", context])
 
+    # Build full conversation transcript so Claude has session context
+    history = store.get("messages", [])
+    if len(history) > 1:
+        # Include prior messages as conversation context, latest message last
+        convo_lines = []
+        for msg in history:
+            role = "Athlete" if msg["role"] == "user" else "Coach"
+            convo_lines.append(f"{role}: {msg['content']}")
+        prompt_text = (
+            "Continue this coaching conversation. Reply only as Coach.\n\n"
+            + "\n\n".join(convo_lines)
+            + "\n\nCoach:"
+        )
+    else:
+        prompt_text = user_message
+
     log.info("--- claude -p call ---")
-    log.info(
-        "cmd: %s", " ".join(cmd[:4]) + (" --system-prompt <...>" if context else "")
-    )
     log.info("system prompt length: %d chars", len(context))
+    log.info("conversation messages: %d", len(history))
     log.info("user message: %r", user_message[:100])
 
     try:
         result = subprocess.run(
             cmd,
-            input=user_message,
+            input=prompt_text,
             capture_output=True,
             text=True,
             timeout=300,
