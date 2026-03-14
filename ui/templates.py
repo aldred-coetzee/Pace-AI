@@ -9,60 +9,70 @@ HTML = """\
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <title>Pace AI</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 :root {
   color-scheme: dark;
-  --bg-primary: #0F0F0F;
-  --bg-secondary: #161616;
-  --bg-tertiary: #1C1C1E;
-  --text-primary: #FAFAFA;
-  --text-secondary: #A1A1A1;
-  --text-tertiary: #666;
-  --border: #262626;
-  --border-soft: #1F1F1F;
-  --accent: #3B82F6;
-  --accent-hover: #60A5FA;
-  --accent-glow: rgba(59, 130, 246, 0.1);
-  --success: #10B981;
-  --warning: #F59E0B;
-  --danger: #EF4444;
-  --overlay: rgba(255, 255, 255, 0.05);
-  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1A1A1A;
+  --text-primary: #ECECEC;
+  --text-secondary: #888;
+  --text-tertiary: #555;
+  --border: #232323;
+  --border-soft: #1C1C1C;
+  --accent: #6E8EEF;
+  --accent-hover: #8BA4F3;
+  --accent-glow: rgba(110, 142, 239, 0.08);
+  --success: #4ADE80;
+  --warning: #FACC15;
+  --danger: #F87171;
+  --overlay: rgba(255, 255, 255, 0.04);
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, monospace;
 }
 *, *::before, *::after { box-sizing: border-box; }
-body { font: 14px/1.5 var(--font); letter-spacing: -0.01em; margin: 0; padding: 0;
-       background: var(--bg-primary); color: var(--text-primary); }
+body { font: 14px/1.6 var(--font); letter-spacing: -0.011em; margin: 0; padding: 0;
+       background: var(--bg-primary); color: var(--text-primary);
+       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { color: var(--accent-hover); }
 
 /* ── Navbar ── */
 .navbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border);
-          padding: 0 24px; display: flex; align-items: center; height: 48px; gap: 16px;
+          padding: 0 28px; display: flex; align-items: center; height: 44px; gap: 10px;
           position: sticky; top: 0; z-index: 100; }
-.navbar-brand { font-weight: 600; font-size: 15px; color: var(--text-primary);
-                margin-right: auto; letter-spacing: -0.02em; }
-.navbar-brand span { color: var(--accent); }
+.navbar-brand { font-weight: 600; font-size: 14px; color: var(--text-primary);
+                letter-spacing: -0.03em; margin-right: 12px; }
+.navbar-brand span { color: var(--text-secondary); font-weight: 400; }
+.nav-group { display: flex; align-items: center; gap: 4px; }
+.nav-spacer { flex: 1; }
+.nav-sep { width: 1px; height: 16px; background: var(--border); margin: 0 6px; }
 
 /* ── Buttons ── */
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
-       border: 1px solid var(--border); border-radius: 6px; font: 13px/1 var(--font);
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px;
+       border: 1px solid var(--border); border-radius: 4px; font: 13px/1 var(--font);
        font-weight: 500; cursor: pointer; transition: all 0.15s ease;
-       background: transparent; color: var(--text-primary); white-space: nowrap; }
-.btn:hover { background: var(--overlay); border-color: var(--text-tertiary); }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover);
-                     box-shadow: 0 0 0 3px var(--accent-glow); }
-.btn-danger { border-color: rgba(239,68,68,0.3); color: #FCA5A5; }
-.btn-danger:hover { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.5); }
-.btn-success { border-color: rgba(16,185,129,0.3); color: #6EE7B7; }
-.btn-success:hover { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.5); }
+       background: transparent; color: var(--text-secondary); white-space: nowrap; }
+.btn:hover { background: var(--overlay); border-color: var(--text-tertiary);
+             color: var(--text-primary); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn-primary { background: var(--accent); border-color: var(--accent);
+               color: #fff; font-weight: 500; }
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-danger { color: var(--text-secondary); }
+.btn-danger:hover { background: rgba(248,113,113,0.08); color: var(--danger);
+                    border-color: rgba(248,113,113,0.3); }
+.btn-success { color: var(--text-secondary); }
+.btn-success:hover { background: rgba(74,222,128,0.08); color: var(--success);
+                     border-color: rgba(74,222,128,0.3); }
 
 /* ── Layout ── */
-.container { max-width: 960px; margin: 0 auto; padding: 24px 24px 120px; }
+.container { max-width: 1120px; margin: 0 auto; padding: 24px 32px 120px; }
 
 /* ── Toolbar ── */
 .toolbar { display: flex; align-items: center; gap: 8px; padding: 12px 0;
@@ -71,14 +81,16 @@ a:hover { color: var(--accent-hover); }
 .toolbar-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
 .toolbar input[type="date"] { padding: 5px 8px; font: 13px var(--font);
   background: var(--bg-tertiary); color: var(--text-primary);
-  border: 1px solid var(--border); border-radius: 6px; color-scheme: dark; }
+  border: 1px solid var(--border); border-radius: 4px; color-scheme: dark; }
 .toolbar label { font-size: 12px; color: var(--text-secondary); }
-.toolbar .meta { font-size: 12px; color: var(--text-tertiary); margin-left: auto; }
+.toolbar-meta { display: flex; align-items: center; gap: 8px; margin-left: auto;
+                font-size: 12px; color: var(--text-tertiary); }
+.toolbar-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-tertiary); }
 
 /* ── Banners ── */
-.banner { padding: 10px 16px; border-radius: 8px; font-size: 13px;
+.banner { padding: 10px 16px; border-radius: 4px; font-size: 13px;
           margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
-          background: var(--overlay); border-left: 3px solid var(--border); }
+          background: var(--overlay); border-left: 2px solid var(--border); }
 .banner-info { border-left-color: var(--accent); color: #93C5FD; }
 .banner-success { border-left-color: var(--success); color: #6EE7B7; }
 .banner-warn { border-left-color: var(--warning); color: #FCD34D; }
@@ -89,31 +101,31 @@ a:hover { color: var(--accent-hover); }
                display: flex; justify-content: space-between; margin-bottom: 12px; }
 
 /* ── Messages ── */
-.messages { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
-.msg { padding: 14px 18px; border-radius: 8px; word-wrap: break-word;
+.messages { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.msg { padding: 14px 18px; border-radius: 6px; word-wrap: break-word;
        line-height: 1.6; font-size: 14px; }
 .msg.user { background: var(--bg-tertiary); border: 1px solid var(--border);
             white-space: pre-wrap; }
-.msg.user .msg-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
-                       color: var(--text-tertiary); margin-bottom: 6px; }
+.msg.user .msg-label { font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+                       color: var(--text-tertiary); margin-bottom: 4px; }
 .msg.assistant { background: var(--bg-secondary); border: 1px solid var(--border-soft); }
-.msg.assistant .msg-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
-                            color: var(--success); margin-bottom: 6px; }
+.msg.assistant .msg-label { font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+                            color: var(--text-secondary); margin-bottom: 4px; }
 .msg.assistant table { border-collapse: collapse; margin: 12px 0; width: 100%;
                        font-size: 13px; }
 .msg.assistant th, .msg.assistant td { border: 1px solid var(--border);
   padding: 8px 12px; text-align: left; }
 .msg.assistant th { background: var(--bg-tertiary); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
-  color: var(--text-secondary); }
+  text-transform: uppercase; letter-spacing: 0.04em; font-weight: 500;
+  color: var(--text-tertiary); }
 .msg.assistant td { color: var(--text-primary); }
 .msg.assistant tbody tr:hover { background: var(--overlay); }
 .msg.assistant blockquote { border-left: 3px solid var(--border); margin: 12px 0;
   padding: 8px 16px; color: var(--text-secondary); }
-.msg.assistant code { background: var(--bg-tertiary); padding: 2px 6px;
-  border-radius: 4px; font: 13px var(--mono); }
+.msg.assistant code { background: var(--bg-tertiary); padding: 2px 5px;
+  border-radius: 3px; font: 13px var(--mono); }
 .msg.assistant pre { background: var(--bg-tertiary); border: 1px solid var(--border);
-  padding: 14px; border-radius: 6px; overflow-x: auto; margin: 12px 0; }
+  padding: 14px; border-radius: 4px; overflow-x: auto; margin: 12px 0; }
 .msg.assistant h2 { font-size: 16px; font-weight: 600; margin: 20px 0 8px;
   letter-spacing: -0.02em; }
 .msg.assistant h3 { font-size: 14px; font-weight: 600; margin: 16px 0 6px;
@@ -122,19 +134,64 @@ a:hover { color: var(--accent-hover); }
 .msg.assistant ul, .msg.assistant ol { padding-left: 20px; margin: 8px 0; }
 .msg.assistant li { margin: 4px 0; }
 .msg.assistant strong { color: var(--text-primary); }
+.msg.assistant .md-content > *:last-child { margin-bottom: 0; }
+.msg.assistant p { margin: 8px 0; }
+.msg.assistant .md-content > *:first-child { margin-top: 0; }
+
+/* ── Status report ── */
+.status-report { display: flex; flex-direction: column; gap: 2px; }
+.status-report h2 { font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--text-tertiary); margin: 0 0 8px; }
+.status-section { padding: 14px 18px; border-left: 2px solid var(--border);
+  background: var(--bg-tertiary); margin: 0; }
+.status-section.status-ok { border-left-color: var(--success); }
+.status-section.status-caution { border-left-color: var(--warning); }
+.status-section.status-concern { border-left-color: var(--danger); }
+.status-section.status-info { border-left-color: var(--accent); }
+.status-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.status-ok .status-dot { background: var(--success); }
+.status-caution .status-dot { background: var(--warning); }
+.status-concern .status-dot { background: var(--danger); }
+.status-info .status-dot { background: var(--accent); }
+.status-title { font-size: 13px; font-weight: 600; color: var(--text-primary);
+  letter-spacing: -0.01em; }
+.status-body { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+.status-body p { margin: 4px 0; }
+.status-body p:first-child { margin-top: 0; }
+.status-body p:last-child { margin-bottom: 0; }
+.status-body table { border-collapse: collapse; margin: 8px 0; width: 100%; font-size: 12px; }
+.status-body th, .status-body td { border: 1px solid var(--border); padding: 6px 10px;
+  text-align: left; }
+.status-body th { background: var(--bg-secondary); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-tertiary); }
+.status-body strong { color: var(--text-primary); }
+.status-body ul, .status-body ol { padding-left: 18px; margin: 4px 0; }
+.status-body li { margin: 2px 0; }
+.status-verdict { padding: 14px 18px; background: var(--bg-tertiary);
+  border-left: 2px solid var(--border); }
+.status-verdict.status-ok { border-left-color: var(--success); }
+.status-verdict.status-caution { border-left-color: var(--warning); }
+.status-verdict.status-concern { border-left-color: var(--danger); }
+.verdict-label { font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+  margin-bottom: 6px; }
+.status-ok .verdict-label { color: var(--success); }
+.status-caution .verdict-label { color: var(--warning); }
+.status-concern .verdict-label { color: var(--danger); }
+.status-date { font-size: 12px; color: var(--text-tertiary); margin-bottom: 12px; }
 
 /* ── Plan bar ── */
-.plan-bar { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;
+.plan-bar { padding: 12px 16px; border-radius: 4px; margin-bottom: 16px;
             display: flex; gap: 10px; align-items: center;
-            background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); }
+            background: rgba(110,142,239,0.06); border: 1px solid rgba(110,142,239,0.15); }
 .plan-bar span { font-size: 13px; color: #93C5FD; flex: 1; }
 
 /* ── Dropdown ── */
 .dropdown { position: relative; }
 .dropdown-menu { display: none; position: absolute; top: 100%; right: 0;
                  background: var(--bg-secondary); border: 1px solid var(--border);
-                 border-radius: 8px; padding: 4px; min-width: 200px;
-                 box-shadow: 0 8px 32px rgba(0,0,0,0.4); z-index: 200; }
+                 border-radius: 4px; padding: 4px; min-width: 200px;
+                 box-shadow: 0 4px 24px rgba(0,0,0,0.5); z-index: 200; }
 .dropdown.open .dropdown-menu { display: block; }
 .dropdown-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
                   color: var(--text-tertiary); padding: 6px 12px 2px; font-weight: 600; }
@@ -149,44 +206,39 @@ a:hover { color: var(--accent-hover); }
 /* ── Spinner ── */
 .spinner { display: none; padding: 12px 0; }
 .spinner-inner { display: flex; align-items: center; gap: 10px;
-                 font-size: 13px; color: var(--text-secondary); }
-.spinner-dot { width: 8px; height: 8px; border-radius: 50%;
-               background: var(--accent); animation: pulse 1.4s infinite ease-in-out; }
-@keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); }
-                   50% { opacity: 1; transform: scale(1); } }
+                 font-size: 13px; color: var(--text-tertiary); }
+.spinner-bar { width: 16px; height: 2px; background: var(--text-tertiary); border-radius: 1px;
+               animation: shimmer 1.6s infinite ease-in-out; }
+@keyframes shimmer { 0%, 100% { opacity: 0.2; width: 12px; }
+                     50% { opacity: 0.6; width: 20px; } }
 
 /* ── Chat input ── */
 .chat-input { display: flex; gap: 8px; position: fixed; bottom: 0; left: 0; right: 0;
               padding: 16px 24px; background: var(--bg-primary);
               border-top: 1px solid var(--border); }
-.chat-input-inner { max-width: 960px; margin: 0 auto; width: 100%;
-                    display: flex; gap: 8px; }
-.chat-input textarea { flex: 1; padding: 10px 14px; font: 14px/1.5 var(--font);
+.chat-input-inner { max-width: 1120px; margin: 0 auto; width: 100%;
+                    display: flex; gap: 8px; padding: 0 8px; }
+.chat-input textarea { flex: 1; padding: 10px 14px; font: 14px/1.6 var(--font);
   background: var(--bg-secondary); color: var(--text-primary);
-  border: 1px solid var(--border); border-radius: 8px; resize: none; min-height: 44px;
+  border: 1px solid var(--border); border-radius: 4px; resize: none; min-height: 42px;
   max-height: 120px; transition: border-color 0.15s; }
-.chat-input textarea:focus { outline: none; border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow); }
+.chat-input textarea:focus { outline: none; border-color: var(--text-tertiary); }
 .chat-input textarea::placeholder { color: var(--text-tertiary); }
 </style>
 </head>
 <body>
 <nav class="navbar">
 <div class="navbar-brand">Pace <span>AI</span></div>
+<div class="nav-group">
 <form method="POST" action="/sync" class="ctrl-form" id="sync-form">
 <button type="submit" class="btn btn-success">Sync</button>
 </form>
 <form method="POST" action="/status" class="ctrl-form" id="status-form">
 <button type="submit" class="btn">Status</button>
 </form>
-<a href="/history" class="btn">History</a>
-<form method="POST" action="/clear" class="ctrl-form">
-<button type="submit" class="btn">Clear</button>
-</form>
-<div class="dropdown" id="more-dropdown">
-<button type="button" class="btn" onclick="this.parentElement.classList.toggle('open')">More</button>
+<div class="dropdown" id="nutrition-dropdown">
+<button type="button" class="btn" onclick="this.parentElement.classList.toggle('open')">Nutrition</button>
 <div class="dropdown-menu">
-<div class="dropdown-label">Nutrition</div>
 <form method="POST" action="/nutrition" class="ctrl-form">
 <input type="hidden" name="mode" value="general">
 <button type="submit" class="dropdown-item">General Advice</button>
@@ -201,9 +253,18 @@ a:hover { color: var(--accent-hover); }
 </form>
 </div>
 </div>
+</div>
+<div class="nav-spacer"></div>
+<div class="nav-group">
+<a href="/history" class="btn">History</a>
+<div class="nav-sep"></div>
+<form method="POST" action="/clear" class="ctrl-form">
+<button type="submit" class="btn">Clear</button>
+</form>
 <form method="POST" action="/end-session" class="ctrl-form">
 <button type="submit" class="btn btn-danger">End Session</button>
 </form>
+</div>
 </nav>
 <div class="container">
 <div class="toolbar">
@@ -214,10 +275,10 @@ a:hover { color: var(--accent-hover); }
 <input type="date" name="date_to" value="{{ default_date_to }}">
 <button type="submit" class="btn btn-primary">Generate Plan</button>
 </form>
-{% if status_cached %}
-<span class="meta">Status cached {{ status_age }}</span>
-{% endif %}
-<span class="meta">{{ message_count }} messages</span>
+<div class="toolbar-meta">
+{% if status_cached %}<span>Status cached {{ status_age }}</span><span class="toolbar-dot"></span>{% endif %}
+<span>{{ message_count }} messages</span>
+</div>
 </div>
 {% if sync_status %}
 <div class="banner banner-info">{{ sync_status }}</div>
@@ -231,12 +292,17 @@ a:hover { color: var(--accent-hover); }
 {% for msg in messages %}
 {% if msg.role == 'user' %}
 <div class="msg user">
-<div class="msg-label">You</div>
+<div class="msg-label">you</div>
 {{ msg.content }}
+</div>
+{% elif msg.get('agent') in ('status', 'nutrition', 'plan') %}
+<div class="msg assistant">
+<div class="msg-label">coach</div>
+<div class="status-wrap">{{ msg.content | safe }}</div>
 </div>
 {% else %}
 <div class="msg assistant">
-<div class="msg-label">Coach</div>
+<div class="msg-label">coach</div>
 <div class="md-content">{{ msg.content }}</div>
 </div>
 {% endif %}
@@ -250,7 +316,7 @@ a:hover { color: var(--accent-hover); }
 </div>
 {% endif %}
 <div class="spinner" id="spinner">
-<div class="spinner-inner"><div class="spinner-dot"></div> <span>Thinking...</span></div>
+<div class="spinner-inner"><div class="spinner-bar"></div> <span>Thinking...</span></div>
 </div>
 </div>
 <div class="chat-input">
@@ -309,7 +375,14 @@ ta.addEventListener('input', function() {
     this.style.height = 'auto';
     this.style.height = Math.min(this.scrollHeight, 120) + 'px';
 });
-window.scrollTo(0, document.body.scrollHeight);
+// Enter to send, Shift+Enter for newline
+ta.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (this.value.trim()) document.getElementById('chat-form').requestSubmit();
+    }
+});
+window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 </script>
 </body>
 </html>
@@ -409,7 +482,7 @@ th { padding: 10px 14px; text-align: left; font-size: 11px; text-transform: uppe
 td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
 tr:last-child td { border-bottom: none; }
 tr:hover { background: var(--overlay); }
-tr.rest td { color: var(--text-tertiary); }
+tr.rest td, tr.rest-row td { color: var(--text-tertiary); }
 p { font-size: 13px; color: var(--text-secondary); margin: 16px 0; }
 .btn-row { display: flex; gap: 8px; margin-top: 20px; align-items: center; }
 .btn { display: inline-flex; align-items: center; padding: 8px 18px;
@@ -529,12 +602,12 @@ h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
 {% for msg in s.messages %}
 {% if msg.role == 'user' %}
 <div class="msg user">
-<div class="msg-label">You</div>
+<div class="msg-label">you</div>
 {{ msg.content }}
 </div>
 {% else %}
 <div class="msg assistant">
-<div class="msg-label">Coach</div>
+<div class="msg-label">coach</div>
 <div class="md-content">{{ msg.content }}</div>
 </div>
 {% endif %}

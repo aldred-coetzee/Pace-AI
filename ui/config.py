@@ -42,27 +42,345 @@ CLAUDE_CMD = [
     "--dangerously-skip-permissions",
 ]
 
+# ── Structured output schema ──
+# Each agent defines sections as (key, title, has_status, content_hint).
+# content_hint tells Claude what to write in the content field.
+# The generic renderer handles layout; Claude handles content.
+
+STATUS_SECTIONS = [
+    (
+        "training_load",
+        "Training Load",
+        True,
+        "Weekly volume, trend table, consistency assessment",
+    ),
+    (
+        "recent_runs",
+        "Recent Runs",
+        True,
+        "Pace range, HR vs zones, pace discipline, notable runs",
+    ),
+    (
+        "recovery",
+        "Recovery",
+        True,
+        "RHR, HRV, stress, sleep, BP — table or bullet format",
+    ),
+    (
+        "injury_status",
+        "Injury Status",
+        True,
+        "Current niggles, rehab compliance, pattern changes",
+    ),
+    (
+        "overall_readiness",
+        "Overall Readiness",
+        True,
+        "Green lights, amber flags, key priorities this week",
+    ),
+]
+# upcoming_schedule and body_composition are rendered directly — no LLM needed
+
+# ── Parallel STATUS sub-group section definitions ──
+# Each group gets its own focused prompt with only the data it needs.
+
+STATUS_TRAINING_SECTIONS = [
+    (
+        "training_load",
+        "Training Load",
+        True,
+        "Weekly volume, trend table, consistency assessment",
+    ),
+    (
+        "recent_runs",
+        "Recent Runs",
+        True,
+        "Pace range, HR vs zones, pace discipline, notable runs",
+    ),
+]
+
+STATUS_RECOVERY_SECTIONS = [
+    (
+        "recovery",
+        "Recovery",
+        True,
+        "RHR, HRV, stress, sleep, BP — table or bullet format",
+    ),
+]
+
+STATUS_INJURY_SECTIONS = [
+    (
+        "injury_status",
+        "Injury Status",
+        True,
+        "Current niggles, rehab compliance, pattern changes",
+    ),
+]
+
+STATUS_READINESS_SECTIONS = [
+    (
+        "overall_readiness",
+        "Overall Readiness",
+        True,
+        "Green lights, amber flags, key priorities this week",
+    ),
+]
+
+NUTRITION_GENERAL_SECTIONS = [
+    (
+        "daily_eating",
+        "Daily Eating Patterns",
+        False,
+        "Meal structure and timing around training days vs rest days",
+    ),
+    (
+        "pre_post_run",
+        "Pre & Post Run Nutrition",
+        True,
+        "What and when to eat before and after runs — timing, food types",
+    ),
+    (
+        "hydration",
+        "Hydration",
+        True,
+        "Daily fluid targets, electrolytes, signs of under-hydration",
+    ),
+    (
+        "supplements",
+        "Supplements",
+        True,
+        "What is worth considering and what to skip — cite evidence",
+    ),
+    (
+        "key_recommendations",
+        "Key Recommendations",
+        False,
+        "Top 3-5 practical takeaways for this athlete",
+    ),
+]
+
+NUTRITION_PLAN_SECTIONS = [
+    (
+        "easy_days",
+        "Easy / Recovery Days",
+        False,
+        "Nutrition approach for easy run days",
+    ),
+    (
+        "long_run",
+        "Long Run Day",
+        True,
+        "Pre, during (if applicable), and post-run nutrition",
+    ),
+    (
+        "strength_mobility",
+        "Strength & Mobility Days",
+        False,
+        "Nutrition around cross-training sessions",
+    ),
+    (
+        "rest_days",
+        "Rest Days",
+        False,
+        "Eating on rest days — what changes, what stays the same",
+    ),
+    ("hydration", "Hydration", True, "Daily fluid guidance across the training week"),
+    ("weekly_summary", "Weekly Summary", False, "Day-by-day quick reference table"),
+]
+
+NUTRITION_RACE_SECTIONS = [
+    (
+        "race_week",
+        "Race Week Loading",
+        True,
+        "Carb loading timeline, what to eat, what to avoid",
+    ),
+    ("race_eve", "Night Before", False, "Evening meal guidance — timing, composition"),
+    (
+        "race_morning",
+        "Race Morning",
+        True,
+        "Pre-race meal — timing, specific food suggestions",
+    ),
+    (
+        "during_race",
+        "During Race",
+        True,
+        "In-race fueling — gels, fluid, electrolytes, timing",
+    ),
+    (
+        "post_race",
+        "Post Race Recovery",
+        False,
+        "Immediate and same-day recovery nutrition",
+    ),
+    (
+        "key_warnings",
+        "Key Warnings",
+        False,
+        "Nothing new on race day — things to avoid",
+    ),
+]
+
+
+def _build_structured_prompt(
+    sections: list[tuple], *, verdict_section: str | None = None
+) -> str:
+    """Generate the JSON schema instruction block for any agent.
+
+    Args:
+        sections: List of (key, title, has_status, content_hint) tuples.
+        verdict_section: If set, this section key gets an extra "verdict" field.
+    """
+    lines = [
+        "Output ONLY a JSON object inside ```json fences with this exact structure:",
+        "",
+        "```json",
+        "{",
+    ]
+    entries = []
+    for key, _title, has_status, hint in sections:
+        fields = []
+        if has_status:
+            fields.append('    "status": "ok|caution|concern"')
+        if key == verdict_section:
+            fields.append('    "verdict": "Short headline phrase"')
+        fields.append(f'    "content": "Markdown: {hint}"')
+        entries.append(f'  "{key}": {{\n' + ",\n".join(fields) + "\n  }")
+    lines.append((",\n").join(entries))
+    lines.extend(["}", "```", ""])
+    lines.append("Rules:")
+    lines.append('- status values: "ok" (green), "caution" (amber), "concern" (red)')
+    lines.append(
+        "- content fields are markdown strings — use tables, bullets, bold as needed"
+    )
+    if verdict_section:
+        lines.append(
+            f"- {verdict_section}.verdict is a short phrase shown as the headline"
+        )
+    lines.append("- Be concise in each section — 2-4 sentences or a short table")
+    lines.append("- Do not use emoji")
+    return "\n".join(lines)
+
+
 STATUS_SYSTEM_PROMPT = """\
 You are a running coach reviewing an athlete's current status.
+Today is {today_weekday}, {today_date}.
 All paces in minutes per mile. Distances in miles.
-Produce a concise status report: training load trends, recent run quality, \
-recovery indicators, body composition, injury/niggle status, overall readiness.
-Be specific with numbers. Keep under 500 words. Markdown format."""
+Be specific with numbers.
+
+""" + _build_structured_prompt(STATUS_SECTIONS, verdict_section="overall_readiness")
+
+# ── Parallel STATUS sub-group prompts ──
+
+_STATUS_PREAMBLE = """\
+You are a running coach reviewing an athlete's current status.
+Today is {today_weekday}, {today_date}.
+All paces in minutes per mile. Distances in miles.
+Be specific with numbers.
+
+"""
+
+STATUS_TRAINING_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
+    STATUS_TRAINING_SECTIONS
+)
+STATUS_RECOVERY_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
+    STATUS_RECOVERY_SECTIONS
+)
+STATUS_INJURY_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
+    STATUS_INJURY_SECTIONS
+)
+STATUS_READINESS_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
+    STATUS_READINESS_SECTIONS, verdict_section="overall_readiness"
+)
+
+PLAN_REPORT_SECTIONS = [
+    (
+        "rationale",
+        "Coaching Rationale",
+        False,
+        "Key coaching decisions, progressive overload logic, injury considerations",
+    ),
+    (
+        "research_basis",
+        "Research Basis",
+        False,
+        "Key research claims this plan is built on — cite specific evidence",
+    ),
+    (
+        "weekly_summary",
+        "Weekly Summary",
+        False,
+        "Total volume, intensity distribution, key sessions",
+    ),
+]
+
+
+def _build_plan_prompt() -> str:
+    """Generate the combined PLAN JSON schema with report sections + sessions."""
+    lines = [
+        "Output ONLY a JSON object inside ```json fences with this exact structure:",
+        "",
+        "```json",
+        "{",
+    ]
+    # Report sections
+    entries = []
+    for key, _title, has_status, hint in PLAN_REPORT_SECTIONS:
+        fields = []
+        if has_status:
+            fields.append('    "status": "ok|caution|concern"')
+        fields.append(f'    "content": "Markdown: {hint}"')
+        entries.append(f'  "{key}": {{\n' + ",\n".join(fields) + "\n  }")
+    # Sessions array
+    entries.append(
+        '  "week_starting": "YYYY-MM-DD",\n'
+        '  "sessions": [\n'
+        "    {\n"
+        '      "date": "YYYY-MM-DD",\n'
+        '      "workout_type": "easy_run|run_walk|tempo|intervals|strides|strength|mobility|yoga|cardio|hiit|walking|rest",\n'
+        '      "name": "Short name shown on watch",\n'
+        '      "duration_minutes": 30,\n'
+        '      "description": "Full exercise details for strength/mobility — sets, reps, duration"\n'
+        "    }\n"
+        "  ]"
+    )
+    lines.append((",\n").join(entries))
+    lines.extend(["}", "```", ""])
+    lines.append("Rules:")
+    lines.append(
+        "- content fields are markdown strings — use tables, bullets, bold as needed"
+    )
+    lines.append("- Be concise in each section — 2-4 sentences or a short table")
+    lines.append("- Do not use emoji")
+    lines.append(
+        "- Do NOT include an exercises array — exercises are added automatically at scheduling time"
+    )
+    lines.append("- week_starting is the date of the FIRST session in the plan")
+    lines.append(
+        '- Include an entry for every day in the requested range (rest days use workout_type "rest")'
+    )
+    lines.append(
+        "- Saturday is ALWAYS the long run day. Never schedule strength or rest on Saturday"
+    )
+    return "\n".join(lines)
+
 
 PLAN_SYSTEM_PROMPT = """\
 You are a running coach creating a training plan.
 All paces in minutes per mile. Saturday is ALWAYS the long run day.
 Coaching must cite the research evidence provided.
 Every mobility/recovery session MUST include foam rolling.
-Output plan as JSON (schema provided). Do NOT include exercises array.
+Do not use emoji.
 The description field MUST contain full exercise details for strength/mobility sessions.
-Include coaching rationale before the JSON."""
+
+""" + _build_plan_prompt()
 
 CHAT_SYSTEM_PROMPT = """\
 You are a running coach in a conversation with your athlete.
 All paces in minutes per mile. Distances in miles.
 {plan_instruction}\
-Keep responses concise and practical."""
+Keep responses concise and practical. Do not use emoji."""
 
 PLAN_JSON_SCHEMA = """\
 ## Plan JSON Schema
@@ -102,25 +420,24 @@ Tailor advice to the athlete's training load, body composition, and goals.
 - Respect stated dietary preferences absolutely — never suggest foods the athlete has said they don't eat
 - Frame advice as general sports nutrition principles, not individualised medical nutrition therapy
 
-{mode_instruction}\
+{mode_instruction}
 Keep responses practical and specific. Use metric for nutrition (grams, ml) but miles for running."""
 
-NUTRITION_MODE_GENERAL = """\
-Provide weekly nutrition principles based on the athlete's current training load.
-Cover: daily eating patterns, hydration, pre/post-run nutrition, and any supplements worth considering.
-If no nutrition preferences are recorded, note this and give generic advice with a suggestion to add dietary preferences."""
+NUTRITION_MODE_GENERAL = _build_structured_prompt(NUTRITION_GENERAL_SECTIONS)
 
 NUTRITION_MODE_PLAN = """\
 Map nutrition to specific training days in the confirmed plan.
-Reference specific days, e.g. "Tuesday tempo — increase carbs at lunch, recovery protein within 30min post-session."
-Cover pre-workout, during (if applicable), and post-workout nutrition for each session type.
-If no nutrition preferences are recorded, note this and give generic advice with a suggestion to add dietary preferences."""
+Reference specific days, e.g. "Tuesday tempo — increase carbs at lunch, recovery protein within 30min."
+If no nutrition preferences are recorded, note this and give generic advice.
+
+""" + _build_structured_prompt(NUTRITION_PLAN_SECTIONS)
 
 NUTRITION_MODE_RACE = """\
 Create a race-week and race-day nutrition and hydration strategy.
-Cover: carb loading timeline (days before), race morning meal, in-race fueling (gels/timing/fluid), post-race recovery nutrition.
 Be specific about timing and quantities where general principles allow.
-If no nutrition preferences are recorded, note this and give generic advice with a suggestion to add dietary preferences."""
+If no nutrition preferences are recorded, note this and give generic advice.
+
+""" + _build_structured_prompt(NUTRITION_RACE_SECTIONS)
 
 # Nutrition research categories to query
 NUTRITION_CLAIM_CATEGORIES = [
@@ -138,7 +455,17 @@ __all__ = [
     "DB_PATH",
     "_SESSION_DB",
     "CLAUDE_CMD",
+    "STATUS_SECTIONS",
+    "STATUS_TRAINING_SECTIONS",
+    "STATUS_RECOVERY_SECTIONS",
+    "STATUS_INJURY_SECTIONS",
+    "STATUS_READINESS_SECTIONS",
     "STATUS_SYSTEM_PROMPT",
+    "STATUS_TRAINING_PROMPT",
+    "STATUS_RECOVERY_PROMPT",
+    "STATUS_INJURY_PROMPT",
+    "STATUS_READINESS_PROMPT",
+    "PLAN_REPORT_SECTIONS",
     "PLAN_SYSTEM_PROMPT",
     "CHAT_SYSTEM_PROMPT",
     "PLAN_JSON_SCHEMA",
@@ -146,6 +473,9 @@ __all__ = [
     "NUTRITION_MODE_GENERAL",
     "NUTRITION_MODE_PLAN",
     "NUTRITION_MODE_RACE",
+    "NUTRITION_GENERAL_SECTIONS",
+    "NUTRITION_PLAN_SECTIONS",
+    "NUTRITION_RACE_SECTIONS",
     "NUTRITION_CLAIM_CATEGORIES",
     "HistoryDB",
     "append_coaching_log",
