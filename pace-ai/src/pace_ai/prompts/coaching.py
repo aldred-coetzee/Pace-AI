@@ -21,7 +21,22 @@ from pace_ai.resources.claim_store import query_claims
 log = logging.getLogger(__name__)
 
 # Category mappings: user-facing names → actual domain IDs in claims DB
-_WEEKLY_PLAN_CATEGORIES = ["training_load_acwr", "periodisation", "polarized_training"]
+# NOTE: _WEEKLY_PLAN_CATEGORIES is duplicated in ui/app.py _get_relevant_claims().
+# Both must stay in sync until we consolidate the two codepaths (tech debt).
+_WEEKLY_PLAN_CATEGORIES = [
+    "training_load_acwr",
+    "periodisation",
+    "polarized_training",
+    "strength_training_runners",
+    "foam_rolling_mobility",
+    "warmup_cooldown",
+    "recovery_modalities",
+    "concurrent_training",
+    "overtraining_recovery",
+    "sleep_recovery",
+    "injury_prevention_general",
+    "easy_recovery_running",
+]
 _INJURY_RISK_CATEGORIES = ["training_load_acwr", "injury_prevention_general"]
 _RACE_READINESS_CATEGORIES = ["taper_science", "race_prediction", "periodisation"]
 _RUN_ANALYSIS_CATEGORIES = ["training_zones_systems", "polarized_training"]
@@ -131,14 +146,14 @@ in the safety notes.
 Provide a day-by-day plan for the upcoming week:
 
 For each day:
-- **Session type** (easy run, tempo, intervals, long run, rest, cross-train)
-- **Distance** (km)
-- **Target pace/effort** (zone or pace range)
+- **Session type** (easy run, tempo, intervals, long run, strength, mobility/foam rolling, cross-train, rest)
+- For running sessions: **Distance** (miles), **Target pace/effort** (zone or pace range)
+- For strength/mobility sessions: **Duration** (minutes), **Focus area** (e.g. lower body, Achilles rehab, hip mobility)
 - **Purpose** (why this session, what it develops)
 
 End with:
-- **Weekly total** (km)
-- **Intensity distribution** (% easy / % moderate / % hard)
+- **Weekly running total** (miles)
+- **Intensity distribution** (% easy / % moderate / % hard — running sessions only)
 - **Key session of the week** and why it matters
 - **Safety notes**: Any concerns about the athlete's current training load, condition, or recovery needs
 """
