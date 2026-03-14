@@ -328,6 +328,25 @@ def _build_context() -> str:
     try:
         profile = get_athlete_profile(db)
         if profile:
+            # Convert km-based fields to miles for display
+            pace_km = profile.get("typical_easy_pace_min_per_km")
+            if pace_km:
+                pace_mi = pace_km * 1.60934
+                mins = int(pace_mi)
+                secs = int((pace_mi - mins) * 60)
+                profile["typical_easy_pace_per_mile"] = f"{mins}:{secs:02d}"
+            weekly_km = profile.get("current_weekly_km")
+            if weekly_km:
+                profile["current_weekly_miles"] = round(weekly_km / 1.60934, 1)
+            typical_km = profile.get("typical_weekly_km")
+            if typical_km:
+                profile["typical_weekly_miles"] = round(typical_km / 1.60934, 1)
+            long_km = profile.get("typical_long_run_km")
+            if long_km:
+                profile["typical_long_run_miles"] = round(long_km / 1.60934, 1)
+            max_km = profile.get("max_weekly_km_ever")
+            if max_km:
+                profile["max_weekly_miles_ever"] = round(max_km / 1.60934, 1)
             sections.append(
                 f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}"
             )
@@ -504,9 +523,13 @@ def chat():
             len(plan.get("sessions", [])),
         )
         store["pending_plan"] = plan
-        # Strip the JSON block and replace with a readable table
+        # Strip the JSON block (fenced or bare) and replace with a readable table
         display_reply = re.sub(
             r"```json\s*\n\{.*?\}\s*\n```", "", reply, flags=re.DOTALL
+        )
+        # Also strip bare JSON blocks containing week_starting
+        display_reply = re.sub(
+            r"\{\s*\n\s*\"week_starting\".*?\n\}", "", display_reply, flags=re.DOTALL
         ).strip()
         # Build a markdown table of the plan
         plan_table = (
@@ -523,8 +546,8 @@ def chat():
             display_reply = "Here's your weekly plan."
         display_reply += plan_table
         store["messages"].append({"role": "assistant", "content": display_reply})
-
-    store["messages"].append({"role": "assistant", "content": reply})
+    else:
+        store["messages"].append({"role": "assistant", "content": reply})
 
     return Response(status=302, headers={"Location": "/"})
 
