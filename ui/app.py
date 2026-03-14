@@ -125,6 +125,17 @@ button:hover { background: #3a8eef; }
 {% endif %}
 {% endfor %}
 </div>
+{% if has_pending_plan %}
+<div style="background:#1e2e3e; border:1px solid #4a9eff; padding:8px 12px; border-radius:4px; margin-bottom:12px; display:flex; gap:8px; align-items:center;">
+<span style="color:#4a9eff;">Plan ready to schedule.</span>
+<form method="POST" action="/review-plan" style="display:inline; margin:0;">
+<button type="submit" style="background:#4a9eff; color:#fff; border:none; border-radius:4px; padding:6px 16px; cursor:pointer; font-family:monospace;">Schedule</button>
+</form>
+<form method="POST" action="/cancel-plan" style="display:inline; margin:0;">
+<button type="submit" style="background:#555; color:#e0e0e0; border:none; border-radius:4px; padding:6px 16px; cursor:pointer; font-family:monospace;">Discard</button>
+</form>
+</div>
+{% endif %}
 <div class="spinner" id="spinner">Thinking...</div>
 <form method="POST" action="/chat" id="chat-form">
 <textarea name="message" placeholder="Type a message..." autofocus></textarea>
@@ -302,7 +313,8 @@ can schedule it to Garmin. Use this exact schema inside a ```json code fence:
 ```
 
 Include every day of the week (rest days use workout_type "rest"). \
-The user will review and confirm before anything is scheduled. \
+The user will review the plan in chat and may ask for changes — output a revised \
+JSON block each time. Nothing is scheduled until the user explicitly clicks Schedule. \
 Do NOT call Garmin tools directly — the app handles scheduling after confirmation. \
 You may include coaching commentary before or after the JSON block.
 """
@@ -427,8 +439,12 @@ def index():
         context_status = f"Context loaded: {', '.join(parts)}"
     else:
         context_status = None
+    has_pending_plan = "pending_plan" in store
     return render_template_string(
-        HTML, messages=messages, context_status=context_status
+        HTML,
+        messages=messages,
+        context_status=context_status,
+        has_pending_plan=has_pending_plan,
     )
 
 
@@ -488,14 +504,25 @@ def chat():
             len(plan.get("sessions", [])),
         )
         store["pending_plan"] = plan
-        # Strip the JSON block from the displayed message so user only sees commentary
+        # Strip the JSON block and replace with a readable table
         display_reply = re.sub(
             r"```json\s*\n\{.*?\}\s*\n```", "", reply, flags=re.DOTALL
         ).strip()
+        # Build a markdown table of the plan
+        plan_table = (
+            f"\n\n**Proposed plan — week of {plan.get('week_starting', '?')}:**\n\n"
+        )
+        plan_table += "| Date | Session | Type | Duration |\n|------|---------|------|----------|\n"
+        for s in plan.get("sessions", []):
+            plan_table += (
+                f"| {s.get('date', '')} | {s.get('name', '')} "
+                f"| {s.get('workout_type', '')} | {s.get('duration_minutes', '')}min |\n"
+            )
+        plan_table += "\nSuggest changes, or click **Schedule** when ready."
         if not display_reply:
-            display_reply = "Here's your weekly plan — review and confirm below."
+            display_reply = "Here's your weekly plan."
+        display_reply += plan_table
         store["messages"].append({"role": "assistant", "content": display_reply})
-        return Response(status=302, headers={"Location": "/review-plan"})
 
     store["messages"].append({"role": "assistant", "content": reply})
 
@@ -690,7 +717,7 @@ def sync():
     return Response(status=302, headers={"Location": "/"})
 
 
-@app.route("/review-plan")
+@app.route("/review-plan", methods=["GET", "POST"])
 def review_plan():
     store = _get_store()
     plan = store.get("pending_plan")
