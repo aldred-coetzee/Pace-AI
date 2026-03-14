@@ -2,15 +2,31 @@
 
 ## Architecture
 
-Five MCP servers in one monorepo:
+Five MCP servers + a Flask UI in one monorepo:
 
-1. **strava-mcp** (`localhost:8001`) — Generic Strava data access. OAuth, activities, streams, stats.
-2. **pace-ai** (`localhost:8002`) — Running coach intelligence. Goals, analysis (ACWR/VDOT/zones), coaching prompts, methodology resources.
-3. **garmin-mcp** (`localhost:8003`) — Garmin Connect workout management. Create, schedule, and sync structured workouts to Garmin watches.
+### MCP Servers
+
+1. **strava-mcp** (`localhost:8001`) — Generic Strava data access. OAuth, activities, streams, stats. 12 tools.
+2. **pace-ai** (`localhost:8002`) — Running coach intelligence. Goals, analysis (ACWR/VDOT/zones), coaching prompts, methodology resources. 43 tools.
+3. **garmin-mcp** (`localhost:8003`) — Garmin Connect workout management. Create, schedule, and sync structured workouts to Garmin watches. 17 tools.
 4. **withings-mcp** (`localhost:8004`) — Withings body composition and health metrics. Weight, body fat, blood pressure.
 5. **notion-mcp** (`localhost:8005`) — Notion running diary. Stress, niggles, and notes cached to SQLite.
 
 Claude orchestrates between them: pulls data from strava-mcp, withings-mcp, and notion-mcp, reasons using pace-ai's coaching framework, pushes workouts via garmin-mcp.
+
+### Flask UI (`ui/app.py`)
+
+A coaching chat interface on `localhost:5050`. Uses a **5-agent pattern** — each coaching interaction is broken into focused `claude -p` subprocess calls:
+
+1. **STATUS** — Gathers athlete data (training load, recent runs, wellness, body composition, diary) and produces a status report. Cached per session.
+2. **PLAN** — Takes the status snapshot + date range and generates a structured training plan as JSON. Cites coaching research.
+3. **CHAT** — Lightweight conversational agent for follow-up questions. Gets status + pending plan as context.
+4. **EXERCISE** — Enriches strength/mobility sessions in a plan with structured exercise arrays (for Garmin workout sync).
+5. **END SESSION** — Summarises the session, logs coaching notes, and updates the coaching context for next time.
+
+**Hard boundary:** Flask owns all deterministic operations (data sync, DB writes, session management, Garmin scheduling, coaching log persistence). Claude handles only reasoning and natural language generation. No MCP tool calls from the UI — all data is gathered by Flask and injected into system prompts.
+
+**UI tests are intentionally deferred** — the UI is in active development and the interface is changing frequently.
 
 ## Development Commands
 
@@ -22,17 +38,20 @@ cd garmin-mcp && pip install -e .
 cd withings-mcp && pip install -e .
 cd notion-mcp && pip install -e .
 
-# Run servers
+# Run MCP servers
 strava-mcp          # starts on localhost:8001
 pace-ai             # starts on localhost:8002
 garmin-mcp          # starts on localhost:8003
 withings-mcp        # starts on localhost:8004
 notion-mcp          # starts on localhost:8005
 
+# Run UI
+python ui/app.py    # starts on localhost:5050
+
 # Auth (garmin-mcp requires one-time login)
 garmin-mcp-login    # interactive Garmin Connect SSO
 
-# Tests
+# Tests (793 total)
 cd strava-mcp && python -m pytest tests/           # all strava-mcp tests
 cd pace-ai && python -m pytest tests/              # all pace-ai tests
 cd garmin-mcp && python -m pytest tests/           # all garmin-mcp tests
@@ -132,25 +151,37 @@ Every module must have tests. Specifically:
 
 | Path | Purpose |
 |------|---------|
-| `strava-mcp/src/strava_mcp/server.py` | MCP server entry point (7 tools, 2 resources) |
+| **UI** | |
+| `ui/app.py` | Flask coaching UI (5-agent pattern, ~2200 lines, localhost:5050) |
+| **strava-mcp** | |
+| `strava-mcp/src/strava_mcp/server.py` | MCP server entry point (12 tools, 2 resources) |
 | `strava-mcp/src/strava_mcp/client.py` | Strava API wrapper with token refresh |
 | `strava-mcp/src/strava_mcp/auth.py` | OAuth2 flow + token storage |
 | `strava-mcp/tests/e2e/test_server_startup.py` | E2E: boots server, verifies HTTP response |
-| `pace-ai/src/pace_ai/server.py` | MCP server entry point (7 tools, 4 prompts, 2 resources) |
+| **pace-ai** | |
+| `pace-ai/src/pace_ai/server.py` | MCP server entry point (43 tools) |
+| `pace-ai/src/pace_ai/database.py` | SQLite: goals, athlete profile, history, coaching log, sessions |
 | `pace-ai/src/pace_ai/tools/analysis.py` | ACWR, VDOT, Riegel, training zones |
 | `pace-ai/src/pace_ai/tools/goals.py` | Goal CRUD operations |
+| `pace-ai/src/pace_ai/tools/memory.py` | Coaching context, athlete facts, coaching log |
+| `pace-ai/src/pace_ai/tools/history.py` | Activity history queries, weekly distances |
+| `pace-ai/src/pace_ai/tools/profile.py` | Athlete profile management |
+| `pace-ai/src/pace_ai/tools/sync.py` | Data sync orchestration (Strava, Garmin, Withings, Notion) |
 | `pace-ai/src/pace_ai/prompts/coaching.py` | Coaching prompt templates |
 | `pace-ai/src/pace_ai/resources/methodology.py` | Running science knowledge base |
 | `pace-ai/tests/e2e/test_server_startup.py` | E2E: boots server, verifies HTTP response |
-| `garmin-mcp/src/garmin_mcp/server.py` | MCP server entry point (7 tools, 1 resource) |
+| **garmin-mcp** | |
+| `garmin-mcp/src/garmin_mcp/server.py` | MCP server entry point (17 tools, 1 resource) |
 | `garmin-mcp/src/garmin_mcp/client.py` | Garmin Connect API wrapper via garminconnect + garth |
 | `garmin-mcp/src/garmin_mcp/auth.py` | Garth SSO auth + login_cli entry point |
 | `garmin-mcp/src/garmin_mcp/workout_builder.py` | Pure functions: description → Garmin workout JSON |
 | `garmin-mcp/tests/e2e/test_server_startup.py` | E2E: boots server, verifies HTTP response |
+| **withings-mcp** | |
 | `withings-mcp/src/withings_mcp/server.py` | MCP server entry point (5 tools, 1 resource) |
 | `withings-mcp/src/withings_mcp/client.py` | Withings API wrapper with token refresh |
 | `withings-mcp/src/withings_mcp/auth.py` | OAuth2 flow + token storage |
 | `withings-mcp/tests/e2e/test_server_startup.py` | E2E: boots server, verifies HTTP response |
+| **notion-mcp** | |
 | `notion-mcp/src/notion_mcp/server.py` | MCP server entry point (1 tool, 1 resource) |
 | `notion-mcp/src/notion_mcp/client.py` | Notion API client + page parser |
 | `notion-mcp/src/notion_mcp/cache.py` | SQLite diary entry cache |
