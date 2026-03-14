@@ -1069,6 +1069,56 @@ def chat():
     # Check if the response contains a weekly plan for confirmation
     plan = _extract_weekly_plan(reply)
     if plan:
+        # Validate: strength/mobility sessions must have exercises array
+        needs_exercises = [
+            s
+            for s in plan.get("sessions", [])
+            if s.get("workout_type") in ("strength", "mobility", "yoga")
+            and not s.get("exercises")
+        ]
+        if needs_exercises:
+            log.info(
+                "Plan missing exercises array for %d sessions — requesting correction",
+                len(needs_exercises),
+            )
+            correction = (
+                "Your plan JSON is missing the required exercises array for these sessions: "
+                + ", ".join(f"{s['date']} {s['name']}" for s in needs_exercises)
+                + ". Reoutput the COMPLETE plan JSON with exercises arrays included. "
+                'Each exercise needs {"name": "...", "sets": N, "reps": N} or '
+                '{"name": "...", "duration_s": N}. Include foam rolling exercises. '
+                "Output ONLY the corrected JSON block, no commentary."
+            )
+            try:
+                retry_cmd = list(CLAUDE_CMD)
+                if context:
+                    retry_cmd.extend(["--system-prompt", context])
+                retry_result = subprocess.run(
+                    retry_cmd,
+                    input=correction,
+                    capture_output=True,
+                    text=True,
+                    timeout=120,
+                    cwd=str(PROJECT_ROOT),
+                )
+                retry_plan = _extract_weekly_plan(retry_result.stdout.strip())
+                if retry_plan and retry_plan.get("sessions"):
+                    # Check if the retry actually has exercises
+                    retry_has = any(
+                        s.get("exercises")
+                        for s in retry_plan.get("sessions", [])
+                        if s.get("workout_type") in ("strength", "mobility", "yoga")
+                    )
+                    if retry_has:
+                        log.info("Correction succeeded — exercises array populated")
+                        plan = retry_plan
+                    else:
+                        log.warning(
+                            "Correction still missing exercises — using original"
+                        )
+            except Exception:
+                log.exception("Correction request failed — using original plan")
+
         log.info(
             "Detected weekly plan: %s, %d sessions",
             plan.get("week_starting"),
