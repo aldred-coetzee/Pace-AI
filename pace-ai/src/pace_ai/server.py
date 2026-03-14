@@ -621,7 +621,7 @@ async def add_athlete_fact(category: str, fact: str, source_log_id: int | None =
     training responses, goals, preferences.
 
     Args:
-        category: One of 'injury', 'training_response', 'goal', 'preference', 'other'.
+        category: One of 'injury', 'training_response', 'goal', 'preference', 'nutrition', 'other'.
         fact: Plain text description.
         source_log_id: Optional coaching_log id this fact came from.
     """
@@ -638,7 +638,7 @@ async def get_athlete_facts(category: str | None = None) -> list[dict]:
     Call at session start for permanent context about the athlete.
 
     Args:
-        category: Optional filter — 'injury', 'training_response', 'goal', 'preference', 'other'.
+        category: Optional filter — 'injury', 'training_response', 'goal', 'preference', 'nutrition', 'other'.
     """
     try:
         return memory_mod.get_athlete_facts(history_db, category)

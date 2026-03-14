@@ -21,7 +21,7 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from pace_ai.database import HistoryDB
 
-_VALID_CATEGORIES = {"injury", "training_response", "goal", "preference", "other"}
+_VALID_CATEGORIES = {"injury", "training_response", "goal", "preference", "nutrition", "other"}
 _MAX_CONTEXT_WORDS = 2000
 
 
@@ -100,7 +100,7 @@ def add_athlete_fact(db: HistoryDB, category: str, fact: str, source_log_id: int
 
     Args:
         db: HistoryDB instance.
-        category: One of 'injury', 'training_response', 'goal', 'preference', 'other'.
+        category: One of 'injury', 'training_response', 'goal', 'preference', 'nutrition', 'other'.
         fact: Plain text description of the fact.
         source_log_id: Optional coaching_log id this fact came from.
 
@@ -122,7 +122,7 @@ def get_athlete_facts(db: HistoryDB, category: str | None = None) -> list[dict[s
 
     Args:
         db: HistoryDB instance.
-        category: Optional filter — one of 'injury', 'training_response', 'goal', 'preference', 'other'.
+        category: Optional filter — one of 'injury', 'training_response', 'goal', 'preference', 'nutrition', 'other'.
     """
     if category and category not in _VALID_CATEGORIES:
         msg = f"Invalid category '{category}'. Must be one of: {sorted(_VALID_CATEGORIES)}"
