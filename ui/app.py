@@ -949,6 +949,17 @@ def _build_context() -> str:
     except Exception:
         log.exception("Failed to load coaching log")
 
+    # Critical reminder at the END of the prompt (recency bias ensures compliance)
+    sections.append(
+        "## CRITICAL REMINDERS\n"
+        "1. Saturday = LONG RUN day. Never put strength or rest on Saturday.\n"
+        "2. Strength/mobility sessions in the plan JSON MUST include an exercises array. "
+        'Example: {"exercises": [{"name": "Heel drops", "sets": 3, "reps": 15}, '
+        '{"name": "Foam roll calves", "duration_s": 60}]}. '
+        "This drives the watch workout steps. Without it, the athlete has no guidance on their watch.\n"
+        "3. All paces in minutes per mile."
+    )
+
     return "\n\n".join(sections) if sections else ""
 
 
@@ -1082,12 +1093,14 @@ def chat():
                 len(needs_exercises),
             )
             correction = (
-                "Your plan JSON is missing the required exercises array for these sessions: "
+                "Here is the plan you just created:\n\n"
+                + json.dumps(plan, indent=2)
+                + "\n\nThe exercises array is MISSING from these sessions: "
                 + ", ".join(f"{s['date']} {s['name']}" for s in needs_exercises)
-                + ". Reoutput the COMPLETE plan JSON with exercises arrays included. "
-                'Each exercise needs {"name": "...", "sets": N, "reps": N} or '
-                '{"name": "...", "duration_s": N}. Include foam rolling exercises. '
-                "Output ONLY the corrected JSON block, no commentary."
+                + ".\n\nAdd an exercises array to each strength/mobility session. "
+                'Each exercise: {"name": "...", "sets": N, "reps": N} or '
+                '{"name": "...", "duration_s": N}. Include foam rolling.\n'
+                "Output ONLY the corrected complete JSON, no commentary."
             )
             try:
                 retry_cmd = list(CLAUDE_CMD)
