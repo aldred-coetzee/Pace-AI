@@ -88,12 +88,18 @@ h1 { font-size: 1.2em; color: #aaa; }
 .assistant h2, .assistant h3 { margin: 12px 0 6px; }
 .assistant hr { border: none; border-top: 1px solid #444; margin: 12px 0; }
 .ctx-banner { background: #1e2e1e; border: 1px solid #3a5a3a; padding: 6px 12px; border-radius: 4px; margin-bottom: 12px; font-size: 0.85em; color: #8a8; }
+.session-bar { background: #222; padding: 4px 12px; border-radius: 4px; margin-bottom: 8px; font-size: 0.8em; color: #666; display: flex; justify-content: space-between; }
+.session-bar .warn { color: #e8a; }
+.session-bar .crit { color: #e66; }
 form { display: flex; gap: 8px; }
 textarea { flex: 1; padding: 8px; font-family: monospace; font-size: 14px; background: #222; color: #e0e0e0; border: 1px solid #444; border-radius: 4px; resize: vertical; min-height: 60px; }
 button { padding: 8px 20px; background: #4a9eff; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-family: monospace; }
 button:hover { background: #3a8eef; }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
 .end-btn { background: #b44; font-size: 0.85em; padding: 4px 12px; }
 .end-btn:hover { background: #c55; }
+.sync-btn { background: #2a8a4a; font-size: 0.85em; padding: 4px 12px; }
+.sync-btn:hover { background: #3a9a5a; }
 .clear-btn { background: #555; font-size: 0.85em; padding: 4px 12px; }
 .clear-btn:hover { background: #666; }
 .spinner { display: none; color: #888; margin: 10px 0; }
@@ -102,20 +108,31 @@ button:hover { background: #3a8eef; }
 </head>
 <body>
 <div class="controls">
-<h1>Pace-AI Chat (dev)</h1>
-<form method="POST" action="/end-session" style="display:inline;">
-<button type="submit" class="end-btn">End Session</button>
+<h1>Pace-AI Chat</h1>
+<form method="POST" action="/end-session" style="display:inline;" class="ctrl-form">
+<button type="submit" class="end-btn ctrl-btn">End Session</button>
 </form>
-<form method="POST" action="/sync" style="display:inline;">
-<button type="submit" class="clear-btn">Sync All</button>
+<form method="POST" action="/sync" style="display:inline;" class="ctrl-form" id="sync-form">
+<button type="submit" class="sync-btn ctrl-btn">Sync All</button>
 </form>
-<form method="POST" action="/clear" style="display:inline;">
-<button type="submit" class="clear-btn">Clear</button>
+<form method="POST" action="/clear" style="display:inline;" class="ctrl-form">
+<button type="submit" class="clear-btn ctrl-btn">Clear</button>
 </form>
 </div>
+{% if sync_status %}
+<div class="ctx-banner">{{ sync_status }}</div>
+{% endif %}
 {% if context_status %}
 <div class="ctx-banner">{{ context_status }}</div>
 {% endif %}
+<div class="session-bar">
+<span>Messages: {{ message_count }} | ~{{ session_tokens }}k tokens</span>
+{% if session_tokens > 80 %}
+<span class="crit">Session very large — consider ending and starting fresh</span>
+{% elif session_tokens > 40 %}
+<span class="warn">Session getting large — end session soon to preserve quality</span>
+{% endif %}
+</div>
 <div class="messages">
 {% for msg in messages %}
 {% if msg.role == 'user' %}
@@ -139,16 +156,27 @@ button:hover { background: #3a8eef; }
 <div class="spinner" id="spinner">Thinking...</div>
 <form method="POST" action="/chat" id="chat-form">
 <textarea name="message" placeholder="Type a message..." autofocus></textarea>
-<button type="submit">Send</button>
+<button type="submit" id="send-btn">Send</button>
 </form>
 <script>
 document.querySelectorAll('.md-content').forEach(function(el) {
     el.innerHTML = marked.parse(el.textContent);
 });
+function disableAll() {
+    document.querySelectorAll('button').forEach(function(b) { b.disabled = true; });
+}
 document.getElementById('chat-form').addEventListener('submit', function() {
     document.getElementById('spinner').style.display = 'block';
-    document.querySelector('button[type=submit]').disabled = true;
+    disableAll();
 });
+document.querySelectorAll('.ctrl-form').forEach(function(f) {
+    f.addEventListener('submit', function() { disableAll(); });
+});
+document.getElementById('sync-form').addEventListener('submit', function() {
+    document.getElementById('spinner').textContent = 'Syncing...';
+    document.getElementById('spinner').style.display = 'block';
+});
+window.scrollTo(0, document.body.scrollHeight);
 </script>
 </body>
 </html>
@@ -577,11 +605,35 @@ def index():
     else:
         context_status = None
     has_pending_plan = "pending_plan" in store
+
+    # Estimate session token usage (~4 chars per token)
+    total_chars = sum(len(m.get("content", "")) for m in messages)
+    if ctx:
+        total_chars += len(ctx)
+    session_tokens = round(total_chars / 4000, 1)  # in thousands
+
+    # Last sync time
+    db = HistoryDB(DB_PATH)
+    sync_status = None
+    try:
+        syncs = db.get_sync_status()
+        if syncs:
+            latest = max(s.get("synced_at", "") for s in syncs if s.get("synced_at"))
+            if latest:
+                sync_status = f"Last sync: {latest[:16].replace('T', ' ')}"
+        if not sync_status:
+            sync_status = "Not synced yet — click Sync All to load your data"
+    except Exception:
+        pass
+
     return render_template_string(
         HTML,
         messages=messages,
         context_status=context_status,
         has_pending_plan=has_pending_plan,
+        message_count=len(messages),
+        session_tokens=session_tokens,
+        sync_status=sync_status,
     )
 
 
