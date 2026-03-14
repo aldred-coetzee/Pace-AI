@@ -1090,6 +1090,49 @@ def _build_status_context() -> str:
     except Exception:
         log.exception("Failed to load weekly distances")
 
+    # Scheduled workouts from Garmin calendar (today + next 9 days)
+    try:
+        from datetime import date, timedelta
+
+        from garmin_mcp.client import GarminClient
+        from garmin_mcp.config import Settings as GarminSettings
+
+        today = date.today()
+        cal_end = today + timedelta(days=9)
+        garmin_client = GarminClient(GarminSettings.from_env())
+        # Fetch calendar months covering the range
+        all_items: list[dict] = []
+        seen_months: set[tuple[int, int]] = set()
+        current = today
+        while current <= cal_end:
+            key = (current.year, current.month - 1)
+            if key not in seen_months:
+                seen_months.add(key)
+                data = garmin_client.get_calendar(current.year, current.month - 1)
+                items = data.get("calendarItems", []) if isinstance(data, dict) else []
+                all_items.extend(items)
+            current += timedelta(days=1)
+
+        today_str = today.isoformat()
+        end_str = cal_end.isoformat()
+        scheduled = [
+            item
+            for item in all_items
+            if item.get("date") and today_str <= item["date"] <= end_str
+        ]
+        if scheduled:
+            lines = []
+            for item in sorted(scheduled, key=lambda x: x.get("date", "")):
+                title = item.get("title", "?")
+                d = item.get("date", "?")
+                sport = item.get("sportTypeKey", "")
+                lines.append(
+                    f"- {d} | {title} ({sport})" if sport else f"- {d} | {title}"
+                )
+            sections.append("## Scheduled Workouts (next 10 days)\n" + "\n".join(lines))
+    except Exception:
+        log.exception("Failed to load Garmin calendar")
+
     try:
         wellness = db.get_wellness(days=14)
         if wellness:
