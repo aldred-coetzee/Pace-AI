@@ -257,8 +257,8 @@ def _extract_weekly_plan(text: str) -> dict | None:
     Looks for a JSON object with 'week_starting' and 'sessions' keys,
     either bare or inside markdown code fences.
     """
-    # Try to find JSON in code fences first
-    fence_match = re.search(r"```(?:json)?\s*\n(\{.*?\})\s*\n```", text, re.DOTALL)
+    # Try to find JSON in code fences first (greedy — capture full nested JSON)
+    fence_match = re.search(r"```(?:json)?\s*\n(\{.+\})\s*\n```", text, re.DOTALL)
     if fence_match:
         candidate = fence_match.group(1)
         try:
@@ -268,20 +268,55 @@ def _extract_weekly_plan(text: str) -> dict | None:
         except json.JSONDecodeError:
             pass
 
-    # Try to find bare JSON with week_starting
-    for match in re.finditer(
-        r"\{[^{}]*\"week_starting\"[^{}]*\"sessions\"[^{}]*\[.*?\]\s*\}",
-        text,
-        re.DOTALL,
-    ):
-        try:
-            data = json.loads(match.group(0))
-            if "week_starting" in data and "sessions" in data:
-                return data
-        except json.JSONDecodeError:
-            continue
+    # Try to find bare JSON by locating "week_starting" and finding the enclosing {}
+    if '"week_starting"' not in text:
+        return None
+    # Find all top-level { that could start a plan JSON
+    for match in re.finditer(r"\{", text):
+        start = match.start()
+        # Try progressively longer substrings to find valid JSON
+        depth = 0
+        for i in range(start, len(text)):
+            if text[i] == "{":
+                depth += 1
+            elif text[i] == "}":
+                depth -= 1
+                if depth == 0:
+                    candidate = text[start : i + 1]
+                    try:
+                        data = json.loads(candidate)
+                        if "week_starting" in data and "sessions" in data:
+                            return data
+                    except json.JSONDecodeError:
+                        pass
+                    break
 
     return None
+
+
+def _strip_plan_json(text: str) -> str:
+    """Remove bare JSON plan blocks (containing week_starting) from text."""
+    if '"week_starting"' not in text:
+        return text
+    result = text
+    for match in re.finditer(r"\{", text):
+        start = match.start()
+        depth = 0
+        for i in range(start, len(text)):
+            if text[i] == "{":
+                depth += 1
+            elif text[i] == "}":
+                depth -= 1
+                if depth == 0:
+                    candidate = text[start : i + 1]
+                    if '"week_starting"' in candidate and '"sessions"' in candidate:
+                        try:
+                            json.loads(candidate)
+                            result = result.replace(candidate, "")
+                        except json.JSONDecodeError:
+                            pass
+                    break
+    return result
 
 
 def _description_to_steps(description: str, duration_minutes: int | None) -> list[dict]:
@@ -390,9 +425,12 @@ can schedule it to Garmin. Use this exact schema inside a ```json code fence:
 }
 ```
 
-Include every day of the week, Monday through Sunday (rest days use workout_type "rest"). \
-When the athlete asks for "this week's plan" on a weekend, schedule for the upcoming \
-Monday–Sunday. week_starting should always be a Monday date. \
+week_starting is the date of the FIRST session in the plan. \
+Include an entry for every day in the requested range (rest days use workout_type "rest"). \
+The plan can span any number of days — it is NOT limited to 7. If the athlete asks for \
+a schedule covering 9 or 14 days, include all of them. \
+The sessions array MUST match the plan described in your coaching commentary exactly. \
+Every session you describe in text MUST appear in the JSON with the correct date. \
 The user will review the plan in chat and may ask for changes — output a revised \
 JSON block each time. Nothing is scheduled until the user explicitly clicks Schedule. \
 Do NOT call Garmin tools directly — the app handles scheduling after confirmation. \
@@ -605,12 +643,10 @@ def chat():
         store["pending_plan"] = plan
         # Strip the JSON block (fenced or bare) and replace with a readable table
         display_reply = re.sub(
-            r"```json\s*\n\{.*?\}\s*\n```", "", reply, flags=re.DOTALL
+            r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL
         )
-        # Also strip bare JSON blocks containing week_starting
-        display_reply = re.sub(
-            r"\{\s*\n\s*\"week_starting\".*?\n\}", "", display_reply, flags=re.DOTALL
-        ).strip()
+        # Also strip bare JSON blocks containing week_starting (match balanced braces)
+        display_reply = _strip_plan_json(display_reply).strip()
         # Build a markdown table of the plan
         plan_table = (
             f"\n\n**Proposed plan — week of {plan.get('week_starting', '?')}:**\n\n"
