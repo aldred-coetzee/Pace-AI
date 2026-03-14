@@ -26,7 +26,11 @@ def get_weekly_distances(
     Returns:
         List of dicts with week, week_start, distance_km, activity_count.
     """
-    return db.get_weekly_distances(weeks=weeks, sport_type=sport_type)
+    weeks_data = db.get_weekly_distances(weeks=weeks, sport_type=sport_type)
+    for w in weeks_data:
+        km = w.get("distance_km") or 0
+        w["distance_miles"] = round(km / 1.60934, 2) if km else None
+    return weeks_data
 
 
 def get_recent_activities(
@@ -34,7 +38,7 @@ def get_recent_activities(
     days: int = 28,
     sport_type: str | None = None,
 ) -> list[dict[str, Any]]:
-    """Return activities from the local store.
+    """Return activities from the local store with computed mile/pace fields.
 
     Much faster than a live API call to strava-mcp.
 
@@ -46,7 +50,21 @@ def get_recent_activities(
     Returns:
         List of activity dicts, most recent first.
     """
-    return db.get_activities(days=days, sport_type=sport_type)
+    activities = db.get_activities(days=days, sport_type=sport_type)
+    for a in activities:
+        dist_m = a.get("distance_m") or 0
+        speed = a.get("average_speed_ms") or 0
+        a["distance_miles"] = round(dist_m / 1609.34, 2) if dist_m else None
+        a["distance_km"] = round(dist_m / 1000, 2) if dist_m else None
+        if speed > 0:
+            pace_s_km = 1000 / speed
+            pace_s_mi = 1609.34 / speed
+            a["pace_min_per_km"] = f"{int(pace_s_km // 60)}:{int(pace_s_km % 60):02d}"
+            a["pace_min_per_mile"] = f"{int(pace_s_mi // 60)}:{int(pace_s_mi % 60):02d}"
+        else:
+            a["pace_min_per_km"] = None
+            a["pace_min_per_mile"] = None
+    return activities
 
 
 def get_recent_wellness(db: HistoryDB, days: int = 14) -> list[dict[str, Any]]:
