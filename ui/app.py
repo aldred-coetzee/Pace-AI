@@ -390,7 +390,9 @@ can schedule it to Garmin. Use this exact schema inside a ```json code fence:
 }
 ```
 
-Include every day of the week (rest days use workout_type "rest"). \
+Include every day of the week, Monday through Sunday (rest days use workout_type "rest"). \
+When the athlete asks for "this week's plan" on a weekend, schedule for the upcoming \
+Monday–Sunday. week_starting should always be a Monday date. \
 The user will review the plan in chat and may ask for changes — output a revised \
 JSON block each time. Nothing is scheduled until the user explicitly clicks Schedule. \
 Do NOT call Garmin tools directly — the app handles scheduling after confirmation. \
