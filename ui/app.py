@@ -530,15 +530,31 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
         if label not in labels:
             labels.append(label)
 
-    # Pattern 3: "calves 60s/side" or "foam roll quads 60 sec" (timed items)
+    # Pattern 3: timed items — "calves 60s/side", "foam roll quads 60 sec each"
     for m in re.finditer(
-        r"([a-zA-Z][\w\s\-]+?)\s+(\d+)\s*s(?:ec)?(?:/side)?(?:\.|,|$)", description
+        r"([a-zA-Z][\w\s\-]+?)\s+(\d+)\s*s(?:ec)?(?:\s+each|/side)?(?:\.|,|$)",
+        description,
     ):
         name, secs = m.group(1).strip(), m.group(2)
-        label = f"{name} ({secs}s)"
-        # Skip if already captured by sets/reps patterns
-        if not any(name.lower() in existing.lower() for existing in labels):
-            labels.append(label)
+        # Split compound items like "Foam roll calves and quads" into separate steps
+        if " and " in name:
+            prefix = ""
+            parts = name.split(" and ")
+            # Check if the first part has a prefix like "Foam roll"
+            words = parts[0].split()
+            if len(words) > 1 and not words[-1][0].isupper():
+                prefix = " ".join(words[:-1]) + " "
+                parts[0] = words[-1]
+            for part in parts:
+                part_label = f"{prefix}{part.strip()} ({secs}s)"
+                if not any(
+                    part.strip().lower() in existing.lower() for existing in labels
+                ):
+                    labels.append(part_label)
+        else:
+            label = f"{name} ({secs}s)"
+            if not any(name.lower() in existing.lower() for existing in labels):
+                labels.append(label)
 
     if not labels:
         step_seconds = (duration_minutes or 30) * 60
