@@ -656,6 +656,10 @@ All paces must be in **minutes per mile** (not per km). \
 Data fields like typical_easy_pace_min_per_km are stored in min/km — convert before displaying. \
 Distances in miles unless the athlete specifies otherwise.
 
+## Athlete Scheduling Preferences
+Saturday is ALWAYS a running day (the long run). Never schedule strength \
+or rest on Saturday. Structure the week around Saturday as the long run anchor.
+
 ## Evidence-Based Coaching (MANDATORY)
 Your coaching MUST be grounded in the research evidence provided in the \
 "Research Evidence" section below. When prescribing plans, exercises, or \
@@ -695,6 +699,10 @@ Each exercise must have "name" and either "sets"+"reps" or "duration_s". \
 This drives the workout steps on the watch — every exercise becomes a step. \
 Include foam rolling exercises in the array, not just in the description. \
 For easy_run and rest sessions, omit the exercises array.
+
+The description field MUST contain the full exercise details — sets, reps, duration, \
+and specific exercise names. Do NOT put a summary in description and detail in commentary. \
+The description is what appears on the athlete's watch and in Garmin Connect.
 
 week_starting is the date of the FIRST session in the plan. \
 Include an entry for every day in the requested range (rest days use workout_type "rest"). \
