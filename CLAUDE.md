@@ -2,7 +2,7 @@
 
 ## Architecture
 
-Five MCP servers + a Flask UI in one monorepo:
+Five MCP servers + a Flask UI package in one monorepo:
 
 ### MCP Servers
 
@@ -14,17 +14,36 @@ Five MCP servers + a Flask UI in one monorepo:
 
 Claude orchestrates between them: pulls data from strava-mcp, withings-mcp, and notion-mcp, reasons using pace-ai's coaching framework, pushes workouts via garmin-mcp.
 
-### Flask UI (`ui/app.py`)
+### Flask UI (`ui/` package)
 
-A coaching chat interface on `localhost:5050`. Uses a **5-agent pattern** — each coaching interaction is broken into focused `claude -p` subprocess calls:
+A coaching chat interface on `localhost:5050`. The `ui/` directory is a Python package split into focused modules:
+
+| Module | Purpose |
+|--------|---------|
+| `ui/app.py` | Flask app setup, routes only (thin orchestration) |
+| `ui/config.py` | Shared constants (DB_PATH, PROJECT_ROOT, CLAUDE_CMD), system prompt strings, pace-ai/garmin imports |
+| `ui/templates.py` | HTML/CSS/JS template strings (HTML, END_SESSION_HTML, CONFIRM_PLAN_HTML, HISTORY_HTML) |
+| `ui/context.py` | All `_build_*_context` functions, `_get_relevant_claims`, `_build_profile_summary`, `_build_body_composition`, `_build_diary_section`, `_build_facts_section`, `_build_coaching_sections` |
+| `ui/plans.py` | `_extract_weekly_plan`, `_strip_plan_json`, `_enrich_plan_with_exercises`, `_format_plan_table`, `_default_date_range` |
+| `ui/sessions.py` | Session store: `_init_session_db`, `_load_session`, `_save_session`, `_delete_session`, `_get_store`, `_persist_store` |
+| `ui/scheduling.py` | Garmin workout scheduling: `_exercises_to_steps`, `_description_to_steps`, `schedule_plan_to_garmin` |
+
+Uses a **6-agent pattern** — each coaching interaction is a focused `claude -p` subprocess call:
 
 1. **STATUS** — Gathers athlete data (training load, recent runs, wellness, body composition, diary) and produces a status report. Cached per session.
 2. **PLAN** — Takes the status snapshot + date range and generates a structured training plan as JSON. Cites coaching research.
 3. **CHAT** — Lightweight conversational agent for follow-up questions. Gets status + pending plan as context.
 4. **EXERCISE** — Enriches strength/mobility sessions in a plan with structured exercise arrays (for Garmin workout sync).
-5. **END SESSION** — Summarises the session, logs coaching notes, and updates the coaching context for next time.
+5. **NUTRITION** — Sports nutrition advice in three modes: general (weekly principles), plan-paired (day-by-day for confirmed plan), race fueling (race-week strategy). Route: `/nutrition` with `mode` parameter (general, plan, race). Context built in `context.py`, queries nutrition-specific research claims.
+6. **END SESSION** — Summarises the session, logs coaching notes, and updates the coaching context for next time.
 
 **Hard boundary:** Flask owns all deterministic operations (data sync, DB writes, session management, Garmin scheduling, coaching log persistence). Claude handles only reasoning and natural language generation. No MCP tool calls from the UI — all data is gathered by Flask and injected into system prompts.
+
+### Athlete Facts — Nutrition Category
+
+The `athlete_facts` system supports a `nutrition` category for dietary preferences and restrictions. Examples: "omnivore", "caffeine sensitive", "prefers whole foods over supplements". The NUTRITION agent receives all facts where `category = 'nutrition'` and personalises advice accordingly.
+
+Valid categories: `injury`, `training_response`, `goal`, `preference`, `nutrition`, `other`.
 
 **UI tests are intentionally deferred** — the UI is in active development and the interface is changing frequently.
 
@@ -51,12 +70,12 @@ python ui/app.py    # starts on localhost:5050
 # Auth (garmin-mcp requires one-time login)
 garmin-mcp-login    # interactive Garmin Connect SSO
 
-# Tests (793 total)
-cd strava-mcp && python -m pytest tests/           # all strava-mcp tests
-cd pace-ai && python -m pytest tests/              # all pace-ai tests
-cd garmin-mcp && python -m pytest tests/           # all garmin-mcp tests
-cd withings-mcp && python -m pytest tests/         # all withings-mcp tests
-cd notion-mcp && python -m pytest tests/           # all notion-mcp tests
+# Tests (800 total)
+cd strava-mcp && python -m pytest tests/           # all strava-mcp tests (54)
+cd pace-ai && python -m pytest tests/              # all pace-ai tests (522)
+cd garmin-mcp && python -m pytest tests/           # all garmin-mcp tests (141)
+cd withings-mcp && python -m pytest tests/         # all withings-mcp tests (41)
+cd notion-mcp && python -m pytest tests/           # all notion-mcp tests (42)
 python -m pytest tests/unit/                       # unit tests only
 python -m pytest tests/integration/                # integration tests only
 python -m pytest tests/e2e/                        # e2e tests (server startup)
@@ -152,7 +171,13 @@ Every module must have tests. Specifically:
 | Path | Purpose |
 |------|---------|
 | **UI** | |
-| `ui/app.py` | Flask coaching UI (5-agent pattern, ~2200 lines, localhost:5050) |
+| `ui/app.py` | Flask routes — thin orchestration layer (localhost:5050) |
+| `ui/config.py` | Constants, paths, system prompts, pace-ai/garmin imports |
+| `ui/templates.py` | HTML/CSS/JS template strings |
+| `ui/context.py` | Context builders for all 6 agents (STATUS, PLAN, CHAT, NUTRITION, EXERCISE, END SESSION) |
+| `ui/plans.py` | Plan extraction, formatting, exercise enrichment |
+| `ui/sessions.py` | SQLite-backed server-side session store |
+| `ui/scheduling.py` | Garmin workout step builders and scheduling logic |
 | **strava-mcp** | |
 | `strava-mcp/src/strava_mcp/server.py` | MCP server entry point (12 tools, 2 resources) |
 | `strava-mcp/src/strava_mcp/client.py` | Strava API wrapper with token refresh |
@@ -163,7 +188,7 @@ Every module must have tests. Specifically:
 | `pace-ai/src/pace_ai/database.py` | SQLite: goals, athlete profile, history, coaching log, sessions |
 | `pace-ai/src/pace_ai/tools/analysis.py` | ACWR, VDOT, Riegel, training zones |
 | `pace-ai/src/pace_ai/tools/goals.py` | Goal CRUD operations |
-| `pace-ai/src/pace_ai/tools/memory.py` | Coaching context, athlete facts, coaching log |
+| `pace-ai/src/pace_ai/tools/memory.py` | Coaching context, athlete facts (incl. nutrition category), coaching log |
 | `pace-ai/src/pace_ai/tools/history.py` | Activity history queries, weekly distances |
 | `pace-ai/src/pace_ai/tools/profile.py` | Athlete profile management |
 | `pace-ai/src/pace_ai/tools/sync.py` | Data sync orchestration (Strava, Garmin, Withings, Notion) |
