@@ -408,28 +408,12 @@ Data fields like typical_easy_pace_min_per_km are stored in min/km — convert b
 Distances in miles unless the athlete specifies otherwise.
 
 ## Evidence-Based Coaching (MANDATORY)
-You MUST back your coaching advice with evidence from the research database. \
-Before prescribing any training plan, recovery protocol, or making coaching decisions, \
-call the pace-ai `get_coaching_claims` tool with relevant categories and population.
-
-Available research categories (use comma-separated for multiple):
-tendon_health, foam_rolling_mobility, return_to_running, strength_training_runners, \
-recovery_modalities, injury_prevention_general, injury_lower_leg, easy_recovery_running, \
-training_load_acwr, heart_rate_training, polarized_training, warmup_cooldown, \
-sleep_recovery, overtraining_recovery, periodisation, masters_running, \
-half_marathon_training, marathon_training, detraining, cross_training, \
-concurrent_training, body_composition, nutrition_general, hydration, \
-biomechanics_form, running_economy, vo2max_development, interval_training, \
-threshold_tempo, long_run_physiology, taper_science, mental_performance
-
-Select categories based on the athlete profile, injury history, goals, and \
-current training phase shown below. When prescribing mobility or recovery \
-sessions, query recovery_modalities and foam_rolling_mobility for evidence \
-on what to include. Use population "masters runners" for athletes over 40, \
-otherwise "recreational runners".
-
-Cite specific claims when they inform your recommendations. \
-If evidence contradicts common practice, follow the evidence.
+Your coaching MUST be grounded in the research evidence provided in the \
+"Research Evidence" section below. When prescribing plans, exercises, or \
+recovery protocols, cite the specific claims that support your recommendations. \
+If evidence contradicts common practice, follow the evidence. \
+Every mobility/recovery session MUST include foam rolling — the research \
+shows large effect sizes for ROM and recovery.
 """
 
 SCHEDULING_INSTRUCTION = """\
@@ -464,6 +448,114 @@ JSON block each time. Nothing is scheduled until the user explicitly clicks Sche
 Do NOT call Garmin tools directly — the app handles scheduling after confirmation. \
 You may include coaching commentary before or after the JSON block.
 """
+
+
+def _get_relevant_claims(
+    db: HistoryDB, profile: dict | None, facts: list[dict]
+) -> str | None:
+    """Derive relevant research categories from athlete profile/facts and query claims.
+
+    Returns a formatted section string, or None if no claims found.
+    """
+    from pace_ai.resources.claim_store import query_claims
+
+    categories: set[str] = set()
+
+    # Always include these for any runner
+    categories.add("foam_rolling_mobility")
+    categories.add("recovery_modalities")
+    categories.add("easy_recovery_running")
+    categories.add("strength_training_runners")
+    categories.add("warmup_cooldown")
+
+    # Derive from injury history
+    injury_text = ""
+    if profile:
+        injury_text = (profile.get("injury_history") or "").lower()
+    for f in facts:
+        if f.get("category") == "injury":
+            injury_text += " " + f.get("fact", "").lower()
+
+    if "achilles" in injury_text or "tendon" in injury_text:
+        categories.add("tendon_health")
+        categories.add("injury_lower_leg")
+    if "knee" in injury_text:
+        categories.add("injury_knee")
+    if "stress fracture" in injury_text:
+        categories.add("injury_stress_fracture")
+    if any(w in injury_text for w in ["return", "comeback", "break", "layoff"]):
+        categories.add("return_to_running")
+        categories.add("detraining")
+
+    # Derive from training phase / notes
+    notes = (profile.get("notes") or "").lower() if profile else ""
+    if "return" in notes or "comeback" in notes:
+        categories.add("return_to_running")
+        categories.add("detraining")
+
+    # Derive from goals
+    for f in facts:
+        if f.get("category") == "goal":
+            goal_text = f.get("fact", "").lower()
+            if "marathon" in goal_text and "half" not in goal_text:
+                categories.add("marathon_training")
+            if "half" in goal_text:
+                categories.add("half_marathon_training")
+            if "5k" in goal_text:
+                categories.add("5k_track_training")
+
+    # Age-based
+    population = "recreational runners"
+    if profile and profile.get("date_of_birth"):
+        from datetime import date, datetime
+
+        try:
+            dob = datetime.strptime(profile["date_of_birth"][:10], "%Y-%m-%d").date()
+            age = (date.today() - dob).days // 365
+            if age >= 40:
+                categories.add("masters_running")
+                population = "masters runners"
+        except (ValueError, TypeError):
+            pass
+
+    # Training load — always relevant
+    categories.add("training_load_acwr")
+    categories.add("injury_prevention_general")
+
+    # Query top claims per category (limit to keep prompt reasonable)
+    all_claims: list[dict] = []
+    for cat in sorted(categories):
+        claims = query_claims(cat, population, limit=5)
+        all_claims.extend(claims)
+
+    if not all_claims:
+        return None
+
+    # Deduplicate and sort by score
+    seen: set[str] = set()
+    unique: list[dict] = []
+    for c in sorted(all_claims, key=lambda x: x.get("score", 0), reverse=True):
+        text = c.get("text", "")
+        if text not in seen:
+            seen.add(text)
+            unique.append(c)
+
+    # Limit total to keep prompt reasonable (~60 claims max)
+    unique = unique[:60]
+
+    lines = [
+        f"Research evidence ({len(unique)} claims from {len(categories)} categories). "
+        "Base your coaching on these claims — cite them when relevant."
+    ]
+    current_cat = ""
+    for c in sorted(unique, key=lambda x: x.get("category", "")):
+        cat = c.get("category", "")
+        if cat != current_cat:
+            current_cat = cat
+            lines.append(f"\n**{cat}**:")
+        lines.append(f"- {c['text']}")
+
+    return "## Research Evidence\n" + "\n".join(lines)
 
 
 def _build_context() -> str:
@@ -553,6 +645,7 @@ def _build_context() -> str:
     except Exception:
         log.exception("Failed to load diary entries")
 
+    facts: list[dict] = []
     try:
         facts = get_athlete_facts(db)
         if facts:
@@ -560,6 +653,14 @@ def _build_context() -> str:
             sections.append("## Athlete Facts\n" + "\n".join(lines))
     except Exception:
         log.exception("Failed to load athlete facts")
+
+    # ── Evidence-based claims ────────────────────────────────────────
+    try:
+        claims_text = _get_relevant_claims(db, profile, facts if facts else [])
+        if claims_text:
+            sections.append(claims_text)
+    except Exception:
+        log.exception("Failed to load research claims")
 
     try:
         ctx = get_coaching_context(db)
