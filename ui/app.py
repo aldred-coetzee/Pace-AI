@@ -62,6 +62,15 @@ CLAUDE_CMD = [
     "claude",
     "-p",
     "--dangerously-skip-permissions",
+    "--output-format",
+    "stream-json",
+]
+
+# Non-streaming command for end-session summarisation
+CLAUDE_CMD_BATCH = [
+    "claude",
+    "-p",
+    "--dangerously-skip-permissions",
 ]
 
 HTML = """\
@@ -137,17 +146,79 @@ button:hover { background: #3a8eef; }
 </div>
 {% endif %}
 <div class="spinner" id="spinner">Thinking...</div>
-<form method="POST" action="/chat" id="chat-form">
-<textarea name="message" placeholder="Type a message..." autofocus></textarea>
+<div class="msg assistant" id="stream-msg" style="display:none;"><strong>coach:</strong> <div class="md-content" id="stream-content"></div></div>
+<form id="chat-form">
+<textarea name="message" placeholder="Type a message..." autofocus id="msg-input"></textarea>
 <button type="submit">Send</button>
 </form>
 <script>
 document.querySelectorAll('.md-content').forEach(function(el) {
     el.innerHTML = marked.parse(el.textContent);
 });
-document.getElementById('chat-form').addEventListener('submit', function() {
+document.getElementById('chat-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var input = document.getElementById('msg-input');
+    var message = input.value.trim();
+    if (!message) return;
+
+    // Show user message
+    var msgs = document.querySelector('.messages');
+    var userDiv = document.createElement('div');
+    userDiv.className = 'msg user';
+    userDiv.innerHTML = '<strong>you:</strong> ' + message.replace(/</g,'&lt;');
+    msgs.appendChild(userDiv);
+    input.value = '';
+
+    // Show spinner then stream container
     document.getElementById('spinner').style.display = 'block';
     document.querySelector('button[type=submit]').disabled = true;
+
+    var streamMsg = document.getElementById('stream-msg');
+    var streamContent = document.getElementById('stream-content');
+    streamContent.textContent = '';
+
+    try {
+        var resp = await fetch('/chat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'message=' + encodeURIComponent(message)
+        });
+        var reader = resp.body.getReader();
+        var decoder = new TextDecoder();
+        var fullText = '';
+        streamMsg.style.display = 'block';
+        document.getElementById('spinner').style.display = 'none';
+
+        while (true) {
+            var chunk = await reader.read();
+            if (chunk.done) break;
+            var text = decoder.decode(chunk.value, {stream: true});
+            // Parse SSE lines
+            var lines = text.split('\n');
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                if (line.startsWith('data: ')) {
+                    var data = line.slice(6);
+                    if (data === '[DONE]') continue;
+                    try {
+                        var parsed = JSON.parse(data);
+                        if (parsed.text) {
+                            fullText += parsed.text;
+                            streamContent.innerHTML = marked.parse(fullText);
+                        }
+                    } catch(ex) {}
+                }
+            }
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    } catch(ex) {
+        streamContent.textContent = '(error: ' + ex.message + ')';
+        streamMsg.style.display = 'block';
+        document.getElementById('spinner').style.display = 'none';
+    }
+
+    // Reload page to get final state (plan detection, session storage)
+    window.location.href = '/';
 });
 </script>
 </body>
@@ -559,75 +630,102 @@ def chat():
     if context:
         cmd.extend(["--system-prompt", context])
 
-    log.info("--- claude -p call ---")
-    log.info(
-        "cmd: %s", " ".join(cmd[:4]) + (" --system-prompt <...>" if context else "")
-    )
+    log.info("--- claude -p stream call ---")
     log.info("system prompt length: %d chars", len(context))
     log.info("user message: %r", user_message[:100])
 
-    try:
-        result = subprocess.run(
-            cmd,
-            input=user_message,
-            capture_output=True,
-            text=True,
-            timeout=120,
-            cwd=str(PROJECT_ROOT),
-        )
-        log.info("return code: %d", result.returncode)
-        log.info("stdout: %d bytes", len(result.stdout))
-        log.info(
-            "stderr: %d bytes | %s",
-            len(result.stderr),
-            result.stderr[:200] if result.stderr else "(empty)",
-        )
-        reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
-    except subprocess.TimeoutExpired:
-        log.exception("claude -p timed out")
-        reply = "(timeout — Claude took too long)"
-    except Exception as e:
-        log.exception("claude -p failed")
-        reply = f"(error: {e})"
+    # Capture the session ID so the finalizer can access the store
+    sid = session.get("sid")
 
-    log.info("reply length: %d chars", len(reply))
-
-    # Check if the response contains a weekly plan for confirmation
-    plan = _extract_weekly_plan(reply)
-    if plan:
-        log.info(
-            "Detected weekly plan: %s, %d sessions",
-            plan.get("week_starting"),
-            len(plan.get("sessions", [])),
-        )
-        store["pending_plan"] = plan
-        # Strip the JSON block (fenced or bare) and replace with a readable table
-        display_reply = re.sub(
-            r"```json\s*\n\{.*?\}\s*\n```", "", reply, flags=re.DOTALL
-        )
-        # Also strip bare JSON blocks containing week_starting
-        display_reply = re.sub(
-            r"\{\s*\n\s*\"week_starting\".*?\n\}", "", display_reply, flags=re.DOTALL
-        ).strip()
-        # Build a markdown table of the plan
-        plan_table = (
-            f"\n\n**Proposed plan — week of {plan.get('week_starting', '?')}:**\n\n"
-        )
-        plan_table += "| Date | Session | Type | Duration |\n|------|---------|------|----------|\n"
-        for s in plan.get("sessions", []):
-            plan_table += (
-                f"| {s.get('date', '')} | {s.get('name', '')} "
-                f"| {s.get('workout_type', '')} | {s.get('duration_minutes', '')}min |\n"
+    def generate():
+        full_text = ""
+        try:
+            proc = subprocess.Popen(
+                cmd,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                cwd=str(PROJECT_ROOT),
             )
-        plan_table += "\nSuggest changes, or click **Schedule** when ready."
-        if not display_reply:
-            display_reply = "Here's your weekly plan."
-        display_reply += plan_table
-        store["messages"].append({"role": "assistant", "content": display_reply})
-    else:
-        store["messages"].append({"role": "assistant", "content": reply})
+            proc.stdin.write(user_message)
+            proc.stdin.close()
 
-    return Response(status=302, headers={"Location": "/"})
+            for raw_line in proc.stdout:
+                line = raw_line.rstrip("\n")
+                if not line:
+                    continue
+                # stream-json emits one JSON object per line
+                try:
+                    chunk = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                # Extract text content from the stream
+                if chunk.get("type") == "content_block_delta":
+                    delta = chunk.get("delta", {})
+                    text = delta.get("text", "")
+                    if text:
+                        full_text += text
+                        yield f"data: {json.dumps({'text': text})}\n\n"
+                elif chunk.get("type") == "result":
+                    # Final result object — extract full text
+                    result_text = chunk.get("result", "")
+                    if result_text and not full_text:
+                        full_text = result_text
+                        yield f"data: {json.dumps({'text': result_text})}\n\n"
+
+            proc.wait(timeout=10)
+            stderr = proc.stderr.read()
+            if stderr:
+                log.info("stderr: %s", stderr[:200])
+
+        except Exception as e:
+            log.exception("claude -p stream failed")
+            if not full_text:
+                full_text = f"(error: {e})"
+                yield f"data: {json.dumps({'text': full_text})}\n\n"
+
+        # Finalize: plan detection and session storage
+        reply = full_text.strip() or "(no response)"
+        log.info("reply length: %d chars", len(reply))
+
+        if sid and sid in _sessions:
+            s = _sessions[sid]
+            plan = _extract_weekly_plan(reply)
+            if plan:
+                log.info(
+                    "Detected weekly plan: %s, %d sessions",
+                    plan.get("week_starting"),
+                    len(plan.get("sessions", [])),
+                )
+                s["pending_plan"] = plan
+                display_reply = re.sub(
+                    r"```json\s*\n\{.*?\}\s*\n```", "", reply, flags=re.DOTALL
+                )
+                display_reply = re.sub(
+                    r"\{\s*\n\s*\"week_starting\".*?\n\}",
+                    "",
+                    display_reply,
+                    flags=re.DOTALL,
+                ).strip()
+                plan_table = f"\n\n**Proposed plan — week of {plan.get('week_starting', '?')}:**\n\n"
+                plan_table += "| Date | Session | Type | Duration |\n|------|---------|------|----------|\n"
+                for sess in plan.get("sessions", []):
+                    plan_table += (
+                        f"| {sess.get('date', '')} | {sess.get('name', '')} "
+                        f"| {sess.get('workout_type', '')} | {sess.get('duration_minutes', '')}min |\n"
+                    )
+                plan_table += "\nSuggest changes, or click **Schedule** when ready."
+                if not display_reply:
+                    display_reply = "Here's your weekly plan."
+                display_reply += plan_table
+                s["messages"].append({"role": "assistant", "content": display_reply})
+            else:
+                s["messages"].append({"role": "assistant", "content": reply})
+
+        yield "data: [DONE]\n\n"
+
+    return Response(generate(), mimetype="text/event-stream")
 
 
 @app.route("/end-session", methods=["POST"])
@@ -688,7 +786,7 @@ def end_session():
 
     try:
         result = subprocess.run(
-            CLAUDE_CMD,
+            CLAUDE_CMD_BATCH,
             input=prompt,
             capture_output=True,
             text=True,
