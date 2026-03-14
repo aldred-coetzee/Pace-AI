@@ -343,6 +343,31 @@ COACHING_INSTRUCTION = """\
 All paces must be in **minutes per mile** (not per km). \
 Data fields like typical_easy_pace_min_per_km are stored in min/km — convert before displaying. \
 Distances in miles unless the athlete specifies otherwise.
+
+## Evidence-Based Coaching (MANDATORY)
+You MUST back your coaching advice with evidence from the research database. \
+Before prescribing any training plan, recovery protocol, or making coaching decisions, \
+call the pace-ai `get_coaching_claims` tool with relevant categories and population \
+"recreational runners" (or "masters runners" for age-specific advice).
+
+Available research categories (use comma-separated for multiple):
+tendon_health, foam_rolling_mobility, return_to_running, strength_training_runners, \
+recovery_modalities, injury_prevention_general, injury_lower_leg, easy_recovery_running, \
+training_load_acwr, heart_rate_training, polarized_training, warmup_cooldown, \
+sleep_recovery, overtraining_recovery, periodisation, masters_running, \
+half_marathon_training, marathon_training, detraining, cross_training, \
+concurrent_training, body_composition, nutrition_general, hydration, \
+biomechanics_form, running_economy, vo2max_development, interval_training, \
+threshold_tempo, long_run_physiology, taper_science, mental_performance
+
+For this athlete's current situation, always query at minimum:
+- tendon_health (active Achilles tendinopathy)
+- return_to_running (comeback after extended break)
+- foam_rolling_mobility (recovery and mobility sessions)
+- strength_training_runners (concurrent strength work)
+
+Cite specific claims when they inform your recommendations. \
+If evidence contradicts common practice, follow the evidence.
 """
 
 SCHEDULING_INSTRUCTION = """\
