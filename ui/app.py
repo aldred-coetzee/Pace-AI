@@ -186,10 +186,16 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .end-btn:hover { background: #c55; }
 .sync-btn { background: #2a8a4a; font-size: 0.85em; padding: 4px 12px; }
 .sync-btn:hover { background: #3a9a5a; }
+.status-btn { background: #3a7abf; font-size: 0.85em; padding: 4px 12px; }
+.status-btn:hover { background: #4a8acf; }
+.plan-btn { background: #7a4abf; font-size: 0.85em; padding: 4px 12px; }
+.plan-btn:hover { background: #8a5acf; }
 .clear-btn { background: #555; font-size: 0.85em; padding: 4px 12px; }
 .clear-btn:hover { background: #666; }
 .spinner { display: none; color: #888; margin: 10px 0; }
-.controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 4px; }
+.plan-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.plan-row input { padding: 4px 8px; font-family: monospace; font-size: 0.85em; background: #222; color: #e0e0e0; border: 1px solid #444; border-radius: 4px; width: 220px; }
 </style>
 </head>
 <body>
@@ -201,16 +207,25 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 <form method="POST" action="/sync" style="display:inline;" class="ctrl-form" id="sync-form">
 <button type="submit" class="sync-btn ctrl-btn">Sync All</button>
 </form>
+<form method="POST" action="/status" style="display:inline;" class="ctrl-form" id="status-form">
+<button type="submit" class="status-btn ctrl-btn">Status</button>
+</form>
 <form method="POST" action="/clear" style="display:inline;" class="ctrl-form">
 <button type="submit" class="clear-btn ctrl-btn">Clear</button>
 </form>
 <a href="/history" style="font-size:0.85em; padding:4px 12px; color:#888;">History</a>
 </div>
+<div class="plan-row">
+<form method="POST" action="/plan" style="display:inline; margin:0;" class="ctrl-form" id="plan-form">
+<input type="text" name="date_range" placeholder="{{ default_date_range }}" value="">
+<button type="submit" class="plan-btn ctrl-btn">Plan</button>
+</form>
+{% if status_cached %}
+<span style="font-size:0.8em; color:#8a8;">Status loaded ({{ status_age }})</span>
+{% endif %}
+</div>
 {% if sync_status %}
 <div class="ctx-banner">{{ sync_status }}</div>
-{% endif %}
-{% if context_status %}
-<div class="ctx-banner">{{ context_status }}</div>
 {% endif %}
 <div class="session-bar">
 <span>Messages: {{ message_count }} | ~{{ session_tokens }}k tokens</span>
@@ -262,6 +277,16 @@ document.querySelectorAll('.ctrl-form').forEach(function(f) {
 document.getElementById('sync-form').addEventListener('submit', function() {
     document.getElementById('spinner').textContent = 'Syncing...';
     document.getElementById('spinner').style.display = 'block';
+});
+document.getElementById('status-form').addEventListener('submit', function() {
+    document.getElementById('spinner').textContent = 'Checking status...';
+    document.getElementById('spinner').style.display = 'block';
+    disableAll();
+});
+document.getElementById('plan-form').addEventListener('submit', function() {
+    document.getElementById('spinner').textContent = 'Generating plan...';
+    document.getElementById('spinner').style.display = 'block';
+    disableAll();
 });
 window.scrollTo(0, document.body.scrollHeight);
 </script>
@@ -1305,23 +1330,50 @@ def _get_session_context() -> str:
     return ctx
 
 
+def _default_date_range() -> str:
+    """Return next Mon-Sun date range string."""
+    from datetime import date, timedelta
+
+    today = date.today()
+    days_ahead = (7 - today.weekday()) % 7
+    if days_ahead == 0:
+        days_ahead = 7
+    monday = today + timedelta(days=days_ahead)
+    sunday = monday + timedelta(days=6)
+    return f"{monday.isoformat()} to {sunday.isoformat()}"
+
+
 @app.route("/")
 def index():
     store = _get_store()
     messages = store.get("messages", [])
-    ctx = store.get("athlete_context")
-    if ctx:
-        parts = [s.split("\n")[0] for s in ctx.split("## ") if s.strip()]
-        context_status = f"Context loaded: {', '.join(parts)}"
-    else:
-        context_status = None
     has_pending_plan = "pending_plan" in store
 
     # Estimate session token usage (~4 chars per token)
     total_chars = sum(len(m.get("content", "")) for m in messages)
-    if ctx:
-        total_chars += len(ctx)
+    status_snapshot = store.get("status_snapshot")
+    if status_snapshot:
+        total_chars += len(status_snapshot)
     session_tokens = round(total_chars / 4000, 1)  # in thousands
+
+    # Status cache age
+    status_cached = False
+    status_age = ""
+    if store.get("status_generated_at"):
+        from datetime import datetime
+
+        status_cached = True
+        try:
+            gen_at = datetime.fromisoformat(store["status_generated_at"])
+            age_mins = int((datetime.now() - gen_at).total_seconds() / 60)
+            if age_mins < 1:
+                status_age = "just now"
+            elif age_mins < 60:
+                status_age = f"{age_mins}m ago"
+            else:
+                status_age = f"{age_mins // 60}h ago"
+        except (ValueError, TypeError):
+            status_age = "cached"
 
     # Last sync time
     db = HistoryDB(DB_PATH)
@@ -1340,11 +1392,13 @@ def index():
     return render_template_string(
         HTML,
         messages=messages,
-        context_status=context_status,
         has_pending_plan=has_pending_plan,
         message_count=len(messages),
         session_tokens=session_tokens,
         sync_status=sync_status,
+        status_cached=status_cached,
+        status_age=status_age,
+        default_date_range=_default_date_range(),
     )
 
 
@@ -1430,6 +1484,136 @@ def chat():
         store["messages"].append({"role": "assistant", "content": display_reply})
     else:
         store["messages"].append({"role": "assistant", "content": reply})
+
+    return Response(status=302, headers={"Location": "/"})
+
+
+@app.route("/status", methods=["POST"])
+def status():
+    from datetime import datetime
+
+    store = _get_store()
+    context = _build_status_context()
+
+    log.info("--- status claude -p call ---")
+    log.info("status context length: %d chars", len(context))
+
+    cmd = list(CLAUDE_CMD)
+    cmd.extend(["--system-prompt", context])
+
+    try:
+        result = subprocess.run(
+            cmd,
+            input="Assess my current training status.",
+            capture_output=True,
+            text=True,
+            timeout=120,
+            cwd=str(PROJECT_ROOT),
+        )
+        reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
+    except subprocess.TimeoutExpired:
+        log.exception("status claude -p timed out")
+        reply = "(timeout — Claude took too long)"
+    except Exception as e:
+        log.exception("status claude -p failed")
+        reply = f"(error: {e})"
+
+    store["status_snapshot"] = reply
+    store["status_generated_at"] = datetime.now().isoformat()
+    store["messages"].append({"role": "assistant", "content": reply, "agent": "status"})
+
+    return Response(status=302, headers={"Location": "/"})
+
+
+@app.route("/plan", methods=["POST"])
+def plan():
+    from datetime import datetime
+
+    store = _get_store()
+
+    date_range = request.form.get("date_range", "").strip()
+    if not date_range:
+        date_range = _default_date_range()
+
+    # Auto-generate status if not cached
+    if not store.get("status_snapshot"):
+        log.info("No status cached — auto-generating before plan")
+        status_context = _build_status_context()
+        cmd = list(CLAUDE_CMD)
+        cmd.extend(["--system-prompt", status_context])
+        try:
+            result = subprocess.run(
+                cmd,
+                input="Assess my current training status.",
+                capture_output=True,
+                text=True,
+                timeout=120,
+                cwd=str(PROJECT_ROOT),
+            )
+            status_reply = (
+                result.stdout.strip() or result.stderr.strip() or "(no status)"
+            )
+        except Exception as e:
+            log.exception("Auto-status for plan failed")
+            status_reply = f"(status unavailable: {e})"
+
+        store["status_snapshot"] = status_reply
+        store["status_generated_at"] = datetime.now().isoformat()
+        store["messages"].append(
+            {"role": "assistant", "content": status_reply, "agent": "status"}
+        )
+
+    # Build plan context and call
+    plan_context = _build_plan_context(store["status_snapshot"], date_range)
+
+    log.info("--- plan claude -p call ---")
+    log.info("plan context length: %d chars", len(plan_context))
+
+    cmd = list(CLAUDE_CMD)
+    cmd.extend(["--system-prompt", plan_context])
+
+    try:
+        result = subprocess.run(
+            cmd,
+            input=f"Create a training plan for {date_range}.",
+            capture_output=True,
+            text=True,
+            timeout=300,
+            cwd=str(PROJECT_ROOT),
+        )
+        reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
+    except subprocess.TimeoutExpired:
+        log.exception("plan claude -p timed out")
+        reply = "(timeout — Claude took too long)"
+    except Exception as e:
+        log.exception("plan claude -p failed")
+        reply = f"(error: {e})"
+
+    log.info("plan reply length: %d chars", len(reply))
+
+    # Extract plan JSON
+    extracted_plan = _extract_weekly_plan(reply)
+    if extracted_plan:
+        log.info(
+            "Detected weekly plan: %s, %d sessions",
+            extracted_plan.get("week_starting"),
+            len(extracted_plan.get("sessions", [])),
+        )
+        store["pending_plan"] = extracted_plan
+        display_reply = re.sub(
+            r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL
+        )
+        display_reply = _strip_plan_json(display_reply).strip()
+        if not display_reply:
+            display_reply = "Here's your weekly plan."
+        display_reply += _format_plan_table(extracted_plan)
+        store["messages"].append(
+            {"role": "assistant", "content": display_reply, "agent": "plan"}
+        )
+    else:
+        store["messages"].append(
+            {"role": "assistant", "content": reply, "agent": "plan"}
+        )
 
     return Response(status=302, headers={"Location": "/"})
 
@@ -1638,8 +1822,10 @@ def sync():
     store = _get_store()
     store["messages"].append({"role": "assistant", "content": summary})
 
-    # Invalidate cached context so next message picks up fresh data
+    # Invalidate cached context so next calls pick up fresh data
     store["athlete_context"] = None
+    store.pop("status_snapshot", None)
+    store.pop("status_generated_at", None)
 
     return Response(status=302, headers={"Location": "/"})
 
