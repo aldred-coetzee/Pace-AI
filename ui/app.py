@@ -6,13 +6,22 @@ import asyncio
 import json
 import re
 import subprocess
+from concurrent.futures import ThreadPoolExecutor
 
 from flask import Flask, Response, render_template_string, request, session
 
 from ui.config import (
     CLAUDE_CMD,
     DB_PATH,
+    NUTRITION_GENERAL_SECTIONS,
+    NUTRITION_PLAN_SECTIONS,
+    NUTRITION_RACE_SECTIONS,
+    PLAN_REPORT_SECTIONS,
     PROJECT_ROOT,
+    STATUS_INJURY_SECTIONS,
+    STATUS_READINESS_SECTIONS,
+    STATUS_RECOVERY_SECTIONS,
+    STATUS_TRAINING_SECTIONS,
     HistoryDB,
     _sync_all,
     append_coaching_log,
@@ -22,9 +31,15 @@ from ui.config import (
 )
 from ui.context import (
     _build_chat_context,
+    _build_injury_context,
     _build_nutrition_context,
     _build_plan_context,
-    _build_status_context,
+    _build_readiness_context,
+    _build_recovery_context,
+    _build_training_context,
+    _gather_status_data,
+    _render_body_comp_html,
+    _render_schedule_html,
 )
 from ui.plans import (
     _default_date_range,
@@ -224,39 +239,340 @@ def chat():
     return Response(status=302, headers={"Location": "/"})
 
 
-@app.route("/status", methods=["POST"])
-def status():
+def _render_structured_html(
+    raw: str,
+    sections: list[tuple],
+    *,
+    verdict_section: str | None = None,
+    title: str | None = None,
+    inject_before_verdict: str | None = None,
+) -> str:
+    """Parse structured JSON from Claude and render to styled section cards.
+
+    Args:
+        raw: Raw Claude output containing ```json fences.
+        sections: List of (key, title, has_status, content_hint) tuples.
+        verdict_section: Section key that has a verdict headline.
+        title: Optional date/title line shown above sections.
+        inject_before_verdict: Pre-rendered HTML to inject before the verdict section.
+
+    Falls back to raw markdown if JSON parsing fails.
+    """
+    m = re.search(r"```json\s*\n(.*?)\n\s*```", raw, re.DOTALL)
+    if not m:
+        return raw
+
+    try:
+        data = json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return raw
+
+    parts = ['<div class="status-report">']
+    if title:
+        parts.append(f'<div class="status-date">{title}</div>')
+
+    for key, display_title, has_status, _hint in sections:
+        # Inject pre-rendered sections before the verdict
+        if key == verdict_section and inject_before_verdict:
+            parts.append(inject_before_verdict)
+
+        section = data.get(key)
+        if not section:
+            continue
+
+        content = section.get("content", "")
+        status = section.get("status", "info") if has_status else "info"
+        css_class = (
+            f"status-{status}"
+            if status in ("ok", "caution", "concern")
+            else "status-info"
+        )
+
+        if key == verdict_section:
+            verdict = section.get("verdict", "")
+            parts.append(f'<div class="status-verdict {css_class}">')
+            parts.append(f'<div class="verdict-label">{verdict}</div>')
+            parts.append(
+                f'<div class="status-body"><div class="md-content">{content}</div></div>'
+            )
+            parts.append("</div>")
+        else:
+            parts.append(f'<div class="status-section {css_class}">')
+            parts.append('<div class="status-header">')
+            if has_status:
+                parts.append('<span class="status-dot"></span>')
+            parts.append(f'<span class="status-title">{display_title}</span>')
+            parts.append("</div>")
+            parts.append(
+                f'<div class="status-body"><div class="md-content">{content}</div></div>'
+            )
+            parts.append("</div>")
+
+    parts.append("</div>")
+    return "\n".join(parts)
+
+
+def _render_plan_table_html(sessions: list[dict], week_starting: str = "") -> str:
+    """Render sessions into a styled table card — no LLM needed.
+
+    Uses the same status-section structure as schedule/body-composition cards.
+    """
     from datetime import datetime
 
-    store = _get_store()
-    context = _build_status_context()
+    day_names = {0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun"}
 
-    log.info("--- status claude -p call ---")
-    log.info("status context length: %d chars", len(context))
+    rows = []
+    for s in sessions:
+        date_str = s.get("date", "")
+        try:
+            d = datetime.strptime(date_str, "%Y-%m-%d").date()
+            day = day_names[d.weekday()]
+            label = f"{day} {d.strftime('%-d %b')}"
+        except (ValueError, KeyError):
+            label = date_str
 
+        is_rest = s.get("workout_type") == "rest"
+        row_class = ' class="rest-row"' if is_rest else ""
+        name = s.get("name", "")
+        wtype = s.get("workout_type", "")
+        duration = s.get("duration_minutes", "")
+        duration_str = f"{duration}min" if duration else ""
+
+        if is_rest:
+            rows.append(
+                f"<tr{row_class}>"
+                f'<td>{label}</td><td colspan="3" style="color:var(--text-tertiary)">{name or "Rest"}</td>'
+                f"</tr>"
+            )
+        else:
+            rows.append(
+                f"<tr{row_class}>"
+                f"<td>{label}</td><td>{name}</td><td>{wtype}</td><td>{duration_str}</td>"
+                f"</tr>"
+            )
+
+    title_text = f"Week of {week_starting}" if week_starting else "Training Plan"
+    table_html = (
+        "<table><thead><tr><th>Date</th><th>Session</th><th>Type</th><th>Duration</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table>"
+    )
+
+    return (
+        '<div class="status-section status-info">'
+        '<div class="status-header">'
+        f'<span class="status-title">{title_text}</span>'
+        "</div>"
+        f'<div class="status-body">{table_html}</div>'
+        "</div>"
+    )
+
+
+def _call_claude_status(
+    context: str, prompt_text: str = "Assess my current training status."
+) -> str:
+    """Run a single claude -p subprocess call for a status sub-group.
+
+    Returns the raw stdout string. Handles timeouts and errors gracefully.
+    """
     cmd = list(CLAUDE_CMD)
     cmd.extend(["--system-prompt", context])
-
     try:
         result = subprocess.run(
             cmd,
-            input="Assess my current training status.",
+            input=prompt_text,
             capture_output=True,
             text=True,
             timeout=120,
             cwd=str(PROJECT_ROOT),
         )
-        reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
+        return result.stdout.strip() or result.stderr.strip() or "(no response)"
     except subprocess.TimeoutExpired:
         log.exception("status claude -p timed out")
-        reply = "(timeout — Claude took too long)"
+        return "(timeout — Claude took too long)"
     except Exception as e:
         log.exception("status claude -p failed")
-        reply = f"(error: {e})"
+        return f"(error: {e})"
 
-    store["status_snapshot"] = reply
+
+def _merge_status_html(
+    group_results: dict[str, str],
+    readiness_raw: str,
+    schedule_html: str,
+    body_comp_html: str,
+) -> str:
+    """Merge parallel Claude results + direct-rendered sections into final HTML.
+
+    Renders each group's JSON output into section cards, then assembles them
+    in the correct order with injected schedule and body composition cards.
+    """
+    from datetime import date
+
+    parts = ['<div class="status-report">']
+    parts.append(
+        f'<div class="status-date">{date.today().strftime("%A %-d %B %Y")}</div>'
+    )
+
+    # Group A: training_load + recent_runs
+    training_raw = group_results.get("training", "")
+    _render_group_sections(parts, training_raw, STATUS_TRAINING_SECTIONS)
+
+    # Group B: recovery
+    recovery_raw = group_results.get("recovery", "")
+    _render_group_sections(parts, recovery_raw, STATUS_RECOVERY_SECTIONS)
+
+    # Direct-rendered: body composition
+    parts.append(body_comp_html)
+
+    # Group C: injury_status
+    injury_raw = group_results.get("injury", "")
+    _render_group_sections(parts, injury_raw, STATUS_INJURY_SECTIONS)
+
+    # Direct-rendered: upcoming schedule
+    parts.append(schedule_html)
+
+    # Group D: overall_readiness (verdict)
+    _render_group_sections(
+        parts,
+        readiness_raw,
+        STATUS_READINESS_SECTIONS,
+        verdict_section="overall_readiness",
+    )
+
+    parts.append("</div>")
+    return "\n".join(parts)
+
+
+def _render_group_sections(
+    parts: list[str],
+    raw: str,
+    sections: list[tuple],
+    *,
+    verdict_section: str | None = None,
+) -> None:
+    """Parse JSON from a Claude group response and append section cards to parts list."""
+    m = re.search(r"```json\s*\n(.*?)\n\s*```", raw, re.DOTALL)
+    if not m:
+        # Fallback: show raw text if JSON parsing fails
+        if raw and not raw.startswith("("):
+            parts.append(
+                '<div class="status-section status-info">'
+                '<div class="status-header"><span class="status-title">Status</span></div>'
+                f'<div class="status-body"><div class="md-content">{raw}</div></div>'
+                "</div>"
+            )
+        return
+
+    try:
+        data = json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return
+
+    for key, display_title, has_status, _hint in sections:
+        section = data.get(key)
+        if not section:
+            continue
+
+        content = section.get("content", "")
+        status = section.get("status", "info") if has_status else "info"
+        css_class = (
+            f"status-{status}"
+            if status in ("ok", "caution", "concern")
+            else "status-info"
+        )
+
+        if key == verdict_section:
+            verdict = section.get("verdict", "")
+            parts.append(f'<div class="status-verdict {css_class}">')
+            parts.append(f'<div class="verdict-label">{verdict}</div>')
+            parts.append(
+                f'<div class="status-body"><div class="md-content">{content}</div></div>'
+            )
+            parts.append("</div>")
+        else:
+            parts.append(f'<div class="status-section {css_class}">')
+            parts.append('<div class="status-header">')
+            if has_status:
+                parts.append('<span class="status-dot"></span>')
+            parts.append(f'<span class="status-title">{display_title}</span>')
+            parts.append("</div>")
+            parts.append(
+                f'<div class="status-body"><div class="md-content">{content}</div></div>'
+            )
+            parts.append("</div>")
+
+
+@app.route("/status", methods=["POST"])
+def status():
+    from datetime import datetime
+
+    store = _get_store()
+
+    # 1. Gather all data upfront
+    db = HistoryDB(DB_PATH)
+    data = _gather_status_data(db)
+
+    # 2. Direct-render data-only sections
+    schedule_html = _render_schedule_html(data.get("schedule") or [])
+    body_comp_html = _render_body_comp_html(db)
+
+    # 3. Build focused contexts
+    training_ctx = _build_training_context(data)
+    recovery_ctx = _build_recovery_context(data)
+    injury_ctx = _build_injury_context(data)
+
+    log.info("--- status parallel claude -p calls ---")
+    log.info("training context: %d chars", len(training_ctx))
+    log.info("recovery context: %d chars", len(recovery_ctx))
+    log.info("injury context: %d chars", len(injury_ctx))
+
+    # 4. Run Groups A, B, C in parallel
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        futures = {
+            "training": pool.submit(
+                _call_claude_status,
+                training_ctx,
+                "Assess training load and recent runs.",
+            ),
+            "recovery": pool.submit(
+                _call_claude_status, recovery_ctx, "Assess recovery status."
+            ),
+            "injury": pool.submit(
+                _call_claude_status, injury_ctx, "Assess injury status."
+            ),
+        }
+        group_results = {k: f.result() for k, f in futures.items()}
+
+    log.info("training result: %d chars", len(group_results["training"]))
+    log.info("recovery result: %d chars", len(group_results["recovery"]))
+    log.info("injury result: %d chars", len(group_results["injury"]))
+
+    # 5. Build readiness context from results and call Claude
+    readiness_ctx = _build_readiness_context(data, group_results)
+    log.info("readiness context: %d chars", len(readiness_ctx))
+    readiness_raw = _call_claude_status(
+        readiness_ctx, "Give an overall readiness assessment."
+    )
+    log.info("readiness result: %d chars", len(readiness_raw))
+
+    # 6. Merge everything into final HTML
+    rendered = _merge_status_html(
+        group_results, readiness_raw, schedule_html, body_comp_html
+    )
+
+    # Build combined raw snapshot for PLAN and CHAT agents
+    snapshot_parts = []
+    for key in ("training", "recovery", "injury"):
+        if group_results.get(key):
+            snapshot_parts.append(group_results[key])
+    if readiness_raw:
+        snapshot_parts.append(readiness_raw)
+    status_snapshot = "\n\n".join(snapshot_parts)
+
+    store["status_snapshot"] = status_snapshot
     store["status_generated_at"] = datetime.now().isoformat()
-    store["messages"].append({"role": "assistant", "content": reply, "agent": "status"})
+    store["messages"].append(
+        {"role": "assistant", "content": rendered, "agent": "status"}
+    )
 
     return Response(status=302, headers={"Location": "/"})
 
@@ -273,32 +589,54 @@ def plan():
         date_from, date_to = _default_date_range()
     date_range = f"{date_from} to {date_to}"
 
-    # Auto-generate status if not cached
+    # Auto-generate status if not cached (using parallel approach)
     if not store.get("status_snapshot"):
-        log.info("No status cached — auto-generating before plan")
-        status_context = _build_status_context()
-        cmd = list(CLAUDE_CMD)
-        cmd.extend(["--system-prompt", status_context])
-        try:
-            result = subprocess.run(
-                cmd,
-                input="Assess my current training status.",
-                capture_output=True,
-                text=True,
-                timeout=120,
-                cwd=str(PROJECT_ROOT),
-            )
-            status_reply = (
-                result.stdout.strip() or result.stderr.strip() or "(no status)"
-            )
-        except Exception as e:
-            log.exception("Auto-status for plan failed")
-            status_reply = f"(status unavailable: {e})"
+        log.info("No status cached — auto-generating before plan (parallel)")
+        db = HistoryDB(DB_PATH)
+        status_data = _gather_status_data(db)
 
-        store["status_snapshot"] = status_reply
+        schedule_html = _render_schedule_html(status_data.get("schedule") or [])
+        body_comp_html = _render_body_comp_html(db)
+
+        training_ctx = _build_training_context(status_data)
+        recovery_ctx = _build_recovery_context(status_data)
+        injury_ctx = _build_injury_context(status_data)
+
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            futures = {
+                "training": pool.submit(
+                    _call_claude_status,
+                    training_ctx,
+                    "Assess training load and recent runs.",
+                ),
+                "recovery": pool.submit(
+                    _call_claude_status, recovery_ctx, "Assess recovery status."
+                ),
+                "injury": pool.submit(
+                    _call_claude_status, injury_ctx, "Assess injury status."
+                ),
+            }
+            auto_results = {k: f.result() for k, f in futures.items()}
+
+        readiness_ctx = _build_readiness_context(status_data, auto_results)
+        readiness_raw = _call_claude_status(
+            readiness_ctx, "Give an overall readiness assessment."
+        )
+
+        rendered_status = _merge_status_html(
+            auto_results, readiness_raw, schedule_html, body_comp_html
+        )
+
+        snapshot_parts = []
+        for key in ("training", "recovery", "injury"):
+            if auto_results.get(key):
+                snapshot_parts.append(auto_results[key])
+        if readiness_raw:
+            snapshot_parts.append(readiness_raw)
+        store["status_snapshot"] = "\n\n".join(snapshot_parts)
         store["status_generated_at"] = datetime.now().isoformat()
         store["messages"].append(
-            {"role": "assistant", "content": status_reply, "agent": "status"}
+            {"role": "assistant", "content": rendered_status, "agent": "status"}
         )
 
     # Build plan context and call
@@ -329,24 +667,51 @@ def plan():
 
     log.info("plan reply length: %d chars", len(reply))
 
-    # Extract plan JSON
+    # Extract plan JSON (may contain report sections + sessions)
     extracted_plan = _extract_weekly_plan(reply)
     if extracted_plan:
+        sessions = extracted_plan.get("sessions", [])
+        week_starting = extracted_plan.get("week_starting", "")
         log.info(
             "Detected weekly plan: %s, %d sessions",
-            extracted_plan.get("week_starting"),
-            len(extracted_plan.get("sessions", [])),
+            week_starting,
+            len(sessions),
         )
-        store["pending_plan"] = extracted_plan
-        display_reply = re.sub(
-            r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL
+
+        # Store sessions dict for scheduling (pending_plan needs week_starting + sessions)
+        store["pending_plan"] = {
+            "week_starting": week_starting,
+            "sessions": sessions,
+        }
+
+        # Render report sections via structured HTML + sessions table
+        plan_table_html = _render_plan_table_html(sessions, week_starting)
+        rendered = _render_structured_html(
+            reply,
+            PLAN_REPORT_SECTIONS,
+            title=f"Training Plan — {date_range}",
         )
-        display_reply = _strip_plan_json(display_reply).strip()
-        if not display_reply:
-            display_reply = "Here's your weekly plan."
-        display_reply += _format_plan_table(extracted_plan)
+
+        # If structured rendering succeeded (contains status-report div), append table
+        if '<div class="status-report">' in rendered:
+            # Insert table before closing </div> of status-report
+            rendered = rendered.rsplit("</div>", 1)[0] + plan_table_html + "\n</div>"
+        else:
+            # Fallback: structured parse failed, use raw text + table
+            display_reply = re.sub(
+                r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL
+            )
+            display_reply = _strip_plan_json(display_reply).strip()
+            if not display_reply:
+                display_reply = "Here's your weekly plan."
+            display_reply += _format_plan_table(extracted_plan)
+            store["messages"].append(
+                {"role": "assistant", "content": display_reply, "agent": "plan"}
+            )
+            return Response(status=302, headers={"Location": "/"})
+
         store["messages"].append(
-            {"role": "assistant", "content": display_reply, "agent": "plan"}
+            {"role": "assistant", "content": rendered, "agent": "plan"}
         )
     else:
         store["messages"].append(
@@ -688,8 +1053,23 @@ def nutrition():
 
     log.info("nutrition reply length: %d chars", len(reply))
 
+    mode_sections = {
+        "general": NUTRITION_GENERAL_SECTIONS,
+        "plan": NUTRITION_PLAN_SECTIONS,
+        "race": NUTRITION_RACE_SECTIONS,
+    }
+    mode_titles = {
+        "general": "Nutrition — General Principles",
+        "plan": "Nutrition — Training Plan",
+        "race": "Nutrition — Race Strategy",
+    }
+    rendered = _render_structured_html(
+        reply,
+        mode_sections.get(mode, NUTRITION_GENERAL_SECTIONS),
+        title=mode_titles.get(mode, "Nutrition"),
+    )
     store["messages"].append(
-        {"role": "assistant", "content": reply, "agent": "nutrition"}
+        {"role": "assistant", "content": rendered, "agent": "nutrition"}
     )
 
     return Response(status=302, headers={"Location": "/"})

@@ -14,7 +14,11 @@ from ui.config import (
     NUTRITION_SYSTEM_PROMPT,
     PLAN_JSON_SCHEMA,
     PLAN_SYSTEM_PROMPT,
+    STATUS_INJURY_PROMPT,
+    STATUS_RECOVERY_PROMPT,
+    STATUS_READINESS_PROMPT,
     STATUS_SYSTEM_PROMPT,
+    STATUS_TRAINING_PROMPT,
     HistoryDB,
     get_athlete_facts,
     get_athlete_profile,
@@ -24,6 +28,165 @@ from ui.config import (
     get_weekly_distances,
     log,
 )
+
+
+def _get_upcoming_schedule(days: int = 10) -> list[dict]:
+    """Fetch upcoming scheduled workouts from Garmin calendar.
+
+    Returns a list of dicts with date, title, sport keys. Sorted by date.
+    Returns empty list on failure.
+    """
+    try:
+        from datetime import date, timedelta
+
+        from garmin_mcp.client import GarminClient
+        from garmin_mcp.config import Settings as GarminSettings
+
+        today = date.today()
+        cal_end = today + timedelta(days=days - 1)
+        garmin_client = GarminClient(GarminSettings.from_env())
+
+        all_items: list[dict] = []
+        seen_months: set[tuple[int, int]] = set()
+        current = today
+        while current <= cal_end:
+            key = (current.year, current.month - 1)
+            if key not in seen_months:
+                seen_months.add(key)
+                data = garmin_client.get_calendar(current.year, current.month - 1)
+                items = data.get("calendarItems", []) if isinstance(data, dict) else []
+                all_items.extend(items)
+            current += timedelta(days=1)
+
+        today_str = today.isoformat()
+        end_str = cal_end.isoformat()
+        filtered = [
+            item
+            for item in all_items
+            if item.get("date")
+            and today_str <= item["date"] <= end_str
+            and item.get("itemType") != "activity"
+        ]
+        return [
+            {
+                "date": item.get("date", ""),
+                "title": item.get("title", "?"),
+                "sport": item.get("sportTypeKey", ""),
+            }
+            for item in sorted(filtered, key=lambda x: x.get("date", ""))
+        ]
+    except Exception:
+        log.exception("Failed to load Garmin calendar")
+        return []
+
+
+def _render_schedule_html(schedule: list[dict]) -> str:
+    """Render upcoming schedule directly to a status section card — no LLM needed."""
+    from datetime import date, datetime
+
+    day_names = {0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun"}
+
+    if not schedule:
+        content = "<p>No upcoming workouts scheduled.</p>"
+    else:
+        rows = []
+        for s in schedule:
+            try:
+                d = datetime.strptime(s["date"], "%Y-%m-%d").date()
+                day = day_names[d.weekday()]
+                label = (
+                    "Today" if d == date.today() else f"{day} {d.strftime('%-d %b')}"
+                )
+            except (ValueError, KeyError):
+                label = s.get("date", "?")
+            title = s.get("title", "?")
+            sport = s.get("sport", "")
+            sport_label = (
+                f' <span style="color:var(--text-tertiary)">({sport})</span>'
+                if sport
+                else ""
+            )
+            rows.append(f"<tr><td>{label}</td><td>{title}{sport_label}</td></tr>")
+        content = (
+            "<table><thead><tr><th>Date</th><th>Session</th></tr></thead>"
+            f"<tbody>{''.join(rows)}</tbody></table>"
+        )
+
+    return (
+        '<div class="status-section status-info">'
+        '<div class="status-header">'
+        '<span class="status-title">Upcoming Schedule</span>'
+        "</div>"
+        f'<div class="status-body">{content}</div>'
+        "</div>"
+    )
+
+
+def _render_body_comp_html(db: HistoryDB) -> str:
+    """Render body composition directly to a status section card — no LLM needed."""
+    try:
+        measurements = db.get_body_measurements(days=28)
+    except Exception:
+        log.exception("Failed to load body measurements for direct render")
+        measurements = []
+
+    if not measurements:
+        content = "<p>No body composition data available.</p>"
+        status_class = "status-info"
+    else:
+        latest = measurements[0]
+        rows: list[str] = []
+
+        if latest.get("weight_kg"):
+            rows.append(
+                f"<tr><td>Weight</td><td><strong>{latest['weight_kg']:.1f} kg</strong></td></tr>"
+            )
+        if latest.get("body_fat_pct"):
+            rows.append(
+                f"<tr><td>Body Fat</td><td>{latest['body_fat_pct']:.1f}%</td></tr>"
+            )
+        if latest.get("systolic_bp") and latest.get("diastolic_bp"):
+            rows.append(
+                f"<tr><td>Blood Pressure</td><td>{int(latest['systolic_bp'])}/{int(latest['diastolic_bp'])}</td></tr>"
+            )
+        rows.append(f"<tr><td>Date</td><td>{latest.get('date', '?')}</td></tr>")
+
+        # 4-week trend
+        trend_text = "Insufficient data"
+        status_class = "status-info"
+        if len(measurements) >= 4:
+            mid = len(measurements) // 2
+            recent_w = [
+                m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")
+            ]
+            older_w = [m["weight_kg"] for m in measurements[mid:] if m.get("weight_kg")]
+            if recent_w and older_w:
+                diff = sum(recent_w) / len(recent_w) - sum(older_w) / len(older_w)
+                if diff > 1.0:
+                    trend_text = f"Up {diff:+.1f} kg"
+                    status_class = "status-caution"
+                elif diff < -1.0:
+                    trend_text = f"Down {diff:+.1f} kg"
+                    status_class = "status-caution"
+                elif abs(diff) > 0.3:
+                    trend_text = f"Slight change ({diff:+.1f} kg)"
+                    status_class = "status-ok"
+                else:
+                    trend_text = f"Stable ({diff:+.1f} kg)"
+                    status_class = "status-ok"
+        rows.append(f"<tr><td>4-Week Trend</td><td>{trend_text}</td></tr>")
+
+        content = f"<table><tbody>{''.join(rows)}</tbody></table>"
+
+    return (
+        f'<div class="status-section {status_class}">'
+        '<div class="status-header">'
+        '<span class="status-dot"></span>'
+        '<span class="status-title">Body Composition</span>'
+        "</div>"
+        f'<div class="status-body">{content}</div>'
+        "</div>"
+    )
 
 
 def _build_profile_summary(db: HistoryDB) -> str:
@@ -341,10 +504,267 @@ def _get_nutrition_claims(db: HistoryDB) -> str | None:
 # ── STATUS agent ──
 
 
-def _build_status_context() -> str:
-    """Build context for the STATUS agent — full data, no scheduling/exercises schema."""
+def _format_activities(activities: list[dict]) -> str:
+    """Format activities list into markdown lines."""
+    lines = []
+    for a in activities:
+        parts = [a.get("start_date", "?")[:10]]
+        if a.get("name"):
+            parts.append(a["name"])
+        if a.get("distance_miles"):
+            parts.append(f"{a['distance_miles']} mi")
+        if a.get("pace_min_per_mile"):
+            parts.append(f"{a['pace_min_per_mile']}/mi")
+        if a.get("average_heartrate"):
+            parts.append(f"HR {int(a['average_heartrate'])}")
+        if a.get("elapsed_time_s"):
+            mins = a["elapsed_time_s"] // 60
+            parts.append(f"{mins}min")
+        lines.append("- " + " | ".join(parts))
+    return "\n".join(lines)
+
+
+def _format_weekly_distances(weekly: list[dict]) -> str:
+    """Format weekly distances into markdown lines."""
+    lines = []
+    for w in weekly:
+        mi = w.get("distance_miles") or 0
+        lines.append(
+            f"- {w.get('week_start', '?')}: {mi} mi ({w.get('activity_count', 0)} runs)"
+        )
+    return "\n".join(lines)
+
+
+def _format_wellness(wellness: list[dict]) -> str:
+    """Format wellness data into markdown lines."""
+    lines = []
+    for w in wellness:
+        parts = [w.get("date", "?")]
+        if w.get("resting_hr"):
+            parts.append(f"RHR {w['resting_hr']}")
+        if w.get("hrv"):
+            parts.append(f"HRV {w['hrv']}")
+        if w.get("body_battery_high"):
+            parts.append(
+                f"BB {w.get('body_battery_low', '?')}-{w['body_battery_high']}"
+            )
+        if w.get("stress_avg"):
+            parts.append(f"stress {w['stress_avg']}")
+        if w.get("sleep_score"):
+            parts.append(f"sleep {w['sleep_score']}")
+        lines.append("- " + " | ".join(parts))
+    return "\n".join(lines)
+
+
+def _format_schedule(schedule: list[dict]) -> str:
+    """Format schedule data into markdown lines."""
+    if not schedule:
+        return "No upcoming workouts scheduled."
+    lines = []
+    for s in schedule:
+        if s["sport"]:
+            lines.append(f"- {s['date']} | {s['title']} ({s['sport']})")
+        else:
+            lines.append(f"- {s['date']} | {s['title']}")
+    return "\n".join(lines)
+
+
+def _gather_status_data(db: HistoryDB) -> dict:
+    """Gather all data needed for status assessment in one pass.
+
+    Returns a dict with all data, ready for focused context builders.
+    """
+    data: dict = {}
+
+    try:
+        profile = get_athlete_profile(db)
+        if profile:
+            _convert_profile_miles(profile)
+        data["profile"] = profile
+    except Exception:
+        log.exception("Failed to load athlete profile")
+        data["profile"] = None
+
+    try:
+        data["activities"] = get_recent_activities(db, days=28)
+    except Exception:
+        log.exception("Failed to load recent activities")
+        data["activities"] = []
+
+    try:
+        data["weekly_distances"] = get_weekly_distances(db, weeks=12)
+    except Exception:
+        log.exception("Failed to load weekly distances")
+        data["weekly_distances"] = []
+
+    data["schedule"] = _get_upcoming_schedule()
+
+    try:
+        data["wellness"] = db.get_wellness(days=14)
+    except Exception:
+        log.exception("Failed to load wellness data")
+        data["wellness"] = []
+
+    data["body_comp_text"] = _build_body_composition(db)
+    data["diary"] = _build_diary_section(db, days=7)
+
+    facts, facts_section = _build_facts_section(db)
+    data["facts"] = facts
+    data["facts_section"] = facts_section
+
+    ctx_section, log_section = _build_coaching_sections(db)
+    data["coaching_context"] = ctx_section
+    data["coaching_log"] = log_section
+
+    data["profile_summary"] = _build_profile_summary(db)
+
+    return data
+
+
+def _fmt_prompt(template: str) -> str:
+    """Substitute {today_weekday} and {today_date} in a prompt template.
+
+    Uses .replace() instead of .format() because the prompt contains JSON
+    curly braces that would confuse str.format().
+    """
+    from datetime import date
+
+    today = date.today()
+    return template.replace("{today_weekday}", today.strftime("%A")).replace(
+        "{today_date}", today.isoformat()
+    )
+
+
+def _build_training_context(data: dict) -> str:
+    """Build focused context for Group A: training_load + recent_runs."""
+    prompt = _fmt_prompt(STATUS_TRAINING_PROMPT)
+    sections: list[str] = [prompt]
+
+    if data.get("profile"):
+        sections.append(
+            f"## Athlete Profile\n{json.dumps(data['profile'], indent=2, default=str)}"
+        )
+
+    if data.get("activities"):
+        sections.append(
+            f"## Recent Activities (28 days, {len(data['activities'])} total)\n"
+            + _format_activities(data["activities"])
+        )
+
+    if data.get("weekly_distances"):
+        sections.append(
+            "## Weekly Distances (12 weeks)\n"
+            + _format_weekly_distances(data["weekly_distances"])
+        )
+
+    if data.get("schedule"):
+        sections.append(
+            "## Scheduled Workouts (next 10 days)\n"
+            + _format_schedule(data["schedule"])
+        )
+
+    # Include HR zone facts if available
+    if data.get("facts"):
+        hr_facts = [
+            f
+            for f in data["facts"]
+            if any(kw in f.get("fact", "").lower() for kw in ["hr", "heart", "zone"])
+        ]
+        if hr_facts:
+            lines = [f"- [{f['category']}] {f['fact']}" for f in hr_facts]
+            sections.append("## HR Zone Facts\n" + "\n".join(lines))
+
+    return "\n\n".join(sections)
+
+
+def _build_recovery_context(data: dict) -> str:
+    """Build focused context for Group B: recovery."""
+    prompt = _fmt_prompt(STATUS_RECOVERY_PROMPT)
+    sections: list[str] = [prompt]
+
+    sections.append(
+        f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}"
+    )
+
+    if data.get("wellness"):
+        sections.append("## Wellness (14 days)\n" + _format_wellness(data["wellness"]))
+
+    return "\n\n".join(sections)
+
+
+def _build_injury_context(data: dict) -> str:
+    """Build focused context for Group C: injury_status."""
+    prompt = _fmt_prompt(STATUS_INJURY_PROMPT)
+    sections: list[str] = [prompt]
+
+    sections.append(
+        f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}"
+    )
+
+    if data.get("diary"):
+        sections.append(data["diary"])
+
+    # Include injury and training_response facts only
+    if data.get("facts"):
+        injury_facts = [
+            f
+            for f in data["facts"]
+            if f.get("category") in ("injury", "training_response")
+        ]
+        if injury_facts:
+            lines = [f"- [{f['category']}] {f['fact']}" for f in injury_facts]
+            sections.append("## Athlete Facts (injury/training)\n" + "\n".join(lines))
+
+    if data.get("coaching_context"):
+        sections.append(data["coaching_context"])
+
+    return "\n\n".join(sections)
+
+
+def _build_readiness_context(data: dict, group_results: dict[str, str]) -> str:
+    """Build focused context for Group D: overall_readiness.
+
+    Takes raw content outputs from Groups A-C to synthesise a verdict.
+    """
+    prompt = _fmt_prompt(STATUS_READINESS_PROMPT)
+    sections: list[str] = [prompt]
+
+    sections.append(
+        f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}"
+    )
+
+    # Feed in the raw outputs from the other groups
+    if group_results.get("training"):
+        sections.append(f"## Training Assessment\n{group_results['training']}")
+    if group_results.get("recovery"):
+        sections.append(f"## Recovery Assessment\n{group_results['recovery']}")
+    if group_results.get("injury"):
+        sections.append(f"## Injury Assessment\n{group_results['injury']}")
+
+    # Schedule for context
+    if data.get("schedule"):
+        sections.append(
+            "## Scheduled Workouts (next 10 days)\n"
+            + _format_schedule(data["schedule"])
+        )
+
+    if data.get("coaching_context"):
+        sections.append(data["coaching_context"])
+    if data.get("coaching_log"):
+        sections.append(data["coaching_log"])
+
+    return "\n\n".join(sections)
+
+
+def _build_status_context_full() -> str:
+    """Legacy single-call STATUS context — builds one massive prompt with all data.
+
+    Kept as a fallback. The parallel approach (_gather_status_data + focused builders)
+    is preferred for production use.
+    """
     db = HistoryDB(DB_PATH)
-    sections: list[str] = [STATUS_SYSTEM_PROMPT]
+    prompt = _fmt_prompt(STATUS_SYSTEM_PROMPT)
+    sections: list[str] = [prompt]
 
     try:
         profile = get_athlete_profile(db)
@@ -359,24 +779,9 @@ def _build_status_context() -> str:
     try:
         activities = get_recent_activities(db, days=28)
         if activities:
-            lines = []
-            for a in activities:
-                parts = [a.get("start_date", "?")[:10]]
-                if a.get("name"):
-                    parts.append(a["name"])
-                if a.get("distance_miles"):
-                    parts.append(f"{a['distance_miles']} mi")
-                if a.get("pace_min_per_mile"):
-                    parts.append(f"{a['pace_min_per_mile']}/mi")
-                if a.get("average_heartrate"):
-                    parts.append(f"HR {int(a['average_heartrate'])}")
-                if a.get("elapsed_time_s"):
-                    mins = a["elapsed_time_s"] // 60
-                    parts.append(f"{mins}min")
-                lines.append("- " + " | ".join(parts))
             sections.append(
                 f"## Recent Activities (28 days, {len(activities)} total)\n"
-                + "\n".join(lines)
+                + _format_activities(activities)
             )
     except Exception:
         log.exception("Failed to load recent activities")
@@ -384,79 +789,22 @@ def _build_status_context() -> str:
     try:
         weekly = get_weekly_distances(db, weeks=12)
         if weekly:
-            lines = []
-            for w in weekly:
-                mi = w.get("distance_miles") or 0
-                lines.append(
-                    f"- {w.get('week_start', '?')}: {mi} mi ({w.get('activity_count', 0)} runs)"
-                )
-            sections.append("## Weekly Distances (12 weeks)\n" + "\n".join(lines))
+            sections.append(
+                "## Weekly Distances (12 weeks)\n" + _format_weekly_distances(weekly)
+            )
     except Exception:
         log.exception("Failed to load weekly distances")
 
     # Scheduled workouts from Garmin calendar (today + next 9 days)
-    try:
-        from datetime import date, timedelta
-
-        from garmin_mcp.client import GarminClient
-        from garmin_mcp.config import Settings as GarminSettings
-
-        today = date.today()
-        cal_end = today + timedelta(days=9)
-        garmin_client = GarminClient(GarminSettings.from_env())
-        # Fetch calendar months covering the range
-        all_items: list[dict] = []
-        seen_months: set[tuple[int, int]] = set()
-        current = today
-        while current <= cal_end:
-            key = (current.year, current.month - 1)
-            if key not in seen_months:
-                seen_months.add(key)
-                data = garmin_client.get_calendar(current.year, current.month - 1)
-                items = data.get("calendarItems", []) if isinstance(data, dict) else []
-                all_items.extend(items)
-            current += timedelta(days=1)
-
-        today_str = today.isoformat()
-        end_str = cal_end.isoformat()
-        scheduled = [
-            item
-            for item in all_items
-            if item.get("date") and today_str <= item["date"] <= end_str
-        ]
-        if scheduled:
-            lines = []
-            for item in sorted(scheduled, key=lambda x: x.get("date", "")):
-                title = item.get("title", "?")
-                d = item.get("date", "?")
-                sport = item.get("sportTypeKey", "")
-                lines.append(
-                    f"- {d} | {title} ({sport})" if sport else f"- {d} | {title}"
-                )
-            sections.append("## Scheduled Workouts (next 10 days)\n" + "\n".join(lines))
-    except Exception:
-        log.exception("Failed to load Garmin calendar")
+    schedule = _get_upcoming_schedule()
+    sections.append(
+        "## Scheduled Workouts (next 10 days)\n" + _format_schedule(schedule)
+    )
 
     try:
         wellness = db.get_wellness(days=14)
         if wellness:
-            lines = []
-            for w in wellness:
-                parts = [w.get("date", "?")]
-                if w.get("resting_hr"):
-                    parts.append(f"RHR {w['resting_hr']}")
-                if w.get("hrv"):
-                    parts.append(f"HRV {w['hrv']}")
-                if w.get("body_battery_high"):
-                    parts.append(
-                        f"BB {w.get('body_battery_low', '?')}-{w['body_battery_high']}"
-                    )
-                if w.get("stress_avg"):
-                    parts.append(f"stress {w['stress_avg']}")
-                if w.get("sleep_score"):
-                    parts.append(f"sleep {w['sleep_score']}")
-                lines.append("- " + " | ".join(parts))
-            sections.append("## Wellness (14 days)\n" + "\n".join(lines))
+            sections.append("## Wellness (14 days)\n" + _format_wellness(wellness))
     except Exception:
         log.exception("Failed to load wellness data")
 
@@ -481,11 +829,24 @@ def _build_status_context() -> str:
     return "\n\n".join(sections)
 
 
+def _build_status_context() -> str:
+    """Build context for the STATUS agent — delegates to legacy single-call builder.
+
+    The parallel approach is used directly in app.py. This wrapper exists for
+    backward compatibility (e.g. auto-status before plan generation).
+    """
+    return _build_status_context_full()
+
+
 # ── PLAN agent ──
 
 
 def _build_plan_context(status_snapshot: str, date_range: str) -> str:
-    """Build context for the PLAN agent — status + research + schema."""
+    """Build context for the PLAN agent — status + research + structured schema.
+
+    The PLAN_SYSTEM_PROMPT already includes the combined JSON schema
+    (report sections + sessions) via _build_plan_prompt().
+    """
     db = HistoryDB(DB_PATH)
     sections: list[str] = [PLAN_SYSTEM_PROMPT]
 
@@ -506,8 +867,6 @@ def _build_plan_context(status_snapshot: str, date_range: str) -> str:
             sections.append(claims_text)
     except Exception:
         log.exception("Failed to load research claims")
-
-    sections.append(PLAN_JSON_SCHEMA)
 
     sections.append(f"## Date Range\nCreate a plan for: {date_range}")
 

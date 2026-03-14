@@ -12,8 +12,12 @@ from ui.config import CLAUDE_CMD, PROJECT_ROOT, log
 def _extract_weekly_plan(text: str) -> dict | None:
     """Try to extract a weekly plan JSON block from Claude's response.
 
-    Looks for a JSON object with 'week_starting' and 'sessions' keys,
+    Looks for a JSON object with 'sessions' key (and optionally report
+    sections like 'rationale', 'research_basis', 'weekly_summary'),
     either bare or inside markdown code fences.
+
+    Returns the full parsed JSON dict (including report sections if present).
+    The caller can extract 'sessions' and 'week_starting' as needed.
     """
     # Try to find JSON in code fences first (greedy — capture full nested JSON)
     fence_match = re.search(r"```(?:json)?\s*\n(\{.+\})\s*\n```", text, re.DOTALL)
@@ -21,13 +25,16 @@ def _extract_weekly_plan(text: str) -> dict | None:
         candidate = fence_match.group(1)
         try:
             data = json.loads(candidate)
-            if "week_starting" in data and "sessions" in data:
+            if "sessions" in data:
+                # Derive week_starting if missing but sessions exist
+                if "week_starting" not in data and data["sessions"]:
+                    data["week_starting"] = data["sessions"][0].get("date", "")
                 return data
         except json.JSONDecodeError:
             pass
 
-    # Try to find bare JSON by locating "week_starting" and finding the enclosing {}
-    if '"week_starting"' not in text:
+    # Try to find bare JSON by locating "sessions" and finding the enclosing {}
+    if '"sessions"' not in text:
         return None
     # Find all top-level { that could start a plan JSON
     for match in re.finditer(r"\{", text):
@@ -43,7 +50,11 @@ def _extract_weekly_plan(text: str) -> dict | None:
                     candidate = text[start : i + 1]
                     try:
                         data = json.loads(candidate)
-                        if "week_starting" in data and "sessions" in data:
+                        if "sessions" in data:
+                            if "week_starting" not in data and data["sessions"]:
+                                data["week_starting"] = data["sessions"][0].get(
+                                    "date", ""
+                                )
                             return data
                     except json.JSONDecodeError:
                         pass
