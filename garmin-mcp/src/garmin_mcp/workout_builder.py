@@ -43,9 +43,9 @@ SPORT_TYPE_MAP: dict[str, dict[str, Any]] = {
     "strides": SPORT_TYPE_RUNNING,
     "strength": SPORT_TYPE_STRENGTH,
     "yoga": SPORT_TYPE_YOGA,
-    "mobility": SPORT_TYPE_YOGA,      # FR245: mobility unsupported, use yoga
-    "hiit": SPORT_TYPE_CUSTOM,        # FR245: hiit unsupported, use custom
-    "cardio": SPORT_TYPE_CUSTOM,      # FR245: cardio unsupported, use custom
+    "mobility": SPORT_TYPE_YOGA,  # FR245: mobility unsupported, use yoga
+    "hiit": SPORT_TYPE_CUSTOM,  # FR245: hiit unsupported, use custom
+    "cardio": SPORT_TYPE_CUSTOM,  # FR245: cardio unsupported, use custom
     "walking": SPORT_TYPE_WALKING,
     "custom": SPORT_TYPE_CUSTOM,
     "other": SPORT_TYPE_CUSTOM,
@@ -59,6 +59,7 @@ def resolve_sport_type(workout_type: str) -> dict[str, Any]:
     for unknown types.
     """
     return SPORT_TYPE_MAP.get(workout_type, SPORT_TYPE_CUSTOM).copy()
+
 
 # Step types
 STEP_TYPE_WARMUP = {"stepTypeId": 1, "stepTypeKey": "warmup"}
