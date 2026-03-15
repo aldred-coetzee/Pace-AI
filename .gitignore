@@ -17,10 +17,12 @@ build/
 .venv/
 venv/
 
-# SQLite databases
+# SQLite databases (user data, sessions, tokens)
 *.db
 *.sqlite
 *.sqlite3
+# Exception: research claims DB is curated knowledge, not user data
+!research/claims.db
 
 # IDE
 .vscode/
