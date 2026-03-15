@@ -20,21 +20,21 @@ A coaching chat interface on `localhost:5050`. The `ui/` directory is a Python p
 
 | Module | Purpose |
 |--------|---------|
-| `ui/app.py` | Flask app setup, routes only (thin orchestration) |
-| `ui/config.py` | Shared constants (DB_PATH, PROJECT_ROOT, CLAUDE_CMD), system prompt strings, pace-ai/garmin imports |
-| `ui/templates.py` | HTML/CSS/JS template strings (HTML, END_SESSION_HTML, CONFIRM_PLAN_HTML, HISTORY_HTML) |
-| `ui/context.py` | All `_build_*_context` functions, `_get_relevant_claims`, `_build_profile_summary`, `_build_body_composition`, `_build_diary_section`, `_build_facts_section`, `_build_coaching_sections` |
+| `ui/app.py` | Flask routes, `_render_structured_html`, `_render_plan_table_html`, `_call_claude_status`, `_merge_status_html`, `_render_group_sections` |
+| `ui/config.py` | Constants, paths, system prompts, structured output section definitions (STATUS_*_SECTIONS, PLAN_REPORT_SECTIONS, NUTRITION_*_SECTIONS), `_build_structured_prompt`, `_build_plan_prompt` |
+| `ui/templates.py` | HTML/CSS/JS template strings (Inter font, 1120px layout, RAG status styling) |
+| `ui/context.py` | Parallel status context builders (`_build_training_context`, `_build_recovery_context`, `_build_injury_context`, `_build_readiness_context`), `_gather_status_data`, `_render_body_comp_html`, `_render_schedule_html`, plus plan/chat/nutrition contexts |
 | `ui/plans.py` | `_extract_weekly_plan`, `_strip_plan_json`, `_enrich_plan_with_exercises`, `_format_plan_table`, `_default_date_range` |
 | `ui/sessions.py` | Session store: `_init_session_db`, `_load_session`, `_save_session`, `_delete_session`, `_get_store`, `_persist_store` |
 | `ui/scheduling.py` | Garmin workout scheduling: `_exercises_to_steps`, `_description_to_steps`, `schedule_plan_to_garmin` |
 
-Uses a **6-agent pattern** — each coaching interaction is a focused `claude -p` subprocess call:
+Uses a **6-agent pattern** — each coaching interaction is a focused `claude -p` subprocess call. All agent outputs (STATUS, PLAN, NUTRITION) use **structured JSON** inside ```json fences, rendered into styled section cards with RAG status indicators (green/amber/red). No emoji in any agent output.
 
-1. **STATUS** — Gathers athlete data (training load, recent runs, wellness, body composition, diary) and produces a status report. Cached per session.
-2. **PLAN** — Takes the status snapshot + date range and generates a structured training plan as JSON. Cites coaching research.
+1. **STATUS** — Split into **3 parallel** `claude -p` calls (training load, recovery, injury) run via `ThreadPoolExecutor`, followed by a sequential **readiness** pass that synthesises the results. Body composition and upcoming schedule sections are **rendered directly from data** without using Claude. Cached per session.
+2. **PLAN** — Takes the status snapshot + date range and generates a structured training plan as JSON (report sections + sessions array). Rendered as section cards + a deterministic sessions table. Cites coaching research.
 3. **CHAT** — Lightweight conversational agent for follow-up questions. Gets status + pending plan as context.
 4. **EXERCISE** — Enriches strength/mobility sessions in a plan with structured exercise arrays (for Garmin workout sync).
-5. **NUTRITION** — Sports nutrition advice in three modes: general (weekly principles), plan-paired (day-by-day for confirmed plan), race fueling (race-week strategy). Route: `/nutrition` with `mode` parameter (general, plan, race). Context built in `context.py`, queries nutrition-specific research claims.
+5. **NUTRITION** — Sports nutrition advice in three modes: general (weekly principles), plan-paired (day-by-day for confirmed plan), race fueling (race-week strategy). Route: `/nutrition` with `mode` parameter (general, plan, race). Context built in `context.py`, queries nutrition-specific research claims. Output rendered as structured section cards.
 6. **END SESSION** — Summarises the session, logs coaching notes, and updates the coaching context for next time.
 
 **Hard boundary:** Flask owns all deterministic operations (data sync, DB writes, session management, Garmin scheduling, coaching log persistence). Claude handles only reasoning and natural language generation. No MCP tool calls from the UI — all data is gathered by Flask and injected into system prompts.
@@ -65,15 +65,15 @@ withings-mcp        # starts on localhost:8004
 notion-mcp          # starts on localhost:8005
 
 # Run UI
-python ui/app.py    # starts on localhost:5050
+python -m ui.app    # starts on localhost:5050
 
 # Auth (garmin-mcp requires one-time login)
 garmin-mcp-login    # interactive Garmin Connect SSO
 
-# Tests (800 total)
+# Tests (~628 test functions, more with parametrize)
 cd strava-mcp && python -m pytest tests/           # all strava-mcp tests (54)
-cd pace-ai && python -m pytest tests/              # all pace-ai tests (522)
-cd garmin-mcp && python -m pytest tests/           # all garmin-mcp tests (141)
+cd pace-ai && python -m pytest tests/              # all pace-ai tests (~360 functions)
+cd garmin-mcp && python -m pytest tests/           # all garmin-mcp tests (~131)
 cd withings-mcp && python -m pytest tests/         # all withings-mcp tests (41)
 cd notion-mcp && python -m pytest tests/           # all notion-mcp tests (42)
 python -m pytest tests/unit/                       # unit tests only
@@ -171,10 +171,10 @@ Every module must have tests. Specifically:
 | Path | Purpose |
 |------|---------|
 | **UI** | |
-| `ui/app.py` | Flask routes — thin orchestration layer (localhost:5050) |
-| `ui/config.py` | Constants, paths, system prompts, pace-ai/garmin imports |
-| `ui/templates.py` | HTML/CSS/JS template strings |
-| `ui/context.py` | Context builders for all 6 agents (STATUS, PLAN, CHAT, NUTRITION, EXERCISE, END SESSION) |
+| `ui/app.py` | Flask routes, structured JSON renderer, parallel status orchestration (localhost:5050) |
+| `ui/config.py` | Constants, paths, system prompts, structured output section definitions, `_build_structured_prompt` |
+| `ui/templates.py` | HTML/CSS/JS template strings (Inter font, muted palette, RAG status indicators) |
+| `ui/context.py` | Parallel status context builders, direct-render functions, plan/chat/nutrition contexts |
 | `ui/plans.py` | Plan extraction, formatting, exercise enrichment |
 | `ui/sessions.py` | SQLite-backed server-side session store |
 | `ui/scheduling.py` | Garmin workout step builders and scheduling logic |
@@ -199,7 +199,7 @@ Every module must have tests. Specifically:
 | `garmin-mcp/src/garmin_mcp/server.py` | MCP server entry point (17 tools, 1 resource) |
 | `garmin-mcp/src/garmin_mcp/client.py` | Garmin Connect API wrapper via garminconnect + garth |
 | `garmin-mcp/src/garmin_mcp/auth.py` | Garth SSO auth + login_cli entry point |
-| `garmin-mcp/src/garmin_mcp/workout_builder.py` | Pure functions: description → Garmin workout JSON |
+| `garmin-mcp/src/garmin_mcp/workout_builder.py` | Pure functions: description → Garmin workout JSON. `SPORT_TYPE_MAP` + `resolve_sport_type()` for FR245-compatible sport types |
 | `garmin-mcp/tests/e2e/test_server_startup.py` | E2E: boots server, verifies HTTP response |
 | **withings-mcp** | |
 | `withings-mcp/src/withings_mcp/server.py` | MCP server entry point (5 tools, 1 resource) |

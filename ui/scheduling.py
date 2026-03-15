@@ -6,16 +6,19 @@ import re
 
 from ui.config import log
 
+_STEP_INTERVAL = {"stepTypeId": 3, "stepTypeKey": "interval"}
+_CONDITION_LAP = {"conditionTypeId": 1, "conditionTypeKey": "lap.button"}
+_CONDITION_TIME = {"conditionTypeId": 2, "conditionTypeKey": "time"}
+_TARGET_NONE = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
+_DURATION_TYPES = {"easy_run", "run_walk", "tempo", "yoga", "cardio", "walking"}
+_STRUCTURED_TYPES = {"strength", "mobility", "yoga"}
+
 
 def _exercises_to_steps(exercises: list[dict]) -> list[dict]:
     """Convert structured exercises array into Garmin workout steps.
 
     Each exercise dict has 'name' and either 'sets'+'reps' or 'duration_s'.
     """
-    _STEP_INTERVAL = {"stepTypeId": 3, "stepTypeKey": "interval"}
-    _CONDITION_LAP = {"conditionTypeId": 1, "conditionTypeKey": "lap.button"}
-    _CONDITION_TIME = {"conditionTypeId": 2, "conditionTypeKey": "time"}
-    _TARGET_NONE = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
 
     steps: list[dict] = []
     for i, ex in enumerate(exercises, 1):
@@ -75,11 +78,6 @@ def _description_to_steps(description: str, duration_minutes: int | None) -> lis
 
     Returns raw Garmin ExecutableStepDTO dicts.
     """
-    _STEP_INTERVAL = {"stepTypeId": 3, "stepTypeKey": "interval"}
-    _CONDITION_LAP = {"conditionTypeId": 1, "conditionTypeKey": "lap.button"}
-    _CONDITION_TIME = {"conditionTypeId": 2, "conditionTypeKey": "time"}
-    _TARGET_NONE = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
-
     # Each item is (label, duration_s or None)
     items: list[tuple[str, int | None]] = []
 
@@ -212,15 +210,12 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
         # Build params from the session data — only pass what each builder accepts
         params = {}
         duration = s.get("duration_minutes")
-        # Types that accept duration_minutes directly
-        _DURATION_TYPES = {"easy_run", "run_walk", "tempo", "yoga", "cardio", "walking"}
         if duration and workout_type in _DURATION_TYPES:
             params["duration_minutes"] = duration
 
         try:
             description = s.get("description", "")
             exercises = s.get("exercises")
-            _STRUCTURED_TYPES = {"strength", "mobility", "yoga"}
             if workout_type in _STRUCTURED_TYPES:
                 from garmin_mcp.workout_builder import (
                     custom_workout,

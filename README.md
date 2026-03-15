@@ -10,18 +10,19 @@ Five MCP servers in one monorepo, plus a Flask web UI that orchestrates multi-pr
 
 ## Web UI
 
-The Flask UI (`localhost:5050`) provides a coaching dashboard with 5 focused agents, each receiving only the context it needs:
+The Flask UI (`localhost:5050`) provides a coaching dashboard with 6 focused agents. All agent outputs use **structured JSON** rendered into styled section cards with RAG status indicators (green/amber/red). Professional dark-themed UI with Inter font, muted palette, and 1120px layout.
 
 | Agent | Trigger | Context | Purpose |
 |-------|---------|---------|---------|
-| **STATUS** | Status button | Profile, activities, wellness, body comp, Garmin calendar, diary, coaching log | Full training status assessment |
-| **PLAN** | Plan button + date range | Status snapshot, research evidence, athlete facts, coaching context | Generate evidence-based training plan |
+| **STATUS** | Status button | Profile, activities, wellness, body comp, Garmin calendar, diary, coaching log | Full training status assessment — **3 parallel** Claude calls (training, recovery, injury) + sequential readiness pass. Body composition and schedule rendered directly from data. |
+| **PLAN** | Plan button + date range | Status snapshot, research evidence, athlete facts, coaching context | Generate evidence-based training plan as structured JSON (report sections + sessions table) |
 | **CHAT** | Text input | Profile summary, facts, coaching context, pending plan | Conversational Q&A and plan tweaks |
 | **EXERCISE** | Schedule button | Plan JSON only | Add structured exercises to strength/mobility sessions |
+| **NUTRITION** | Nutrition button + mode | Profile, status snapshot, research claims, athlete facts (nutrition category) | Sports nutrition advice in 3 modes: general, plan-paired, race fueling |
 | **END SESSION** | End Session button | Full conversation history, coaching context | Summarise session, update coaching memory |
 
 ```bash
-python ui/app.py    # opens http://localhost:5050
+python -m ui.app    # opens http://localhost:5050
 ```
 
 **Workflow:** Sync All → Status → Plan → tweak via chat → Schedule → End Session
@@ -78,7 +79,7 @@ notion-mcp &       # localhost:8005
 
 **Web UI** (recommended):
 ```bash
-python ui/app.py   # localhost:5050
+python -m ui.app   # localhost:5050
 ```
 
 **Claude Desktop / Claude Code** — add to MCP config:
@@ -143,7 +144,7 @@ python ui/app.py   # localhost:5050
 
 ### garmin-mcp — Workout Delivery + Wellness (17 tools, 1 resource)
 
-**Workouts (10 tools):** Create, list, get, delete, schedule, unschedule workouts. Combined create-and-schedule. Calendar listing. Supports easy_run, run_walk, tempo, intervals, strides, strength, mobility, yoga, cardio, hiit, walking, custom workout types with HR zone targeting.
+**Workouts (10 tools):** Create, list, get, delete, schedule, unschedule workouts. Combined create-and-schedule. Calendar listing. Supports easy_run, run_walk, tempo, intervals, strides, strength, mobility, yoga, cardio, hiit, walking, custom workout types with HR zone targeting. `SPORT_TYPE_MAP` and `resolve_sport_type()` map session types to FR245-compatible Garmin sport types.
 
 **Wellness (7 tools):** Body battery, sleep score, HRV, training readiness, stress, resting HR, combined wellness snapshot.
 
@@ -221,7 +222,7 @@ ruff check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/ notion-mcp/ ui/
 ruff format --check strava-mcp/ pace-ai/ garmin-mcp/ withings-mcp/ notion-mcp/ ui/
 ```
 
-793 tests across unit, integration, and e2e suites. E2e tests boot each server as a subprocess and verify HTTP response.
+~628 test functions (more with parametrize) across unit, integration, and e2e suites. E2e tests boot each server as a subprocess and verify HTTP response.
 
 See individual server READMEs for server-specific details: [strava-mcp](strava-mcp/README.md), [pace-ai](pace-ai/README.md), [garmin-mcp](garmin-mcp/README.md), [withings-mcp](withings-mcp/README.md), [notion-mcp](notion-mcp/README.md).
 

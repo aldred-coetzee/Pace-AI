@@ -54,7 +54,7 @@
   <rect x="360" y="64" width="560" height="80" rx="12" fill="url(#uiGrad)" filter="url(#shadow)"/>
   <text x="640" y="98" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">Flask Web UI</text>
   <text x="640" y="118" text-anchor="middle" font-size="11" fill="#BFDBFE">localhost:5050 · Status → Plan → Chat → Schedule → End Session</text>
-  <text x="640" y="134" text-anchor="middle" font-size="10" fill="#93C5FD">5 focused agents · each with only the context it needs</text>
+  <text x="640" y="134" text-anchor="middle" font-size="10" fill="#93C5FD">6 agents · structured JSON output · parallel STATUS</text>
 
   <!-- ── Claude Box ── -->
   <rect x="440" y="178" width="400" height="72" rx="12" fill="url(#claudeGrad)" filter="url(#shadow)"/>
@@ -240,11 +240,13 @@
   <text x="405" y="830" font-size="12" fill="#9CA3AF">→</text>
   <text x="425" y="830" font-size="12" fill="#374151" font-weight="600">CHAT</text>
   <text x="470" y="830" font-size="12" fill="#9CA3AF">→</text>
-  <text x="490" y="830" font-size="12" fill="#10B981" font-weight="600">EXERCISE</text>
-  <text x="565" y="830" font-size="12" fill="#9CA3AF">→</text>
-  <text x="585" y="830" font-size="12" fill="#EF4444" font-weight="600">END SESSION</text>
-  <text x="720" y="830" font-size="10" fill="#6B7280">Each agent gets only the context it needs (2-6k chars vs 14k monolith)</text>
+  <text x="490" y="830" font-size="12" fill="#F59E0B" font-weight="600">NUTRITION</text>
+  <text x="570" y="830" font-size="12" fill="#9CA3AF">→</text>
+  <text x="590" y="830" font-size="12" fill="#10B981" font-weight="600">EXERCISE</text>
+  <text x="665" y="830" font-size="12" fill="#9CA3AF">→</text>
+  <text x="685" y="830" font-size="12" fill="#EF4444" font-weight="600">END SESSION</text>
+  <text x="820" y="830" font-size="10" fill="#6B7280">Structured JSON output · RAG status indicators</text>
 
   <!-- Footer -->
-  <text x="640" y="870" text-anchor="middle" font-size="10.5" fill="#9CA3AF">Streamable HTTP transport · Python 3.10+ · Async I/O · 71 tools · 4 prompts · 8 resources</text>
+  <text x="640" y="870" text-anchor="middle" font-size="10.5" fill="#9CA3AF">Streamable HTTP · Python 3.10+ · 6 UI agents · 78 tools · 4 prompts · 8 resources</text>
 </svg>
