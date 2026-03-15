@@ -17,6 +17,8 @@ from typing import Any
 
 # ── Constants ──────────────────────────────────────────────────────────
 
+# Canonical Garmin Connect sport type IDs
+SPORT_TYPE_CUSTOM = {"sportTypeId": 0, "sportTypeKey": "custom"}
 SPORT_TYPE_RUNNING = {"sportTypeId": 1, "sportTypeKey": "running"}
 SPORT_TYPE_STRENGTH = {"sportTypeId": 5, "sportTypeKey": "strength_training"}
 SPORT_TYPE_CARDIO = {"sportTypeId": 6, "sportTypeKey": "cardio"}
@@ -25,6 +27,38 @@ SPORT_TYPE_PILATES = {"sportTypeId": 8, "sportTypeKey": "pilates"}
 SPORT_TYPE_HIIT = {"sportTypeId": 9, "sportTypeKey": "hiit"}
 SPORT_TYPE_MOBILITY = {"sportTypeId": 11, "sportTypeKey": "mobility"}
 SPORT_TYPE_WALKING = {"sportTypeId": 12, "sportTypeKey": "walking"}
+
+# ── Device-aware sport type mapping ───────────────────────────────────
+# Maps Pace-AI session types to the Garmin sport type dict to use.
+# Not all devices support all sport types. The Forerunner 245 does NOT
+# support mobility (11), hiit (9), or cardio (6).
+# Single source of truth — used by workout_builder, server, and UI scheduling.
+
+SPORT_TYPE_MAP: dict[str, dict[str, Any]] = {
+    "running": SPORT_TYPE_RUNNING,
+    "easy_run": SPORT_TYPE_RUNNING,
+    "run_walk": SPORT_TYPE_RUNNING,
+    "tempo": SPORT_TYPE_RUNNING,
+    "intervals": SPORT_TYPE_RUNNING,
+    "strides": SPORT_TYPE_RUNNING,
+    "strength": SPORT_TYPE_STRENGTH,
+    "yoga": SPORT_TYPE_YOGA,
+    "mobility": SPORT_TYPE_YOGA,      # FR245: mobility unsupported, use yoga
+    "hiit": SPORT_TYPE_CUSTOM,        # FR245: hiit unsupported, use custom
+    "cardio": SPORT_TYPE_CUSTOM,      # FR245: cardio unsupported, use custom
+    "walking": SPORT_TYPE_WALKING,
+    "custom": SPORT_TYPE_CUSTOM,
+    "other": SPORT_TYPE_CUSTOM,
+}
+
+
+def resolve_sport_type(workout_type: str) -> dict[str, Any]:
+    """Resolve a Pace-AI workout type to the correct Garmin sport type.
+
+    Uses the device-compatible mapping table. Falls back to custom (0)
+    for unknown types.
+    """
+    return SPORT_TYPE_MAP.get(workout_type, SPORT_TYPE_CUSTOM).copy()
 
 # Step types
 STEP_TYPE_WARMUP = {"stepTypeId": 1, "stepTypeKey": "warmup"}
@@ -378,15 +412,22 @@ def strides(
     )
 
 
-def custom_workout(name: str, steps_json: list[dict[str, Any]], *, description: str | None = None) -> dict[str, Any]:
+def custom_workout(
+    name: str,
+    steps_json: list[dict[str, Any]],
+    *,
+    description: str | None = None,
+    sport_type: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Build a workout from raw step JSON — escape hatch for arbitrary workouts.
 
     Args:
         name: Workout name.
         steps_json: List of raw Garmin step dicts (ExecutableStepDTO or RepeatGroupDTO).
         description: Optional description.
+        sport_type: Optional sport type dict. Defaults to running if not specified.
     """
-    return _wrap_workout(name, steps_json, description=description)
+    return _wrap_workout(name, steps_json, sport_type=sport_type, description=description)
 
 
 # ── Non-Running Builders ─────────────────────────────────────────────
@@ -493,7 +534,7 @@ def build_mobility_workout(name: str, exercises: list[dict[str, Any]]) -> dict[s
     return _wrap_workout(
         name,
         steps,
-        sport_type=SPORT_TYPE_MOBILITY,
+        sport_type=resolve_sport_type("mobility"),
         description=f"Mobility — {len(exercises)} exercises",
     )
 
@@ -540,7 +581,7 @@ def build_cardio_workout(name: str, duration_minutes: int, intensity: str = "mod
     return _wrap_workout(
         name,
         steps,
-        sport_type=SPORT_TYPE_CARDIO,
+        sport_type=resolve_sport_type("cardio"),
         description=f"Cardio — {duration_minutes} min, {intensity} intensity (Zone {hr_zone})",
     )
 
@@ -583,7 +624,7 @@ def build_hiit_workout(
     return _wrap_workout(
         name,
         steps,
-        sport_type=SPORT_TYPE_HIIT,
+        sport_type=resolve_sport_type("hiit"),
         description=f"HIIT — {rounds} rounds, {work_s}s work / {rest_s}s rest, {len(exercises)} exercises",
     )
 

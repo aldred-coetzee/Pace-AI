@@ -114,6 +114,29 @@ class GarminClient:
         """Create a workout in Garmin Connect."""
         return self._call("upload_workout", workout_json)
 
+    def update_workout(self, workout_json: dict[str, Any]) -> Any:
+        """Update an existing workout in Garmin Connect.
+
+        Uses garth directly since garminconnect doesn't expose this method.
+        The workout_json must include workoutId.
+        """
+        client = self._ensure_client()
+        workout_id = workout_json.get("workoutId")
+        try:
+            url = f"/workout-service/workout/{workout_id}"
+            resp = client.garth.put("connectapi", url, api=True, json=workout_json)
+            resp.raise_for_status()
+            try:
+                return resp.json()
+            except Exception:
+                return {"updated": True, "workout_id": workout_id}
+        except Exception as e:
+            raise GarminAPIError(
+                code="update_failed",
+                message=f"Failed to update workout {workout_id}: {e}",
+                action="Check the workout JSON and try again.",
+            ) from e
+
     def delete_workout(self, workout_id: int) -> Any:
         """Delete a workout from Garmin Connect.
 
