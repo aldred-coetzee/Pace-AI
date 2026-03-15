@@ -8,6 +8,12 @@ Five MCP servers in one monorepo, plus a Flask web UI that orchestrates multi-pr
   <img src="docs/architecture.svg" alt="Pace-AI Architecture" width="720">
 </p>
 
+### STATUS Agent — Parallel Execution
+
+<p align="center">
+  <img src="docs/status-flow.svg" alt="STATUS Agent Parallel Flow" width="720">
+</p>
+
 ## Web UI
 
 The Flask UI (`localhost:5050`) provides a coaching dashboard with 6 focused agents. All agent outputs use **structured JSON** rendered into styled section cards with RAG status indicators (green/amber/red). Professional dark-themed UI with Inter font, muted palette, and 1120px layout.
