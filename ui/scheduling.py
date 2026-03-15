@@ -223,17 +223,9 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
             _STRUCTURED_TYPES = {"strength", "mobility", "yoga"}
             if workout_type in _STRUCTURED_TYPES:
                 from garmin_mcp.workout_builder import (
-                    SPORT_TYPE_MOBILITY,
-                    SPORT_TYPE_STRENGTH,
-                    SPORT_TYPE_YOGA,
                     custom_workout,
+                    resolve_sport_type,
                 )
-
-                _SPORT_TYPE_MAP = {
-                    "strength": SPORT_TYPE_STRENGTH,
-                    "mobility": SPORT_TYPE_MOBILITY,
-                    "yoga": SPORT_TYPE_YOGA,
-                }
 
                 if exercises and isinstance(exercises, list):
                     # Structured exercises from JSON — reliable
@@ -245,7 +237,7 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
                     name,
                     steps_json=steps,
                     description=description,
-                    sport_type=_SPORT_TYPE_MAP.get(workout_type),
+                    sport_type=resolve_sport_type(workout_type),
                 )
             else:
                 workout_json = _build_workout(workout_type, name, params)

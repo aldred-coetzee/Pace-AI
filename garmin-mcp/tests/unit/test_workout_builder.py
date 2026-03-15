@@ -264,8 +264,9 @@ class TestMobilityWorkout:
             {"name": "Hamstring stretch", "sets": 2, "duration_s": 45, "rest_s": 10},
         ]
         w = build_mobility_workout("Morning Mobility", exercises)
-        assert w["sportType"]["sportTypeId"] == 11
-        assert w["sportType"]["sportTypeKey"] == "mobility"
+        # Mobility maps to yoga (7) for FR245 device compatibility
+        assert w["sportType"]["sportTypeId"] == 7
+        assert w["sportType"]["sportTypeKey"] == "yoga"
 
         steps = w["workoutSegments"][0]["workoutSteps"]
         assert steps[0]["stepType"]["stepTypeKey"] == "warmup"
@@ -310,8 +311,9 @@ class TestYogaWorkout:
 class TestCardioWorkout:
     def test_basic_cardio(self):
         w = build_cardio_workout("Bike Ride", 30, "moderate")
-        assert w["sportType"]["sportTypeId"] == 6
-        assert w["sportType"]["sportTypeKey"] == "cardio"
+        # Cardio maps to custom (0) for FR245 device compatibility
+        assert w["sportType"]["sportTypeId"] == 0
+        assert w["sportType"]["sportTypeKey"] == "custom"
 
         steps = w["workoutSegments"][0]["workoutSteps"]
         assert len(steps) == 3
@@ -345,8 +347,9 @@ class TestCardioWorkout:
 class TestHiitWorkout:
     def test_basic_hiit(self):
         w = build_hiit_workout("Tabata", 4, 20, 10, ["Burpees", "Squats"])
-        assert w["sportType"]["sportTypeId"] == 9
-        assert w["sportType"]["sportTypeKey"] == "hiit"
+        # HIIT maps to custom (0) for FR245 device compatibility
+        assert w["sportType"]["sportTypeId"] == 0
+        assert w["sportType"]["sportTypeKey"] == "custom"
 
         steps = w["workoutSegments"][0]["workoutSteps"]
         assert len(steps) == 3  # warmup + repeat group + cooldown
@@ -456,14 +459,14 @@ class TestWorkoutStructure:
             (
                 build_mobility_workout,
                 {"name": "T", "exercises": [{"name": "Stretch", "sets": 1, "duration_s": 30, "rest_s": 10}]},
-                "mobility",
+                "yoga",  # FR245: mobility maps to yoga
             ),
             (build_yoga_workout, {"name": "T", "duration_minutes": 30}, "yoga"),
-            (build_cardio_workout, {"name": "T", "duration_minutes": 30, "intensity": "moderate"}, "cardio"),
+            (build_cardio_workout, {"name": "T", "duration_minutes": 30, "intensity": "moderate"}, "custom"),  # FR245
             (
                 build_hiit_workout,
                 {"name": "T", "rounds": 3, "work_s": 30, "rest_s": 15, "exercises": ["Burpees"]},
-                "hiit",
+                "custom",  # FR245
             ),
             (build_walking_workout, {"name": "T", "duration_minutes": 30}, "walking"),
         ],
