@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import re
-
 from ui.config import log
 
 _STEP_INTERVAL = {"stepTypeId": 3, "stepTypeKey": "interval"}
@@ -14,150 +12,53 @@ _DURATION_TYPES = {"easy_run", "run_walk", "tempo", "yoga", "cardio", "walking"}
 _STRUCTURED_TYPES = {"strength", "mobility", "yoga"}
 
 
-def _exercises_to_steps(exercises: list[dict]) -> list[dict]:
-    """Convert structured exercises array into Garmin workout steps.
+def _format_exercises_as_description(exercises: list[dict]) -> str:
+    """Format structured exercises into a text description for Garmin Connect.
 
-    Each exercise dict has 'name' and either 'sets'+'reps' or 'duration_s'.
+    The description is visible in the Garmin Connect phone app so the athlete
+    can read what to do while a simple single-step workout runs on the watch.
     """
-
-    steps: list[dict] = []
-    for i, ex in enumerate(exercises, 1):
+    lines: list[str] = []
+    for ex in exercises:
         name = ex.get("name", "Exercise")
         sets = ex.get("sets")
         reps = ex.get("reps")
         duration_s = ex.get("duration_s")
+        notes = ex.get("notes")
 
         if sets and reps:
-            label = f"{sets}x{reps} {name}"
+            line = f"{sets}x{reps} {name}"
         elif duration_s:
-            label = f"{name} ({duration_s}s)"
+            line = f"{name} ({duration_s}s)"
+        elif sets:
+            line = f"{sets}x {name}"
         else:
-            label = name
+            line = name
 
-        if len(label) > 50:
-            label = label[:47] + "..."
-
-        # Use timed step if duration_s given, lap-button otherwise
-        if duration_s:
-            steps.append(
-                {
-                    "type": "ExecutableStepDTO",
-                    "stepId": None,
-                    "stepOrder": i,
-                    "stepType": _STEP_INTERVAL,
-                    "endCondition": _CONDITION_TIME,
-                    "endConditionValue": float(duration_s),
-                    "targetType": _TARGET_NONE,
-                    "description": label,
-                }
-            )
-        else:
-            steps.append(
-                {
-                    "type": "ExecutableStepDTO",
-                    "stepId": None,
-                    "stepOrder": i,
-                    "stepType": _STEP_INTERVAL,
-                    "endCondition": _CONDITION_LAP,
-                    "targetType": _TARGET_NONE,
-                    "description": label,
-                }
-            )
-
-    return steps
+        if notes:
+            line += f" — {notes}"
+        lines.append(line)
+    return "\n".join(lines)
 
 
-def _description_to_steps(description: str, duration_minutes: int | None) -> list[dict]:
-    """Parse a workout description into Garmin custom workout steps.
+def _build_simple_steps(description: str, duration_minutes: int | None) -> list[dict]:
+    """Build a single lap-button step for non-running workouts.
 
-    Extracts exercises in various formats:
-    - "3x15 heel drops" or "heel drops 3x15"
-    - "calves 60s/side" or "foam roll calves 60 sec"
-    Creates a lap-button step per exercise. Falls back to a single timed step
-    if no exercises are found.
-
-    Returns raw Garmin ExecutableStepDTO dicts.
+    The athlete hits start on the watch, reads instructions on their phone
+    via the Garmin Connect app description, and hits stop when done.
     """
-    # Each item is (label, duration_s or None)
-    items: list[tuple[str, int | None]] = []
-
-    # Pattern 1: "3x15 exercise name" (sets before name)
-    for m in re.finditer(
-        r"(\d+)\s*x\s*(\d+)\s+([a-zA-Z][\w\s\-()]+?)(?:\.|,|$)", description
-    ):
-        sets, reps, name = m.group(1), m.group(2), m.group(3).strip().rstrip(")")
-        items.append((f"{sets}x{reps} {name}", None))
-
-    # Pattern 2: "exercise name (qualifier) 3x15" (sets after name)
-    for m in re.finditer(
-        r"([a-zA-Z][\w\s\-]+(?:\([^)]*\))?)\s+(\d+)\s*x\s*(\d+)(?:\s|,|\.|$)",
-        description,
-    ):
-        name, sets, reps = m.group(1).strip(), m.group(2), m.group(3)
-        label = f"{sets}x{reps} {name}"
-        if not any(label == it[0] for it in items):
-            items.append((label, None))
-
-    # Pattern 3: timed items — "calves 60s/side", "foam roll quads 60 sec each"
-    for m in re.finditer(
-        r"([a-zA-Z][\w\s\-]+?)\s+(\d+)\s*s(?:ec)?(?:\s+each|/side)?(?:\.|,|$)",
-        description,
-    ):
-        name, secs = m.group(1).strip(), int(m.group(2))
-        # Split compound items like "Foam roll calves and quads" into separate steps
-        if " and " in name:
-            prefix = ""
-            parts = name.split(" and ")
-            words = parts[0].split()
-            if len(words) > 1 and not words[-1][0].isupper():
-                prefix = " ".join(words[:-1]) + " "
-                parts[0] = words[-1]
-            for part in parts:
-                part_label = f"{prefix}{part.strip()} ({secs}s)"
-                if not any(
-                    part.strip().lower() in existing[0].lower() for existing in items
-                ):
-                    items.append((part_label, secs))
-        else:
-            label = f"{name} ({secs}s)"
-            if not any(name.lower() in existing[0].lower() for existing in items):
-                items.append((label, secs))
-
-    if not items:
-        step_seconds = (duration_minutes or 30) * 60
-        return [
-            {
-                "type": "ExecutableStepDTO",
-                "stepId": None,
-                "stepOrder": 1,
-                "stepType": _STEP_INTERVAL,
-                "endCondition": _CONDITION_TIME,
-                "endConditionValue": float(step_seconds),
-                "targetType": _TARGET_NONE,
-                "description": description[:50] if description else "Workout",
-            }
-        ]
-
-    steps: list[dict] = []
-    for i, (label, dur_s) in enumerate(items, 1):
-        if len(label) > 50:
-            label = label[:47] + "..."
-        step: dict = {
+    step_label = description[:50] if description else "Workout"
+    return [
+        {
             "type": "ExecutableStepDTO",
             "stepId": None,
-            "stepOrder": i,
+            "stepOrder": 1,
             "stepType": _STEP_INTERVAL,
+            "endCondition": _CONDITION_LAP,
             "targetType": _TARGET_NONE,
-            "description": label,
+            "description": step_label,
         }
-        if dur_s:
-            step["endCondition"] = _CONDITION_TIME
-            step["endConditionValue"] = float(dur_s)
-        else:
-            step["endCondition"] = _CONDITION_LAP
-        steps.append(step)
-
-    return steps
+    ]
 
 
 def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
@@ -222,16 +123,21 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
                     resolve_sport_type,
                 )
 
+                # Simple single-step workout — hit start, read exercises on phone, hit stop
                 if exercises and isinstance(exercises, list):
-                    # Structured exercises from JSON — reliable
-                    steps = _exercises_to_steps(exercises)
+                    exercise_desc = _format_exercises_as_description(exercises)
+                    full_desc = (
+                        f"{description}\n\n{exercise_desc}"
+                        if description
+                        else exercise_desc
+                    )
                 else:
-                    # Fallback: parse from description text
-                    steps = _description_to_steps(description, duration)
+                    full_desc = description
+                steps = _build_simple_steps(full_desc, duration)
                 workout_json = custom_workout(
                     name,
                     steps_json=steps,
-                    description=description,
+                    description=full_desc,
                     sport_type=resolve_sport_type(workout_type),
                 )
             else:
