@@ -739,8 +739,10 @@ def _build_injury_context(data: dict) -> str:
             lines = [f"- [{f['category']}] {f['fact']}" for f in injury_facts]
             sections.append("## Athlete Facts (injury/training)\n" + "\n".join(lines))
 
-    if data.get("coaching_context"):
-        sections.append(data["coaching_context"])
+    # Coaching context is deliberately excluded from the injury agent.
+    # It contains point-in-time scheduling/compliance claims that go stale
+    # and override the actual activity + diary data above.  The readiness
+    # agent (Group D) still receives it for synthesis.
 
     return "\n\n".join(sections)
 
