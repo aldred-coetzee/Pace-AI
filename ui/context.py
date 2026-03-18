@@ -775,7 +775,13 @@ def _build_readiness_context(data: dict, group_results: dict[str, str]) -> str:
         )
 
     if data.get("coaching_context"):
-        sections.append(data["coaching_context"])
+        sections.append(
+            "## Coaching Context (background reference — may be outdated)\n"
+            "IMPORTANT: The assessments above are derived from current activity and diary data. "
+            "Where this coaching context mentions scheduling, compliance status, or session "
+            "completion, the assessments above take precedence.\n\n"
+            + data["coaching_context"]
+        )
     if data.get("coaching_log"):
         sections.append(data["coaching_log"])
 
