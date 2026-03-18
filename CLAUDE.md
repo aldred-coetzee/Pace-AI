@@ -177,7 +177,7 @@ Every module must have tests. Specifically:
 | `ui/context.py` | Parallel status context builders, direct-render functions, plan/chat/nutrition contexts |
 | `ui/plans.py` | Plan extraction, formatting, exercise enrichment |
 | `ui/sessions.py` | SQLite-backed server-side session store |
-| `ui/scheduling.py` | Garmin workout step builders and scheduling logic |
+| `ui/scheduling.py` | Garmin workout scheduling: `_format_exercises_as_description`, `_build_simple_steps`, `schedule_plan_to_garmin` |
 | **strava-mcp** | |
 | `strava-mcp/src/strava_mcp/server.py` | MCP server entry point (12 tools, 2 resources) |
 | `strava-mcp/src/strava_mcp/client.py` | Strava API wrapper with token refresh |
