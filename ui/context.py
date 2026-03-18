@@ -763,7 +763,12 @@ def _build_injury_context(data: dict) -> str:
         )
 
     if data.get("diary"):
-        sections.append(data["diary"])
+        sections.append(
+            data["diary"]
+            + "\n\nNote: [completed: ...] tags are authoritative — they come from "
+            "Garmin/Strava activity records. A day tagged [completed: Afternoon Yoga] "
+            "is NOT a rest day. Only days tagged [rest day] are rest days."
+        )
 
     # Include injury and training_response facts only
     if data.get("facts"):
