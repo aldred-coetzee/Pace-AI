@@ -702,6 +702,13 @@ def _build_injury_context(data: dict) -> str:
         f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}"
     )
 
+    # Include activities so the agent can see completed workouts (not just diary notes)
+    if data.get("activities"):
+        sections.append(
+            "## Completed Activities (28 days)\n"
+            + _format_activities(data["activities"])
+        )
+
     if data.get("diary"):
         sections.append(data["diary"])
 
