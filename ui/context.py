@@ -322,6 +322,42 @@ def _build_facts_section(db: HistoryDB) -> tuple[list[dict], str | None]:
         return [], None
 
 
+def _strip_volatile_context(text: str) -> str:
+    """Remove scheduling and compliance lines from coaching context.
+
+    The coaching context is a point-in-time summary that goes stale quickly.
+    Sections like SCHEDULED PLAN and COMPLIANCE STATUS conflict with real
+    activity data and cause agents to distrust current information.
+    """
+    lines = text.split("\n")
+    out: list[str] = []
+    skip = False
+    for line in lines:
+        stripped = line.strip()
+        # Skip the entire SCHEDULED PLAN section
+        if stripped.startswith("SCHEDULED PLAN"):
+            skip = True
+            continue
+        # Stop skipping when we hit any top-level section header
+        # (a non-empty line whose first word is uppercase and line ends with ":")
+        if (
+            skip
+            and stripped
+            and stripped.endswith(":")
+            and not stripped.startswith("-")
+        ):
+            first_word = stripped.split()[0] if stripped.split() else ""
+            if first_word == first_word.upper() and first_word.isalpha():
+                skip = False
+        if skip:
+            continue
+        # Drop individual compliance status lines anywhere
+        if "COMPLIANCE STATUS:" in stripped:
+            continue
+        out.append(line)
+    return "\n".join(out)
+
+
 def _build_coaching_sections(db: HistoryDB) -> tuple[str | None, str | None]:
     """Build coaching context and recent log sections. Returns (context_section, log_section)."""
     ctx_section = None
@@ -329,7 +365,8 @@ def _build_coaching_sections(db: HistoryDB) -> tuple[str | None, str | None]:
     try:
         ctx = get_coaching_context(db)
         if ctx:
-            ctx_section = f"## Coaching Context\n{ctx['content']}"
+            cleaned = _strip_volatile_context(ctx["content"])
+            ctx_section = f"## Coaching Context\n{cleaned}"
     except Exception:
         log.exception("Failed to load coaching context")
     try:
