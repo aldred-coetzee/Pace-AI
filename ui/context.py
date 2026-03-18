@@ -272,14 +272,30 @@ def _build_body_composition(db: HistoryDB) -> str | None:
 
 
 def _build_diary_section(db: HistoryDB, days: int = 7) -> str | None:
-    """Build diary entries section."""
+    """Build diary entries section, annotated with completed activities."""
     try:
         diary = db.get_diary_entries(days=days)
         if not diary:
             return None
+
+        # Build a lookup of activities by date for annotation
+        activities = get_recent_activities(db, days=days)
+        activities_by_date: dict[str, list[str]] = {}
+        for a in activities:
+            a_date = a.get("date", "")[:10]
+            name = a.get("name", a.get("sport_type", "activity"))
+            activities_by_date.setdefault(a_date, []).append(name)
+
         lines = []
         for entry in diary:
-            parts = [entry.get("date", "?")]
+            date = entry.get("date", "?")
+            parts = [date]
+            # Annotate with completed activities for this date
+            day_activities = activities_by_date.get(date[:10])
+            if day_activities:
+                parts.append(f"[completed: {', '.join(day_activities)}]")
+            else:
+                parts.append("[rest day]")
             if entry.get("stress_1_5"):
                 parts.append(f"stress:{entry['stress_1_5']}/5")
             if entry.get("niggles"):
