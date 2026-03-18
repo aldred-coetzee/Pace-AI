@@ -508,15 +508,16 @@ def _format_activities(activities: list[dict]) -> str:
     """Format activities list into markdown lines."""
     lines = []
     for a in activities:
-        parts = [a.get("start_date", "?")[:10]]
+        parts = [a.get("date", a.get("start_date", "?"))[:10]]
         if a.get("name"):
             parts.append(a["name"])
         if a.get("distance_miles"):
             parts.append(f"{a['distance_miles']} mi")
         if a.get("pace_min_per_mile"):
             parts.append(f"{a['pace_min_per_mile']}/mi")
-        if a.get("average_heartrate"):
-            parts.append(f"HR {int(a['average_heartrate'])}")
+        if a.get("average_hr") or a.get("average_heartrate"):
+            hr = a.get("average_hr") or a.get("average_heartrate")
+            parts.append(f"HR {int(hr)}")
         if a.get("elapsed_time_s"):
             mins = a["elapsed_time_s"] // 60
             parts.append(f"{mins}min")
@@ -995,7 +996,7 @@ def _build_nutrition_context(
         if activities:
             lines = []
             for a in activities:
-                parts = [a.get("start_date", "?")[:10]]
+                parts = [a.get("date", a.get("start_date", "?"))[:10]]
                 if a.get("name"):
                     parts.append(a["name"])
                 if a.get("distance_miles"):
