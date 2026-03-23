@@ -30,6 +30,9 @@ venv/
 *.swp
 *.swo
 
+# Private data repo (cloned locally for mobile coaching)
+pace-ai-data/
+
 # OS
 .DS_Store
 Thumbs.db
