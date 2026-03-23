@@ -2,16 +2,13 @@
 # cloud-setup.sh — Bootstrap Pace-AI in Claude Code's cloud environment.
 #
 # Installs all MCP server packages, clones the private data repo,
-# and sets PACE_AI_DB to point at the coaching database.
+# and loads API credentials from the .env stored in that private repo.
 #
-# Required env vars:
-#   GITHUB_TOKEN — GitHub PAT with repo scope (set in Claude Code secrets)
+# Required env var:
+#   GITHUB_TOKEN — Fine-grained PAT scoped to pace-ai-data repo only
 #
-# Optional env vars (for data sync):
-#   STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_ACCESS_TOKEN, STRAVA_REFRESH_TOKEN
-#   GARMIN_EMAIL, GARMIN_PASSWORD
-#   NOTION_TOKEN, NOTION_DIARY_DATABASE_ID
-#   WITHINGS_CONFIG_FOLDER
+# All other credentials (Strava, Garmin, Withings, Notion) are stored
+# in pace-ai-data/.env and loaded automatically after clone.
 
 set -euo pipefail
 
@@ -37,11 +34,22 @@ elif [ -n "${GITHUB_TOKEN:-}" ]; then
     git clone "https://${GITHUB_TOKEN}@github.com/aldred-coetzee/pace-ai-data.git" "${DATA_DIR}"
 else
     echo "WARNING: GITHUB_TOKEN not set — cannot clone pace-ai-data."
-    echo "The database will be created fresh. Set GITHUB_TOKEN in Claude Code secrets to persist data."
+    echo "The database will be created fresh. Set GITHUB_TOKEN in Claude Code env vars to persist data."
     mkdir -p "${DATA_DIR}"
 fi
 
-# ── 3. Set PACE_AI_DB ───────────────────────────────────────────────
+# ── 3. Load credentials from private repo's .env ────────────────────
+if [ -f "${DATA_DIR}/.env" ]; then
+    echo "Loading credentials from pace-ai-data/.env..."
+    set -a
+    source "${DATA_DIR}/.env"
+    set +a
+else
+    echo "WARNING: No .env found in pace-ai-data. Data sync will not work."
+    echo "Create pace-ai-data/.env with API credentials (see README in that repo)."
+fi
+
+# ── 4. Set PACE_AI_DB ───────────────────────────────────────────────
 export PACE_AI_DB="${DATA_DIR}/pace_ai.db"
 echo "PACE_AI_DB=${PACE_AI_DB}"
 
