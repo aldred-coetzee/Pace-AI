@@ -22,8 +22,9 @@ echo "Installing pace-ai and dependencies..."
 pip install -e "${REPO_ROOT}/pace-ai/"
 pip install -e "${REPO_ROOT}/strava-mcp/"
 pip install -e "${REPO_ROOT}/garmin-mcp/"
-pip install -e "${REPO_ROOT}/withings-mcp/"
 pip install -e "${REPO_ROOT}/notion-mcp/"
+# withings-mcp requires Python 3.12+ (withings-sync>=5.0) — skip if unavailable
+pip install -e "${REPO_ROOT}/withings-mcp/" 2>/dev/null || echo "Skipping withings-mcp (requires Python 3.12+)"
 
 # ── 2. Clone private data repo ──────────────────────────────────────
 if [ -d "${DATA_DIR}/.git" ]; then
