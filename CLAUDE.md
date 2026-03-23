@@ -218,15 +218,15 @@ Use Pace-AI directly from Claude Code (claude.ai/code) without the Flask UI or M
 
 ### Setup
 
-The cloud environment uses `cloud-setup.sh` as its setup script. It installs all packages and clones the private data repo. Set these secrets in Claude Code:
+The cloud environment uses `cloud-setup.sh` as its setup script. It installs all packages, clones the private data repo, and loads API credentials from `pace-ai-data/.env`.
 
-| Secret | Purpose |
-|--------|---------|
-| `GITHUB_TOKEN` | **Required.** Clone/push the private `pace-ai-data` repo |
-| `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET` | Strava API access |
-| `STRAVA_ACCESS_TOKEN`, `STRAVA_REFRESH_TOKEN` | Strava OAuth tokens |
-| `GARMIN_EMAIL`, `GARMIN_PASSWORD` | Garmin Connect login |
-| `NOTION_TOKEN`, `NOTION_DIARY_DATABASE_ID` | Notion diary access |
+Only one env var is needed in Claude Code's settings:
+
+| Env Var | Purpose |
+|---------|---------|
+| `GITHUB_TOKEN` | Fine-grained PAT scoped to the `pace-ai-data` repo only |
+
+All other credentials (Strava, Garmin, Withings, Notion) are stored in the private `pace-ai-data` repo's `.env` file and loaded automatically by `cloud-setup.sh`.
 
 ### Session Startup
 
