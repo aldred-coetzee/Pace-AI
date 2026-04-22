@@ -47,6 +47,7 @@ from ui.plans import (
     _extract_weekly_plan,
     _format_plan_table,
     _strip_plan_json,
+    _validate_plan_dates,
 )
 from ui.scheduling import schedule_plan_to_garmin
 from ui.sessions import (
@@ -215,6 +216,7 @@ def chat():
     # Check if the response contains a revised weekly plan
     extracted_plan = _extract_weekly_plan(reply)
     if extracted_plan:
+        extracted_plan = _validate_plan_dates(extracted_plan)
         log.info(
             "Detected revised plan: %s, %d sessions",
             extracted_plan.get("week_starting"),
@@ -670,6 +672,8 @@ def plan():
     # Extract plan JSON (may contain report sections + sessions)
     extracted_plan = _extract_weekly_plan(reply)
     if extracted_plan:
+        # Validate and fix any day-of-week mismatches in session names
+        extracted_plan = _validate_plan_dates(extracted_plan)
         sessions = extracted_plan.get("sessions", [])
         week_starting = extracted_plan.get("week_starting", "")
         log.info(

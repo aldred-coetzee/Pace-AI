@@ -1,12 +1,122 @@
-"""Plan extraction, formatting, and exercise enrichment."""
+"""Plan extraction, formatting, exercise enrichment, and date utilities."""
 
 from __future__ import annotations
 
 import json
 import re
 import subprocess
+from datetime import date, timedelta
 
 from ui.config import CLAUDE_CMD, PROJECT_ROOT, log
+
+# ── Date utilities ──
+
+# Day-of-week abbreviations and full names for matching
+_DAY_ABBREVS = {0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun"}
+_DAY_FULL = {
+    0: "Monday",
+    1: "Tuesday",
+    2: "Wednesday",
+    3: "Thursday",
+    4: "Friday",
+    5: "Saturday",
+    6: "Sunday",
+}
+# Reverse lookups (case-insensitive)
+_NAME_TO_WEEKDAY: dict[str, int] = {}
+for _wd, _name in _DAY_FULL.items():
+    _NAME_TO_WEEKDAY[_name.lower()] = _wd
+    _NAME_TO_WEEKDAY[_name[:3].lower()] = _wd
+    _NAME_TO_WEEKDAY[_name[:4].lower()] = _wd  # "Thur", "Tues"
+
+# Pattern to match day-of-week labels before or near a date-like string
+# e.g. "Mon 27th Apr", "Tuesday 28 April", "Wed 29/04"
+_DAY_LABEL_RE = re.compile(
+    r"\b(Mon(?:day)?|Tue(?:s(?:day)?)?|Wed(?:nesday)?|Thu(?:r(?:s(?:day)?)?)?|"
+    r"Fri(?:day)?|Sat(?:urday)?|Sun(?:day)?)\b",
+    re.IGNORECASE,
+)
+
+
+def _date_calendar(start_iso: str, end_iso: str) -> str:
+    """Build a date-to-day-name reference for a date range.
+
+    Returns lines like:
+      Mon 2026-04-27
+      Tue 2026-04-28
+      ...
+
+    This is injected into the plan prompt so the LLM knows exactly which
+    day of the week each date falls on.
+    """
+    try:
+        start = date.fromisoformat(start_iso)
+        end = date.fromisoformat(end_iso)
+    except (ValueError, TypeError):
+        return ""
+
+    lines: list[str] = []
+    current = start
+    while current <= end:
+        day_name = _DAY_ABBREVS[current.weekday()]
+        lines.append(f"  {day_name} {current.isoformat()}")
+        current += timedelta(days=1)
+    return "\n".join(lines)
+
+
+def _validate_plan_dates(plan: dict) -> dict:
+    """Validate and fix day-of-week labels in plan sessions.
+
+    If a session name or description contains a day-of-week that doesn't
+    match the session's date field, replace it with the correct day name.
+    Also validates that dates fall within a reasonable range.
+
+    Mutates and returns the plan dict.
+    """
+    for session in plan.get("sessions", []):
+        date_str = session.get("date", "")
+        try:
+            d = date.fromisoformat(date_str)
+        except (ValueError, TypeError):
+            continue
+
+        # Fix day-of-week mismatches in name and description
+        for field in ("name", "description"):
+            value = session.get(field, "")
+            if not value:
+                continue
+
+            fixed = _fix_day_label(value, d.weekday())
+            if fixed != value:
+                log.warning(
+                    "Fixed day-of-week in session %s %s: %r -> %r",
+                    date_str,
+                    field,
+                    value,
+                    fixed,
+                )
+                session[field] = fixed
+
+    return plan
+
+
+def _fix_day_label(text: str, correct_weekday: int) -> str:
+    """Replace any incorrect day-of-week names in text with the correct one.
+
+    Preserves the original format (abbreviated vs full name).
+    """
+
+    def _replace_if_wrong(match: re.Match) -> str:
+        found = match.group(0)
+        found_wd = _NAME_TO_WEEKDAY.get(found.lower())
+        if found_wd is None or found_wd == correct_weekday:
+            return found  # correct or unrecognised — leave it
+        # Preserve format: if original was full name, use full; otherwise abbrev
+        if len(found) > 3 and found[3:4].isalpha():
+            return _DAY_FULL[correct_weekday]
+        return _DAY_ABBREVS[correct_weekday]
+
+    return _DAY_LABEL_RE.sub(_replace_if_wrong, text)
 
 
 def _extract_weekly_plan(text: str) -> dict | None:
@@ -114,8 +224,17 @@ def _enrich_plan_with_exercises(plan: dict) -> dict | None:
         "Input plan:\n" + json.dumps(plan, indent=2) + "\n\n"
         "Rules:\n"
         "- Add an exercises array to every strength/mobility/yoga session\n"
-        '- Each exercise: {"name": "...", "sets": N, "reps": N} or '
+        "- Rep-based exercises MUST use sets/reps format: "
+        '{"name": "...", "sets": N, "reps": N} — this creates a lap-button step '
+        "the athlete advances manually when done\n"
+        "- Timed holds/stretches MUST use duration_s format: "
         '{"name": "...", "duration_s": N}\n'
+        "- NEVER put duration_s on rep-based exercises — the athlete controls pacing\n"
+        "- Eccentric exercises (heel drops, Nordic curls) are slow (~5s per rep). "
+        "Always specify per-leg reps explicitly in the name if bilateral "
+        '(e.g. "Heel drops (each leg)" with reps: 15)\n'
+        "- For bilateral timed holds (e.g. single-leg balance), duration_s must be "
+        "the TOTAL time for both legs (e.g. 30s/leg = duration_s: 60)\n"
         "- Include foam rolling exercises with duration_s (e.g. 60 or 120)\n"
         "- Include Achilles-specific exercises (heel drops, calf raises) if relevant\n"
         "- Keep all other fields exactly as they are\n"
@@ -151,8 +270,6 @@ def _enrich_plan_with_exercises(plan: dict) -> dict | None:
 
 def _default_date_range() -> tuple[str, str]:
     """Return (next_monday, next_sunday) as ISO strings."""
-    from datetime import date, timedelta
-
     today = date.today()
     days_ahead = (7 - today.weekday()) % 7
     if days_ahead == 0:

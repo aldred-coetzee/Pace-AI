@@ -363,6 +363,10 @@ def _build_plan_prompt() -> str:
     lines.append(
         "- Saturday is ALWAYS the long run day. Never schedule strength or rest on Saturday"
     )
+    lines.append(
+        "- CRITICAL: Use the date-to-day reference provided — never guess which day a date falls on. "
+        "If you mention a day name (e.g. 'Saturday long run'), it MUST match the actual day of that date"
+    )
     return "\n".join(lines)
 
 

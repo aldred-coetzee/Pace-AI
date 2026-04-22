@@ -942,7 +942,21 @@ def _build_plan_context(status_snapshot: str, date_range: str) -> str:
     except Exception:
         log.exception("Failed to load research claims")
 
-    sections.append(f"## Date Range\nCreate a plan for: {date_range}")
+    # Add date-to-day calendar so the LLM knows exactly which day each date is
+    from ui.plans import _date_calendar
+
+    parts = date_range.split(" to ")
+    if len(parts) == 2:
+        calendar = _date_calendar(parts[0].strip(), parts[1].strip())
+        if calendar:
+            sections.append(
+                f"## Date Range\nCreate a plan for: {date_range}\n\n"
+                f"Date-to-day reference (use these — do not guess day names):\n{calendar}"
+            )
+        else:
+            sections.append(f"## Date Range\nCreate a plan for: {date_range}")
+    else:
+        sections.append(f"## Date Range\nCreate a plan for: {date_range}")
 
     return "\n\n".join(sections)
 
