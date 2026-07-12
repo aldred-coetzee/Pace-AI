@@ -662,6 +662,12 @@ def _gather_status_data(db: HistoryDB) -> dict:
     data["body_comp_text"] = _build_body_composition(db)
     data["diary"] = _build_diary_section(db, days=7)
 
+    try:
+        data["diary_entries"] = db.get_diary_entries(days=7)
+    except Exception:
+        log.exception("Failed to load diary entries")
+        data["diary_entries"] = []
+
     facts, facts_section = _build_facts_section(db)
     data["facts"] = facts
     data["facts_section"] = facts_section

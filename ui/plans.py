@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import json
 import re
-import subprocess
 from datetime import date, timedelta
 
-from ui.config import CLAUDE_CMD, PROJECT_ROOT, log
+from ui.config import PROJECT_ROOT, log
+from ui.llm import call_llm
 
 # ── Date utilities ──
 
@@ -241,15 +241,8 @@ def _enrich_plan_with_exercises(plan: dict) -> dict | None:
         "- Output ONLY the JSON, no commentary\n"
     )
     try:
-        result = subprocess.run(
-            CLAUDE_CMD,
-            input=prompt,
-            capture_output=True,
-            text=True,
-            timeout=120,
-            cwd=str(PROJECT_ROOT),
-        )
-        enriched = _extract_weekly_plan(result.stdout.strip())
+        raw = call_llm("", prompt, timeout=120)
+        enriched = _extract_weekly_plan(raw)
         if enriched and enriched.get("sessions"):
             # Verify exercises were actually added
             has_exercises = any(

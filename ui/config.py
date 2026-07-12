@@ -36,12 +36,6 @@ log = logging.getLogger("pace-ui")
 DB_PATH = str(PROJECT_ROOT / "pace_ai.db")
 _SESSION_DB = str(PROJECT_ROOT / "ui_sessions.db")
 
-CLAUDE_CMD = [
-    "claude",
-    "-p",
-    "--dangerously-skip-permissions",
-]
-
 # ── Structured output schema ──
 # Each agent defines sections as (key, title, has_status, content_hint).
 # content_hint tells Claude what to write in the content field.
@@ -458,7 +452,6 @@ __all__ = [
     "PROJECT_ROOT",
     "DB_PATH",
     "_SESSION_DB",
-    "CLAUDE_CMD",
     "STATUS_SECTIONS",
     "STATUS_TRAINING_SECTIONS",
     "STATUS_RECOVERY_SECTIONS",

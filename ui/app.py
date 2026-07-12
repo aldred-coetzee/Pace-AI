@@ -5,23 +5,15 @@ from __future__ import annotations
 import asyncio
 import json
 import re
-import subprocess
-from concurrent.futures import ThreadPoolExecutor
 
 from flask import Flask, Response, render_template_string, request, session
 
 from ui.config import (
-    CLAUDE_CMD,
     DB_PATH,
     NUTRITION_GENERAL_SECTIONS,
     NUTRITION_PLAN_SECTIONS,
     NUTRITION_RACE_SECTIONS,
     PLAN_REPORT_SECTIONS,
-    PROJECT_ROOT,
-    STATUS_INJURY_SECTIONS,
-    STATUS_READINESS_SECTIONS,
-    STATUS_RECOVERY_SECTIONS,
-    STATUS_TRAINING_SECTIONS,
     HistoryDB,
     _sync_all,
     append_coaching_log,
@@ -29,17 +21,23 @@ from ui.config import (
     log,
     update_coaching_context,
 )
+from ui.llm import call_llm
 from ui.context import (
     _build_chat_context,
-    _build_injury_context,
     _build_nutrition_context,
     _build_plan_context,
-    _build_readiness_context,
-    _build_recovery_context,
-    _build_training_context,
     _gather_status_data,
     _render_body_comp_html,
     _render_schedule_html,
+)
+from ui.status import (
+    assess_injury,
+    assess_readiness,
+    assess_recent_runs,
+    assess_recovery,
+    assess_training_load,
+    build_status_snapshot,
+    render_status_section,
 )
 from ui.plans import (
     _default_date_range,
@@ -163,9 +161,6 @@ def chat():
     pending_plan = store.get("pending_plan")
     context = _build_chat_context(status_snapshot, pending_plan)
 
-    cmd = list(CLAUDE_CMD)
-    cmd.extend(["--system-prompt", context])
-
     # Build conversation from last 10 messages for context
     history = store.get("messages", [])
     recent = history[-10:]
@@ -182,34 +177,12 @@ def chat():
     else:
         prompt_text = user_message
 
-    log.info("--- chat claude -p call ---")
+    log.info("--- chat LLM call ---")
     log.info("system prompt length: %d chars", len(context))
     log.info("conversation messages: %d (recent: %d)", len(history), len(recent))
     log.info("user message: %r", user_message[:100])
 
-    try:
-        result = subprocess.run(
-            cmd,
-            input=prompt_text,
-            capture_output=True,
-            text=True,
-            timeout=300,
-            cwd=str(PROJECT_ROOT),
-        )
-        log.info("return code: %d", result.returncode)
-        log.info("stdout: %d bytes", len(result.stdout))
-        log.info(
-            "stderr: %d bytes | %s",
-            len(result.stderr),
-            result.stderr[:200] if result.stderr else "(empty)",
-        )
-        reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
-    except subprocess.TimeoutExpired:
-        log.exception("claude -p timed out")
-        reply = "(timeout — Claude took too long)"
-    except Exception as e:
-        log.exception("claude -p failed")
-        reply = f"(error: {e})"
+    reply = call_llm(context, prompt_text, timeout=300)
 
     log.info("reply length: %d chars", len(reply))
 
@@ -369,138 +342,31 @@ def _render_plan_table_html(sessions: list[dict], week_starting: str = "") -> st
     )
 
 
-def _call_claude_status(
-    context: str, prompt_text: str = "Assess my current training status."
-) -> str:
-    """Run a single claude -p subprocess call for a status sub-group.
-
-    Returns the raw stdout string. Handles timeouts and errors gracefully.
-    """
-    cmd = list(CLAUDE_CMD)
-    cmd.extend(["--system-prompt", context])
-    try:
-        result = subprocess.run(
-            cmd,
-            input=prompt_text,
-            capture_output=True,
-            text=True,
-            timeout=120,
-            cwd=str(PROJECT_ROOT),
-        )
-        return result.stdout.strip() or result.stderr.strip() or "(no response)"
-    except subprocess.TimeoutExpired:
-        log.exception("status claude -p timed out")
-        return "(timeout — Claude took too long)"
-    except Exception as e:
-        log.exception("status claude -p failed")
-        return f"(error: {e})"
-
-
-def _merge_status_html(
-    group_results: dict[str, str],
-    readiness_raw: str,
-    schedule_html: str,
+def _assemble_status_html(
+    training_html: str,
+    recent_runs_html: str,
+    recovery_html: str,
+    injury_html: str,
+    readiness_html: str,
     body_comp_html: str,
+    schedule_html: str,
 ) -> str:
-    """Merge parallel Claude results + direct-rendered sections into final HTML.
-
-    Renders each group's JSON output into section cards, then assembles them
-    in the correct order with injected schedule and body composition cards.
-    """
+    """Assemble pre-rendered section HTML cards into the final status report."""
     from datetime import date
 
     parts = ['<div class="status-report">']
     parts.append(
         f'<div class="status-date">{date.today().strftime("%A %-d %B %Y")}</div>'
     )
-
-    # Group A: training_load + recent_runs
-    training_raw = group_results.get("training", "")
-    _render_group_sections(parts, training_raw, STATUS_TRAINING_SECTIONS)
-
-    # Group B: recovery
-    recovery_raw = group_results.get("recovery", "")
-    _render_group_sections(parts, recovery_raw, STATUS_RECOVERY_SECTIONS)
-
-    # Direct-rendered: body composition
+    parts.append(training_html)
+    parts.append(recent_runs_html)
+    parts.append(recovery_html)
     parts.append(body_comp_html)
-
-    # Group C: injury_status
-    injury_raw = group_results.get("injury", "")
-    _render_group_sections(parts, injury_raw, STATUS_INJURY_SECTIONS)
-
-    # Direct-rendered: upcoming schedule
+    parts.append(injury_html)
     parts.append(schedule_html)
-
-    # Group D: overall_readiness (verdict)
-    _render_group_sections(
-        parts,
-        readiness_raw,
-        STATUS_READINESS_SECTIONS,
-        verdict_section="overall_readiness",
-    )
-
+    parts.append(readiness_html)
     parts.append("</div>")
     return "\n".join(parts)
-
-
-def _render_group_sections(
-    parts: list[str],
-    raw: str,
-    sections: list[tuple],
-    *,
-    verdict_section: str | None = None,
-) -> None:
-    """Parse JSON from a Claude group response and append section cards to parts list."""
-    m = re.search(r"```json\s*\n(.*?)\n\s*```", raw, re.DOTALL)
-    if not m:
-        # Fallback: show raw text if JSON parsing fails
-        if raw and not raw.startswith("("):
-            parts.append(
-                '<div class="status-section status-info">'
-                '<div class="status-header"><span class="status-title">Status</span></div>'
-                f'<div class="status-body"><div class="md-content">{raw}</div></div>'
-                "</div>"
-            )
-        return
-
-    try:
-        data = json.loads(m.group(1))
-    except json.JSONDecodeError:
-        return
-
-    for key, display_title, has_status, _hint in sections:
-        section = data.get(key)
-        if not section:
-            continue
-
-        content = section.get("content", "")
-        status = section.get("status", "info") if has_status else "info"
-        css_class = (
-            f"status-{status}"
-            if status in ("ok", "caution", "concern")
-            else "status-info"
-        )
-
-        if key == verdict_section:
-            verdict = section.get("verdict", "")
-            parts.append(f'<div class="status-verdict {css_class}">')
-            parts.append(f'<div class="verdict-label">{verdict}</div>')
-            parts.append(
-                f'<div class="status-body"><div class="md-content">{content}</div></div>'
-            )
-            parts.append("</div>")
-        else:
-            parts.append(f'<div class="status-section {css_class}">')
-            parts.append('<div class="status-header">')
-            if has_status:
-                parts.append('<span class="status-dot"></span>')
-            parts.append(f'<span class="status-title">{display_title}</span>')
-            parts.append("</div>")
-            parts.append(
-                f'<div class="status-body"><div class="md-content">{content}</div></div>'
-            )
-            parts.append("</div>")
 
 
 @app.route("/status", methods=["POST"])
@@ -517,58 +383,49 @@ def status():
     schedule_html = _render_schedule_html(data.get("schedule") or [])
     body_comp_html = _render_body_comp_html(db)
 
-    # 3. Build focused contexts
-    training_ctx = _build_training_context(data)
-    recovery_ctx = _build_recovery_context(data)
-    injury_ctx = _build_injury_context(data)
-
-    log.info("--- status parallel claude -p calls ---")
-    log.info("training context: %d chars", len(training_ctx))
-    log.info("recovery context: %d chars", len(recovery_ctx))
-    log.info("injury context: %d chars", len(injury_ctx))
-
-    # 4. Run Groups A, B, C in parallel
-    with ThreadPoolExecutor(max_workers=3) as pool:
-        futures = {
-            "training": pool.submit(
-                _call_claude_status,
-                training_ctx,
-                "Assess training load and recent runs.",
-            ),
-            "recovery": pool.submit(
-                _call_claude_status, recovery_ctx, "Assess recovery status."
-            ),
-            "injury": pool.submit(
-                _call_claude_status, injury_ctx, "Assess injury status."
-            ),
-        }
-        group_results = {k: f.result() for k, f in futures.items()}
-
-    log.info("training result: %d chars", len(group_results["training"]))
-    log.info("recovery result: %d chars", len(group_results["recovery"]))
-    log.info("injury result: %d chars", len(group_results["injury"]))
-
-    # 5. Build readiness context from results and call Claude
-    readiness_ctx = _build_readiness_context(data, group_results)
-    log.info("readiness context: %d chars", len(readiness_ctx))
-    readiness_raw = _call_claude_status(
-        readiness_ctx, "Give an overall readiness assessment."
+    # 3. Deterministic rule-based assessments (no LLM)
+    log.info("--- status deterministic assessment ---")
+    training_status, training_html = assess_training_load(data.get("weekly_distances") or [])
+    runs_status, runs_html = assess_recent_runs(
+        data.get("activities") or [], data.get("facts") or []
     )
-    log.info("readiness result: %d chars", len(readiness_raw))
-
-    # 6. Merge everything into final HTML
-    rendered = _merge_status_html(
-        group_results, readiness_raw, schedule_html, body_comp_html
+    recovery_status, recovery_html = assess_recovery(data.get("wellness") or [])
+    injury_status, injury_html = assess_injury(
+        data.get("diary_entries") or [], data.get("facts") or []
+    )
+    readiness_status, readiness_verdict, readiness_content = assess_readiness(
+        training_status, recovery_status, injury_status,
+        training_html, recovery_html, injury_html,
     )
 
-    # Build combined raw snapshot for PLAN and CHAT agents
-    snapshot_parts = []
-    for key in ("training", "recovery", "injury"):
-        if group_results.get(key):
-            snapshot_parts.append(group_results[key])
-    if readiness_raw:
-        snapshot_parts.append(readiness_raw)
-    status_snapshot = "\n\n".join(snapshot_parts)
+    log.info(
+        "status: training=%s runs=%s recovery=%s injury=%s readiness=%s",
+        training_status, runs_status, recovery_status, injury_status, readiness_status,
+    )
+
+    # 4. Render section cards
+    training_card = render_status_section("Training Load", training_status, training_html)
+    runs_card = render_status_section("Recent Runs", runs_status, runs_html)
+    recovery_card = render_status_section("Recovery", recovery_status, recovery_html)
+    injury_card = render_status_section("Injury Status", injury_status, injury_html)
+    readiness_card = render_status_section(
+        "Overall Readiness", readiness_status, readiness_content,
+        verdict_text=readiness_verdict,
+    )
+
+    # 5. Assemble final HTML
+    rendered = _assemble_status_html(
+        training_card, runs_card, recovery_card, injury_card,
+        readiness_card, body_comp_html, schedule_html,
+    )
+
+    # 6. Build text snapshot for PLAN and CHAT agents
+    status_snapshot = build_status_snapshot(
+        training_status, training_html,
+        recovery_status, recovery_html,
+        injury_status, injury_html,
+        readiness_status, readiness_verdict,
+    )
 
     store["status_snapshot"] = status_snapshot
     store["status_generated_at"] = datetime.now().isoformat()
@@ -591,51 +448,52 @@ def plan():
         date_from, date_to = _default_date_range()
     date_range = f"{date_from} to {date_to}"
 
-    # Auto-generate status if not cached (using parallel approach)
+    # Auto-generate status if not cached (deterministic, instant)
     if not store.get("status_snapshot"):
-        log.info("No status cached — auto-generating before plan (parallel)")
+        log.info("No status cached — auto-generating before plan (deterministic)")
         db = HistoryDB(DB_PATH)
         status_data = _gather_status_data(db)
 
         schedule_html = _render_schedule_html(status_data.get("schedule") or [])
         body_comp_html = _render_body_comp_html(db)
 
-        training_ctx = _build_training_context(status_data)
-        recovery_ctx = _build_recovery_context(status_data)
-        injury_ctx = _build_injury_context(status_data)
-
-        with ThreadPoolExecutor(max_workers=3) as pool:
-            futures = {
-                "training": pool.submit(
-                    _call_claude_status,
-                    training_ctx,
-                    "Assess training load and recent runs.",
-                ),
-                "recovery": pool.submit(
-                    _call_claude_status, recovery_ctx, "Assess recovery status."
-                ),
-                "injury": pool.submit(
-                    _call_claude_status, injury_ctx, "Assess injury status."
-                ),
-            }
-            auto_results = {k: f.result() for k, f in futures.items()}
-
-        readiness_ctx = _build_readiness_context(status_data, auto_results)
-        readiness_raw = _call_claude_status(
-            readiness_ctx, "Give an overall readiness assessment."
+        auto_training_status, auto_training_html = assess_training_load(
+            status_data.get("weekly_distances") or []
+        )
+        auto_runs_status, auto_runs_html = assess_recent_runs(
+            status_data.get("activities") or [], status_data.get("facts") or []
+        )
+        auto_recovery_status, auto_recovery_html = assess_recovery(
+            status_data.get("wellness") or []
+        )
+        auto_injury_status, auto_injury_html = assess_injury(
+            status_data.get("diary_entries") or [], status_data.get("facts") or []
+        )
+        auto_readiness_status, auto_readiness_verdict, auto_readiness_content = assess_readiness(
+            auto_training_status, auto_recovery_status, auto_injury_status,
+            auto_training_html, auto_recovery_html, auto_injury_html,
         )
 
-        rendered_status = _merge_status_html(
-            auto_results, readiness_raw, schedule_html, body_comp_html
+        auto_training_card = render_status_section("Training Load", auto_training_status, auto_training_html)
+        auto_runs_card = render_status_section("Recent Runs", auto_runs_status, auto_runs_html)
+        auto_recovery_card = render_status_section("Recovery", auto_recovery_status, auto_recovery_html)
+        auto_injury_card = render_status_section("Injury Status", auto_injury_status, auto_injury_html)
+        auto_readiness_card = render_status_section(
+            "Overall Readiness", auto_readiness_status, auto_readiness_content,
+            verdict_text=auto_readiness_verdict,
         )
 
-        snapshot_parts = []
-        for key in ("training", "recovery", "injury"):
-            if auto_results.get(key):
-                snapshot_parts.append(auto_results[key])
-        if readiness_raw:
-            snapshot_parts.append(readiness_raw)
-        store["status_snapshot"] = "\n\n".join(snapshot_parts)
+        rendered_status = _assemble_status_html(
+            auto_training_card, auto_runs_card, auto_recovery_card, auto_injury_card,
+            auto_readiness_card, body_comp_html, schedule_html,
+        )
+
+        store["status_snapshot"] = build_status_snapshot(
+            auto_training_status, auto_training_html,
+            auto_recovery_status, auto_recovery_html,
+            auto_injury_status, auto_injury_html,
+            auto_readiness_status, auto_readiness_verdict,
+        )
         store["status_generated_at"] = datetime.now().isoformat()
         store["messages"].append(
             {"role": "assistant", "content": rendered_status, "agent": "status"}
@@ -644,28 +502,10 @@ def plan():
     # Build plan context and call
     plan_context = _build_plan_context(store["status_snapshot"], date_range)
 
-    log.info("--- plan claude -p call ---")
+    log.info("--- plan LLM call ---")
     log.info("plan context length: %d chars", len(plan_context))
 
-    cmd = list(CLAUDE_CMD)
-    cmd.extend(["--system-prompt", plan_context])
-
-    try:
-        result = subprocess.run(
-            cmd,
-            input=f"Create a training plan for {date_range}.",
-            capture_output=True,
-            text=True,
-            timeout=300,
-            cwd=str(PROJECT_ROOT),
-        )
-        reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
-    except subprocess.TimeoutExpired:
-        log.exception("plan claude -p timed out")
-        reply = "(timeout — Claude took too long)"
-    except Exception as e:
-        log.exception("plan claude -p failed")
-        reply = f"(error: {e})"
+    reply = call_llm(plan_context, f"Create a training plan for {date_range}.", timeout=300)
 
     log.info("plan reply length: %d chars", len(reply))
 
@@ -794,44 +634,12 @@ def end_session():
         "Return JSON only. No prose, no markdown fences."
     )
 
-    log.info("--- end-session claude -p call ---")
+    log.info("--- end-session LLM call ---")
     log.info("conversation messages: %d", len(messages))
     log.info("prompt length: %d chars", len(prompt))
 
-    try:
-        result = subprocess.run(
-            CLAUDE_CMD,
-            input=prompt,
-            capture_output=True,
-            text=True,
-            timeout=120,
-            cwd=str(PROJECT_ROOT),
-        )
-        raw = result.stdout.strip() or result.stderr.strip() or ""
-        log.info("end-session return code: %d", result.returncode)
-        log.info("end-session raw length: %d chars", len(raw))
-    except subprocess.TimeoutExpired:
-        log.exception("end-session claude -p timed out")
-        return render_template_string(
-            END_SESSION_HTML,
-            error="Claude timed out during session logging.",
-            raw_response=None,
-            summary=None,
-            prescriptions=None,
-            follow_ups=None,
-            updated_context=None,
-        )
-    except Exception as e:
-        log.exception("end-session claude -p failed")
-        return render_template_string(
-            END_SESSION_HTML,
-            error=f"Claude call failed: {e}",
-            raw_response=None,
-            summary=None,
-            prescriptions=None,
-            follow_ups=None,
-            updated_context=None,
-        )
+    raw = call_llm("You are a running coach assistant.", prompt, timeout=120)
+    log.info("end-session raw length: %d chars", len(raw))
 
     # Strip markdown fences if present
     cleaned = re.sub(r"^```(?:json)?\s*\n?", "", raw, flags=re.MULTILINE)
@@ -883,25 +691,31 @@ def end_session():
             updated_context=None,
         )
 
-    # Save full conversation to history
+    # Attach the summary to the conversation row (the row itself was written
+    # incrementally by _persist_store as messages came in). Fall back to INSERT
+    # in the edge case where end-session fires before any persist (shouldn't
+    # happen — there must be messages to summarise — but cheap insurance).
     try:
         import sqlite3 as _sq
 
+        sid = session.get("sid")
         confirmed_plan = store.get("confirmed_plan")
+        plan_json = json.dumps(confirmed_plan, default=str) if confirmed_plan else None
         conn = _sq.connect(_SESSION_DB)
-        conn.execute(
-            "INSERT INTO conversations (messages, summary, plan) VALUES (?, ?, ?)",
-            (
-                json.dumps(messages, default=str),
-                summary,
-                json.dumps(confirmed_plan, default=str) if confirmed_plan else None,
-            ),
+        cur = conn.execute(
+            "UPDATE conversations SET summary = ?, plan = COALESCE(?, plan), updated_at = CURRENT_TIMESTAMP WHERE sid = ?",
+            (summary, plan_json, sid),
         )
+        if cur.rowcount == 0:
+            conn.execute(
+                "INSERT INTO conversations (sid, messages, summary, plan, updated_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
+                (sid, json.dumps(messages, default=str), summary, plan_json),
+            )
         conn.commit()
         conn.close()
-        log.info("Conversation saved to history")
+        log.info("Conversation summary saved to history")
     except Exception:
-        log.exception("Failed to save conversation to history")
+        log.exception("Failed to save conversation summary to history")
 
     # Clear the session after successful logging
     sid = session.get("sid")
@@ -1049,28 +863,10 @@ def nutrition():
     }
     prompt_text = f"Give me {mode_labels.get(mode, 'nutrition advice')}."
 
-    log.info("--- nutrition claude -p call (mode=%s) ---", mode)
+    log.info("--- nutrition LLM call (mode=%s) ---", mode)
     log.info("nutrition context length: %d chars", len(context))
 
-    cmd = list(CLAUDE_CMD)
-    cmd.extend(["--system-prompt", context])
-
-    try:
-        result = subprocess.run(
-            cmd,
-            input=prompt_text,
-            capture_output=True,
-            text=True,
-            timeout=300,
-            cwd=str(PROJECT_ROOT),
-        )
-        reply = result.stdout.strip() or result.stderr.strip() or "(no response)"
-    except subprocess.TimeoutExpired:
-        log.exception("nutrition claude -p timed out")
-        reply = "(timeout — Claude took too long)"
-    except Exception as e:
-        log.exception("nutrition claude -p failed")
-        reply = f"(error: {e})"
+    reply = call_llm(context, prompt_text, timeout=300)
 
     log.info("nutrition reply length: %d chars", len(reply))
 
@@ -1103,7 +899,10 @@ def history():
     conn = _sq.connect(_SESSION_DB)
     conn.row_factory = _sq.Row
     rows = conn.execute(
-        "SELECT created_at, messages, summary, plan FROM conversations ORDER BY created_at DESC LIMIT 50"
+        """SELECT created_at, updated_at, messages, summary, plan
+           FROM conversations
+           ORDER BY COALESCE(updated_at, created_at) DESC
+           LIMIT 50"""
     ).fetchall()
     conn.close()
 
@@ -1113,10 +912,11 @@ def history():
             messages = json.loads(row["messages"])
         except (json.JSONDecodeError, TypeError):
             messages = []
+        when = row["updated_at"] or row["created_at"] or ""
         sessions.append(
             {
-                "date": (row["created_at"] or "")[:16].replace("T", " "),
-                "summary": row["summary"],
+                "date": when[:16].replace("T", " "),
+                "summary": row["summary"] or "(in progress)",
                 "messages": messages,
                 "message_count": len(messages),
             }
