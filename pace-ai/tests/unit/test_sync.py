@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date, timedelta
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -130,12 +131,13 @@ class TestSyncGarminWorkouts:
 
     def test_workout_matching(self, history_db):
         """A workout scheduled on a day with a matching activity should be marked completed."""
-        # First sync an activity on 2026-03-10
+        # First sync an activity on the same date as WK001 in sample_garmin_workouts (today)
+        today = date.today().isoformat()
         history_db.upsert_activities(
             [
                 {
                     "strava_id": "999",
-                    "date": "2026-03-10",
+                    "date": today,
                     "sport_type": "Run",
                     "distance_m": 10000,
                 }

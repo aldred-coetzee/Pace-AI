@@ -454,16 +454,39 @@ def _format_exercise_desc(exercise: dict[str, Any]) -> str:
     return desc
 
 
-def build_strength_workout(name: str, exercises: list[dict[str, Any]]) -> dict[str, Any]:
-    """Build a strength training workout with lap-button steps.
+def build_strength_workout(
+    name: str,
+    exercises: list[dict[str, Any]] | None = None,
+    duration_minutes: int | None = None,
+    notes: str | None = None,
+) -> dict[str, Any]:
+    """Build a strength training workout.
 
-    Each exercise is expanded into per-set steps with rest steps between exercises.
+    Two modes:
+    - **Exercise mode** (default): pass ``exercises`` for per-set steps with rest.
+    - **Timer mode**: pass ``duration_minutes`` (and optionally ``notes``) for a
+      single timed step — useful when the athlete prefers a simple countdown with
+      instructions in the workout description.
 
     Args:
         name: Workout name.
         exercises: List of exercise dicts with keys: name (str), sets (int),
             reps (int|None), duration_s (int|None), rest_s (int), notes (str|None).
+        duration_minutes: Total session duration in minutes (timer mode).
+        notes: Optional free-text notes shown in workout description (visible in Garmin Connect app).
     """
+    if duration_minutes is not None:
+        # Timer mode — single timed step
+        step_desc = f"Strength — {duration_minutes} min"
+        workout_desc = notes if notes else step_desc
+        steps = [
+            _time_step(1, STEP_TYPE_INTERVAL, duration_minutes * 60, description=step_desc),
+        ]
+        return _wrap_workout(name, steps, sport_type=SPORT_TYPE_STRENGTH, description=workout_desc)
+
+    # Exercise mode — per-set steps (original behaviour)
+    if exercises is None:
+        exercises = []
     steps: list[dict[str, Any]] = []
     order = 1
 
@@ -493,21 +516,20 @@ def build_strength_workout(name: str, exercises: list[dict[str, Any]]) -> dict[s
     steps.append(_lap_button_step(order, STEP_TYPE_COOLDOWN, description="Cooldown"))
 
     exercise_names = [ex["name"] for ex in exercises]
-    return _wrap_workout(
-        name,
-        steps,
-        sport_type=SPORT_TYPE_STRENGTH,
-        description=f"Strength — {', '.join(exercise_names)}",
-    )
+    workout_desc = notes if notes else f"Strength — {', '.join(exercise_names)}"
+    return _wrap_workout(name, steps, sport_type=SPORT_TYPE_STRENGTH, description=workout_desc)
 
 
 def build_mobility_workout(name: str, exercises: list[dict[str, Any]]) -> dict[str, Any]:
-    """Build a mobility/stretching workout with timed holds.
+    """Build a mobility/stretching workout with timed holds and lap-button rep exercises.
+
+    Timed exercises (duration_s set, no reps) get countdown timers.
+    Rep-based exercises (reps set) get lap-button steps the athlete advances manually.
 
     Args:
         name: Workout name.
         exercises: List of exercise dicts with keys: name (str), sets (int),
-            duration_s (int), rest_s (int), notes (str|None).
+            reps (int|None), duration_s (int|None), rest_s (int), notes (str|None).
     """
     steps: list[dict[str, Any]] = []
     order = 1
@@ -518,12 +540,15 @@ def build_mobility_workout(name: str, exercises: list[dict[str, Any]]) -> dict[s
     for i, ex in enumerate(exercises):
         desc = _format_exercise_desc(ex)
         sets = ex.get("sets", 1)
-        duration_s = ex.get("duration_s", 30)
         rest_s = ex.get("rest_s", 15)
 
         for s in range(sets):
             set_desc = f"{desc} (set {s + 1}/{sets})"
-            steps.append(_time_step(order, STEP_TYPE_INTERVAL, duration_s, description=set_desc))
+            if ex.get("reps") and not ex.get("duration_s"):
+                steps.append(_lap_button_step(order, STEP_TYPE_INTERVAL, description=set_desc))
+            else:
+                duration_s = ex.get("duration_s", 30)
+                steps.append(_time_step(order, STEP_TYPE_INTERVAL, duration_s, description=set_desc))
             order += 1
 
             if s < sets - 1 or i < len(exercises) - 1:
@@ -540,23 +565,28 @@ def build_mobility_workout(name: str, exercises: list[dict[str, Any]]) -> dict[s
     )
 
 
-def build_yoga_workout(name: str, duration_minutes: int, style: str | None = None) -> dict[str, Any]:
+def build_yoga_workout(
+    name: str, duration_minutes: int, style: str | None = None, notes: str | None = None
+) -> dict[str, Any]:
     """Build a yoga workout — single timed step.
 
     Args:
         name: Workout name.
         duration_minutes: Total session duration in minutes.
         style: Optional style label (e.g. "Yin", "Vinyasa", "Restorative").
+        notes: Optional free-text notes shown in workout description (visible in Garmin Connect app).
     """
-    desc = f"{style} yoga" if style else "Yoga"
+    label = f"{style} yoga" if style else "Yoga"
+    step_desc = f"{label} — {duration_minutes} min"
+    workout_desc = notes if notes else step_desc
     steps = [
-        _time_step(1, STEP_TYPE_INTERVAL, duration_minutes * 60, description=f"{desc} — {duration_minutes} min"),
+        _time_step(1, STEP_TYPE_INTERVAL, duration_minutes * 60, description=step_desc),
     ]
     return _wrap_workout(
         name,
         steps,
         sport_type=SPORT_TYPE_YOGA,
-        description=f"{desc} — {duration_minutes} min",
+        description=workout_desc,
     )
 
 
@@ -711,9 +741,11 @@ WORKOUT_TYPES = {
     },
     "strength": {
         "builder": "build_strength_workout",
-        "description": "Strength training with exercises, sets, reps, and rest periods",
+        "description": "Strength training — exercise mode (per-set steps) or timer mode (single countdown)",
         "parameters": {
-            "exercises": "List of exercise dicts: {name, sets, reps, duration_s, rest_s, notes} (required)",
+            "exercises": "List of exercise dicts: {name, sets, reps, duration_s, rest_s, notes} (exercise mode)",
+            "duration_minutes": "Session duration in minutes (timer mode — mutually exclusive with exercises)",
+            "notes": "Free-text instructions shown in Garmin Connect workout description (optional)",
         },
     },
     "mobility": {
@@ -729,6 +761,7 @@ WORKOUT_TYPES = {
         "parameters": {
             "duration_minutes": "Session duration in minutes (required)",
             "style": "Style label e.g. 'Yin', 'Vinyasa', 'Restorative' (optional)",
+            "notes": "Free-text instructions shown in Garmin Connect workout description (optional)",
         },
     },
     "cardio": {

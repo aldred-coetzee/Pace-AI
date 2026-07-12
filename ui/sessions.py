@@ -31,6 +31,16 @@ def _init_session_db() -> None:
             plan TEXT
         )"""
     )
+    cols = {
+        row[1] for row in conn.execute("PRAGMA table_info(conversations)").fetchall()
+    }
+    if "sid" not in cols:
+        conn.execute("ALTER TABLE conversations ADD COLUMN sid TEXT")
+    if "updated_at" not in cols:
+        conn.execute("ALTER TABLE conversations ADD COLUMN updated_at TIMESTAMP")
+    conn.execute(
+        "CREATE UNIQUE INDEX IF NOT EXISTS idx_conversations_sid ON conversations(sid)"
+    )
     conn.commit()
     conn.close()
 
@@ -96,3 +106,34 @@ def _persist_store() -> None:
     sid = session.get("sid")
     if sid and sid in _sessions:
         _save_session(sid, _sessions[sid])
+        _upsert_conversation(sid, _sessions[sid])
+
+
+def _upsert_conversation(sid: str, store: dict) -> None:
+    """Mirror the live session into conversations so history captures every turn.
+
+    Only writes once there's at least one message — empty stores would pollute
+    history with blank rows on every page load.
+    """
+    import sqlite3
+
+    messages = store.get("messages") or []
+    if not messages:
+        return
+    plan = store.get("confirmed_plan")
+    conn = sqlite3.connect(_SESSION_DB)
+    conn.execute(
+        """INSERT INTO conversations (sid, messages, plan, updated_at)
+           VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+           ON CONFLICT(sid) DO UPDATE SET
+             messages = excluded.messages,
+             plan = excluded.plan,
+             updated_at = CURRENT_TIMESTAMP""",
+        (
+            sid,
+            json.dumps(messages, default=str),
+            json.dumps(plan, default=str) if plan else None,
+        ),
+    )
+    conn.commit()
+    conn.close()

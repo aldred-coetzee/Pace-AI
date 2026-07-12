@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date, timedelta
 from typing import Any
 
 import pytest
@@ -111,14 +112,18 @@ def sample_activity_detail() -> dict:
 
 def sample_strava_activities() -> list[dict]:
     """Factory for raw Strava activities (as returned by strava-mcp)."""
+    today = date.today()
+    d1 = (today - timedelta(days=2)).isoformat()
+    d2 = (today - timedelta(days=9)).isoformat()
+    d3 = (today - timedelta(days=16)).isoformat()
     return [
         {
             "id": 1001,
             "name": "Morning Easy Run",
             "type": "Run",
             "sport_type": "Run",
-            "start_date": "2026-03-01T06:00:00Z",
-            "start_date_local": "2026-03-01T08:00:00",
+            "start_date": f"{d3}T06:00:00Z",
+            "start_date_local": f"{d3}T08:00:00",
             "distance": 10000,
             "moving_time": 3000,
             "elapsed_time": 3100,
@@ -134,8 +139,8 @@ def sample_strava_activities() -> list[dict]:
             "name": "Tempo Run",
             "type": "Run",
             "sport_type": "Run",
-            "start_date": "2026-03-03T06:00:00Z",
-            "start_date_local": "2026-03-03T08:00:00",
+            "start_date": f"{d2}T06:00:00Z",
+            "start_date_local": f"{d2}T08:00:00",
             "distance": 8000,
             "moving_time": 2160,
             "elapsed_time": 2200,
@@ -151,8 +156,8 @@ def sample_strava_activities() -> list[dict]:
             "name": "Saturday parkrun",
             "type": "Run",
             "sport_type": "Run",
-            "start_date": "2026-03-08T08:00:00Z",
-            "start_date_local": "2026-03-08T10:00:00",
+            "start_date": f"{d1}T08:00:00Z",
+            "start_date_local": f"{d1}T10:00:00",
             "distance": 5020,
             "moving_time": 1320,
             "elapsed_time": 1325,
@@ -168,9 +173,12 @@ def sample_strava_activities() -> list[dict]:
 
 def sample_wellness_data() -> list[dict]:
     """Factory for Garmin wellness snapshots."""
+    today = date.today()
+    d1 = today.isoformat()
+    d2 = (today - timedelta(days=1)).isoformat()
     return [
         {
-            "date": "2026-03-10",
+            "date": d1,
             "body_battery_max": 85,
             "body_battery_min": 25,
             "hrv_status": "balanced",
@@ -186,7 +194,7 @@ def sample_wellness_data() -> list[dict]:
             "respiration_avg": 15.2,
         },
         {
-            "date": "2026-03-09",
+            "date": d2,
             "body_battery_max": 78,
             "body_battery_min": 20,
             "hrv_status": "balanced",
@@ -206,9 +214,12 @@ def sample_wellness_data() -> list[dict]:
 
 def sample_withings_measurements() -> list[dict]:
     """Factory for Withings body measurements."""
+    today = date.today()
+    d1 = today.isoformat()
+    d2 = (today - timedelta(days=7)).isoformat()
     return [
         {
-            "date": "2026-03-10",
+            "date": d1,
             "weight_kg": 75.2,
             "bmi": 23.5,
             "body_fat_pct": 15.0,
@@ -217,7 +228,7 @@ def sample_withings_measurements() -> list[dict]:
             "water_pct": 55.0,
         },
         {
-            "date": "2026-03-03",
+            "date": d2,
             "weight_kg": 75.5,
             "bmi": 23.6,
             "body_fat_pct": 15.2,
@@ -230,15 +241,18 @@ def sample_withings_measurements() -> list[dict]:
 
 def sample_diary_entries() -> list[dict]:
     """Factory for Notion diary entries."""
+    today = date.today()
+    d1 = today.isoformat()
+    d2 = (today - timedelta(days=1)).isoformat()
     return [
         {
-            "date": "2026-03-10",
+            "date": d1,
             "stress_1_5": 2,
             "niggles": "Slight right achilles tightness",
             "notes": "Felt good overall, legs fresh from rest day",
         },
         {
-            "date": "2026-03-09",
+            "date": d2,
             "stress_1_5": 3,
             "niggles": None,
             "notes": "Busy day at work",
@@ -248,21 +262,25 @@ def sample_diary_entries() -> list[dict]:
 
 def sample_garmin_workouts() -> list[dict]:
     """Factory for Garmin scheduled workouts."""
+    today = date.today()
+    d1 = today.isoformat()
+    d2 = (today + timedelta(days=2)).isoformat()
+    d_created = (today - timedelta(days=1)).isoformat()
     return [
         {
             "garmin_workout_id": "WK001",
             "sport_type": "running",
-            "scheduled_date": "2026-03-10",
+            "scheduled_date": d1,
             "workout_name": "Easy 10k",
             "workout_detail": {"steps": [{"type": "run", "duration_m": 60}]},
-            "created_at": "2026-03-09T12:00:00Z",
+            "created_at": f"{d_created}T12:00:00Z",
         },
         {
             "garmin_workout_id": "WK002",
             "sport_type": "running",
-            "scheduled_date": "2026-03-12",
+            "scheduled_date": d2,
             "workout_name": "Tempo 5k",
             "workout_detail": {"steps": [{"type": "warmup"}, {"type": "run", "pace": "4:30"}]},
-            "created_at": "2026-03-09T12:00:00Z",
+            "created_at": f"{d_created}T12:00:00Z",
         },
     ]

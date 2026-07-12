@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import date, timedelta
+
 import pytest
 
 from pace_ai.config import Settings
@@ -27,7 +29,8 @@ class TestGoalLifecycle:
         from pace_ai.server import delete_goal, get_goals, set_goal, update_goal
 
         # Create
-        goal = await set_goal("5k", "22:00", race_date="2025-03-01", notes="Park Run")
+        future_date = (date.today() + timedelta(days=30)).isoformat()
+        goal = await set_goal("5k", "22:00", race_date=future_date, notes="Park Run")
         assert goal["race_type"] == "5k"
         assert goal["target_time_formatted"] == "22:00"
         goal_id = goal["id"]

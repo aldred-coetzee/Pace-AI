@@ -354,7 +354,7 @@ class HistoryDB:
         with self._connect() as conn:
             rows = conn.execute(
                 """SELECT
-                     strftime('%Y-W%W', date) AS week,
+                     strftime('%Y-W%W', date, '+2 days') AS week,
                      MIN(date) AS week_start,
                      SUM(distance_m) / 1000.0 AS distance_km,
                      COUNT(*) AS activity_count

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import date, timedelta
+
 from tests.conftest import (
     sample_diary_entries,
     sample_garmin_workouts,
@@ -12,10 +14,11 @@ from tests.conftest import (
 
 class TestActivities:
     def test_upsert_and_query(self, history_db):
+        today = date.today().isoformat()
         activities = [
             {
                 "strava_id": "100",
-                "date": "2026-03-01",
+                "date": today,
                 "sport_type": "Run",
                 "name": "Easy Run",
                 "distance_m": 10000,
@@ -31,9 +34,10 @@ class TestActivities:
         assert result[0]["name"] == "Easy Run"
 
     def test_upsert_idempotent(self, history_db):
+        today = date.today().isoformat()
         activity = {
             "strava_id": "100",
-            "date": "2026-03-01",
+            "date": today,
             "sport_type": "Run",
             "name": "Easy Run",
             "distance_m": 10000,
@@ -47,10 +51,11 @@ class TestActivities:
         assert result[0]["name"] == "Updated Name"
 
     def test_sport_type_filter(self, history_db):
+        today = date.today().isoformat()
         history_db.upsert_activities(
             [
-                {"strava_id": "1", "date": "2026-03-01", "sport_type": "Run", "distance_m": 10000},
-                {"strava_id": "2", "date": "2026-03-01", "sport_type": "Ride", "distance_m": 30000},
+                {"strava_id": "1", "date": today, "sport_type": "Run", "distance_m": 10000},
+                {"strava_id": "2", "date": today, "sport_type": "Ride", "distance_m": 30000},
             ]
         )
         runs = history_db.get_activities(days=30, sport_type="run")
@@ -58,11 +63,15 @@ class TestActivities:
         assert runs[0]["sport_type"] == "Run"
 
     def test_weekly_distances(self, history_db):
+        today = date.today()
+        d1 = (today - timedelta(days=1)).isoformat()
+        d2 = (today - timedelta(days=2)).isoformat()
+        d3 = (today - timedelta(days=8)).isoformat()
         history_db.upsert_activities(
             [
-                {"strava_id": "1", "date": "2026-03-01", "sport_type": "Run", "distance_m": 10000},
-                {"strava_id": "2", "date": "2026-03-02", "sport_type": "Run", "distance_m": 5000},
-                {"strava_id": "3", "date": "2026-03-08", "sport_type": "Run", "distance_m": 12000},
+                {"strava_id": "1", "date": d1, "sport_type": "Run", "distance_m": 10000},
+                {"strava_id": "2", "date": d2, "sport_type": "Run", "distance_m": 5000},
+                {"strava_id": "3", "date": d3, "sport_type": "Run", "distance_m": 12000},
             ]
         )
         weeks = history_db.get_weekly_distances(weeks=4, sport_type="run")
@@ -81,7 +90,8 @@ class TestWellness:
         assert len(result) == 2
 
     def test_upsert_idempotent(self, history_db):
-        data = [{"date": "2026-03-10", "resting_hr": 48}]
+        today = date.today().isoformat()
+        data = [{"date": today, "resting_hr": 48}]
         history_db.upsert_wellness(data)
         data[0]["resting_hr"] = 50
         history_db.upsert_wellness(data)
@@ -101,7 +111,8 @@ class TestBodyMeasurements:
         assert len(result) == 2
 
     def test_upsert_idempotent(self, history_db):
-        m = {"date": "2026-03-10", "weight_kg": 75.2, "body_fat_pct": 15.0}
+        today = date.today().isoformat()
+        m = {"date": today, "weight_kg": 75.2, "body_fat_pct": 15.0}
         history_db.upsert_body_measurements([m])
         m["body_fat_pct"] = 14.8
         history_db.upsert_body_measurements([m])
@@ -121,7 +132,8 @@ class TestDiaryEntries:
         assert len(result) == 2
 
     def test_upsert_idempotent(self, history_db):
-        entry = {"date": "2026-03-10", "stress_1_5": 2, "notes": "original"}
+        today = date.today().isoformat()
+        entry = {"date": today, "stress_1_5": 2, "notes": "original"}
         history_db.upsert_diary_entries([entry])
         entry["notes"] = "updated"
         history_db.upsert_diary_entries([entry])
