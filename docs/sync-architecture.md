@@ -2,11 +2,7 @@
 
 ## Overview
 
-`sync_all` is a single MCP tool on pace-ai that performs incremental sync from all 5 data sources into the central `pace_ai.db` history store. Call it at the start of each coaching session.
-
-```
-claude -p "call sync_all" --allowedTools "mcp__pace-ai__sync_all"
-```
+`sync_all` (`src/pace_ai/tools/sync.py`) performs incremental sync from all 5 data sources into the central `pace_ai.db` history store. The UI's Sync All button calls it.
 
 ## Sources and Incremental Strategy
 
@@ -93,22 +89,14 @@ Failed sources are logged to `sync_log` with `status='error'` and the error mess
 
 ### Python Environment
 
-pace-ai's venv (`pace-ai/.venv/`) has all 5 server packages installed as editable dependencies. This allows `sync_all` to import the client libraries directly rather than making HTTP calls between MCP servers.
-
-```
-pace-ai/.venv/
-  ├── pace-ai (editable)
-  ├── strava-mcp (editable)
-  ├── garmin-mcp (editable)
-  ├── withings-mcp (editable)
-  └── notion-mcp (editable)
-```
-
-Each other MCP server still has its own independent venv for running as a standalone server.
+One package: the source clients live under `pace_ai.strava`, `pace_ai.garmin`,
+`pace_ai.withings` and `pace_ai.notion`, and `sync_all` imports them directly.
 
 ### Database Path
 
-`.mcp.json` sets pace-ai's CWD to the project root (`/home/aldred/projects/Pace-AI/`) so `pace_ai.db` resolves correctly. The DB path defaults to the relative `pace_ai.db` via the `PACE_AI_DB` env var.
+The UI opens `pace_ai.db` at the repository root (`DB_PATH` in `ui/config.py`).
+Moving it, with every other personal file, into a workspace outside the repo is
+a planned step; see `STATUS.md`.
 
 ### Sync Log
 

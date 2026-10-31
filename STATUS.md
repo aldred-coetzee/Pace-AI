@@ -4,10 +4,34 @@ Set 2026-10-31. Read end to end; set the date rather than appending.
 
 ## Where it is
 
-Cloned onto Aldred's box on 2026-10-31. Last code commit 2026-07-12
-(770b6a7). Nothing runs here yet: no venv, no `.env`, no database, no
-unit. It has its own Remote Control session from today
-(`deploy/systemd/claude-rc-pace-ai.service`), briefed below.
+Updated 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done
+and pushed** (Aldred's go, the same evening):
+
+- **Step 1**: `ui/llm.py` calls `claude -p` directly. Each agent names its
+  model (Sonnet for chat, plan and nutrition; Haiku for end-session and
+  exercise), overridable by `PACE_AI_MODEL_<AGENT>`. No tools, no permission
+  bypass, hooks off, no session persistence. `openai` and OpenRouter are gone
+  from the app. Verified with a real call and a bad-model call.
+  **Found on the way, worth knowing in every app:** a headless call from a
+  directory under `~` loads the global `~/.claude/CLAUDE.md`. Measured:
+  22,035 input tokens for "say ok", against 557 with `--setting-sources
+  project` run from an empty temp directory. `plate-and-glass/scripts/ai`, the
+  house reference, does not pass the flag, so it pays that on every call.
+  Reported to Aldred for the next-pattern session; not changed from here.
+- **Step 2**: one package. The source clients live under `src/pace_ai/strava`,
+  `garmin`, `withings` and `notion`; the five `server.py`, the MCP prompt
+  templates, the server and e2e tests, the `mcp` dependency and the
+  `sys.path` hacks are gone. One `pyproject.toml`, one test run: 532 pass,
+  and ruff is clean across the whole repo (including `ui/`, which had never
+  been linted). The CLI is `pace-ai-garmin-login`. The `strava_mcp.db` /
+  `notion_mcp.db` filenames and `*_MCP_DB` variables were kept deliberately,
+  because they name data files and renaming them would orphan data; step 3
+  replaces them anyway.
+
+Nothing runs as a service yet. A `.venv` exists (uv, Python 3.13). There's
+still no `.env` and no real data. The old empty directories (`strava-mcp/`
+etc.) still hold untracked test databases and caches from the baseline run;
+they are safe to `rm -rf`, which was left to Aldred.
 
 ## The mandate, in Aldred's words (2026-10-31)
 
@@ -130,7 +154,7 @@ model, hooks live; `secret_key = "pace-ai-dev-key"`, `debug=True`; 649
 test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 41, root 21); `llm_eval` uses OpenRouter.
 
-**Proposed order** (each step leaves the app runnable):
+**Proposed order** (each step leaves the app runnable; 1 and 2 done 2026-10-31):
 
 1. `call_llm` to the `plate-and-glass/scripts/ai` shape: `claude -p`,
    explicit model, hooks off, no permission bypass; drop `openai`.
@@ -156,5 +180,8 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 
 ## Next
 
-Review checked (section above). Waiting on Aldred's go-ahead for the
-proposed order; steps 1–2 need no open decision, steps 3 and 5 do.
+Step 3, the workspace, once decision 3 is taken (where it lives). Then step 4,
+which needs no decision. Step 5 waits on decisions 1 and 2. For decision 4,
+note that five `tests/llm_eval` files import the deleted
+`pace_ai.prompts.coaching`, so keeping it means rewiring it, not just
+re-pointing it at `claude -p`.
