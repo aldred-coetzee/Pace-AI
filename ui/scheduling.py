@@ -68,7 +68,7 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
     """
     from garmin_mcp.client import GarminClient
     from garmin_mcp.config import Settings as GarminSettings
-    from garmin_mcp.server import _build_workout
+    from garmin_mcp.workout_builder import _build_workout
     from garmin_mcp.workout_builder import WORKOUT_TYPES
 
     garmin_settings = GarminSettings.from_env()

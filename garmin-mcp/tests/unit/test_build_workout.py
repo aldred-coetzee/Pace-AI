@@ -1,8 +1,8 @@
-"""Unit tests for server module."""
+"""Unit tests for the workout dispatcher."""
 
 from __future__ import annotations
 
-from garmin_mcp.server import _build_workout
+from garmin_mcp.workout_builder import _build_workout
 
 
 class TestBuildWorkout:
@@ -41,9 +41,3 @@ class TestBuildWorkout:
         with pytest.raises(ValueError, match="Unknown workout type"):
             _build_workout("unknown", "Test", {})
 
-
-class TestMainSignature:
-    def test_main_is_callable(self):
-        from garmin_mcp.server import main
-
-        assert callable(main)
