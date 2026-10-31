@@ -8,6 +8,7 @@ import re
 
 from flask import Flask, Response, render_template_string, request, session
 
+from pace_ai.workspace import secret_key
 from ui.config import (
     DB_PATH,
     NUTRITION_GENERAL_SECTIONS,
@@ -63,7 +64,7 @@ from ui.templates import (
 )
 
 app = Flask(__name__)
-app.secret_key = "pace-ai-dev-key"
+app.secret_key = secret_key()
 
 
 @app.after_request
@@ -921,10 +922,7 @@ def clear():
 
 
 if __name__ == "__main__":
+    # Development only; the service runs ui.serve. Loopback, debug opt-in.
     import os
-    import webbrowser
 
-    # Only open browser in the reloader parent, not the child process
-    if os.environ.get("WERKZEUG_RUN_MAIN") != "true":
-        webbrowser.open("http://localhost:5050")
-    app.run(debug=True, port=5050)
+    app.run(host="127.0.0.1", port=5050, debug=os.environ.get("PACE_AI_DEBUG") == "1")

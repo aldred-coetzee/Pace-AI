@@ -1,0 +1,30 @@
+[Unit]
+Description=pace-ai
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=aldred
+Group=aldred
+WorkingDirectory=/home/aldred/projects/pace-ai
+# Loopback only. Caddy is what faces the internet; 8086 is pace-ai's slot in
+# the port map in ~/.claude/CLAUDE.md.
+Environment=PACE_AI_HOST=127.0.0.1
+Environment=PACE_AI_PORT=8086
+# Every personal file lives here, never in the public checkout.
+Environment=PACE_AI_WORKSPACE=/home/aldred/.local/share/pace-ai
+# systemd's PATH has no ~/.local/bin, and every model call shells out to
+# `claude`; without this each one fails with "command not found".
+Environment=PATH=/home/aldred/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/home/aldred/projects/pace-ai/.venv/bin/pace-ai-serve
+Restart=on-failure
+RestartSec=5
+# Databases and tokens are created private, not just shielded by the 0700 dir.
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

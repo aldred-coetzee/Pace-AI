@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import logging
 import os
+import secrets
 import stat
 from pathlib import Path
 
@@ -62,6 +63,21 @@ def resolve_in_workspace(raw: str) -> str:
     """Resolve a configured path: absolute as given, relative against the workspace."""
     p = Path(raw).expanduser()
     return str(p if p.is_absolute() else workspace_dir() / p)
+
+
+def secret_key() -> str:
+    """Return the session-signing key, generating it (mode 0600) on first use.
+
+    Kept in the workspace so it survives restarts and never sits in the
+    public checkout.
+    """
+    path = workspace_path("secret_key")
+    if not path.exists():
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(fd, "w") as f:
+            f.write(secrets.token_hex(32))
+    _warn_if_open(path)
+    return path.read_text().strip()
 
 
 def _reset_for_tests() -> None:

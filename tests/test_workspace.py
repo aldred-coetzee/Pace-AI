@@ -80,3 +80,15 @@ def test_no_warning_when_private(tmp_path, caplog):
         workspace.load_config()
     assert not caplog.records
     os.environ.pop("PACE_TEST_Q", None)
+
+
+def test_secret_key_is_created_private_and_stable() -> None:
+    import stat
+
+    from pace_ai.workspace import secret_key, workspace_path
+
+    first = secret_key()
+    path = workspace_path("secret_key")
+    assert len(first) == 64
+    assert stat.S_IMODE(path.stat().st_mode) == 0o600
+    assert secret_key() == first
