@@ -226,9 +226,30 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 
 ## Next
 
-Step 3, the workspace, in progress: `PACE_AI_WORKSPACE` (default
-`~/.local/share/pace-ai`, mode 0700) holding one `config.env` and every
-database and token store; each source's config reads that file instead of
-searching parent directories for `.env`; the Garmin password becomes
-needed only at login. Then step 4, which needs no decision. Step 5 waits
-on decisions 1 and 2.
+**Steps 3 and 4 done in code, 2026-10-31 late evening** (local, unpushed
+with the rest):
+
+- **Step 3, workspace**: every personal file lives in `PACE_AI_WORKSPACE`
+  (default `~/.local/share/pace-ai`, 0700): one `config.env` (template
+  `config.example.env`), `pace_ai.db`, `ui_sessions.db`, `strava.db`,
+  `notion.db`, `garth/`, `withings/`, `secret_key`. No config searches parent
+  directories any more. Garmin's password is needed only by
+  `pace-ai-garmin-login`. Tests can't touch the real workspace (the root
+  `conftest.py` points it at a temp dir at import time, because `ui.config`
+  builds paths during collection).
+- **Step 4, service**: `pace-ai-serve` (waitress, threads 8) on
+  `127.0.0.1:8086`; the session key is generated into the workspace; dev
+  `python -m ui.app` is loopback with debug opt-in (`PACE_AI_DEBUG=1`).
+  `deploy/systemd/pace-ai.service` follows trip's shape plus `PATH` (systemd
+  has no `~/.local/bin`, and every model call runs `claude`) and
+  `UMask=0077`. Booted on a spare port: `GET /` 200, loopback only.
+  **Not installed**: the permission check refused `sudo systemctl enable` as
+  persistence, so Aldred runs:
+  `sudo cp deploy/systemd/pace-ai.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now pace-ai`
+  Then `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8086/`
+  should say 200. Nothing is exposed until step 5 adds Caddy.
+
+Then **step 5** (auth + Caddy + DNS) waits on decisions 1 (gate or rewrite)
+and 2 (hostname). Step 6, the four credentials, needs Aldred on the phone,
+and Strava's OAuth callback is `localhost`, so it needs a paste-the-code
+path first.
