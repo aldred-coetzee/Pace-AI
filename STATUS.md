@@ -4,8 +4,8 @@ Set 2026-10-31. Read end to end; set the date rather than appending.
 
 ## Where it is
 
-Updated 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done
-and pushed** (Aldred's go, the same evening):
+Updated 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done**
+(Aldred's go, the same evening); committed, waiting on the force-push below:
 
 - **Step 1**: `ui/llm.py` calls `claude -p` directly. Each agent names its
   model (Sonnet for chat, plan and nutrition; Haiku for end-session and
@@ -27,6 +27,34 @@ and pushed** (Aldred's go, the same evening):
   `notion_mcp.db` filenames and `*_MCP_DB` variables were kept deliberately,
   because they name data files and renaming them would orphan data; step 3
   replaces them anyway.
+- **`llm_eval` rewired** (Aldred: "rewire", decision 4 half-taken): live mode
+  (`--live-llm`) now grades the app's REAL PLAN prompt, not the deleted MCP
+  templates. `tests/llm_eval/app_prompt.py` seeds a temp `HistoryDB` from each
+  of the 16 synthetic profiles and runs the `/status` → `/plan` code path
+  (mirrored by hand, so it can drift from `ui/app.py`; extracting a shared
+  function would remove that). Generation model is `model_for("plan")`,
+  judge is Haiku, both through `claude -p`. The injury-risk and
+  race-readiness evals were deleted: the app has no LLM agent for either
+  since STATUS became rule-based. The default (golden) mode makes no model
+  call and is back in the normal run: 589 pass, 5 live-only skips. One
+  live profile verified with Haiku for both roles.
+- **Three app bugs found by the eval, all fixed**:
+  `claim_store.py` lost the path to `research/claims.db` in the step 2 move
+  (`parents[4]` was right for the old layout), so `/plan` ran with NO
+  research claims, silently, because the context builder swallows the
+  error; neither the move nor its review caught it, which is the case for
+  the eval existing. `assess_training_load` took the OLDEST week as current
+  (the DB returns oldest-first), so an overreaching runner at ACWR 1.6 read
+  "OK"; this predates the box. `assess_recent_runs` called `int()` on an
+  "m:ss" pace string, so `/status` crashed on any synced run. Regression
+  tests in `tests/ui/test_status.py`.
+- **Known, not fixed, worth Aldred's eye**: weeks with no runs have no row
+  (`GROUP BY week`), so a missed week drops out of the chronic average
+  instead of counting as zero, and the "(current)" label goes on the latest
+  week with runs, which may not be this week. And the PLAN prompt's status
+  snapshot is four verdict lines: the model never sees the weekly mileage or
+  the ACWR number, so it plans from "Training Load: concern" rather than the
+  figures. Both are coaching quality, not plumbing.
 
 **History rewritten locally 2026-10-31** (Aldred: "yes remove"): every
 `Co-Authored-By: Claude …` trailer (97) and `claude.ai/code/session_…` link
@@ -43,7 +71,8 @@ then `main` and `origin/main` have diverged; do not pull.
 Nothing runs as a service yet. A `.venv` exists (uv, Python 3.13). There's
 still no `.env` and no real data. The old empty directories (`strava-mcp/`
 etc.) still hold untracked test databases and caches from the baseline run;
-they are safe to `rm -rf`, which was left to Aldred.
+Aldred approved deleting them, the permission check refused `rm -rf` and
+`git clean`, so he runs it.
 
 ## The mandate, in Aldred's words (2026-10-31)
 
@@ -187,13 +216,19 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 
 1. Auth: gate in front of Python, or rewrite on the kit. Recommended: gate.
 2. Hostname.
-3. Where the workspace lives.
-4. Whether `research_archive/` (2.5 MB) and the `llm_eval` suite stay.
+3. ~~Where the workspace lives.~~ **Decided 2026-10-31: `~/.local/share/pace-ai`,
+   a plain directory, no git** (Aldred chose it over a private repo with a
+   persist timer). Consequence to keep in view: nothing backs it up, so the
+   coaching log, athlete facts and goals, which cannot be re-synced, die
+   with the box.
+4. ~~`llm_eval`~~ rewired (above). Still open: whether `research_archive/`
+   (2.5 MB) stays.
 
 ## Next
 
-Step 3, the workspace, once decision 3 is taken (where it lives). Then step 4,
-which needs no decision. Step 5 waits on decisions 1 and 2. For decision 4,
-note that five `tests/llm_eval` files import the deleted
-`pace_ai.prompts.coaching`, so keeping it means rewiring it, not just
-re-pointing it at `claude -p`.
+Step 3, the workspace, in progress: `PACE_AI_WORKSPACE` (default
+`~/.local/share/pace-ai`, mode 0700) holding one `config.env` and every
+database and token store; each source's config reads that file instead of
+searching parent directories for `.env`; the Garmin password becomes
+needed only at login. Then step 4, which needs no decision. Step 5 waits
+on decisions 1 and 2.
