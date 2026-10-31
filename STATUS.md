@@ -5,7 +5,7 @@ Set 2026-10-31. Read end to end; set the date rather than appending.
 ## Where it is
 
 Updated 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done**
-(Aldred's go, the same evening); committed, waiting on the force-push below:
+(Aldred's go, the same evening), pushed:
 
 - **Step 1**: `ui/llm.py` calls `claude -p` directly. Each agent names its
   model (Sonnet for chat, plan and nutrition; Haiku for end-session and
@@ -63,16 +63,12 @@ AI references in commits. Trees are byte-identical and every hash changed;
 hashes cited in these docs were remapped. Prose that names Claude as the
 app's model was left alone, because it describes the product, not who wrote
 the commit. GitHub's `refs/pull/1-5` still point at the old commits, and
-nobody can rewrite those. Local backup ref: `pre-scrub-backup`. **The
-force-push was refused by the session's permission check, so Aldred
-pushes it:** `git push --force-with-lease=main:7a8b82b origin main`. Until
-then `main` and `origin/main` have diverged; do not pull.
+nobody can rewrite those. Local backup ref: `pre-scrub-backup`. **The force-push was refused by the session's permission check; Aldred ran
+it from Termux at 22:19** (`7a8b82b...5052cb2`). Any clone from before that
+must be re-cloned, not pulled.
 
 Nothing runs as a service yet. A `.venv` exists (uv, Python 3.13). There's
-still no `.env` and no real data. The old empty directories (`strava-mcp/`
-etc.) still hold untracked test databases and caches from the baseline run;
-Aldred approved deleting them, the permission check refused `rm -rf` and
-`git clean`, so he runs it.
+still no `.env` and no real data. The old empty package directories are gone (Aldred, 22:19).
 
 ## The mandate, in Aldred's words (2026-10-31)
 
@@ -243,7 +239,8 @@ with the rest):
   `deploy/systemd/pace-ai.service` follows trip's shape plus `PATH` (systemd
   has no `~/.local/bin`, and every model call runs `claude`) and
   `UMask=0077`. Booted on a spare port: `GET /` 200, loopback only.
-  **Not installed**: the permission check refused `sudo systemctl enable` as
+  **Not installed yet** (first attempt at 22:19 had a stray `: ` in front, which
+  made `sudo cp` a no-op): the permission check refused `sudo systemctl enable` as
   persistence, so Aldred runs:
   `sudo cp deploy/systemd/pace-ai.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now pace-ai`
   Then `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8086/`
