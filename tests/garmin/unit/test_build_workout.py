@@ -40,4 +40,3 @@ class TestBuildWorkout:
 
         with pytest.raises(ValueError, match="Unknown workout type"):
             _build_workout("unknown", "Test", {})
-

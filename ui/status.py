@@ -53,10 +53,7 @@ def _table(headers: list[str], rows: list[list[str]]) -> str:
     for row in rows:
         tds = "".join(f"<td>{cell}</td>" for cell in row)
         body_rows.append(f"<tr>{tds}</tr>")
-    return (
-        f"<table><thead><tr>{th}</tr></thead>"
-        f"<tbody>{''.join(body_rows)}</tbody></table>"
-    )
+    return f"<table><thead><tr>{th}</tr></thead><tbody>{''.join(body_rows)}</tbody></table>"
 
 
 # ── Training Load ─────────────────────────────────────────────────────────────
@@ -139,17 +136,13 @@ def _parse_z2_ceiling(facts: list[dict]) -> float | None:
     return None
 
 
-def assess_recent_runs(
-    activities: list[dict], facts: list[dict]
-) -> tuple[str, str]:
+def assess_recent_runs(activities: list[dict], facts: list[dict]) -> tuple[str, str]:
     """Assess recent runs, flagging zone drift on easy runs.
 
     Returns (status, html).
     """
     # Filter to running activities only
-    runs = [
-        a for a in activities if "run" in (a.get("sport_type") or "").lower()
-    ]
+    runs = [a for a in activities if "run" in (a.get("sport_type") or "").lower()]
 
     if not runs:
         return "info", "<p>No recent runs found.</p>"
@@ -172,18 +165,12 @@ def assess_recent_runs(
         status = "caution"
         drift_note = (
             f"<p>Zone drift detected on {len(zone_drift_runs)} easy runs "
-            f"(HR above Z2 ceiling of {z2_ceiling:.0f}bpm): "
-            + ", ".join(zone_drift_runs[:5])
-            + ".</p>"
+            f"(HR above Z2 ceiling of {z2_ceiling:.0f}bpm): " + ", ".join(zone_drift_runs[:5]) + ".</p>"
         )
     else:
         status = "ok"
         if z2_ceiling is not None and zone_drift_runs:
-            drift_note = (
-                f"<p>1 easy run above Z2 ceiling ({z2_ceiling:.0f}bpm): "
-                + zone_drift_runs[0]
-                + ".</p>"
-            )
+            drift_note = f"<p>1 easy run above Z2 ceiling ({z2_ceiling:.0f}bpm): " + zone_drift_runs[0] + ".</p>"
         elif z2_ceiling is None:
             drift_note = "<p>No Z2 HR ceiling found in athlete facts — zone drift check skipped.</p>"
         else:
@@ -252,7 +239,9 @@ def assess_recovery(wellness: list[dict]) -> tuple[str, str]:
         ratio = recent_hrv / baseline_hrv
         if ratio < 0.85:
             hrv_status = "concern"
-            hrv_note = f"HRV {recent_hrv:.0f}ms (recent 3-day) vs {baseline_hrv:.0f}ms (7-day avg) — suppressed ({ratio:.0%})"
+            hrv_note = (
+                f"HRV {recent_hrv:.0f}ms (recent 3-day) vs {baseline_hrv:.0f}ms (7-day avg) — suppressed ({ratio:.0%})"
+            )
         elif ratio < 0.93:
             hrv_status = "caution"
             hrv_note = f"HRV {recent_hrv:.0f}ms vs {baseline_hrv:.0f}ms — slightly low ({ratio:.0%})"
@@ -285,9 +274,7 @@ def assess_recovery(wellness: list[dict]) -> tuple[str, str]:
         summary_parts.append(hrv_note)
     if rhr_note:
         summary_parts.append(rhr_note)
-    summary_html = (
-        "<p>" + " | ".join(summary_parts) + "</p>" if summary_parts else ""
-    )
+    summary_html = "<p>" + " | ".join(summary_parts) + "</p>" if summary_parts else ""
 
     # Table: last 7 days wellness
     display_wellness = wellness[:7]
@@ -307,14 +294,16 @@ def assess_recovery(wellness: list[dict]) -> tuple[str, str]:
         sleep = w.get("sleep_score")
 
         bb_str = f"{bb_low}–{bb_high}" if bb_low is not None and bb_high is not None else "-"
-        rows.append([
-            date_label,
-            f"{int(rhr_val)}" if rhr_val else "-",
-            f"{int(hrv_val)}" if hrv_val else "-",
-            bb_str,
-            f"{int(stress)}" if stress else "-",
-            f"{int(sleep)}" if sleep else "-",
-        ])
+        rows.append(
+            [
+                date_label,
+                f"{int(rhr_val)}" if rhr_val else "-",
+                f"{int(hrv_val)}" if hrv_val else "-",
+                bb_str,
+                f"{int(stress)}" if stress else "-",
+                f"{int(sleep)}" if sleep else "-",
+            ]
+        )
 
     table = _table(["Date", "RHR", "HRV", "Body Battery", "Stress", "Sleep"], rows)
     html = summary_html + table
@@ -332,13 +321,8 @@ def assess_injury(diary_entries: list[dict], facts: list[dict]) -> tuple[str, st
     injury_facts = [f for f in facts if f.get("category") in ("injury", "training_response")]
 
     # Filter diary entries with niggles or notes
-    entries_with_data = [
-        e for e in diary_entries
-        if (e.get("niggles") or "").strip() or (e.get("notes") or "").strip()
-    ]
-    entries_with_niggles = [
-        e for e in diary_entries if (e.get("niggles") or "").strip()
-    ]
+    entries_with_data = [e for e in diary_entries if (e.get("niggles") or "").strip() or (e.get("notes") or "").strip()]
+    entries_with_niggles = [e for e in diary_entries if (e.get("niggles") or "").strip()]
 
     has_data = bool(diary_entries or injury_facts)
 

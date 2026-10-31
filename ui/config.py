@@ -207,9 +207,7 @@ NUTRITION_RACE_SECTIONS = [
 ]
 
 
-def _build_structured_prompt(
-    sections: list[tuple], *, verdict_section: str | None = None
-) -> str:
+def _build_structured_prompt(sections: list[tuple], *, verdict_section: str | None = None) -> str:
     """Generate the JSON schema instruction block for any agent.
 
     Args:
@@ -235,13 +233,9 @@ def _build_structured_prompt(
     lines.extend(["}", "```", ""])
     lines.append("Rules:")
     lines.append('- status values: "ok" (green), "caution" (amber), "concern" (red)')
-    lines.append(
-        "- content fields are markdown strings — use tables, bullets, bold as needed"
-    )
+    lines.append("- content fields are markdown strings — use tables, bullets, bold as needed")
     if verdict_section:
-        lines.append(
-            f"- {verdict_section}.verdict is a short phrase shown as the headline"
-        )
+        lines.append(f"- {verdict_section}.verdict is a short phrase shown as the headline")
     lines.append("- Be concise in each section — 2-4 sentences or a short table")
     lines.append("- Do not use emoji")
     return "\n".join(lines)
@@ -265,15 +259,9 @@ Be specific with numbers.
 
 """
 
-STATUS_TRAINING_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
-    STATUS_TRAINING_SECTIONS
-)
-STATUS_RECOVERY_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
-    STATUS_RECOVERY_SECTIONS
-)
-STATUS_INJURY_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
-    STATUS_INJURY_SECTIONS
-)
+STATUS_TRAINING_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(STATUS_TRAINING_SECTIONS)
+STATUS_RECOVERY_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(STATUS_RECOVERY_SECTIONS)
+STATUS_INJURY_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(STATUS_INJURY_SECTIONS)
 STATUS_READINESS_PROMPT = _STATUS_PREAMBLE + _build_structured_prompt(
     STATUS_READINESS_SECTIONS, verdict_section="overall_readiness"
 )
@@ -332,21 +320,13 @@ def _build_plan_prompt() -> str:
     lines.append((",\n").join(entries))
     lines.extend(["}", "```", ""])
     lines.append("Rules:")
-    lines.append(
-        "- content fields are markdown strings — use tables, bullets, bold as needed"
-    )
+    lines.append("- content fields are markdown strings — use tables, bullets, bold as needed")
     lines.append("- Be concise in each section — 2-4 sentences or a short table")
     lines.append("- Do not use emoji")
-    lines.append(
-        "- Do NOT include an exercises array — exercises are added automatically at scheduling time"
-    )
+    lines.append("- Do NOT include an exercises array — exercises are added automatically at scheduling time")
     lines.append("- week_starting is the date of the FIRST session in the plan")
-    lines.append(
-        '- Include an entry for every day in the requested range (rest days use workout_type "rest")'
-    )
-    lines.append(
-        "- Saturday is ALWAYS the long run day. Never schedule strength or rest on Saturday"
-    )
+    lines.append('- Include an entry for every day in the requested range (rest days use workout_type "rest")')
+    lines.append("- Saturday is ALWAYS the long run day. Never schedule strength or rest on Saturday")
     lines.append(
         "- CRITICAL: Use the date-to-day reference provided — never guess which day a date falls on. "
         "If you mention a day name (e.g. 'Saturday long run'), it MUST match the actual day of that date"

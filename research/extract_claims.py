@@ -6,6 +6,7 @@ PubMed or Semantic Scholar, then calls `claude -p` to extract structured
 claims. Results are written to research/claims/{paper_id}.json and progress
 is tracked in research/claims_manifest.json.
 """
+
 from __future__ import annotations
 
 import json
@@ -57,10 +58,7 @@ def save_manifest(manifest: dict) -> None:
 
 def fetch_abstract_pubmed(pubmed_id: str) -> str | None:
     """Fetch abstract text from PubMed efetch XML API."""
-    url = (
-        f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
-        f"?db=pubmed&id={pubmed_id}&retmode=xml"
-    )
+    url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id={pubmed_id}&retmode=xml"
     try:
         req = Request(url, headers={"User-Agent": "PaceAI/1.0"})
         with urlopen(req, timeout=15) as resp:
@@ -148,7 +146,7 @@ Extract all factual, actionable claims from this abstract. Return ONLY a valid J
 Each claim object must have exactly these fields:
 - "text": string — the claim stated clearly and specifically (one sentence)
 - "specific_value": string or null — any specific number, percentage, threshold, or dose mentioned (e.g. "0.8-1.3 ACWR", "208 - 0.7 × age", "2-3% body mass loss"). null if the claim is qualitative
-- "category": "{paper.get('domain_id', '')}" — use this exact string for all claims from this paper
+- "category": "{paper.get("domain_id", "")}" — use this exact string for all claims from this paper
 - "population": string — who the finding applies to (e.g. "elite athletes", "recreational runners", "trained endurance athletes", "general population")
 - "confidence": number 0.0-1.0 — how strong the evidence is (1.0 = large RCT/meta-analysis with clear result, 0.8 = solid study, 0.6 = moderate evidence, 0.4 = preliminary/pilot, 0.2 = case study/expert opinion)
 - "school_of_thought": string — the training philosophy or scientific school this aligns with (e.g. "Daniels", "Lydiard", "Seiler polarized", "Gabbett load management", "IOC consensus", "general sports science", "sports nutrition consensus", "injury prevention"). Use "general sports science" if no specific school applies.

@@ -7,18 +7,21 @@ populates a SQLite database at research/claims.db.
 Usage:
     python research/build_claims_db.py
 """
+
 from __future__ import annotations
 
 import json
 import sqlite3
 from pathlib import Path
 
-_BROAD_POPULATIONS = frozenset({
-    "general population",
-    "all populations",
-    "healthy adults",
-    "general",
-})
+_BROAD_POPULATIONS = frozenset(
+    {
+        "general population",
+        "all populations",
+        "healthy adults",
+        "general",
+    }
+)
 
 
 def _normalize_population(pop: str) -> str:
@@ -120,7 +123,9 @@ def build_db(research_dir: Path, db_path: Path) -> None:
     claim_total = conn.execute("SELECT COUNT(*) FROM claims").fetchone()[0]
     all_total = conn.execute("SELECT COUNT(*) FROM claims WHERE population = 'all'").fetchone()[0]
     print(f"Built {db_path}")
-    print(f"  Papers: {paper_total} (from {paper_count} inserts across {len(list(domains_dir.glob('*.json')))} domains)")
+    print(
+        f"  Papers: {paper_total} (from {paper_count} inserts across {len(list(domains_dir.glob('*.json')))} domains)"
+    )
     print(f"  Claims: {claim_total} ({all_total} with population='all')")
 
     conn.close()

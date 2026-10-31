@@ -162,9 +162,7 @@ def _extract_weekly_plan(text: str) -> dict | None:
                         data = json.loads(candidate)
                         if "sessions" in data:
                             if "week_starting" not in data and data["sessions"]:
-                                data["week_starting"] = data["sessions"][0].get(
-                                    "date", ""
-                                )
+                                data["week_starting"] = data["sessions"][0].get("date", "")
                             return data
                     except json.JSONDecodeError:
                         pass
@@ -201,9 +199,7 @@ def _strip_plan_json(text: str) -> str:
 def _format_plan_table(plan: dict) -> str:
     """Build a markdown table of a weekly plan for display in chat."""
     table = f"\n\n**Proposed plan — week of {plan.get('week_starting', '?')}:**\n\n"
-    table += (
-        "| Date | Session | Type | Duration |\n|------|---------|------|----------|\n"
-    )
+    table += "| Date | Session | Type | Duration |\n|------|---------|------|----------|\n"
     for s in plan.get("sessions", []):
         table += (
             f"| {s.get('date', '')} | {s.get('name', '')} "

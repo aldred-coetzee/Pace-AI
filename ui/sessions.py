@@ -31,16 +31,12 @@ def _init_session_db() -> None:
             plan TEXT
         )"""
     )
-    cols = {
-        row[1] for row in conn.execute("PRAGMA table_info(conversations)").fetchall()
-    }
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(conversations)").fetchall()}
     if "sid" not in cols:
         conn.execute("ALTER TABLE conversations ADD COLUMN sid TEXT")
     if "updated_at" not in cols:
         conn.execute("ALTER TABLE conversations ADD COLUMN updated_at TIMESTAMP")
-    conn.execute(
-        "CREATE UNIQUE INDEX IF NOT EXISTS idx_conversations_sid ON conversations(sid)"
-    )
+    conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_conversations_sid ON conversations(sid)")
     conn.commit()
     conn.close()
 

@@ -63,9 +63,7 @@ def _get_upcoming_schedule(days: int = 10) -> list[dict]:
         filtered = [
             item
             for item in all_items
-            if item.get("date")
-            and today_str <= item["date"] <= end_str
-            and item.get("itemType") != "activity"
+            if item.get("date") and today_str <= item["date"] <= end_str and item.get("itemType") != "activity"
         ]
         return [
             {
@@ -94,23 +92,14 @@ def _render_schedule_html(schedule: list[dict]) -> str:
             try:
                 d = datetime.strptime(s["date"], "%Y-%m-%d").date()
                 day = day_names[d.weekday()]
-                label = (
-                    "Today" if d == date.today() else f"{day} {d.strftime('%-d %b')}"
-                )
+                label = "Today" if d == date.today() else f"{day} {d.strftime('%-d %b')}"
             except (ValueError, KeyError):
                 label = s.get("date", "?")
             title = s.get("title", "?")
             sport = s.get("sport", "")
-            sport_label = (
-                f' <span style="color:var(--text-tertiary)">({sport})</span>'
-                if sport
-                else ""
-            )
+            sport_label = f' <span style="color:var(--text-tertiary)">({sport})</span>' if sport else ""
             rows.append(f"<tr><td>{label}</td><td>{title}{sport_label}</td></tr>")
-        content = (
-            "<table><thead><tr><th>Date</th><th>Session</th></tr></thead>"
-            f"<tbody>{''.join(rows)}</tbody></table>"
-        )
+        content = f"<table><thead><tr><th>Date</th><th>Session</th></tr></thead><tbody>{''.join(rows)}</tbody></table>"
 
     return (
         '<div class="status-section status-info">'
@@ -138,13 +127,9 @@ def _render_body_comp_html(db: HistoryDB) -> str:
         rows: list[str] = []
 
         if latest.get("weight_kg"):
-            rows.append(
-                f"<tr><td>Weight</td><td><strong>{latest['weight_kg']:.1f} kg</strong></td></tr>"
-            )
+            rows.append(f"<tr><td>Weight</td><td><strong>{latest['weight_kg']:.1f} kg</strong></td></tr>")
         if latest.get("body_fat_pct"):
-            rows.append(
-                f"<tr><td>Body Fat</td><td>{latest['body_fat_pct']:.1f}%</td></tr>"
-            )
+            rows.append(f"<tr><td>Body Fat</td><td>{latest['body_fat_pct']:.1f}%</td></tr>")
         if latest.get("systolic_bp") and latest.get("diastolic_bp"):
             rows.append(
                 f"<tr><td>Blood Pressure</td><td>{int(latest['systolic_bp'])}/{int(latest['diastolic_bp'])}</td></tr>"
@@ -156,9 +141,7 @@ def _render_body_comp_html(db: HistoryDB) -> str:
         status_class = "status-info"
         if len(measurements) >= 4:
             mid = len(measurements) // 2
-            recent_w = [
-                m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")
-            ]
+            recent_w = [m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")]
             older_w = [m["weight_kg"] for m in measurements[mid:] if m.get("weight_kg")]
             if recent_w and older_w:
                 diff = sum(recent_w) / len(recent_w) - sum(older_w) / len(older_w)
@@ -251,15 +234,11 @@ def _build_body_composition(db: HistoryDB) -> str | None:
         if latest.get("body_fat_pct"):
             lines.append(f"- Body fat: {latest['body_fat_pct']:.1f}%")
         if latest.get("systolic_bp") and latest.get("diastolic_bp"):
-            lines.append(
-                f"- BP: {int(latest['systolic_bp'])}/{int(latest['diastolic_bp'])}"
-            )
+            lines.append(f"- BP: {int(latest['systolic_bp'])}/{int(latest['diastolic_bp'])}")
         lines.append(f"- Date: {latest.get('date', '?')}")
         if len(measurements) >= 4:
             mid = len(measurements) // 2
-            recent_w = [
-                m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")
-            ]
+            recent_w = [m["weight_kg"] for m in measurements[:mid] if m.get("weight_kg")]
             older_w = [m["weight_kg"] for m in measurements[mid:] if m.get("weight_kg")]
             if recent_w and older_w:
                 diff = sum(recent_w) / len(recent_w) - sum(older_w) / len(older_w)
@@ -340,12 +319,7 @@ def _strip_volatile_context(text: str) -> str:
             continue
         # Stop skipping when we hit any top-level section header
         # (a non-empty line whose first word is uppercase and line ends with ":")
-        if (
-            skip
-            and stripped
-            and stripped.endswith(":")
-            and not stripped.startswith("-")
-        ):
+        if skip and stripped and stripped.endswith(":") and not stripped.startswith("-"):
             first_word = stripped.split()[0] if stripped.split() else ""
             if first_word == first_word.upper() and first_word.isalpha():
                 skip = False
@@ -384,9 +358,7 @@ def _build_coaching_sections(db: HistoryDB) -> tuple[str | None, str | None]:
     return ctx_section, log_section
 
 
-def _get_relevant_claims(
-    db: HistoryDB, profile: dict | None, facts: list[dict]
-) -> str | None:
+def _get_relevant_claims(db: HistoryDB, profile: dict | None, facts: list[dict]) -> str | None:
     """Derive relevant research categories from athlete profile/facts and query claims.
 
     Returns a formatted section string, or None if no claims found.
@@ -509,9 +481,7 @@ def _get_nutrition_claims(db: HistoryDB) -> str | None:
             from datetime import date, datetime
 
             try:
-                dob = datetime.strptime(
-                    profile["date_of_birth"][:10], "%Y-%m-%d"
-                ).date()
+                dob = datetime.strptime(profile["date_of_birth"][:10], "%Y-%m-%d").date()
                 age = (date.today() - dob).days // 365
                 if age >= 40:
                     population = "masters runners"
@@ -583,9 +553,7 @@ def _format_weekly_distances(weekly: list[dict]) -> str:
     lines = []
     for w in weekly:
         mi = w.get("distance_miles") or 0
-        lines.append(
-            f"- {w.get('week_start', '?')}: {mi} mi ({w.get('activity_count', 0)} runs)"
-        )
+        lines.append(f"- {w.get('week_start', '?')}: {mi} mi ({w.get('activity_count', 0)} runs)")
     return "\n".join(lines)
 
 
@@ -599,9 +567,7 @@ def _format_wellness(wellness: list[dict]) -> str:
         if w.get("hrv"):
             parts.append(f"HRV {w['hrv']}")
         if w.get("body_battery_high"):
-            parts.append(
-                f"BB {w.get('body_battery_low', '?')}-{w['body_battery_high']}"
-            )
+            parts.append(f"BB {w.get('body_battery_low', '?')}-{w['body_battery_high']}")
         if w.get("stress_avg"):
             parts.append(f"stress {w['stress_avg']}")
         if w.get("sleep_score"):
@@ -690,9 +656,7 @@ def _fmt_prompt(template: str) -> str:
     from datetime import date
 
     today = date.today()
-    return template.replace("{today_weekday}", today.strftime("%A")).replace(
-        "{today_date}", today.isoformat()
-    )
+    return template.replace("{today_weekday}", today.strftime("%A")).replace("{today_date}", today.isoformat())
 
 
 def _build_training_context(data: dict) -> str:
@@ -701,9 +665,7 @@ def _build_training_context(data: dict) -> str:
     sections: list[str] = [prompt]
 
     if data.get("profile"):
-        sections.append(
-            f"## Athlete Profile\n{json.dumps(data['profile'], indent=2, default=str)}"
-        )
+        sections.append(f"## Athlete Profile\n{json.dumps(data['profile'], indent=2, default=str)}")
 
     if data.get("activities"):
         sections.append(
@@ -712,24 +674,14 @@ def _build_training_context(data: dict) -> str:
         )
 
     if data.get("weekly_distances"):
-        sections.append(
-            "## Weekly Distances (12 weeks)\n"
-            + _format_weekly_distances(data["weekly_distances"])
-        )
+        sections.append("## Weekly Distances (12 weeks)\n" + _format_weekly_distances(data["weekly_distances"]))
 
     if data.get("schedule"):
-        sections.append(
-            "## Scheduled Workouts (next 10 days)\n"
-            + _format_schedule(data["schedule"])
-        )
+        sections.append("## Scheduled Workouts (next 10 days)\n" + _format_schedule(data["schedule"]))
 
     # Include HR zone facts if available
     if data.get("facts"):
-        hr_facts = [
-            f
-            for f in data["facts"]
-            if any(kw in f.get("fact", "").lower() for kw in ["hr", "heart", "zone"])
-        ]
+        hr_facts = [f for f in data["facts"] if any(kw in f.get("fact", "").lower() for kw in ["hr", "heart", "zone"])]
         if hr_facts:
             lines = [f"- [{f['category']}] {f['fact']}" for f in hr_facts]
             sections.append("## HR Zone Facts\n" + "\n".join(lines))
@@ -742,9 +694,7 @@ def _build_recovery_context(data: dict) -> str:
     prompt = _fmt_prompt(STATUS_RECOVERY_PROMPT)
     sections: list[str] = [prompt]
 
-    sections.append(
-        f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}"
-    )
+    sections.append(f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}")
 
     if data.get("wellness"):
         sections.append("## Wellness (14 days)\n" + _format_wellness(data["wellness"]))
@@ -757,32 +707,22 @@ def _build_injury_context(data: dict) -> str:
     prompt = _fmt_prompt(STATUS_INJURY_PROMPT)
     sections: list[str] = [prompt]
 
-    sections.append(
-        f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}"
-    )
+    sections.append(f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}")
 
     # Include activities so the agent can see completed workouts (not just diary notes)
     if data.get("activities"):
-        sections.append(
-            "## Completed Activities (28 days)\n"
-            + _format_activities(data["activities"])
-        )
+        sections.append("## Completed Activities (28 days)\n" + _format_activities(data["activities"]))
 
     if data.get("diary"):
         sections.append(
-            data["diary"]
-            + "\n\nNote: [completed: ...] tags are authoritative — they come from "
+            data["diary"] + "\n\nNote: [completed: ...] tags are authoritative — they come from "
             "Garmin/Strava activity records. A day tagged [completed: Afternoon Yoga] "
             "is NOT a rest day. Only days tagged [rest day] are rest days."
         )
 
     # Include injury and training_response facts only
     if data.get("facts"):
-        injury_facts = [
-            f
-            for f in data["facts"]
-            if f.get("category") in ("injury", "training_response")
-        ]
+        injury_facts = [f for f in data["facts"] if f.get("category") in ("injury", "training_response")]
         if injury_facts:
             lines = [f"- [{f['category']}] {f['fact']}" for f in injury_facts]
             sections.append("## Athlete Facts (injury/training)\n" + "\n".join(lines))
@@ -803,9 +743,7 @@ def _build_readiness_context(data: dict, group_results: dict[str, str]) -> str:
     prompt = _fmt_prompt(STATUS_READINESS_PROMPT)
     sections: list[str] = [prompt]
 
-    sections.append(
-        f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}"
-    )
+    sections.append(f"## Athlete\n{data.get('profile_summary', 'Profile not available.')}")
 
     # Feed in the raw outputs from the other groups
     if group_results.get("training"):
@@ -817,18 +755,14 @@ def _build_readiness_context(data: dict, group_results: dict[str, str]) -> str:
 
     # Schedule for context
     if data.get("schedule"):
-        sections.append(
-            "## Scheduled Workouts (next 10 days)\n"
-            + _format_schedule(data["schedule"])
-        )
+        sections.append("## Scheduled Workouts (next 10 days)\n" + _format_schedule(data["schedule"]))
 
     if data.get("coaching_context"):
         sections.append(
             "## Coaching Context (background reference — may be outdated)\n"
             "IMPORTANT: The assessments above are derived from current activity and diary data. "
             "Where this coaching context mentions scheduling, compliance status, or session "
-            "completion, the assessments above take precedence.\n\n"
-            + data["coaching_context"]
+            "completion, the assessments above take precedence.\n\n" + data["coaching_context"]
         )
     if data.get("coaching_log"):
         sections.append(data["coaching_log"])
@@ -850,9 +784,7 @@ def _build_status_context_full() -> str:
         profile = get_athlete_profile(db)
         if profile:
             _convert_profile_miles(profile)
-            sections.append(
-                f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}"
-            )
+            sections.append(f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}")
     except Exception:
         log.exception("Failed to load athlete profile")
 
@@ -860,8 +792,7 @@ def _build_status_context_full() -> str:
         activities = get_recent_activities(db, days=28)
         if activities:
             sections.append(
-                f"## Recent Activities (28 days, {len(activities)} total)\n"
-                + _format_activities(activities)
+                f"## Recent Activities (28 days, {len(activities)} total)\n" + _format_activities(activities)
             )
     except Exception:
         log.exception("Failed to load recent activities")
@@ -869,17 +800,13 @@ def _build_status_context_full() -> str:
     try:
         weekly = get_weekly_distances(db, weeks=12)
         if weekly:
-            sections.append(
-                "## Weekly Distances (12 weeks)\n" + _format_weekly_distances(weekly)
-            )
+            sections.append("## Weekly Distances (12 weeks)\n" + _format_weekly_distances(weekly))
     except Exception:
         log.exception("Failed to load weekly distances")
 
     # Scheduled workouts from Garmin calendar (today + next 9 days)
     schedule = _get_upcoming_schedule()
-    sections.append(
-        "## Scheduled Workouts (next 10 days)\n" + _format_schedule(schedule)
-    )
+    sections.append("## Scheduled Workouts (next 10 days)\n" + _format_schedule(schedule))
 
     try:
         wellness = db.get_wellness(days=14)
@@ -977,8 +904,7 @@ def _build_chat_context(status_snapshot: str | None, pending_plan: dict | None) 
     plan_instruction = ""
     if pending_plan:
         plan_instruction = (
-            "If the athlete requests plan changes, output the full revised "
-            "plan JSON in the same format.\n"
+            "If the athlete requests plan changes, output the full revised plan JSON in the same format.\n"
         )
 
     system_prompt = CHAT_SYSTEM_PROMPT.format(plan_instruction=plan_instruction)
@@ -999,9 +925,7 @@ def _build_chat_context(status_snapshot: str | None, pending_plan: dict | None) 
         sections.append(f"## Latest Status Assessment\n{status_snapshot}")
 
     if pending_plan:
-        sections.append(
-            f"## Current Pending Plan\n{json.dumps(pending_plan, indent=2)}"
-        )
+        sections.append(f"## Current Pending Plan\n{json.dumps(pending_plan, indent=2)}")
         sections.append(PLAN_JSON_SCHEMA)
 
     return "\n\n".join(sections)
@@ -1042,9 +966,7 @@ def _build_nutrition_context(
         profile = get_athlete_profile(db)
         if profile:
             _convert_profile_miles(profile)
-            sections.append(
-                f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}"
-            )
+            sections.append(f"## Athlete Profile\n{json.dumps(profile, indent=2, default=str)}")
     except Exception:
         log.exception("Failed to load athlete profile")
 
@@ -1061,9 +983,7 @@ def _build_nutrition_context(
 
         if nutrition_facts:
             lines = [f"- {f['fact']}" for f in nutrition_facts]
-            sections.append(
-                "## Dietary Preferences & Nutrition Facts\n" + "\n".join(lines)
-            )
+            sections.append("## Dietary Preferences & Nutrition Facts\n" + "\n".join(lines))
         else:
             sections.append(
                 "## Dietary Preferences & Nutrition Facts\n"
@@ -1108,9 +1028,7 @@ def _build_nutrition_context(
             lines = []
             for w in weekly:
                 mi = w.get("distance_miles") or 0
-                lines.append(
-                    f"- {w.get('week_start', '?')}: {mi} mi ({w.get('activity_count', 0)} runs)"
-                )
+                lines.append(f"- {w.get('week_start', '?')}: {mi} mi ({w.get('activity_count', 0)} runs)")
             sections.append("## Weekly Distances (6 weeks)\n" + "\n".join(lines))
     except Exception:
         log.exception("Failed to load weekly distances")
@@ -1126,9 +1044,7 @@ def _build_nutrition_context(
 
     # Mode-specific context
     if mode == "plan" and confirmed_plan:
-        sections.append(
-            f"## Confirmed Training Plan\n{json.dumps(confirmed_plan, indent=2)}"
-        )
+        sections.append(f"## Confirmed Training Plan\n{json.dumps(confirmed_plan, indent=2)}")
 
     if mode == "race" and race_goals:
         lines = []

@@ -126,11 +126,7 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
                 # Simple single-step workout — hit start, read exercises on phone, hit stop
                 if exercises and isinstance(exercises, list):
                     exercise_desc = _format_exercises_as_description(exercises)
-                    full_desc = (
-                        f"{description}\n\n{exercise_desc}"
-                        if description
-                        else exercise_desc
-                    )
+                    full_desc = f"{description}\n\n{exercise_desc}" if description else exercise_desc
                 else:
                     full_desc = description
                 steps = _build_simple_steps(full_desc, duration)
@@ -170,9 +166,7 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
             ok_count += 1
         except Exception as e:
             log.exception("Failed to create/schedule workout: %s", name)
-            results.append(
-                {"date": date, "name": name, "status": f"error: {e}", "css": "fail"}
-            )
+            results.append({"date": date, "name": name, "status": f"error: {e}", "css": "fail"})
             fail_count += 1
 
     return results, ok_count, fail_count, skip_count

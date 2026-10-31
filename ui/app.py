@@ -170,9 +170,7 @@ def chat():
             role = "Athlete" if msg["role"] == "user" else "Coach"
             convo_lines.append(f"{role}: {msg['content']}")
         prompt_text = (
-            "Continue this coaching conversation. Reply only as Coach.\n\n"
-            + "\n\n".join(convo_lines)
-            + "\n\nCoach:"
+            "Continue this coaching conversation. Reply only as Coach.\n\n" + "\n\n".join(convo_lines) + "\n\nCoach:"
         )
     else:
         prompt_text = user_message
@@ -196,20 +194,14 @@ def chat():
             len(extracted_plan.get("sessions", [])),
         )
         store["pending_plan"] = extracted_plan
-        display_reply = re.sub(
-            r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL
-        )
+        display_reply = re.sub(r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL)
         display_reply = _strip_plan_json(display_reply).strip()
         if not display_reply:
             display_reply = "Here's the revised plan."
         display_reply += _format_plan_table(extracted_plan)
-        store["messages"].append(
-            {"role": "assistant", "content": display_reply, "agent": "chat"}
-        )
+        store["messages"].append({"role": "assistant", "content": display_reply, "agent": "chat"})
     else:
-        store["messages"].append(
-            {"role": "assistant", "content": reply, "agent": "chat"}
-        )
+        store["messages"].append({"role": "assistant", "content": reply, "agent": "chat"})
 
     return Response(status=302, headers={"Location": "/"})
 
@@ -257,19 +249,13 @@ def _render_structured_html(
 
         content = section.get("content", "")
         status = section.get("status", "info") if has_status else "info"
-        css_class = (
-            f"status-{status}"
-            if status in ("ok", "caution", "concern")
-            else "status-info"
-        )
+        css_class = f"status-{status}" if status in ("ok", "caution", "concern") else "status-info"
 
         if key == verdict_section:
             verdict = section.get("verdict", "")
             parts.append(f'<div class="status-verdict {css_class}">')
             parts.append(f'<div class="verdict-label">{verdict}</div>')
-            parts.append(
-                f'<div class="status-body"><div class="md-content">{content}</div></div>'
-            )
+            parts.append(f'<div class="status-body"><div class="md-content">{content}</div></div>')
             parts.append("</div>")
         else:
             parts.append(f'<div class="status-section {css_class}">')
@@ -278,9 +264,7 @@ def _render_structured_html(
                 parts.append('<span class="status-dot"></span>')
             parts.append(f'<span class="status-title">{display_title}</span>')
             parts.append("</div>")
-            parts.append(
-                f'<div class="status-body"><div class="md-content">{content}</div></div>'
-            )
+            parts.append(f'<div class="status-body"><div class="md-content">{content}</div></div>')
             parts.append("</div>")
 
     parts.append("</div>")
@@ -320,11 +304,7 @@ def _render_plan_table_html(sessions: list[dict], week_starting: str = "") -> st
                 f"</tr>"
             )
         else:
-            rows.append(
-                f"<tr{row_class}>"
-                f"<td>{label}</td><td>{name}</td><td>{wtype}</td><td>{duration_str}</td>"
-                f"</tr>"
-            )
+            rows.append(f"<tr{row_class}><td>{label}</td><td>{name}</td><td>{wtype}</td><td>{duration_str}</td></tr>")
 
     title_text = f"Week of {week_starting}" if week_starting else "Training Plan"
     table_html = (
@@ -355,9 +335,7 @@ def _assemble_status_html(
     from datetime import date
 
     parts = ['<div class="status-report">']
-    parts.append(
-        f'<div class="status-date">{date.today().strftime("%A %-d %B %Y")}</div>'
-    )
+    parts.append(f'<div class="status-date">{date.today().strftime("%A %-d %B %Y")}</div>')
     parts.append(training_html)
     parts.append(recent_runs_html)
     parts.append(recovery_html)
@@ -386,21 +364,25 @@ def status():
     # 3. Deterministic rule-based assessments (no LLM)
     log.info("--- status deterministic assessment ---")
     training_status, training_html = assess_training_load(data.get("weekly_distances") or [])
-    runs_status, runs_html = assess_recent_runs(
-        data.get("activities") or [], data.get("facts") or []
-    )
+    runs_status, runs_html = assess_recent_runs(data.get("activities") or [], data.get("facts") or [])
     recovery_status, recovery_html = assess_recovery(data.get("wellness") or [])
-    injury_status, injury_html = assess_injury(
-        data.get("diary_entries") or [], data.get("facts") or []
-    )
+    injury_status, injury_html = assess_injury(data.get("diary_entries") or [], data.get("facts") or [])
     readiness_status, readiness_verdict, readiness_content = assess_readiness(
-        training_status, recovery_status, injury_status,
-        training_html, recovery_html, injury_html,
+        training_status,
+        recovery_status,
+        injury_status,
+        training_html,
+        recovery_html,
+        injury_html,
     )
 
     log.info(
         "status: training=%s runs=%s recovery=%s injury=%s readiness=%s",
-        training_status, runs_status, recovery_status, injury_status, readiness_status,
+        training_status,
+        runs_status,
+        recovery_status,
+        injury_status,
+        readiness_status,
     )
 
     # 4. Render section cards
@@ -409,29 +391,38 @@ def status():
     recovery_card = render_status_section("Recovery", recovery_status, recovery_html)
     injury_card = render_status_section("Injury Status", injury_status, injury_html)
     readiness_card = render_status_section(
-        "Overall Readiness", readiness_status, readiness_content,
+        "Overall Readiness",
+        readiness_status,
+        readiness_content,
         verdict_text=readiness_verdict,
     )
 
     # 5. Assemble final HTML
     rendered = _assemble_status_html(
-        training_card, runs_card, recovery_card, injury_card,
-        readiness_card, body_comp_html, schedule_html,
+        training_card,
+        runs_card,
+        recovery_card,
+        injury_card,
+        readiness_card,
+        body_comp_html,
+        schedule_html,
     )
 
     # 6. Build text snapshot for PLAN and CHAT agents
     status_snapshot = build_status_snapshot(
-        training_status, training_html,
-        recovery_status, recovery_html,
-        injury_status, injury_html,
-        readiness_status, readiness_verdict,
+        training_status,
+        training_html,
+        recovery_status,
+        recovery_html,
+        injury_status,
+        injury_html,
+        readiness_status,
+        readiness_verdict,
     )
 
     store["status_snapshot"] = status_snapshot
     store["status_generated_at"] = datetime.now().isoformat()
-    store["messages"].append(
-        {"role": "assistant", "content": rendered, "agent": "status"}
-    )
+    store["messages"].append({"role": "assistant", "content": rendered, "agent": "status"})
 
     return Response(status=302, headers={"Location": "/"})
 
@@ -457,21 +448,21 @@ def plan():
         schedule_html = _render_schedule_html(status_data.get("schedule") or [])
         body_comp_html = _render_body_comp_html(db)
 
-        auto_training_status, auto_training_html = assess_training_load(
-            status_data.get("weekly_distances") or []
-        )
+        auto_training_status, auto_training_html = assess_training_load(status_data.get("weekly_distances") or [])
         auto_runs_status, auto_runs_html = assess_recent_runs(
             status_data.get("activities") or [], status_data.get("facts") or []
         )
-        auto_recovery_status, auto_recovery_html = assess_recovery(
-            status_data.get("wellness") or []
-        )
+        auto_recovery_status, auto_recovery_html = assess_recovery(status_data.get("wellness") or [])
         auto_injury_status, auto_injury_html = assess_injury(
             status_data.get("diary_entries") or [], status_data.get("facts") or []
         )
         auto_readiness_status, auto_readiness_verdict, auto_readiness_content = assess_readiness(
-            auto_training_status, auto_recovery_status, auto_injury_status,
-            auto_training_html, auto_recovery_html, auto_injury_html,
+            auto_training_status,
+            auto_recovery_status,
+            auto_injury_status,
+            auto_training_html,
+            auto_recovery_html,
+            auto_injury_html,
         )
 
         auto_training_card = render_status_section("Training Load", auto_training_status, auto_training_html)
@@ -479,25 +470,34 @@ def plan():
         auto_recovery_card = render_status_section("Recovery", auto_recovery_status, auto_recovery_html)
         auto_injury_card = render_status_section("Injury Status", auto_injury_status, auto_injury_html)
         auto_readiness_card = render_status_section(
-            "Overall Readiness", auto_readiness_status, auto_readiness_content,
+            "Overall Readiness",
+            auto_readiness_status,
+            auto_readiness_content,
             verdict_text=auto_readiness_verdict,
         )
 
         rendered_status = _assemble_status_html(
-            auto_training_card, auto_runs_card, auto_recovery_card, auto_injury_card,
-            auto_readiness_card, body_comp_html, schedule_html,
+            auto_training_card,
+            auto_runs_card,
+            auto_recovery_card,
+            auto_injury_card,
+            auto_readiness_card,
+            body_comp_html,
+            schedule_html,
         )
 
         store["status_snapshot"] = build_status_snapshot(
-            auto_training_status, auto_training_html,
-            auto_recovery_status, auto_recovery_html,
-            auto_injury_status, auto_injury_html,
-            auto_readiness_status, auto_readiness_verdict,
+            auto_training_status,
+            auto_training_html,
+            auto_recovery_status,
+            auto_recovery_html,
+            auto_injury_status,
+            auto_injury_html,
+            auto_readiness_status,
+            auto_readiness_verdict,
         )
         store["status_generated_at"] = datetime.now().isoformat()
-        store["messages"].append(
-            {"role": "assistant", "content": rendered_status, "agent": "status"}
-        )
+        store["messages"].append({"role": "assistant", "content": rendered_status, "agent": "status"})
 
     # Build plan context and call
     plan_context = _build_plan_context(store["status_snapshot"], date_range)
@@ -542,25 +542,17 @@ def plan():
             rendered = rendered.rsplit("</div>", 1)[0] + plan_table_html + "\n</div>"
         else:
             # Fallback: structured parse failed, use raw text + table
-            display_reply = re.sub(
-                r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL
-            )
+            display_reply = re.sub(r"```(?:json)?\s*\n\{.+\}\s*\n```", "", reply, flags=re.DOTALL)
             display_reply = _strip_plan_json(display_reply).strip()
             if not display_reply:
                 display_reply = "Here's your weekly plan."
             display_reply += _format_plan_table(extracted_plan)
-            store["messages"].append(
-                {"role": "assistant", "content": display_reply, "agent": "plan"}
-            )
+            store["messages"].append({"role": "assistant", "content": display_reply, "agent": "plan"})
             return Response(status=302, headers={"Location": "/"})
 
-        store["messages"].append(
-            {"role": "assistant", "content": rendered, "agent": "plan"}
-        )
+        store["messages"].append({"role": "assistant", "content": rendered, "agent": "plan"})
     else:
-        store["messages"].append(
-            {"role": "assistant", "content": reply, "agent": "plan"}
-        )
+        store["messages"].append({"role": "assistant", "content": reply, "agent": "plan"})
 
     return Response(status=302, headers={"Location": "/"})
 
@@ -584,9 +576,7 @@ def end_session():
     # Load existing coaching context
     db = HistoryDB(DB_PATH)
     existing_ctx = get_coaching_context(db)
-    existing_content = (
-        existing_ctx["content"] if existing_ctx else "(no existing context)"
-    )
+    existing_content = existing_ctx["content"] if existing_ctx else "(no existing context)"
 
     # Format conversation history
     convo_lines = [f"{m['role']}: {m['content']}" for m in messages]
@@ -787,8 +777,7 @@ def confirm_plan():
     needs_exercises = [
         s
         for s in pending.get("sessions", [])
-        if s.get("workout_type") in ("strength", "mobility", "yoga")
-        and not s.get("exercises")
+        if s.get("workout_type") in ("strength", "mobility", "yoga") and not s.get("exercises")
     ]
     if needs_exercises:
         log.info(
@@ -809,10 +798,7 @@ def confirm_plan():
     for r in results:
         icon = {"ok": "+", "fail": "x", "skip": "-"}.get(r["css"], "?")
         lines.append(f"[{icon}] {r['date']} {r['name']}: {r['status']}")
-    summary = (
-        f"**Plan scheduled** ({ok_count} ok, {fail_count} failed, {skip_count} skipped)\n"
-        + "\n".join(lines)
-    )
+    summary = f"**Plan scheduled** ({ok_count} ok, {fail_count} failed, {skip_count} skipped)\n" + "\n".join(lines)
     store["messages"].append({"role": "assistant", "content": summary})
 
     return Response(status=302, headers={"Location": "/"})
@@ -822,9 +808,7 @@ def confirm_plan():
 def cancel_plan():
     store = _get_store()
     store.pop("pending_plan", None)
-    store["messages"].append(
-        {"role": "assistant", "content": "Plan cancelled — not scheduled."}
-    )
+    store["messages"].append({"role": "assistant", "content": "Plan cancelled — not scheduled."})
     return Response(status=302, headers={"Location": "/"})
 
 
@@ -885,9 +869,7 @@ def nutrition():
         mode_sections.get(mode, NUTRITION_GENERAL_SECTIONS),
         title=mode_titles.get(mode, "Nutrition"),
     )
-    store["messages"].append(
-        {"role": "assistant", "content": rendered, "agent": "nutrition"}
-    )
+    store["messages"].append({"role": "assistant", "content": rendered, "agent": "nutrition"})
 
     return Response(status=302, headers={"Location": "/"})
 
