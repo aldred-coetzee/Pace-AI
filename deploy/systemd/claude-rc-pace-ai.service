@@ -1,0 +1,28 @@
+# The Remote Control session for the pace-ai app: its own session,
+# per the house rule (one per project; next-pattern coordinates). Install this
+# unit ALONE (not via claude-sessions install, which restarts every unit):
+#   sudo cp deploy/systemd/claude-rc-pace-ai.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now claude-rc-pace-ai
+# The directory must be a trusted workspace FIRST (run claude here once and
+# accept the dialog) or the unit crash-loops. Register it in the UNITS array
+# of ~/bin/claude-sessions afterwards.
+[Unit]
+Description=Claude Code Remote Control — pace-ai
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=aldred
+WorkingDirectory=/home/aldred/projects/pace-ai
+Environment=HOME=/home/aldred
+Environment=PATH=/home/aldred/.local/bin:/usr/local/bin:/usr/bin:/bin
+# --name is what tells the sessions apart when picking one on the phone.
+ExecStart=/home/aldred/.local/bin/claude remote-control --name pace-ai
+Restart=always
+RestartSec=10
+StandardOutput=null
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

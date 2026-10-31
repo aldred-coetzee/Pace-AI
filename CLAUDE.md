@@ -1,5 +1,22 @@
 # Pace-AI Project Rules
 
+## Standing brief (2026-10-31)
+
+This app was built February to July 2026 elsewhere and moved onto Aldred's
+box on 2026-10-31. It is being reviewed and simplified: the internal MCP
+servers go, the LLM calls return to `claude -p`, personal data moves out of
+the repo, and it joins the house style. **`STATUS.md` holds the mandate in
+Aldred's words, the review, and the open decisions; read it first.** The
+global brief in `~/.claude/CLAUDE.md` names the fixed references for each
+concern (passkeys and shell from the kit, systemd and persist from
+`nextpattern-trip`, unattended `claude -p` from `plate-and-glass/scripts/ai`).
+
+Everything below this line describes the pre-review shape and is kept so the
+review can be checked against it. Replace it as the shape changes; do not
+let it rot.
+
+---
+
 ## Architecture
 
 Five MCP servers + a Flask UI package in one monorepo:
