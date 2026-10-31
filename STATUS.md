@@ -28,6 +28,18 @@ and pushed** (Aldred's go, the same evening):
   because they name data files and renaming them would orphan data; step 3
   replaces them anyway.
 
+**History rewritten locally 2026-10-31** (Aldred: "yes remove"): every
+`Co-Authored-By: Claude …` trailer (97) and `claude.ai/code/session_…` link
+(27) was stripped from `main`'s commit messages, under the global rule of no
+AI references in commits. Trees are byte-identical and every hash changed;
+hashes cited in these docs were remapped. Prose that names Claude as the
+app's model was left alone, because it describes the product, not who wrote
+the commit. GitHub's `refs/pull/1-5` still point at the old commits, and
+nobody can rewrite those. Local backup ref: `pre-scrub-backup`. **The
+force-push was refused by the session's permission check, so Aldred
+pushes it:** `git push --force-with-lease=main:7a8b82b origin main`. Until
+then `main` and `origin/main` have diverged; do not pull.
+
 Nothing runs as a service yet. A `.venv` exists (uv, Python 3.13). There's
 still no `.env` and no real data. The old empty directories (`strava-mcp/`
 etc.) still hold untracked test databases and caches from the baseline run;
@@ -62,7 +74,7 @@ names. One package, one install, one test run.
 
 **2. `claude -p` is already the fallback.** `ui/llm.py` uses OpenRouter
 when `OPENROUTER_API_KEY` is set and `claude -p` otherwise. OpenRouter was
-added in 732ac8a only because the cloud host had no subscription (the
+added in c63b786 only because the cloud host had no subscription (the
 commit before it reverts "mobile coaching mode (cloud API access
 blocked)"). On the box the subscription applies, so drop the `openai`
 dependency and the env switch. The existing fallback is not the house

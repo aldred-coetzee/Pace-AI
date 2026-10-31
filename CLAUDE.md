@@ -62,7 +62,7 @@ and `*.db` are gitignored except `research/claims.db`, which is curated.
 - Tests: `respx` for HTTP in the Strava, Withings and Notion clients; Garmin
   mocked at class level; `pytest-asyncio` in auto mode. Mock external APIs,
   never our own code. Dates in tests are relative to today: hard-coded dates
-  rot inside rolling windows (fixed twice already, 770b6a7 and 22862d0).
+  rot inside rolling windows (fixed twice already, d7c77a7 and a121d96).
 - `tests/llm_eval` is excluded from the run. Five of its files import the
   deleted `pace_ai.prompts.coaching` and it calls OpenRouter; whether to
   rewire or archive it is an open decision in `STATUS.md`.
