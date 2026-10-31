@@ -9,7 +9,6 @@ from __future__ import annotations
 import re
 from datetime import datetime
 
-
 # ── HTML helpers ──────────────────────────────────────────────────────────────
 
 
@@ -78,10 +77,7 @@ def assess_training_load(weekly_distances: list[dict]) -> tuple[str, str]:
         acwr_text = "<p>Insufficient chronic training data to calculate ACWR.</p>"
     else:
         chronic_avg = sum(chronic_miles) / len(chronic_miles)
-        if chronic_avg > 0:
-            acwr = current_miles / chronic_avg
-        else:
-            acwr = 0.0
+        acwr = current_miles / chronic_avg if chronic_avg > 0 else 0.0
 
         if acwr > 1.5:
             status = "concern"
@@ -408,10 +404,7 @@ def assess_readiness(
         if s in ("caution", "concern"):
             flags.append(f"<li>{label}: {s.upper()}</li>")
 
-    if flags:
-        content_html = f"<ul>{''.join(flags)}</ul>"
-    else:
-        content_html = "<p>All systems green.</p>"
+    content_html = f"<ul>{''.join(flags)}</ul>" if flags else "<p>All systems green.</p>"
 
     return overall, verdict_text, content_html
 

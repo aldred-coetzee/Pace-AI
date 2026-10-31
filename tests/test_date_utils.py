@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 from ui.plans import _date_calendar, _fix_day_label, _validate_plan_dates
 
 

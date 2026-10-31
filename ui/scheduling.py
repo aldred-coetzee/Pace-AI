@@ -68,8 +68,7 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
     """
     from pace_ai.garmin.client import GarminClient
     from pace_ai.garmin.config import Settings as GarminSettings
-    from pace_ai.garmin.workout_builder import _build_workout
-    from pace_ai.garmin.workout_builder import WORKOUT_TYPES
+    from pace_ai.garmin.workout_builder import WORKOUT_TYPES, _build_workout
 
     garmin_settings = GarminSettings.from_env()
     garmin_client = GarminClient(garmin_settings)

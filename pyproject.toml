@@ -50,6 +50,8 @@ packages = ["src/pace_ai", "ui"]
 target-version = "py310"
 line-length = 120
 
+extend-exclude = ["research", "research_archive"]
+
 [tool.ruff.lint]
 select = [
     "E",
@@ -63,6 +65,12 @@ select = [
     "TCH",
     "RUF",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+# Prompt text, HTML templates and status copy: long lines and typographic dashes are content.
+"ui/config.py" = ["E501"]
+"ui/templates.py" = ["E501"]
+"ui/status.py" = ["RUF001", "RUF002"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["pace_ai", "ui"]

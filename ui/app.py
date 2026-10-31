@@ -21,7 +21,6 @@ from ui.config import (
     log,
     update_coaching_context,
 )
-from ui.llm import call_llm
 from ui.context import (
     _build_chat_context,
     _build_nutrition_context,
@@ -30,15 +29,7 @@ from ui.context import (
     _render_body_comp_html,
     _render_schedule_html,
 )
-from ui.status import (
-    assess_injury,
-    assess_readiness,
-    assess_recent_runs,
-    assess_recovery,
-    assess_training_load,
-    build_status_snapshot,
-    render_status_section,
-)
+from ui.llm import call_llm
 from ui.plans import (
     _default_date_range,
     _enrich_plan_with_exercises,
@@ -54,6 +45,15 @@ from ui.sessions import (
     _get_store,
     _persist_store,
     _sessions,
+)
+from ui.status import (
+    assess_injury,
+    assess_readiness,
+    assess_recent_runs,
+    assess_recovery,
+    assess_training_load,
+    build_status_snapshot,
+    render_status_section,
 )
 from ui.templates import (
     CONFIRM_PLAN_HTML,
@@ -693,12 +693,14 @@ def end_session():
         plan_json = json.dumps(confirmed_plan, default=str) if confirmed_plan else None
         conn = _sq.connect(_SESSION_DB)
         cur = conn.execute(
-            "UPDATE conversations SET summary = ?, plan = COALESCE(?, plan), updated_at = CURRENT_TIMESTAMP WHERE sid = ?",
+            "UPDATE conversations SET summary = ?, plan = COALESCE(?, plan), "
+            "updated_at = CURRENT_TIMESTAMP WHERE sid = ?",
             (summary, plan_json, sid),
         )
         if cur.rowcount == 0:
             conn.execute(
-                "INSERT INTO conversations (sid, messages, summary, plan, updated_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
+                "INSERT INTO conversations (sid, messages, summary, plan, updated_at) "
+                "VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
                 (sid, json.dumps(messages, default=str), summary, plan_json),
             )
         conn.commit()

@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 import logging
-import sys
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-
 from pace_ai.database import HistoryDB
+from pace_ai.tools.history import get_recent_activities, get_weekly_distances
 from pace_ai.tools.memory import (
     append_coaching_log,
     get_athlete_facts,
@@ -16,13 +14,13 @@ from pace_ai.tools.memory import (
     get_recent_coaching_log,
     update_coaching_context,
 )
-from pace_ai.tools.history import get_recent_activities, get_weekly_distances
 from pace_ai.tools.profile import get_athlete_profile
 from pace_ai.tools.sync import sync_all as _sync_all
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(message)s")
 log = logging.getLogger("pace-ui")
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = str(PROJECT_ROOT / "pace_ai.db")
 _SESSION_DB = str(PROJECT_ROOT / "ui_sessions.db")
 
@@ -419,40 +417,40 @@ NUTRITION_CLAIM_CATEGORIES = [
 
 # Re-export for convenience
 __all__ = [
-    "PROJECT_ROOT",
-    "DB_PATH",
-    "_SESSION_DB",
-    "STATUS_SECTIONS",
-    "STATUS_TRAINING_SECTIONS",
-    "STATUS_RECOVERY_SECTIONS",
-    "STATUS_INJURY_SECTIONS",
-    "STATUS_READINESS_SECTIONS",
-    "STATUS_SYSTEM_PROMPT",
-    "STATUS_TRAINING_PROMPT",
-    "STATUS_RECOVERY_PROMPT",
-    "STATUS_INJURY_PROMPT",
-    "STATUS_READINESS_PROMPT",
-    "PLAN_REPORT_SECTIONS",
-    "PLAN_SYSTEM_PROMPT",
     "CHAT_SYSTEM_PROMPT",
-    "PLAN_JSON_SCHEMA",
-    "NUTRITION_SYSTEM_PROMPT",
+    "DB_PATH",
+    "NUTRITION_CLAIM_CATEGORIES",
+    "NUTRITION_GENERAL_SECTIONS",
     "NUTRITION_MODE_GENERAL",
     "NUTRITION_MODE_PLAN",
     "NUTRITION_MODE_RACE",
-    "NUTRITION_GENERAL_SECTIONS",
     "NUTRITION_PLAN_SECTIONS",
     "NUTRITION_RACE_SECTIONS",
-    "NUTRITION_CLAIM_CATEGORIES",
+    "NUTRITION_SYSTEM_PROMPT",
+    "PLAN_JSON_SCHEMA",
+    "PLAN_REPORT_SECTIONS",
+    "PLAN_SYSTEM_PROMPT",
+    "PROJECT_ROOT",
+    "STATUS_INJURY_PROMPT",
+    "STATUS_INJURY_SECTIONS",
+    "STATUS_READINESS_PROMPT",
+    "STATUS_READINESS_SECTIONS",
+    "STATUS_RECOVERY_PROMPT",
+    "STATUS_RECOVERY_SECTIONS",
+    "STATUS_SECTIONS",
+    "STATUS_SYSTEM_PROMPT",
+    "STATUS_TRAINING_PROMPT",
+    "STATUS_TRAINING_SECTIONS",
+    "_SESSION_DB",
     "HistoryDB",
+    "_sync_all",
     "append_coaching_log",
     "get_athlete_facts",
-    "get_coaching_context",
-    "get_recent_coaching_log",
-    "update_coaching_context",
-    "get_recent_activities",
-    "get_weekly_distances",
     "get_athlete_profile",
-    "_sync_all",
+    "get_coaching_context",
+    "get_recent_activities",
+    "get_recent_coaching_log",
+    "get_weekly_distances",
     "log",
+    "update_coaching_context",
 ]

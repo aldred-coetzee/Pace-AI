@@ -15,8 +15,8 @@ from ui.config import (
     PLAN_JSON_SCHEMA,
     PLAN_SYSTEM_PROMPT,
     STATUS_INJURY_PROMPT,
-    STATUS_RECOVERY_PROMPT,
     STATUS_READINESS_PROMPT,
+    STATUS_RECOVERY_PROMPT,
     STATUS_SYSTEM_PROMPT,
     STATUS_TRAINING_PROMPT,
     HistoryDB,
@@ -823,7 +823,7 @@ def _build_status_context_full() -> str:
     if diary:
         sections.append(diary)
 
-    facts, facts_section = _build_facts_section(db)
+    _facts, facts_section = _build_facts_section(db)
     if facts_section:
         sections.append(facts_section)
 
@@ -913,7 +913,7 @@ def _build_chat_context(status_snapshot: str | None, pending_plan: dict | None) 
     summary = _build_profile_summary(db)
     sections.append(f"## Athlete\n{summary}")
 
-    facts, facts_section = _build_facts_section(db)
+    _facts, facts_section = _build_facts_section(db)
     if facts_section:
         sections.append(facts_section)
 

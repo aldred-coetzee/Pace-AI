@@ -6,7 +6,7 @@ import json
 import re
 from datetime import date, timedelta
 
-from ui.config import PROJECT_ROOT, log
+from ui.config import log
 from ui.llm import call_llm
 
 # ── Date utilities ──
