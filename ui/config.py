@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 from pathlib import Path
 
 from pace_ai.database import HistoryDB
@@ -16,14 +17,15 @@ from pace_ai.tools.memory import (
 )
 from pace_ai.tools.profile import get_athlete_profile
 from pace_ai.tools.sync import sync_all as _sync_all
-from pace_ai.workspace import load_config, workspace_path
+from pace_ai.workspace import load_config, resolve_in_workspace, workspace_path
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(message)s")
 log = logging.getLogger("pace-ui")
 
 load_config()  # personal config + data live in the workspace, never the checkout
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DB_PATH = str(workspace_path("pace_ai.db"))
+# Same variable and default as pace_ai.config.Settings, so the two cannot diverge.
+DB_PATH = resolve_in_workspace(os.environ.get("PACE_AI_DB") or "pace_ai.db")
 _SESSION_DB = str(workspace_path("ui_sessions.db"))
 
 # ── Structured output schema ──
