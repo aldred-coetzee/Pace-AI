@@ -1,23 +1,23 @@
 """Model sweep runner — evaluate coaching quality across multiple LLMs.
 
-Runs the full eval suite against each model in a tier list, producing a
-comparison scorecard with per-model pass rates, mean ratings, and cost
-estimates.
+Runs the PLAN eval (the app's real prompt, via `claude -p`) over all 16
+profiles for each model, producing a comparison scorecard with per-model pass
+rates and mean ratings.
 
 Usage:
-    # Run the default 4-model sweep
+    # Run the default sweep (haiku, sonnet, opus)
     python -m tests.llm_eval.sweep
 
     # Custom models (comma-separated)
-    python -m tests.llm_eval.sweep --models "qwen/qwen3-235b-a22b,deepseek/deepseek-v3.2"
+    python -m tests.llm_eval.sweep --models "haiku,sonnet"
 
     # Override judge model
-    python -m tests.llm_eval.sweep --judge claude-haiku-4-5-20251001
+    python -m tests.llm_eval.sweep --judge sonnet
 
     # Output JSON instead of table
     python -m tests.llm_eval.sweep --format json
 
-Requires OPENROUTER_API_KEY or ANTHROPIC_API_KEY.
+Needs the `claude` CLI logged in on the box; no API keys.
 """
 
 from __future__ import annotations
@@ -29,39 +29,24 @@ import time
 from dataclasses import dataclass, field
 from typing import Any
 
-from pace_ai.prompts.coaching import injury_risk_prompt, weekly_plan_prompt
+from tests.llm_eval.app_prompt import build_app_plan_prompt, plan_text
 from tests.llm_eval.llm_client import complete
-from tests.llm_eval.profiles import ALL_PROFILES, HIGH_RISK_PROFILES, INJURY_RETURN_PROFILES, RunnerProfile
-from tests.llm_eval.rubrics import get_injury_risk_rubric, get_weekly_plan_rubric
+from tests.llm_eval.profiles import ALL_PROFILES, RunnerProfile
+from tests.llm_eval.rubrics import get_weekly_plan_rubric
 from tests.llm_eval.scoring import ScoringResult, score_with_judge
 
-# ── Model tiers ─────────────────────────────────────────────────────
+# ── Models ──────────────────────────────────────────────────────────
 
+# Claude Code aliases, run through `claude -p`. Cost is the subscription's, so
+# there is no per-token price table; the tier is just a label for the report.
 MODEL_TIERS: dict[str, dict[str, Any]] = {
-    "deepseek/deepseek-v3.2": {
-        "tier": "budget",
-        "label": "DeepSeek V3.2",
-        "input_cost_per_m": 0.14,
-        "output_cost_per_m": 0.28,
-    },
-    "google/gemini-2.5-pro-preview-05-06": {
-        "tier": "mid",
-        "label": "Gemini 2.5 Pro",
-        "input_cost_per_m": 1.25,
-        "output_cost_per_m": 10.0,
-    },
-    "anthropic/claude-sonnet-4.5": {
-        "tier": "premium",
-        "label": "Claude Sonnet 4.5",
-        "input_cost_per_m": 3.0,
-        "output_cost_per_m": 15.0,
-    },
+    "haiku": {"tier": "budget", "label": "Haiku"},
+    "sonnet": {"tier": "mid", "label": "Sonnet"},
+    "opus": {"tier": "premium", "label": "Opus"},
 }
 
 DEFAULT_MODELS = list(MODEL_TIERS.keys())
-DEFAULT_JUDGE = "google/gemini-2.0-flash-001"
-
-_RISK_PROFILES = INJURY_RETURN_PROFILES + HIGH_RISK_PROFILES
+DEFAULT_JUDGE = "haiku"
 
 
 @dataclass
@@ -72,12 +57,11 @@ class ModelResult:
     tier: str
     label: str
     weekly_plan_results: list[ScoringResult] = field(default_factory=list)
-    injury_risk_results: list[ScoringResult] = field(default_factory=list)
     elapsed_seconds: float = 0.0
 
     @property
     def all_results(self) -> list[ScoringResult]:
-        return self.weekly_plan_results + self.injury_risk_results
+        return self.weekly_plan_results
 
     @property
     def total_pass_rate(self) -> float:
@@ -120,7 +104,6 @@ class ModelResult:
             "mean_rating": self.mean_rating,
             "elapsed_seconds": self.elapsed_seconds,
             "weekly_plan_results": [r.to_dict() for r in self.weekly_plan_results],
-            "injury_risk_results": [r.to_dict() for r in self.injury_risk_results],
         }
 
 
@@ -129,41 +112,9 @@ class ModelResult:
 
 async def _run_weekly_plan_eval(profile: RunnerProfile, gen_model: str, judge_model: str) -> ScoringResult:
     """Run a single weekly plan eval for a profile."""
-    prompt = weekly_plan_prompt(
-        goals=profile.goals,
-        recent_activities=profile.recent_activities,
-        athlete_stats=profile.athlete_stats,
-        training_zones=profile.zones if profile.zones else None,
-        training_load=profile.acwr if profile.acwr else None,
-        athlete_context={
-            "age": profile.age,
-            "gender": profile.gender,
-            "level": profile.level,
-            "condition": profile.condition,
-            "description": profile.description,
-        },
-    )
-    response = await complete(model=gen_model, prompt=prompt)
+    system, prompt = build_app_plan_prompt(profile)
+    response = plan_text(await complete(model=gen_model, system=system, prompt=prompt))
     rubric = get_weekly_plan_rubric(profile.id)
-    return await score_with_judge(
-        response=response,
-        rubric=rubric,
-        profile_id=profile.id,
-        profile_description=profile.description,
-        judge_model=judge_model,
-        gen_model=gen_model,
-    )
-
-
-async def _run_injury_risk_eval(profile: RunnerProfile, gen_model: str, judge_model: str) -> ScoringResult:
-    """Run a single injury risk eval for a profile."""
-    prompt = injury_risk_prompt(
-        weekly_distances=profile.weekly_distances,
-        training_load=profile.acwr,
-        recent_activities=profile.recent_activities,
-    )
-    response = await complete(model=gen_model, prompt=prompt)
-    rubric = get_injury_risk_rubric(profile.id)
     return await score_with_judge(
         response=response,
         rubric=rubric,
@@ -182,7 +133,7 @@ async def evaluate_model(gen_model: str, judge_model: str) -> ModelResult:
     start = time.monotonic()
     print(f"  Evaluating {info['label']} ({gen_model})...", flush=True)
 
-    # Weekly plans — all 16 profiles
+    # PLAN — all 16 profiles
     for profile in ALL_PROFILES:
         try:
             sr = await _run_weekly_plan_eval(profile, gen_model, judge_model)
@@ -195,20 +146,6 @@ async def evaluate_model(gen_model: str, judge_model: str) -> ModelResult:
             )
         except Exception as exc:
             print(f"    [ERR]  weekly_plan/{profile.id}: {exc}", flush=True)
-
-    # Injury risk — 6 at-risk profiles
-    for profile in _RISK_PROFILES:
-        try:
-            sr = await _run_injury_risk_eval(profile, gen_model, judge_model)
-            result.injury_risk_results.append(sr)
-            status = "PASS" if sr.passed else "FAIL"
-            print(
-                f"    [{status}] injury_risk/{profile.id}  (det={sr.deterministic_score:.0%} "
-                f"judge={sr.judge_score:.0%} rating={sr.mean_rating:.1f})",
-                flush=True,
-            )
-        except Exception as exc:
-            print(f"    [ERR]  injury_risk/{profile.id}: {exc}", flush=True)
 
     result.elapsed_seconds = time.monotonic() - start
     print(
@@ -239,21 +176,17 @@ def format_sweep_table(results: list[ModelResult], judge_model: str) -> str:
 
     lines.append("")
 
-    # Recommendation
+    # Recommendation: DEFAULT_MODELS runs cheapest first, so the first model that
+    # clears the bar is the best value.
     best = max(results, key=lambda x: x.mean_rating) if results else None
-    cheapest_passing = None
-    for r in sorted(results, key=lambda x: MODEL_TIERS.get(x.model, {}).get("input_cost_per_m", 999)):
-        if r.total_pass_rate >= 0.75:
-            cheapest_passing = r
-            break
+    cheapest_passing = next((r for r in results if r.total_pass_rate >= 0.75), None)
 
     if best:
         lines.append(f"**Best quality:** {best.label} ({best.mean_rating:.1f}/5)")
     if cheapest_passing and cheapest_passing != best:
         lines.append(
             f"**Best value:** {cheapest_passing.label} "
-            f"({cheapest_passing.total_pass_rate:.0%} pass, "
-            f"${MODEL_TIERS.get(cheapest_passing.model, {}).get('input_cost_per_m', '?')}/M in)"
+            f"({cheapest_passing.total_pass_rate:.0%} pass, cheapest to clear 75%)"
         )
 
     return "\n".join(lines)

@@ -1,13 +1,20 @@
 """Pytest configuration for LLM evaluation tests.
 
-Adds flags to control:
+Flags (--live-llm, --gen-model, --judge-model) are registered in the repo-root
+conftest.py, because pytest only honours addoption from a conftest it loads at
+startup, which a nested one is not when running from the root.
+
+Flags:
 - --live-llm: use real API calls instead of golden responses
 - --gen-model: model for generating coaching responses
 - --judge-model: model for judging response quality
 
 Environment variable fallbacks:
-- EVAL_GEN_MODEL  (default: qwen/qwen3-235b-a22b)
-- EVAL_JUDGE_MODEL (default: claude-haiku-4-5-20251001)
+- EVAL_GEN_MODEL  (default: the model the app uses for PLAN, ui.llm.model_for("plan"))
+- EVAL_JUDGE_MODEL (default: haiku)
+
+Models are Claude Code aliases (haiku, sonnet, opus) or full ids; every call
+goes through `claude -p`.
 """
 
 from __future__ import annotations
@@ -16,30 +23,16 @@ import os
 
 import pytest
 
+from ui.llm import model_for
+
 # ── Defaults ────────────────────────────────────────────────────────
 
-DEFAULT_GEN_MODEL = "qwen/qwen3-235b-a22b"
-DEFAULT_JUDGE_MODEL = "google/gemini-2.0-flash-001"
+DEFAULT_JUDGE_MODEL = "haiku"  # also the --judge-model help text in the root conftest.py
 
 
-def pytest_addoption(parser: pytest.Parser) -> None:
-    """Add LLM eval flags to pytest."""
-    parser.addoption(
-        "--live-llm",
-        action="store_true",
-        default=False,
-        help="Run LLM evaluation with real API calls instead of mocked golden responses.",
-    )
-    parser.addoption(
-        "--gen-model",
-        default=None,
-        help=f"Model for generating coaching responses (default: ${DEFAULT_GEN_MODEL}, env: EVAL_GEN_MODEL).",
-    )
-    parser.addoption(
-        "--judge-model",
-        default=None,
-        help=f"Model for judging response quality (default: ${DEFAULT_JUDGE_MODEL}, env: EVAL_JUDGE_MODEL).",
-    )
+def default_gen_model() -> str:
+    """The model the app itself uses for the PLAN agent."""
+    return model_for("plan")
 
 
 @pytest.fixture()
@@ -54,7 +47,7 @@ def gen_model(request: pytest.FixtureRequest) -> str:
     explicit = request.config.getoption("--gen-model")
     if explicit:
         return explicit
-    return os.environ.get("EVAL_GEN_MODEL", DEFAULT_GEN_MODEL)
+    return os.environ.get("EVAL_GEN_MODEL") or default_gen_model()
 
 
 @pytest.fixture()

@@ -40,9 +40,12 @@ def model_for(agent: str) -> str:
     return os.environ.get(f"PACE_AI_MODEL_{agent.upper()}") or DEFAULT_MODELS.get(agent, "sonnet")
 
 
-def call_llm(system_prompt: str, user_prompt: str, agent: str, timeout: int = 300) -> str:
-    """Call Claude headless. Returns the reply text, or a parenthesised error string."""
-    model = model_for(agent)
+def call_llm(system_prompt: str, user_prompt: str, agent: str, timeout: int = 300, model: str | None = None) -> str:
+    """Call Claude headless. Returns the reply text, or a parenthesised error string.
+
+    `model` overrides the per-agent default (the eval suite uses it to sweep models).
+    """
+    model = model or model_for(agent)
     cmd = [
         "claude",
         "-p",

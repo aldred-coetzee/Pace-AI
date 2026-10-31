@@ -39,7 +39,7 @@ Each agent's model is overridable with `PACE_AI_MODEL_<AGENT>`, e.g.
 | `src/pace_ai/resources/` | Methodology and the research claim store |
 | `src/pace_ai/strava/`, `garmin/`, `withings/`, `notion/` | API clients, auth and config per source; `garmin/workout_builder.py` builds Garmin workout JSON |
 | `research/` | `claims.db`, the curated evidence base |
-| `tests/` | One tree, one run; `tests/llm_eval` is excluded and its future undecided |
+| `tests/` | One tree, one run; `tests/llm_eval` grades the PLAN prompt (offline by default, `--live-llm` calls `claude -p`) |
 
 ## Setup
 

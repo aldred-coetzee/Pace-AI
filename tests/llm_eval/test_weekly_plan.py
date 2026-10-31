@@ -2,51 +2,41 @@
 
 Two modes:
 - Default (mocked): scores golden responses against rubrics (deterministic)
-- --live-llm: generates coaching via OpenRouter/Anthropic API, scores with LLM judge
+- --live-llm: sends the app's real PLAN prompt (built by tests/llm_eval/app_prompt.py
+  from the profile) through `claude -p`, flattens the JSON plan to text and scores
+  it with deterministic checks plus an LLM judge
 
 Model selection (live mode only):
-  --gen-model MODEL     Generation model (env: EVAL_GEN_MODEL)
-  --judge-model MODEL   Judge model (env: EVAL_JUDGE_MODEL)
+  --gen-model MODEL     Generation model (env: EVAL_GEN_MODEL; default: the app's PLAN model)
+  --judge-model MODEL   Judge model (env: EVAL_JUDGE_MODEL; default: haiku)
+Models are Claude Code aliases (haiku, sonnet, opus) or full ids.
 
 Run mocked:   python -m pytest tests/llm_eval/test_weekly_plan.py -v
 Run live:     python -m pytest tests/llm_eval/test_weekly_plan.py -v --live-llm
-Custom model: python -m pytest tests/llm_eval/test_weekly_plan.py -v --live-llm --gen-model deepseek/deepseek-v3.2
+Custom model: python -m pytest tests/llm_eval/test_weekly_plan.py -v --live-llm --gen-model opus
 """
 
 from __future__ import annotations
 
 import pytest
 
-from pace_ai.prompts.coaching import weekly_plan_prompt
+from tests.llm_eval.app_prompt import build_app_plan_prompt, plan_text
 from tests.llm_eval.golden_responses import WEEKLY_PLAN_GOLDEN
 from tests.llm_eval.profiles import ALL_PROFILES, RunnerProfile
 from tests.llm_eval.rubrics import get_weekly_plan_rubric
 from tests.llm_eval.scoring import score_deterministic, score_with_judge
 
 
-def _build_prompt(profile: RunnerProfile) -> str:
-    """Build a weekly plan prompt from a profile."""
-    return weekly_plan_prompt(
-        goals=profile.goals,
-        recent_activities=profile.recent_activities,
-        athlete_stats=profile.athlete_stats,
-        training_zones=profile.zones if profile.zones else None,
-        training_load=profile.acwr if profile.acwr else None,
-        athlete_context={
-            "age": profile.age,
-            "gender": profile.gender,
-            "level": profile.level,
-            "condition": profile.condition,
-            "description": profile.description,
-        },
-    )
+def _build_prompt(profile: RunnerProfile) -> tuple[str, str]:
+    """(system, user) prompt exactly as the app's /plan route builds them."""
+    return build_app_plan_prompt(profile)
 
 
-async def _get_llm_response(prompt: str, model: str) -> str:
-    """Call the LLM API to generate a coaching response."""
+async def _get_llm_response(system: str, prompt: str, model: str) -> str:
+    """Run the app's PLAN prompt through `claude -p` and flatten the JSON plan to text."""
     from tests.llm_eval.llm_client import complete
 
-    return await complete(model=model, prompt=prompt)
+    return plan_text(await complete(model=model, system=system, prompt=prompt))
 
 
 # ── Parametrized tests ──────────────────────────────────────────────
@@ -73,8 +63,8 @@ class TestWeeklyPlanCoaching:
         rubric = get_weekly_plan_rubric(profile.id)
 
         if live_llm:
-            prompt = _build_prompt(profile)
-            response = await _get_llm_response(prompt, model=gen_model)
+            system, prompt = _build_prompt(profile)
+            response = await _get_llm_response(system, prompt, model=gen_model)
 
             result = await score_with_judge(
                 response=response,
@@ -116,9 +106,9 @@ class TestWeeklyPlanCoaching:
 
     def test_prompt_generation(self, profile: RunnerProfile, live_llm: bool) -> None:
         """Verify the prompt can be generated without errors."""
-        prompt = _build_prompt(profile)
-        assert isinstance(prompt, str)
-        assert len(prompt) > 100
-        # Verify key data is embedded in the prompt
-        if profile.goals:
-            assert profile.goals[0]["race_type"] in prompt
+        system, prompt = _build_prompt(profile)
+        assert prompt.startswith("Create a training plan for ")
+        assert len(system) > 100
+        # The athlete's goal reaches the prompt through the athlete facts.
+        assert f"Goal: {profile.goals[0]['race_type']}" in system
+        assert "## Current Status" in system

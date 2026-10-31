@@ -79,5 +79,5 @@ known-first-party = ["pace_ai", "ui"]
 testpaths = ["tests"]
 addopts = "--import-mode=importlib"
 pythonpath = ["."]
-norecursedirs = ["tests/llm_eval"]
+
 asyncio_mode = "auto"

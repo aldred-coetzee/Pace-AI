@@ -214,12 +214,12 @@ async def score_with_judge(
     profile_id: str,
     profile_description: str,
     *,
-    judge_model: str = "claude-haiku-4-5-20251001",
+    judge_model: str = "haiku",
     gen_model: str = "",
 ) -> ScoringResult:
     """Score a response using an LLM judge.
 
-    Requires OPENROUTER_API_KEY or ANTHROPIC_API_KEY environment variable.
+    The judge runs through `claude -p` (see llm_client).
 
     Returns a ScoringResult with both deterministic and judge scores,
     including per-criterion 1-5 ratings.
@@ -236,7 +236,6 @@ async def score_with_judge(
     judge_text = await complete(
         model=judge_model,
         prompt=judge_prompt,
-        max_tokens=2048,
     )
     criteria_details, judge_score = _parse_judge_response(judge_text, len(rubric.scoring_criteria))
 

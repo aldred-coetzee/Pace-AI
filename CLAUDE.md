@@ -63,7 +63,10 @@ and `*.db` are gitignored except `research/claims.db`, which is curated.
   mocked at class level; `pytest-asyncio` in auto mode. Mock external APIs,
   never our own code. Dates in tests are relative to today: hard-coded dates
   rot inside rolling windows (fixed twice already, d7c77a7 and a121d96).
-- `tests/llm_eval` is excluded from the run. Five of its files import the
-  deleted `pace_ai.prompts.coaching` and it calls OpenRouter; whether to
-  rewire or archive it is an open decision in `STATUS.md`.
+- `tests/llm_eval` grades the app's real PLAN prompt (`app_prompt.py` seeds a
+  throwaway DB from a synthetic profile and runs the `/status` then `/plan`
+  code) through `claude -p`. It is in the normal run in offline mode (golden
+  responses, no model call); `--live-llm` is opt-in and calls the model
+  (`--gen-model`/`--judge-model`, aliases like `haiku`). The flags live in the
+  root `conftest.py`.
 - UI tests are still deferred; the UI changes next.
