@@ -66,10 +66,10 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
 
     Returns (results_list, ok_count, fail_count, skip_count).
     """
-    from garmin_mcp.client import GarminClient
-    from garmin_mcp.config import Settings as GarminSettings
-    from garmin_mcp.workout_builder import _build_workout
-    from garmin_mcp.workout_builder import WORKOUT_TYPES
+    from pace_ai.garmin.client import GarminClient
+    from pace_ai.garmin.config import Settings as GarminSettings
+    from pace_ai.garmin.workout_builder import _build_workout
+    from pace_ai.garmin.workout_builder import WORKOUT_TYPES
 
     garmin_settings = GarminSettings.from_env()
     garmin_client = GarminClient(garmin_settings)
@@ -118,7 +118,7 @@ def schedule_plan_to_garmin(plan: dict) -> tuple[list[dict], int, int, int]:
             description = s.get("description", "")
             exercises = s.get("exercises")
             if workout_type in _STRUCTURED_TYPES:
-                from garmin_mcp.workout_builder import (
+                from pace_ai.garmin.workout_builder import (
                     custom_workout,
                     resolve_sport_type,
                 )

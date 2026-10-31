@@ -6,18 +6,8 @@ import logging
 import sys
 from pathlib import Path
 
-# Add pace-ai src to import path before importing pace_ai modules
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-_pace_src = str(PROJECT_ROOT / "pace-ai" / "src")
-if _pace_src not in sys.path:
-    sys.path.insert(0, _pace_src)
 
-# Add garmin-mcp src to import path for direct workout scheduling
-_garmin_src = str(PROJECT_ROOT / "garmin-mcp" / "src")
-if _garmin_src not in sys.path:
-    sys.path.insert(0, _garmin_src)
-
-# ruff: noqa: E402
 from pace_ai.database import HistoryDB
 from pace_ai.tools.memory import (
     append_coaching_log,

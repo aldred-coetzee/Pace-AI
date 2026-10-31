@@ -39,8 +39,8 @@ def _get_upcoming_schedule(days: int = 10) -> list[dict]:
     try:
         from datetime import date, timedelta
 
-        from garmin_mcp.client import GarminClient
-        from garmin_mcp.config import Settings as GarminSettings
+        from pace_ai.garmin.client import GarminClient
+        from pace_ai.garmin.config import Settings as GarminSettings
 
         today = date.today()
         cal_end = today + timedelta(days=days - 1)
