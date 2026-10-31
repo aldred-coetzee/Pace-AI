@@ -51,8 +51,11 @@ ruff check . && ruff format --check .
 ## Before every commit
 
 `python -m pytest -q` and both ruff commands pass for the whole repo. Docs-only
-commits are exempt. Never commit credentials or any personal data; `.env`
-and `*.db` are gitignored except `research/claims.db`, which is curated.
+commits are exempt. Never commit credentials or any personal data. All of it lives in the
+workspace (`~/.local/share/pace-ai`, or `$PACE_AI_WORKSPACE`: `config.env`,
+databases, `garth/`, `withings/`), loaded by `src/pace_ai/workspace.py`; the
+template is `config.example.env`. `*.db` is gitignored except
+`research/claims.db`, which is curated.
 
 ## Coding conventions
 

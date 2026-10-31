@@ -8,9 +8,9 @@ from pace_ai.withings.config import Settings
 
 
 class TestSettings:
-    def test_from_env_defaults(self):
+    def test_from_env_defaults(self, tmp_path):
         s = Settings.from_env()
-        assert s.config_folder == ""
+        assert s.config_folder == str(tmp_path / "pace-ai-workspace" / "withings")
 
     def test_from_env_config_folder(self, monkeypatch):
         monkeypatch.setenv("WITHINGS_CONFIG_FOLDER", "/tmp/withings")

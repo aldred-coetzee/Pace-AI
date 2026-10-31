@@ -16,13 +16,15 @@ from pace_ai.tools.memory import (
 )
 from pace_ai.tools.profile import get_athlete_profile
 from pace_ai.tools.sync import sync_all as _sync_all
+from pace_ai.workspace import load_config, workspace_path
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(message)s")
 log = logging.getLogger("pace-ui")
 
+load_config()  # personal config + data live in the workspace, never the checkout
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DB_PATH = str(PROJECT_ROOT / "pace_ai.db")
-_SESSION_DB = str(PROJECT_ROOT / "ui_sessions.db")
+DB_PATH = str(workspace_path("pace_ai.db"))
+_SESSION_DB = str(workspace_path("ui_sessions.db"))
 
 # ── Structured output schema ──
 # Each agent defines sections as (key, title, has_status, content_hint).

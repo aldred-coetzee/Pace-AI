@@ -58,13 +58,13 @@ class NotionClient:
             raise NotionAPIError(
                 code="not_configured",
                 message="NOTION_TOKEN is not set.",
-                action="Set NOTION_TOKEN in your .env file.",
+                action="Set NOTION_TOKEN in config.env in the workspace.",
             )
         if not self._settings.diary_database_id:
             raise NotionAPIError(
                 code="not_configured",
                 message="NOTION_DIARY_DATABASE_ID is not set.",
-                action="Set NOTION_DIARY_DATABASE_ID in your .env file.",
+                action="Set NOTION_DIARY_DATABASE_ID in config.env in the workspace.",
             )
 
         url = f"{NOTION_API_BASE}/databases/{self._settings.diary_database_id}/query"

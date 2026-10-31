@@ -46,14 +46,24 @@ Each agent's model is overridable with `PACE_AI_MODEL_<AGENT>`, e.g.
 ```bash
 uv venv .venv && . .venv/bin/activate
 uv pip install -e ".[dev]"
-cp .env.example .env      # fill in the credentials
+mkdir -p ~/.local/share/pace-ai && chmod 700 ~/.local/share/pace-ai
+cp config.example.env ~/.local/share/pace-ai/config.env   # fill in the credentials
+chmod 600 ~/.local/share/pace-ai/config.env
 pace-ai-garmin-login      # one-time Garmin SSO, handles MFA
 python -m ui.app
 ```
 
+Every personal file lives in one workspace directory, never in the checkout
+(the repo is public): `config.env` (all credentials), the SQLite databases
+(`pace_ai.db`, `ui_sessions.db`, `strava.db`, `notion.db`), `garth/` (Garmin
+session tokens) and `withings/` (Withings user tokens). The default is
+`~/.local/share/pace-ai`; set `PACE_AI_WORKSPACE` to put it elsewhere. Real
+environment variables override `config.env`. The Garmin email and password are
+needed only for `pace-ai-garmin-login`; remove them from `config.env` after.
+
 Strava (callback domain `localhost`), Withings and Notion (an internal
 integration with read access to the diary database) each need an API app;
-Garmin needs none. `.env.example` lists every variable.
+Garmin needs none. `config.example.env` lists every variable.
 
 ## Research Evidence
 

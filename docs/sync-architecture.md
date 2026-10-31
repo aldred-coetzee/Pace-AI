@@ -94,9 +94,8 @@ One package: the source clients live under `pace_ai.strava`, `pace_ai.garmin`,
 
 ### Database Path
 
-The UI opens `pace_ai.db` at the repository root (`DB_PATH` in `ui/config.py`).
-Moving it, with every other personal file, into a workspace outside the repo is
-a planned step; see `STATUS.md`.
+The UI opens `pace_ai.db` in the workspace (`DB_PATH` in `ui/config.py`;
+`~/.local/share/pace-ai` by default, see `src/pace_ai/workspace.py`).
 
 ### Sync Log
 

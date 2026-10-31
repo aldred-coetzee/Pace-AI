@@ -19,25 +19,27 @@ class TestSettings:
         assert s.password == "secret123"
         assert s.garth_home == "/custom/garth"
 
-    def test_from_env_missing_email_raises(self, monkeypatch):
-        monkeypatch.setattr("pace_ai.garmin.config._find_env_file", lambda: None)
+    def test_from_env_missing_credentials_does_not_raise(self, monkeypatch):
         monkeypatch.delenv("GARMIN_EMAIL", raising=False)
         monkeypatch.delenv("GARMIN_PASSWORD", raising=False)
 
-        with pytest.raises(ValueError, match="GARMIN_EMAIL"):
-            Settings.from_env()
+        s = Settings.from_env()
 
-    def test_from_env_missing_password_raises(self, monkeypatch):
-        monkeypatch.setattr("pace_ai.garmin.config._find_env_file", lambda: None)
-        monkeypatch.setenv("GARMIN_EMAIL", "test@test.com")
-        monkeypatch.delenv("GARMIN_PASSWORD", raising=False)
+        assert s.email == ""
+        assert s.password == ""
 
-        with pytest.raises(ValueError, match="GARMIN_PASSWORD"):
-            Settings.from_env()
+    def test_garth_home_defaults_to_workspace(self, tmp_path):
+        s = Settings.from_env()
+        assert s.garth_home == str(tmp_path / "pace-ai-workspace" / "garth")
+
+    def test_garth_home_relative_resolves_against_workspace(self, monkeypatch, tmp_path):
+        monkeypatch.setenv("GARTH_HOME", "tokens")
+        assert Settings.from_env().garth_home == str(tmp_path / "pace-ai-workspace" / "tokens")
 
     def test_defaults(self):
-        s = Settings(email="a@b.com", password="p")
-        assert s.garth_home == "~/.garth"
+        s = Settings()
+        assert s.email == ""
+        assert s.password == ""
 
     def test_frozen(self):
         s = Settings(email="a@b.com", password="p")

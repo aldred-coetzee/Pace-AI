@@ -39,7 +39,6 @@ class TestGarminAuth:
 class TestLoginCli:
     def test_login_cli_missing_env_exits(self, monkeypatch):
         """login_cli should exit 1 if credentials are missing."""
-        monkeypatch.setattr("pace_ai.garmin.config._find_env_file", lambda: None)
         monkeypatch.delenv("GARMIN_EMAIL", raising=False)
         monkeypatch.delenv("GARMIN_PASSWORD", raising=False)
 

@@ -7,12 +7,15 @@ from pathlib import Path
 
 import garth
 
+from pace_ai.workspace import workspace_path
+
 
 class GarminAuth:
     """Manages Garmin Connect authentication using garth SSO tokens."""
 
-    def __init__(self, garth_home: str = "~/.garth") -> None:
-        self._garth_home = str(Path(garth_home).expanduser())
+    def __init__(self, garth_home: str = "") -> None:
+        # Default: <workspace>/garth, never the home directory or the checkout.
+        self._garth_home = str(Path(garth_home).expanduser()) if garth_home else str(workspace_path("garth"))
 
     def resume(self) -> bool:
         """Try to resume a saved garth session. Returns True if successful."""
@@ -37,12 +40,12 @@ def login_cli() -> None:
     Handles MFA prompts interactively via stdin.
     """
     from pace_ai.garmin.config import Settings
+    from pace_ai.workspace import workspace_path
 
-    try:
-        settings = Settings.from_env()
-    except ValueError as e:
-        print(f"Error: {e}", file=sys.stderr)
-        print("Set GARMIN_EMAIL and GARMIN_PASSWORD in your .env file.", file=sys.stderr)
+    settings = Settings.from_env()
+    if not settings.email or not settings.password:
+        print("Error: GARMIN_EMAIL and GARMIN_PASSWORD must be set", file=sys.stderr)
+        print(f"Set them in {workspace_path('config.env')}.", file=sys.stderr)
         sys.exit(1)
 
     auth = GarminAuth(settings.garth_home)
