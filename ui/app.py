@@ -182,7 +182,7 @@ def chat():
     log.info("conversation messages: %d (recent: %d)", len(history), len(recent))
     log.info("user message: %r", user_message[:100])
 
-    reply = call_llm(context, prompt_text, timeout=300)
+    reply = call_llm(context, prompt_text, agent="chat", timeout=300)
 
     log.info("reply length: %d chars", len(reply))
 
@@ -505,7 +505,7 @@ def plan():
     log.info("--- plan LLM call ---")
     log.info("plan context length: %d chars", len(plan_context))
 
-    reply = call_llm(plan_context, f"Create a training plan for {date_range}.", timeout=300)
+    reply = call_llm(plan_context, f"Create a training plan for {date_range}.", agent="plan", timeout=300)
 
     log.info("plan reply length: %d chars", len(reply))
 
@@ -638,7 +638,7 @@ def end_session():
     log.info("conversation messages: %d", len(messages))
     log.info("prompt length: %d chars", len(prompt))
 
-    raw = call_llm("You are a running coach assistant.", prompt, timeout=120)
+    raw = call_llm("You are a running coach assistant.", prompt, agent="end_session", timeout=120)
     log.info("end-session raw length: %d chars", len(raw))
 
     # Strip markdown fences if present
@@ -866,7 +866,7 @@ def nutrition():
     log.info("--- nutrition LLM call (mode=%s) ---", mode)
     log.info("nutrition context length: %d chars", len(context))
 
-    reply = call_llm(context, prompt_text, timeout=300)
+    reply = call_llm(context, prompt_text, agent="nutrition", timeout=300)
 
     log.info("nutrition reply length: %d chars", len(reply))
 

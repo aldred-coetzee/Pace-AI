@@ -241,7 +241,7 @@ def _enrich_plan_with_exercises(plan: dict) -> dict | None:
         "- Output ONLY the JSON, no commentary\n"
     )
     try:
-        raw = call_llm("", prompt, timeout=120)
+        raw = call_llm("", prompt, agent="exercise", timeout=120)
         enriched = _extract_weekly_plan(raw)
         if enriched and enriched.get("sessions"):
             # Verify exercises were actually added

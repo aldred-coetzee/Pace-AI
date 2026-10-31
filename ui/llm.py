@@ -1,67 +1,91 @@
-"""Thin LLM helper — OpenRouter in cloud, claude -p locally as fallback."""
+"""Thin LLM helper — one headless `claude -p` call per agent, on the box's subscription.
+
+Shape follows plate-and-glass/scripts/ai, plus one thing it lacks:
+- an explicit model per agent, the cheapest adequate one, overridable with
+  PACE_AI_MODEL_<AGENT> (e.g. PACE_AI_MODEL_PLAN=opus);
+- --tools "": every call gets its data in the prompt and needs no tools, so
+  no permission bypass is needed;
+- disableAllHooks: the global Stop hook fires in headless runs, and the
+  model's reply to it can replace the answer;
+- --setting-sources project from an empty temp directory: otherwise the
+  user's global CLAUDE.md is loaded into every call (measured 2026-10-31:
+  22,035 input tokens for "say ok", 557 with this);
+- --no-session-persistence: keeps these runs out of ~/.claude/projects, which
+  the nightly refresh and the work log read as someone working.
+"""
 
 from __future__ import annotations
 
+import json
 import logging
 import os
 import subprocess
-
-from openai import OpenAI
+import tempfile
 
 log = logging.getLogger(__name__)
 
-_client: OpenAI | None = None
+# Cheapest adequate model per agent. Coaching reasoning gets Sonnet; turning a
+# conversation or a plan into JSON gets Haiku.
+DEFAULT_MODELS: dict[str, str] = {
+    "chat": "sonnet",
+    "plan": "sonnet",
+    "nutrition": "sonnet",
+    "end_session": "haiku",
+    "exercise": "haiku",
+}
 
 
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(
-            base_url="https://openrouter.ai/api/v1",
-            api_key=os.environ["OPENROUTER_API_KEY"],
-        )
-    return _client
+def model_for(agent: str) -> str:
+    """Model for an agent: PACE_AI_MODEL_<AGENT> if set, else the default."""
+    return os.environ.get(f"PACE_AI_MODEL_{agent.upper()}") or DEFAULT_MODELS.get(agent, "sonnet")
 
 
-def _call_claude_cli(system_prompt: str, user_prompt: str, timeout: int) -> str:
-    """Fall back to local claude -p subprocess (uses Claude subscription)."""
-    cmd = ["claude", "-p", "--dangerously-skip-permissions"]
+def call_llm(system_prompt: str, user_prompt: str, agent: str, timeout: int = 300) -> str:
+    """Call Claude headless. Returns the reply text, or a parenthesised error string."""
+    model = model_for(agent)
+    cmd = [
+        "claude",
+        "-p",
+        "--model",
+        model,
+        "--tools",
+        "",
+        "--no-session-persistence",
+        "--setting-sources",
+        "project",
+        "--settings",
+        '{"disableAllHooks":true}',
+        "--output-format",
+        "json",
+    ]
     if system_prompt:
         cmd.extend(["--system-prompt", system_prompt])
+    log.info("claude -p agent=%s model=%s prompt=%d chars", agent, model, len(user_prompt))
     try:
-        result = subprocess.run(
-            cmd,
-            input=user_prompt,
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-        )
-        return result.stdout.strip() or result.stderr.strip() or "(no response)"
+        with tempfile.TemporaryDirectory(prefix="pace-ai-llm-") as cwd:
+            result = subprocess.run(
+                cmd,
+                check=False,
+                input=user_prompt,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                cwd=cwd,
+            )
     except subprocess.TimeoutExpired:
-        log.exception("claude -p timed out")
+        log.exception("claude -p timed out (agent=%s)", agent)
         return "(timeout — Claude took too long)"
     except Exception as e:
-        log.exception("claude -p failed")
+        log.exception("claude -p failed (agent=%s)", agent)
         return f"(error: {e})"
 
-
-def call_llm(system_prompt: str, user_prompt: str, timeout: int = 300) -> str:
-    """Call LLM. Uses OpenRouter if OPENROUTER_API_KEY is set, else claude -p."""
-    if not os.environ.get("OPENROUTER_API_KEY"):
-        log.info("OPENROUTER_API_KEY not set — falling back to claude -p")
-        return _call_claude_cli(system_prompt, user_prompt, timeout)
-
-    model = os.environ.get("LLM_MODEL", "google/gemini-2.5-flash")
     try:
-        response = _get_client().chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            timeout=timeout,
-        )
-        return response.choices[0].message.content or "(no response)"
-    except Exception as e:
-        log.exception("LLM call failed")
-        return f"(error: {e})"
+        reply = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        detail = (result.stderr or result.stdout).strip()[:300]
+        log.error("claude -p exited %d with no JSON (agent=%s): %s", result.returncode, agent, detail)
+        return f"(error: {detail or 'no response'})"
+    if reply.get("is_error"):
+        log.error("claude -p reported an error (agent=%s): %s", agent, reply.get("result"))
+        return f"(error: {reply.get('result') or 'unknown'})"
+    return reply.get("result") or "(no response)"
