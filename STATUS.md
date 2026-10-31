@@ -96,6 +96,57 @@ after the app runs with no data.
 3,113-claim evidence base in `research/claims.db`, the analysis maths.
 Those are the app. The review is about the shell around them.
 
+## Check of the review against the code (pace-ai session, 2026-10-31)
+
+Mostly right. Four corrections, each found by grep, not inference:
+
+- **STATUS makes no LLM call at all.** The review and `CLAUDE.md` say three
+  parallel `claude -p` calls plus a readiness pass; that was replaced
+  before July. `/status` in `ui/app.py` runs the rule-based
+  `assess_training_load/recent_runs/recovery/injury/readiness` in
+  `ui/status.py`, no executor, no model. So the "batch STATUS into one
+  call" question is moot. The LLM call sites are five: chat, plan,
+  end-session, nutrition (`ui/app.py`) and exercise enrichment
+  (`ui/plans.py`), all through `ui/llm.py:call_llm`.
+- **Deleting the servers is not pure deletion.** `ui/scheduling.py:71`
+  imports `_build_workout` from `garmin_mcp.server`. It is an eight-line
+  dispatcher over `_BUILDERS`; it moves into `workout_builder.py` first.
+- **`pace_ai/prompts/coaching.py` dies with the servers.** Only
+  `pace_ai/server.py` imports it; the UI's prompts live in `ui/config.py`.
+  The review listed "prompts" among what stays. The claim store
+  (`pace_ai.resources.claim_store`) does stay; the UI queries it.
+- **No personal data is on the box yet.** No `.env`, no `pace_ai.db`, no
+  `ui_sessions.db`, no `~/.garth`; only `research/claims.db`, which is
+  curated and tracked. The workspace can be built before first boot, so
+  nothing needs moving. Note the Garmin config *requires*
+  `GARMIN_PASSWORD` even when garth tokens exist; worth relaxing so the
+  password is needed only at login.
+
+Confirmed as stated: no MCP-package import outside the five `server.py`
+files (2,201 lines, not 2,400); the UI imports clients directly, and puts
+`pace-ai/src` and `garmin-mcp/src` on `sys.path` by hand in
+`ui/config.py`; `llm.py` passes `--dangerously-skip-permissions`, no
+model, hooks live; `secret_key = "pace-ai-dev-key"`, `debug=True`; 649
+test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
+41, root 21); `llm_eval` uses OpenRouter.
+
+**Proposed order** (each step leaves the app runnable):
+
+1. `call_llm` to the `plate-and-glass/scripts/ai` shape: `claude -p`,
+   explicit model, hooks off, no permission bypass; drop `openai`.
+2. Move `_build_workout`, delete the five `server.py`, the server tests,
+   `prompts/coaching.py`, the `mcp` dependency; collapse to one package
+   with one `pyproject.toml`, no `sys.path` hacks; replace the
+   `CLAUDE.md` gauntlet with one `pytest` + `ruff`.
+3. Workspace: one config file and every database and token under a
+   directory outside the repo, passed as one flag.
+4. Venv, systemd unit (trip shape), bind `127.0.0.1:8086`, real secret,
+   no debug. Runs with no data.
+5. Auth (decision 1) and Caddy fragment, DNS by hand.
+6. First boot of the four credentials, with Aldred on the phone.
+7. Phone-first shell and accent — last, because it is the largest and
+   nothing above depends on it.
+
 ## Open decisions (Aldred's)
 
 1. Auth: gate in front of Python, or rewrite on the kit. Recommended: gate.
@@ -105,5 +156,5 @@ Those are the app. The review is about the shell around them.
 
 ## Next
 
-Review the review against the code, then put the findings and a proposed
-order to Aldred before changing anything. He asked to look first.
+Review checked (section above). Waiting on Aldred's go-ahead for the
+proposed order; steps 1–2 need no open decision, steps 3 and 5 do.
