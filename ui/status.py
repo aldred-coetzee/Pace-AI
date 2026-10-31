@@ -61,11 +61,15 @@ def _table(headers: list[str], rows: list[list[str]]) -> str:
 def assess_training_load(weekly_distances: list[dict]) -> tuple[str, str]:
     """Assess training load via ACWR.
 
-    weekly_distances is sorted most-recent-first. Index 0 = current week.
+    Accepts weeks in any order and sorts them most-recent-first, so index 0 is
+    the latest week. HistoryDB.get_weekly_distances returns oldest-first; this
+    function used to assume the opposite and took a week ~12 weeks old as the
+    current one (found 2026-10-31).
     Returns (status, html).
     """
     if not weekly_distances:
         return "info", "<p>No weekly distance data available.</p>"
+    weekly_distances = sorted(weekly_distances, key=lambda w: w.get("week") or w.get("week_start") or "", reverse=True)
 
     # Current week = index 0; chronic = weeks 2-5 (indices 1-4)
     current_miles = weekly_distances[0].get("distance_miles", 0) or 0
@@ -186,7 +190,10 @@ def assess_recent_runs(activities: list[dict], facts: list[dict]) -> tuple[str, 
         dist = run.get("distance_miles")
         dist_str = f"{dist:.1f}" if dist is not None else "-"
         pace = run.get("pace_min_per_mile")
-        if pace is not None:
+        if isinstance(pace, str):
+            # get_recent_activities already formats pace as "m:ss"
+            pace_str = f"{pace}/mi"
+        elif pace is not None:
             mins = int(pace)
             secs = round((pace - mins) * 60)
             pace_str = f"{mins}:{secs:02d}/mi"
