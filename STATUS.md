@@ -13,20 +13,22 @@ port stays reserved. The unit file, the venv and the workspace are untouched.
 once auth and a hostname are decided. `claude-rc-pace-ai`, the session, stays
 enabled. Checked from here: `is-enabled` says disabled, `is-active` inactive.
 
-**Direction unconfirmed: possibly a general running app, not a personal one.**
-Asked whether this is his app alone or one coach for two people, Aldred
-dictated: "I am not running or an equation. So consider this more an equation
-or an approach for a general running up." This session's reading, put to him
-and not yet answered: he is not running at the moment, so treat pace-ai as an
-exploration of an approach for a general running app. If he confirms, the
-consequences as put to him are: Go on the kit rather than the gate (decision 1
-below); a user on every piece of data and every source connection; a built-in
-diary instead of Notion; Garmin through its official developer programme or
-not at all, since nobody else's password can be asked for; Strava's limit on
-athletes until it reviews the app; and checking whether the subscription terms
-allow serving other people, or paying per call with an API key. Those last
-three are from memory, not checked at source. The next step offered is a short
-design note in `docs/` for his approval, before any code. Nothing has started.
+**Decided 2026-11-06: one user, for now.** Aldred: "Let's keep this private to
+me fior now" [sic]. This session reads that as his app alone, which is an
+exception to the house rule that Emmanuelle has every app. It answers a
+dictated remark before it ("I am not running or an equation. So consider this
+more an equation or an approach for a general running up."), read then as a
+possible general running app for any runner. That is not being built: no
+multi-user data model and no design note for one. "For now" leaves it open
+later, and the costs if it returns are: a user on every piece of data and
+source connection, a built-in diary instead of Notion, Garmin through its
+official developer programme since nobody else's password can be asked for,
+Strava's athlete limit, and the subscription terms on serving others (those
+last three from memory, not checked at source).
+
+**Not settled by that sentence:** the GitHub repo is still PUBLIC. It holds no
+personal data, by design. Whether "private" also covers the code has been put
+to him; flipping it is his, in the browser (Settings → General).
 
 Below, as of 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done**
 (Aldred's go, the same evening), pushed:
@@ -234,9 +236,11 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 
 ## Open decisions (Aldred's)
 
-1. Auth: gate in front of Python, or rewrite on the kit. The review recommended
-   the gate. Aldred asked "why don't we rewrite in go?" and this session now
-   leans to Go on the kit, firmly so if the app is general (see above).
+1. Auth: gate in front of Python, or rewrite on the kit. Aldred asked "why don't
+   we rewrite in go?", still unanswered by him. This session's recommendation
+   for one user is the gate: `garth` keeps Garmin working on his own login and
+   a rewrite buys little. The gate needs a reverse-proxy mode, which is
+   next-pattern's work in the kit.
 2. Hostname.
 3. ~~Where the workspace lives.~~ **Decided 2026-10-31: `~/.local/share/pace-ai`,
    a plain directory, no git** (Aldred chose it over a private repo with a
@@ -247,9 +251,6 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
    (2.5 MB) stays.
 
 ## Next
-
-**First, Aldred's answer on the direction** (top of this file). It decides what
-comes next.
 
 **Steps 3 and 4 done, 2026-10-31 late evening**, pushed:
 
