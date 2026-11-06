@@ -4,6 +4,26 @@ Set 2026-11-06. Read end to end; set the date rather than appending.
 
 ## Where it is
 
+**PAUSED, 2026-11-06, on Aldred's word. Do no work here unless he reopens it.**
+His words: "I think we can just pause any work at this stage on it, as I'm not
+running." The app is not broken and nothing is half-done: every step below that
+is marked done is pushed, and the suite passes (606 passed, 5 skipped, ruff
+clean, run at the pause). What remains is what it was: steps 5 to 7 and the open
+decisions below, all untouched and all waiting on him.
+
+**The repo stays public, on one condition.** His words: "As long as the code
+contains nothing personal, I'm happy for it to remain public." Checked at the
+pause, tree and history: no credentials, tokens, personal databases or real
+config values, ever (`.env.example` only ever held placeholders; `*.db` is
+ignored except the curated `research/claims.db`; the secret-shaped matches in
+`research_archive/raw/` are words like "ask-a-coach"). What remains is his name
+in `LICENSE` and `pyproject.toml`, his username in `deploy/systemd/` paths, his
+email as commit author, his quoted words in this file, and one other person's
+first name in the history of this file (commit db0dd75, written and removed the
+same day; removing it from history needs a force-push, which is his call). **Keep
+the condition when writing here: nothing personal, and no names of other people,
+in any tracked file.** Real data stays in the workspace.
+
 **The service is stopped and disabled, since 2026-11-06, on Aldred's word.**
 His words, in the next-pattern session: "I don't know what service is running
 on Pace AI. Perhaps we should stop it." and then "stop pace-ai". It had no
@@ -15,7 +35,7 @@ enabled. Checked from here: `is-enabled` says disabled, `is-active` inactive.
 
 **Decided 2026-11-06: one user, for now.** Aldred: "Let's keep this private to
 me fior now" [sic]. This session reads that as his app alone, which is an
-exception to the house rule that Emmanuelle has every app. It answers a
+exception to the house access rule in the global brief. It answers a
 dictated remark before it ("I am not running or an equation. So consider this
 more an equation or an approach for a general running up."), read then as a
 possible general running app for any runner. That is not being built: no
@@ -25,10 +45,6 @@ source connection, a built-in diary instead of Notion, Garmin through its
 official developer programme since nobody else's password can be asked for,
 Strava's athlete limit, and the subscription terms on serving others (those
 last three from memory, not checked at source).
-
-**Not settled by that sentence:** the GitHub repo is still PUBLIC. It holds no
-personal data, by design. Whether "private" also covers the code has been put
-to him; flipping it is his, in the browser (Settings → General).
 
 Below, as of 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done**
 (Aldred's go, the same evening), pushed:
@@ -236,11 +252,13 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 
 ## Open decisions (Aldred's)
 
+All parked by the pause.
+
 1. Auth: gate in front of Python, or rewrite on the kit. Aldred asked "why don't
-   we rewrite in go?", still unanswered by him. This session's recommendation
-   for one user is the gate: `garth` keeps Garmin working on his own login and
-   a rewrite buys little. The gate needs a reverse-proxy mode, which is
-   next-pattern's work in the kit.
+   we rewrite in go?" and has not chosen. This session's recommendation for one
+   user is the gate: `garth` keeps Garmin working on his own login and a rewrite
+   buys little. The gate needs a reverse-proxy mode, which is next-pattern's
+   work in the kit. Not requested from next-pattern.
 2. Hostname.
 3. ~~Where the workspace lives.~~ **Decided 2026-10-31: `~/.local/share/pace-ai`,
    a plain directory, no git** (Aldred chose it over a private repo with a
@@ -273,7 +291,9 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
   2026-11-06 (top of this file). The unit is still in `/etc/systemd/system`.
   Nothing is exposed until step 5 adds Caddy.
 
-If the app stays as it is, **step 5** (auth + Caddy + DNS) waits on decisions 1
-(gate or rewrite) and 2 (hostname). Step 6, the four credentials, needs Aldred
-on the phone, and Strava's OAuth callback is `localhost`, so it needs a
-paste-the-code path first.
+**If he reopens it**, start with **step 5** (auth + Caddy + DNS), which waits on
+decisions 1 (gate or rewrite) and 2 (hostname). Step 6, the four credentials,
+needs Aldred on the phone, and Strava's OAuth callback is `localhost`, so it
+needs a paste-the-code path first. The three coaching-quality gaps listed under
+"Known, not fixed" above are still there, and matter more than the shell once he
+is running again.

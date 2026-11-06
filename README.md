@@ -9,6 +9,9 @@ One Python package (`src/pace_ai`) plus the UI (`ui/`). The model is reached
 through headless `claude -p` calls on a Claude subscription; nothing else
 talks to a model.
 
+**Paused since 2026-11-06.** It runs locally with the setup below, but it is
+not deployed and has no login, so keep it on loopback. `STATUS.md` has the state.
+
 ## Web UI
 
 `python -m ui.app` serves the coaching dashboard on `localhost:5050`.

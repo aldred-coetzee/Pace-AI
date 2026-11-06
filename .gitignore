@@ -19,6 +19,8 @@ venv/
 *.db
 *.sqlite
 *.sqlite3
+*.db-shm
+*.db-wal
 # Exception: research claims DB is curated knowledge, not user data
 !research/claims.db
 

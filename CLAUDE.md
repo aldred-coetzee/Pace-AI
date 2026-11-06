@@ -1,11 +1,17 @@
 # Pace-AI Project Rules
 
-## Standing brief (2026-10-31)
+## Standing brief (2026-11-06)
+
+**Paused 2026-11-06 on Aldred's word, because he is not running: do no work here
+unless he reopens it.** The service is stopped and disabled; do not re-enable it
+without his word. It is his app alone for now, not a general app for other
+runners. The repo stays public on his condition that it holds nothing personal,
+so no personal data and no names of other people go in any tracked file.
 
 This app was built February to July 2026 elsewhere and moved onto Aldred's
-box on 2026-10-31. It is being simplified in steps: the MCP servers are
-gone and the LLM calls are `claude -p` again (both 2026-10-31); personal
-data moving out of the repo and the house style come next. **`STATUS.md` holds the mandate in
+box on 2026-10-31. It was simplified in steps: the MCP servers are gone, the LLM
+calls are `claude -p` again and personal data lives in a workspace outside the
+repo; auth, a hostname and the house style are not done. **`STATUS.md` holds the mandate in
 Aldred's words, the review, and the open decisions; read it first.** The
 global brief in `~/.claude/CLAUDE.md` names the fixed references for each
 concern (passkeys and shell from the kit, systemd and persist from
@@ -44,7 +50,7 @@ Valid categories: `injury`, `training_response`, `goal`, `preference`, `nutritio
 . .venv/bin/activate            # created with uv; `uv pip install -e ".[dev]"`
 python -m ui.app                # localhost:5050
 pace-ai-garmin-login            # one-time Garmin SSO (MFA)
-python -m pytest -q             # whole suite, ~530 tests, ~2 s
+python -m pytest -q             # whole suite, ~600 tests, ~3 s
 ruff check . && ruff format --check .
 ```
 
