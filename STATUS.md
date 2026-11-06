@@ -1,10 +1,34 @@
 # STATUS — pace-ai
 
-Set 2026-10-31. Read end to end; set the date rather than appending.
+Set 2026-11-06. Read end to end; set the date rather than appending.
 
 ## Where it is
 
-Updated 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done**
+**The service is stopped and disabled, since 2026-11-06, on Aldred's word.**
+His words, in the next-pattern session: "I don't know what service is running
+on Pace AI. Perhaps we should stop it." and then "stop pace-ai". It had no
+login and no address, so nothing could use it. Nothing listens on 8086; the
+port stays reserved. The unit file, the venv and the workspace are untouched.
+`sudo systemctl enable --now pace-ai` brings it back, and only on his word,
+once auth and a hostname are decided. `claude-rc-pace-ai`, the session, stays
+enabled. Checked from here: `is-enabled` says disabled, `is-active` inactive.
+
+**Direction unconfirmed: possibly a general running app, not a personal one.**
+Asked whether this is his app alone or one coach for two people, Aldred
+dictated: "I am not running or an equation. So consider this more an equation
+or an approach for a general running up." This session's reading, put to him
+and not yet answered: he is not running at the moment, so treat pace-ai as an
+exploration of an approach for a general running app. If he confirms, the
+consequences as put to him are: Go on the kit rather than the gate (decision 1
+below); a user on every piece of data and every source connection; a built-in
+diary instead of Notion; Garmin through its official developer programme or
+not at all, since nobody else's password can be asked for; Strava's limit on
+athletes until it reviews the app; and checking whether the subscription terms
+allow serving other people, or paying per call with an API key. Those last
+three are from memory, not checked at source. The next step offered is a short
+design note in `docs/` for his approval, before any code. Nothing has started.
+
+Below, as of 2026-10-31, evening. **Steps 1 and 2 of the proposed order are done**
 (Aldred's go, the same evening), pushed:
 
 - **Step 1**: `ui/llm.py` calls `claude -p` directly. Each agent names its
@@ -67,8 +91,8 @@ nobody can rewrite those. Local backup ref: `pre-scrub-backup`. **The force-push
 it from Termux at 22:19** (`7a8b82b...5052cb2`). Any clone from before that
 must be re-cloned, not pulled.
 
-Nothing runs as a service yet. A `.venv` exists (uv, Python 3.13). There's
-still no `.env` and no real data. The old empty package directories are gone (Aldred, 22:19).
+A `.venv` exists (uv, Python 3.13). There's still no real data. The old empty
+package directories are gone (Aldred, 22:19).
 
 ## The mandate, in Aldred's words (2026-10-31)
 
@@ -210,7 +234,9 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 
 ## Open decisions (Aldred's)
 
-1. Auth: gate in front of Python, or rewrite on the kit. Recommended: gate.
+1. Auth: gate in front of Python, or rewrite on the kit. The review recommended
+   the gate. Aldred asked "why don't we rewrite in go?" and this session now
+   leans to Go on the kit, firmly so if the app is general (see above).
 2. Hostname.
 3. ~~Where the workspace lives.~~ **Decided 2026-10-31: `~/.local/share/pace-ai`,
    a plain directory, no git** (Aldred chose it over a private repo with a
@@ -222,8 +248,10 @@ test functions (pace-ai 360, garmin 131, strava 54, notion 42, withings
 
 ## Next
 
-**Steps 3 and 4 done in code, 2026-10-31 late evening** (local, unpushed
-with the rest):
+**First, Aldred's answer on the direction** (top of this file). It decides what
+comes next.
+
+**Steps 3 and 4 done, 2026-10-31 late evening**, pushed:
 
 - **Step 3, workspace**: every personal file lives in `PACE_AI_WORKSPACE`
   (default `~/.local/share/pace-ai`, 0700): one `config.env` (template
@@ -239,14 +267,12 @@ with the rest):
   `deploy/systemd/pace-ai.service` follows trip's shape plus `PATH` (systemd
   has no `~/.local/bin`, and every model call runs `claude`) and
   `UMask=0077`. Booted on a spare port: `GET /` 200, loopback only.
-  **Not installed yet** (first attempt at 22:19 had a stray `: ` in front, which
-  made `sudo cp` a no-op): the permission check refused `sudo systemctl enable` as
-  persistence, so Aldred runs:
-  `sudo cp deploy/systemd/pace-ai.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now pace-ai`
-  Then `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8086/`
-  should say 200. Nothing is exposed until step 5 adds Caddy.
+  Aldred installed it on 2026-10-31, because the permission check refused
+  `sudo systemctl enable` as persistence. It ran until he stopped it on
+  2026-11-06 (top of this file). The unit is still in `/etc/systemd/system`.
+  Nothing is exposed until step 5 adds Caddy.
 
-Then **step 5** (auth + Caddy + DNS) waits on decisions 1 (gate or rewrite)
-and 2 (hostname). Step 6, the four credentials, needs Aldred on the phone,
-and Strava's OAuth callback is `localhost`, so it needs a paste-the-code
-path first.
+If the app stays as it is, **step 5** (auth + Caddy + DNS) waits on decisions 1
+(gate or rewrite) and 2 (hostname). Step 6, the four credentials, needs Aldred
+on the phone, and Strava's OAuth callback is `localhost`, so it needs a
+paste-the-code path first.
